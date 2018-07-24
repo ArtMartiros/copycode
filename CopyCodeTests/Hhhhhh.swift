@@ -1,15 +1,14 @@
 //
-//  CopyCodeTests.swift
+//  Hhhhhh.swift
 //  CopyCodeTests
 //
-//  Created by Артем on 18/07/2018.
+//  Created by Артем on 23/07/2018.
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
 import XCTest
-@testable import CopyCode
 
-class CopyCodeTests: XCTestCase {
+class Hhhhhh: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
