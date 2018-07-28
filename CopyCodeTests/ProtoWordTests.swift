@@ -10,8 +10,8 @@ import XCTest
 @testable import CopyCode
 
 class ProtoWordTests: XCTestCase {
-    let textManager = TextDetectionManager()
-    let rectanglesConverter = WordRectanglesConverter()
+    let textManager = TextRecognizerManager()
+    let rectanglesConverter = WordRectangleWithTypeConverter()
     let images  = ["picAllLow", "picAllLowWithTail", "picAllUpper",
                    "picMix1", "picMix2", "picMix3", "picMix4", "picMix5"]
     
@@ -20,7 +20,7 @@ class ProtoWordTests: XCTestCase {
 
 
     func testExample() {
-        let protoWords = rectanglesConverter.toProtoWords(from: rectangles)
+        let protoWords = rectanglesConverter.convert(rectangles)
         //две ошибки picMix5 из-за i и picAllLowWithTail из-за того что нет возможности обнаружить bottom line
         for (index, word) in protoWords.enumerated() {
             XCTAssertTrue( word.type == self.wordTypes[index], "❌ expect: \(self.wordTypes[index].description), instead \(word.type.description)")

@@ -13,3 +13,9 @@ extension CGPoint {
         return CGPoint(x: round(x), y: round(y))
     }
 }
+
+extension CGSize {
+    var rounded: CGSize {
+        return CGSize(width: round(width), height: round(height))
+    }
+}

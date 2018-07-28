@@ -16,13 +16,14 @@ enum Action {
 }
 
 extension Tree {
+    func newFind(in bitmap: NSBitmapImageRep, with frame: CGRect, checker: WhiteColorChecker)
     func find(in bitmap: NSBitmapImageRep, with frame: CGRect) -> String? {
-        print(frame)
+        ColorChecker(bitmap, whiteColor: checker)
         switch self {
         case .empty: return nil
         case .r(let element):return element
         case let .n(operation, left, right):
-            print("--" + operation.description)
+//            print("--" + operation.description)
             let exist: Bool
             switch operation.action {
             case .bitmapAndFrame(let action): exist = action(bitmap, frame)
@@ -42,56 +43,82 @@ enum Tree {
     
     enum Operations {
         case tL, tR, tC, bL, bR, bC, lC, rC
+        case tLr, lCr, rCr, tCr
         case ratio(CGFloat, (CGFloat,CGFloat)->Bool)
         /// (0,0) - is top left, (1,1) - bottom right
         case xy(x: CGFloat, y: CGFloat)
         case H_N, c, p_d, z_s, q, G_C, r_k, t_4, K_k, n8_3, f_t
         case l_i, O_G, I_Z, n83_S, n4_f, no5, n7_W, G_65
-        case u_n, r3, lCr, rCr, f_W
+        case n_u, r3, f_W, r6, n5_9
         var action: Action {
             switch self {
             case let .ratio(ratio, operation): return .frameRatio {
-                print($0.ratio)
-               return operation(ratio, $0.ratio)
+//                print($0.ratio)
+                return operation(ratio, $0.ratio)
                 }
             case .tL: return .bitmapAndFrame { $0.isGrayscale(at: $1.tL, in: $1) }
-            case .tR: return .bitmapAndFrame { $0.isGrayscale(at: $1.tR, in: $1) }
+            case .tR: return .bitmapAndFrame { $0.isY([0,5], of: 100, x: 0.95, with: $1, op: .or) }
+            //{ $0.isGrayscale(at: $1.tR, in: $1) }
             case .tC: return .bitmapAndFrame { $0.isGrayscale(at: $1.tC, in: $1) }
+            case .tCr: return .bitmapAndFrame { $0.isY([0,1], of: 20, x: 0.5, with: $1, op: .or) }
+            //{ $0.isX([1], of: 2, y: 0.05, with: $1, op: .or) }
             case .bL: return .bitmapAndFrame { $0.isGrayscale(at: $1.bL, in: $1) }
-            case .bR: return .bitmapAndFrame { $0.isGrayscale(at: $1.bR, in: $1) }
+            case .bR: return .bitmapAndFrame { $0.isY([95,100], of: 100, x: 0.95, with: $1, op: .or) }
+            //{ $0.isGrayscale(at: $1.bR, in: $1) }
             case .bC: return .bitmapAndFrame { $0.isGrayscale(at: $1.bC, in: $1) }
             case .lC: return .bitmapAndFrame { $0.isGrayscale(at: $1.lC, in: $1) }
             case .rC: return .bitmapAndFrame { $0.isGrayscale(at: $1.rC, in: $1) }
             case .c: return  .bitmapAndFrame { $0.isGrayscale(at: $1.c, in: $1) }
-            case .r_k: return .bitmapAndFrame { $0.isGrayscaleX([5], of: 11, y: 1, with: $1, binary: .or) }
-            case .G_C: return .bitmapAndFrame { $0.isGrayscaleY([2], of: 3, x: 1, with: $1, binary: .or) }
-            case .H_N: return .bitmapAndFrame { $0.isGrayscaleX([2,4], of: 5, y: 0.5, with: $1, binary: .and) }
-            case .p_d: return .bitmapAndFrame { $0.isGrayscaleY([3,5], of: 7, x: 0.5, with: $1, binary: .or) }
+            case .r_k: return .bitmapAndFrame { $0.isGrayscale(x: 5/11, y: 1, with: $1)}
+            case .G_C: return .bitmapAndFrame { $0.isY([2], of: 3, x: 1, with: $1, op: .or) }
+            case .H_N: return .bitmapAndFrame { $0.isX(2...4, of: 6, y: 0.5, with: $1, op: .and) }
+            case .p_d: return .bitmapAndFrame { $0.isY([3,5], of: 7, x: 0.5, with: $1, op: .or) }
             case .z_s: return .bitmapAndFrame(z_sOperation)
             case .q: return .bitmapAndFrame(qOperation)
             case let .xy(x,y): return .bitmapAndFrame {
                 let point = CGPoint(x: $1.xPositionAs(x: x), y: $1.yPositionAs(y: y))
                 return $0.isGrayscale(at: point, in: $1)
                 }
-            case .t_4: return .bitmapAndFrame { $0.isGrayscaleY(1...3, of: 8, x: 0, with: $1, binary: .or) }
-            case .K_k: return .bitmapAndFrame(K_kOperation) //FIXME
-            case .n8_3: return .bitmapAndFrame(n8_3Operation) //FIXME
-            case .f_t: return .bitmapAndFrame(K_kOperation) //FIXME
-            case .l_i: return .bitmapAndFrame(K_kOperation) //FIXME
-            case .O_G: return .bitmapAndFrame(O_GOperation)
+            case .n4_f: return .bitmapAndFrame { $0.isY(6...8, of: 9, x: 0.95, with: $1, op: .or) }
+            case .n_u: return .bitmapAndFrame { $0.isX(3...4, of: 7, y: 0, with: $1, op: .or) }
+            case .r3: return .bitmapAndFrame { $0.isY(3...4, of: 10, x: 0.9, with: $1, op: .or) }
+            case .r6: return .bitmapAndFrame { $0.isY(6...7, of: 10, x: 0.9, with: $1, op: .or) }
+            case .lCr: return .bitmapAndFrame { $0.isY([1], of: 2, x: 0.05, with: $1, op: .or) }
+            case .rCr: return .bitmapAndFrame { $0.isY([1], of: 2, x: 0.90, with: $1, op: .or) }
+            case .tLr: return .bitmapAndFrame { $0.isY([0], of: 1, x: 0.05, with: $1, op: .or) }
+            //ищет левую точку соприкосновения у f
+            case .f_W: return .bitmapAndFrame { $0.isY(4...7, of: 20, x: 0, with: $1, op: .or) }
+            case .n7_W: return .bitmapAndFrame { $0.isX([2,3], of: 5, y: 0, with: $1, op: .and) }
+            case .t_4: return .bitmapAndFrame { $0.isY(1...3, of: 8, x: 0, with: $1, op: .or) }
+            case .n8_3: return .bitmapAndFrame {
+                !($0.isX(1...3, of: 8, y: 0.7, with: $1, op: .allFalse) ||
+                    $0.isX(1...3, of: 8, y: 0.6, with: $1, op: .allFalse))
+                }
+            case .K_k: return .bitmapAndFrame { $0.isX(6...7, of: 8, y: 0.1, with: $1, op: .or) }
+            case .f_t: return .bitmapAndFrame { $0.isX(7...8, of: 8, y: 0.05, with: $1, op: .or) }
+            case .l_i: return .bitmapAndFrame(I_ZOperation) //FIXME
+            case .O_G: return .bitmapAndFrame {
+                $0.isX(8...9, of: 10, y: 2/7, with: $1, op: .or) &&
+                    $0.isX(8...9, of: 10, y: 3/7, with: $1, op: .or)
+                }
             case .I_Z: return .bitmapAndFrame(I_ZOperation)
             case .n83_S: return .bitmapAndFrame {
-                $0.isGrayscaleX(8...9, of: 10, y: 0.3, with: $1, binary: .or) &&
-                $0.isGrayscaleX(8...9, of: 10, y: 0.4, with: $1, binary: .or) }
-            case .n4_f: return .bitmapAndFrame { $0.isGrayscaleY(6...8, of: 9, x: 1, with: $1, binary: .or) }
-            case .no5: return .bitmapAndFrame(no5Operation)
-            case .n7_W: return .bitmapAndFrame { $0.isGrayscaleX([2,3], of: 5, y: 0, with: $1, binary: .and) }
+                $0.isX(8...9, of: 10, y: 0.3, with: $1, op: .or) &&
+                    $0.isX(8...9, of: 10, y: 0.4, with: $1, op: .or) }
+                
             case .G_65: return .bitmapAndFrame(G_65Operation)
-            case .u_n: return .bitmapAndFrame { $0.isGrayscaleX([3,4], of: 7, y: 0, with: $1, binary: .or) }
-            case .r3: return .bitmapAndFrame { $0.isGrayscaleY(3...4, of: 10, x: 0.9, with: $1, binary: .or) }
-            case .lCr: return .bitmapAndFrame { $0.isGrayscaleY([1], of: 20, x: 0.05, with: $1, binary: .or) }
-            case .rCr: return .bitmapAndFrame { $0.isGrayscaleY([1], of: 20, x: 0.95, with: $1, binary: .or) }
-            case .f_W: return .bitmapAndFrame { $0.isGrayscaleY(4...7, of: 20, x: 0.05, with: $1, binary: .or) }
+            case .no5: return .bitmapAndFrame(no5Operation)
+                
+                
+                
+                
+                
+                
+            case .n5_9: return .bitmapAndFrame {
+                $0.isX(6...8, of: 8, y: 0.3, with: $1, op: .allFalse) ||
+                $0.isX(6...8, of: 8, y: 0.2, with: $1, op: .allFalse)
+                }
+//                Array(5...7).map { frame.yPositionAs(part: $0, of: 9) }
                 
             }
         }
@@ -127,7 +154,7 @@ enum Tree {
             case .no5: return "no5"
             case .n7_W: return "7_W"
             case .G_65: return "G_65"
-            case .u_n: return "u_n"
+            case .n_u: return "n_u"
                 
             case .r3: return "r3"
                 
@@ -137,10 +164,18 @@ enum Tree {
                 
             case .f_W: return "f_W"
                 
+            case .tLr: return "tLr"
+                
+            case .tCr: return "tCr"
+                
+            case .r6: return "r6"
+                
+            case .n5_9: return "n5_9"
+                
             }
         }
         
-///определяем ширину линии
+        ///определяем ширину линии
         private var heightOperation: (_ bitmap: NSBitmapImageRep, _ frame: CGRect) -> CGFloat {
             return { bitmap, frame in
                 let y = frame.yPositionAs(y: 1)
@@ -154,14 +189,14 @@ enum Tree {
                     let newPoint = CGPoint(x: x, y: lastY)
                     isGrayscale = bitmap.isGrayscale(at: newPoint, in: frame)
                 }
-
+                
                 let height = lastY - y
                 return height
             }
         }
-
-
-///находим ервую черную точку линии G
+        
+        
+        ///находим ервую черную точку линии G
         private var firsGrayscaleOperation: (_ bitmap: NSBitmapImageRep, _ frame: CGRect, _ startY: CGFloat) -> CGFloat {
             return { bitmap, frame, startY  in
                 let y = startY
@@ -179,7 +214,7 @@ enum Tree {
         
         private var firsWhiteOperation: (_ bitmap: NSBitmapImageRep, _ frame: CGRect) -> CGFloat {
             return { bitmap, frame in
-                let y = frame.yPositionAs(y: 0.3)
+                let y = frame.yPositionAs(y: 0.2)
                 let x = frame.xPositionAs(x: 0.9)
                 var isWhite = false
                 var lastY = y
@@ -195,29 +230,23 @@ enum Tree {
         private var G_65Operation: Operation {
             return { bitmap, frame in
                 //так как firsGrayscaleOperation может сразу попасть на верх G то тогда будет ошибка, нужно чтобы сначала нашел пустоту, а потом от нее черный цвет
-                
+//                print("White")
                 let white = self.firsWhiteOperation(bitmap, frame)
-                print("-WHiteBU \(white)")
-                let topY = self.firsGrayscaleOperation(bitmap, frame, white)
-                print("-topY \(topY)")
-                // - 1 нужен так как при маленьких размерах может быть ошибка изза слишком большого разброса
-                let height = self.heightOperation(bitmap, frame) - 1
-                print("-height \(height)")
-                let botY = topY - height
-                var isG = false
-                for i in Array(1...6).reversed() {
-                    let x = frame.xPositionAs(part: i, of: 6)
-                    let topPoint = CGPoint(x: x, y: topY)
-                    let botPoint = CGPoint(x: x, y: botY)
-                    let topGrayscale = bitmap.isGrayscale(at: topPoint, in: frame)
-                    let botGrayscale = bitmap.isGrayscale(at: botPoint, in: frame)
-                     isG = topGrayscale == botGrayscale
-                    if !isG { break }
+//                print("firstBlack")
+                let firstBlack = self.firsGrayscaleOperation(bitmap, frame, white)
+//                print("lastWhite")
+                let lastWhite = firstBlack + 1
+                for i in Array(4...8).reversed() {
+                    let x = frame.xPositionAs(part: i, of: 8)
+                    let point = CGPoint(x: x, y: lastWhite)
+                    if bitmap.isGrayscale(at: point, in: frame) {
+                        return false
+                    }
                 }
-                return isG
+                return true
             }
         }
-
+        
         ///проверка на отсутствие пустой линии внизу
         private var no5Operation: Operation {
             return { bitmap, frame in
@@ -226,45 +255,49 @@ enum Tree {
                 let oneOfLineEmpty = yArray.first { y in
                     let lineIsEmpty = xArray.first { bitmap.isGrayscale(at: CGPoint(x: $0, y: y), in: frame) } == nil
                     return lineIsEmpty
-                } != nil
+                    } != nil
                 return !oneOfLineEmpty
             }
         }
-
-        private var O_GOperation: Operation {
+        
+        private var n8_3Operation: Operation {
             return { bitmap, frame in
-                let first = bitmap.isGrayscaleX(8...9, of: 10, y: 2/7, with: frame, binary: .or)
-                let second = bitmap.isGrayscaleX(8...9, of: 10, y: 3/7, with: frame, binary: .or)
-                return first && second
+               return  !(bitmap.isX(1...3, of: 8, y: 0.7, with: frame, op: .allFalse) ||
+                bitmap.isX(1...3, of: 8, y: 0.6, with: frame, op: .allFalse))
             }
         }
         
+//        private func correctFrame(frame: CGRect, in bitmap: NSBitmapImageRep) -> CGRect {
+//            var minX = frame.minX
+//            var isGrayscale = false
+//            let y = frame.yPositionAs(y: 0.3)
+//            while !isGrayscale {
+//                let point = CGPoint(x: minX, y: y)
+//                isGrayscale = bitmap.isGrayscale(at: point, in: frame)
+//                minX = minX + 1
+//            }
+//            isGrayscale = false
+//            var maxX = frame.maxX
+//            while !isGrayscale {
+//                let point = CGPoint(x: maxX, y: y)
+//                isGrayscale = bitmap.isGrayscale(at: point, in: frame)
+//                maxX = maxX - 1
+//            }
+//            let newWidth = maxX - minX
+//            return CGRect(x: minX, y: frame.bottomY, width: newWidth, height: frame.height)
+//        }
+        
         private var I_ZOperation: Operation {
             return { bitmap, frame in
-                
-                let centerX = frame.xPositionAs(x: 4/7)
-                let yPosition = frame.yPositionAs(y: 2/5)
-                let point = CGPoint(x: centerX, y: yPosition)
+                let yPosition = frame.yPositionAs(y: 0.3)
+                let point = CGPoint(x: frame.xPositionAs(x: 0.5), y: yPosition)
                 
                 let centerGrayscale = bitmap.isGrayscale(at: point, in: frame)
-                
                 guard centerGrayscale,
                     bitmap.sameXGrayscale(frame: frame, part: 2, of: 7, withY: yPosition),
                     bitmap.sameXGrayscale(frame: frame, part: 3, of: 7, withY: yPosition)
                     else { return false }
                 return true
-            }
-        }
-        
-        private var K_kOperation: Operation { //FIXME
-            return { bitmap, frame in
-                let firstX = frame.xPositionAs(x: 7/8)
-                let secondX = frame.xPositionAs(x: 6/9)
-                let yPosition = frame.yPositionAs(y: 1/7)
-                let firstPoint = CGPoint(x: firstX, y: yPosition)
-                let secondPoint = CGPoint(x: secondX, y: yPosition)
-                
-                return bitmap.isGrayscale(at: firstPoint, in: frame) || bitmap.isGrayscale(at: secondPoint, in: frame)
             }
         }
         
@@ -289,48 +322,82 @@ enum Tree {
         
     }
 }
-
+class ColorChecker {
+    enum LogicalOperator {
+        case or
+        case and
+        case allFalse
+    }
+    
+    private let bitmap: NSBitmapImageRep
+    private let whiteColor: WhiteColorChecker
+    init(_ bitmap: NSBitmapImageRep, whiteColor: WhiteColorChecker) {
+        self.bitmap = bitmap
+        self.whiteColor = whiteColor
+    }
+    
+    func isGrayscale(at point: CGPoint, in frame: CGRect) -> Bool {
+        let factor = WordFactor(frame: frame, in: bitmap)
+        let whiteColor = WhiteColorChecker(backgroundWhite: 0, whitePercent: factor.whiteFactor2)
+        return true
+//        return whiteColor.isRight(currentValue: whiteColor(at: point), with: <#T##CGFloat#>)
+    }
+    
+    private func whiteColor(at point: CGPoint) -> CGFloat {
+        let (x, y) = bitmap.convertToPixelCoordinate(point: point)
+        
+        let grayScaleFactor = bitmap.colorAt(x: x, y: y)?.grayScale.rounded(toPlaces: 4) ?? 0
+        return grayScaleFactor
+    }
+    
+}
 extension NSBitmapImageRep {
-    func isGrayscale(at point: CGPoint,
-                                 in frame: CGRect,
-                                 addToX x: Int = 0,
-                                 addToY y: Int = 0) -> Bool {
+    func isGrayscale(at point: CGPoint, in frame: CGRect, addToX x: Int = 0, addToY y: Int = 0) -> Bool {
         let factor = WordFactor(frame: frame, in: self)
         let isGraiscale = grayscale(at: point, xOffset: x, yOffset: y) < factor.whiteFactor
-        print(isGraiscale ? "✅\n" : "⭕️\n")
+//        print(isGraiscale ? "✅\n" : "⭕️\n")
         return isGraiscale
     }
- 
-    fileprivate func isGrayscaleX(_ range: ClosedRange<Int>, of unit: Int, y: CGFloat,
-                                  with frame: CGRect, binary: BinaryOperator) -> Bool {
-        return isGrayscaleX(Array(range), of: unit, y: y, with: frame, binary: binary)
+    
+    func isGrayscale(x: CGFloat, y: CGFloat, with frame: CGRect) -> Bool {
+        let point = CGPoint(x: frame.xPositionAs(x: x), y: frame.yPositionAs(y: y))
+        return isGrayscale(at: point, in: frame)
     }
     
-    fileprivate func isGrayscaleX(_ array: [Int], of unit: Int, y: CGFloat,
-                                  with frame: CGRect, binary: BinaryOperator) -> Bool {
-        let points: [CGPoint] = array.map { CGPoint(x: frame.xPositionAs(part: $0, of: unit), y: y) }
-        return isGrayscale(points, binary: binary, with: frame)
+    fileprivate func isX(_ range: ClosedRange<Int>, of unit: Int, y: CGFloat,
+                         with frame: CGRect, op: LogicalOperator) -> Bool {
+        return isX(Array(range), of: unit, y: y, with: frame, op: op)
     }
     
-
-    fileprivate func isGrayscaleY(_ range: ClosedRange<Int>, of unit: Int, x: CGFloat,
-                                  with frame: CGRect, binary: BinaryOperator) -> Bool {
-        return isGrayscaleY(Array(range), of: unit, x: x, with: frame, binary: binary)
+    fileprivate func isX(_ array: [Int], of unit: Int, y: CGFloat,
+                         with frame: CGRect, op: LogicalOperator) -> Bool {
+        let points: [CGPoint] = array.map {
+            CGPoint(x: frame.xPositionAs(part: $0, of: unit), y: frame.yPositionAs(y: y))
+        }
+        return isGrayscale(points, op: op, with: frame)
     }
     
-    fileprivate func isGrayscaleY(_ array: [Int], of unit: Int, x: CGFloat,
-                                  with frame: CGRect, binary: BinaryOperator) -> Bool {
-        let points: [CGPoint] = array.map { CGPoint(x: x, y: frame.yPositionAs(part: $0, of: unit)) }
-        return isGrayscale(points, binary: binary, with: frame)
+    
+    fileprivate func isY(_ range: ClosedRange<Int>, of unit: Int, x: CGFloat,
+                         with frame: CGRect, op: LogicalOperator) -> Bool {
+        return isY(Array(range), of: unit, x: x, with: frame, op: op)
     }
     
-
+    fileprivate func isY(_ array: [Int], of unit: Int, x: CGFloat,
+                         with frame: CGRect, op: LogicalOperator) -> Bool {
+        let points: [CGPoint] = array.map { CGPoint(x: frame.xPositionAs(x: x),
+                                                    y: frame.yPositionAs(part: $0, of: unit)) }
+        return isGrayscale(points, op: op, with: frame)
+    }
+    
+    
     fileprivate func grayscale(at point: CGPoint, xOffset: Int = 0, yOffset: Int = 0) -> CGFloat {
         let (x, y) = convertToPixelCoordinate(point: point)
+    
         let grayScaleFactor = colorAt(x: x + xOffset, y: y + yOffset)?.grayScale.rounded(toPlaces: 4) ?? 0
-        print("Point: \(point)")
-        print("x: \(x), y: \(y)")
-        print("White: \(grayScaleFactor)")
+//        print("Point: \(point)")
+//        print("x: \(x), y: \(y)")
+//        print("White: \(grayScaleFactor)")
         return grayScaleFactor
     }
     
@@ -345,17 +412,20 @@ extension NSBitmapImageRep {
         return isGrayscale(at: point, in: frame) == isGrayscale(at: alterPoint, in: frame)
     }
     
-    enum BinaryOperator {
+    
+    enum LogicalOperator {
         case or
         case and
+        case allFalse
     }
     
     private func isGrayscale(_ points: [CGPoint],
-                             binary: BinaryOperator,
+                             op: LogicalOperator,
                              with frame: CGRect) -> Bool {
-        switch binary {
+        switch op {
         case .or:  return points.first { isGrayscale(at: $0, in: frame) } != nil
         case .and: return points.first { !isGrayscale(at: $0, in: frame) } == nil
+        case .allFalse: return points.first { isGrayscale(at: $0, in: frame) } == nil
         }
     }
     

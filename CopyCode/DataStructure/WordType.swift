@@ -32,7 +32,7 @@ enum WordType: CustomStringConvertible, Equatable {
 }
 
 extension WordType.SameType {
-    init(type: LetterType) {
+    init(_ type: LetterType) {
         switch type {
         case .low: self = .allLower
         case .upper: self = .allUpper
@@ -48,6 +48,25 @@ enum LetterType: String {
     case low
     case lowWithTail
     case undefined
+}
+
+extension LetterType {
+    init(_ type: WordType) {
+        switch type {
+        case .mix: self = .undefined
+        case .same(let sameType):
+            self.init(sameType)
+        }
+    }
+    
+    init(_ sameType: WordType.SameType) {
+        switch sameType {
+        case .allLower: self = .low
+        case .allUpper: self = .upper
+        case .allLowWithTail: self = .lowWithTail
+        case .undefined: self = .undefined
+        }
+    }
 }
 
 

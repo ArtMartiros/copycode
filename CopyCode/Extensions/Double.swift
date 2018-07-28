@@ -23,3 +23,18 @@ extension CGFloat {
         return (self * divisor).rounded() / divisor
     }
 }
+
+extension Int {
+    func of(_ number: Int, _ operation: (Int, Int) -> Bool, percent percentNumber: Int) -> Bool {
+        let value = self / number * 100
+        return operation(value, percentNumber)
+    }
+}
+
+//extension Comparable {
+//
+//    func clamped(to r: ClosedRange<Self>) -> Self {
+//        let min = r.lowerBound, max = r.upperBound
+//        return self < min ? min : (max < self ? max : self)
+//    }
+//}

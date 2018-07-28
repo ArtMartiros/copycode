@@ -9,16 +9,6 @@
 import Cocoa
 import CoreML
 import Vision
-//extension NSImage {
-//    var preparedImage: NSImage {
-//        lockFocus()
-//        let bitMap = NSBitmapImageRep(data: tiffRepresentation!)
-//        let testSize = bitMap!.size
-//        draw(in: CGRect(origin: .zero, size: testSize))
-//        unlockFocus()
-//        return adjustColors.grayscale
-//    }
-//}
 
 class ImageDrawer {
     private let image: NSImage
@@ -56,7 +46,7 @@ class PanelController: NSWindowController {
                             Hmm(image: "picA2", test: "abcdefghijklmnopqrstuvwxyz"),
                             Hmm(image: "picA3", test: "1234567890")]
     var current: Hmm {
-        return testCases[1]
+        return testCases[0]
     }
     
     func openPanel(with image: CGImage) {
@@ -65,130 +55,141 @@ class PanelController: NSWindowController {
         panel.makeKeyAndOrderFront(nil)
         
         if test {
-            let testImage = NSImage(named: .init("picWordsHigh2"))
+            let testImage = NSImage(named: .init("picDigitColumn2"))
             testImage?.lockFocus()
             let bitMap = NSBitmapImageRep(data: testImage!.tiffRepresentation!)
             let testSize = bitMap!.size
             testImage?.draw(in: CGRect(origin: .zero, size: testSize))
             testImage?.unlockFocus()
-            let new = testImage?.adjustColors.grayscale
+            let new = testImage?.adjustColors//.grayscale
             panel.setFrame(CGRect(origin: .zero, size: testSize), display: true)
             panel.imageView.image = new
             showWords(image: new!, size:  testSize)
         } else {
             panel.setFrame(screenRect!, display: true)
             let image = NSImage(cgImage: image, size: screenRect!.size)
-            panel.imageView.image = image
+            panel.imageView.image = image//.adjustColors.grayscale
             showWords(image: image, size:  screenRect!.size)
         }
     }
     
-    let textDetection = TextDetection()
+    let textDetection = TextRecognizerManager()
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
-        textDetection.performRequest(cgImage: image.toCGImage) { results, error in
-            image.lockFocus()
-            let bitMap = NSBitmapImageRep(data: image.tiffRepresentation!)
-            print(size)
-            Timer.stop(text: "before finish")
-            var letters:[VNRectangleObservation] = []
-            results.forEach {
-                let word = $0.characterBoxes?.compactMap { $0 } ?? []
-                letters.append(contentsOf: word)
-            }
-            letters.sort(by: { (one, two) -> Bool in
-                return one.topLeft.x < two.topLeft.x
-            })
+        Timer.stop(text: "showWords")
+        textDetection.performRequest(image: image) { (bitmap, lines, error) in
             
-            var rightLetters = Array(self.current.test).map { String($0) }
-            for (index, letter) in letters.enumerated() {
-                //                if let char = myTree.find(in: bitMap!, with: letter) {
-                //                    let rightLetter = rightLetters[index]
-                //                    if char == rightLetter {
-                //                        print("✅: \(char)")
-                //                    } else {
-                //                        print("❌ expect: \(rightLetter), instead \(char)")
-                //                    }
-                //                }
-                
-                //                let framePixel = letter.frame(in: bitMap!.pixelSize)
-                //                let y = bitMap!.pixelsHigh - Int(framePixel.maxY)
-                //                let x = Int(framePixel.minX)
-                //                for i in 0..<100 { // for 0 to 9 .
-                //                    let xt = x + i
-                //                    for j in 0..<100 {
-                //                        let yt = y + j
-                //                        let color = bitMap?.colorAt(x: xt, y: yt)
-                //                        let color1 = color?.usingColorSpace(NSColorSpace.deviceGray)
-                //                        var grayscale: CGFloat = 0
-                //                        var alpha: CGFloat = 0
-                //                        color1?.getWhite(&grayscale, alpha: &alpha)
-                //                        print("Pos x: \(xt), y: \(yt) grayscale: \(grayscale.rounded(toPlaces: 3))")
-                //                    }
-                //                }
-                let _  = "dd"
-            }
-            
-            image.unlockFocus()
-            Timer.stop(text: "finish")
-            //            let handler = TextDetectionHandler(request: request, imageSize: size)
+            let frames = lines.map { $0.frame }
+            print("Bukaki \(lines.count)")
             let layerCreator = LayerCreator()
-            let frames = letters.compactMap { (h) -> CGRect in
-                let test =  h.frame(in: size)
-                //                print(test)
-                return test
-            }
-            let wordFrames = results.compactMap { $0.frame(in: size) }
-            //
-            //            let frames = handler.words.reduce([CGRect](), { (result, word ) -> [CGRect] in
-            //                var result = result
-            //                result.append(contentsOf: word.letters)
-            //                return result
-            //            })
-            //
-            //            var grayscale: CGFloat = 0
-            //            var alpha: CGFloat = 0
-            //            Timer.stop(text: "before bitmap")
-            //            image.lockFocus()
-            //            let bitMap = NSBitmapImageRep(data: image.tiffRepresentation!)
-            //            for frame in frames {
-            //                let color = bitMap?.colorAt(x: Int(frame.minX), y: Int(frame.minY))
-            //                let color1 = bitMap?.colorAt(x: Int(frame.minX), y: Int(frame.maxY))
-            //                let color2 = bitMap?.colorAt(x: Int(frame.maxX), y: Int(frame.maxY))
-            //                let color3 = bitMap?.colorAt(x: Int(frame.maxX), y: Int(frame.minY))
-            //            }
-            //            image.unlockFocus()
-            //            Timer.stop(text: "after bitmap")
-            //
-            //            let images = frames.compactMap { image.crop(to: $0) }
-            //            Timer.stop(text: "after crop")
-            //            for item in images {
-            //                item.bL
-            //                item.bR
-            //                item.tL
-            //                item.tR
-            ////                item.bottomRight.color
-            ////                item.topRight.color
-            ////                item.topLeft.color
-            ////                self.updateClassifications(for: item)
-            //            }
-            //
-            //
-            //            Timer.stop(text: "recognize")
-            //
-            wordFrames.forEach {
-                let frame = CGRect(x: round($0.minX), y: round($0.maxY), width: round($0.width), height: round($0.height))
-                print("X: \(round($0.minX)), y: \(round($0.minY)) || h: \(round($0.height)), w: \(round($0.width)) ")
-            }
-            let bg = layerCreator.layerForFrame(width: 0, color: NSColor.white, frames: [NSScreen.screens.first!.frame])
-            let layers = layerCreator.layerForFrame(width: 0.7, color: NSColor.blue, frames: wordFrames)
-            let layers2 = layerCreator.layerForFrame(width: 0.7, color: NSColor.red, frames: frames)
+            let layers = layerCreator.layerForFrame(width: 1, color: NSColor.blue, frames: frames)
             self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
-            self.panel.imageView.layer!.addSublayer(bg[0])
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-            //            layers2.forEach { self.panel.imageView.layer!.addSublayer($0) }
-            print("sss")
+       
         }
+//        textDetection.performRequest(cgImage: image.toCGImage) { results, error in
+//            image.lockFocus()
+//            let bitMap = NSBitmapImageRep(data: image.tiffRepresentation!)
+//            print(size)
+//            Timer.stop(text: "before finish")
+//            var letters:[VNRectangleObservation] = []
+//            results.forEach {
+//                let word = $0.characterBoxes?.compactMap { $0 } ?? []
+//                letters.append(contentsOf: word)
+//            }
+//            letters.sort(by: { (one, two) -> Bool in
+//                return one.topLeft.x < two.topLeft.x
+//            })
+//
+//            var rightLetters = Array(self.current.test).map { String($0) }
+//            for (index, letter) in letters.enumerated() {
+//                //                if let char = myTree.find(in: bitMap!, with: letter) {
+//                //                    let rightLetter = rightLetters[index]
+//                //                    if char == rightLetter {
+//                //                        print("✅: \(char)")
+//                //                    } else {
+//                //                        print("❌ expect: \(rightLetter), instead \(char)")
+//                //                    }
+//                //                }
+//
+//                //                let framePixel = letter.frame(in: bitMap!.pixelSize)
+//                //                let y = bitMap!.pixelsHigh - Int(framePixel.maxY)
+//                //                let x = Int(framePixel.minX)
+//                //                for i in 0..<100 { // for 0 to 9 .
+//                //                    let xt = x + i
+//                //                    for j in 0..<100 {
+//                //                        let yt = y + j
+//                //                        let color = bitMap?.colorAt(x: xt, y: yt)
+//                //                        let color1 = color?.usingColorSpace(NSColorSpace.deviceGray)
+//                //                        var grayscale: CGFloat = 0
+//                //                        var alpha: CGFloat = 0
+//                //                        color1?.getWhite(&grayscale, alpha: &alpha)
+//                //                        print("Pos x: \(xt), y: \(yt) grayscale: \(grayscale.rounded(toPlaces: 3))")
+//                //                    }
+//                //                }
+//                let _  = "dd"
+//            }
+//
+//            image.unlockFocus()
+//            Timer.stop(text: "finish")
+//            //            let handler = TextDetectionHandler(request: request, imageSize: size)
+//            let layerCreator = LayerCreator()
+//            let frames = letters.compactMap { (h) -> CGRect in
+//                let test =  h.frame(in: size)
+//                //                print(test)
+//                return test
+//            }
+//            let wordFrames = results.compactMap { $0.frame(in: size) }
+//            //
+//            //            let frames = handler.words.reduce([CGRect](), { (result, word ) -> [CGRect] in
+//            //                var result = result
+//            //                result.append(contentsOf: word.letters)
+//            //                return result
+//            //            })
+//            //
+//            //            var grayscale: CGFloat = 0
+//            //            var alpha: CGFloat = 0
+//            //            Timer.stop(text: "before bitmap")
+//            //            image.lockFocus()
+//            //            let bitMap = NSBitmapImageRep(data: image.tiffRepresentation!)
+//            //            for frame in frames {
+//            //                let color = bitMap?.colorAt(x: Int(frame.minX), y: Int(frame.minY))
+//            //                let color1 = bitMap?.colorAt(x: Int(frame.minX), y: Int(frame.maxY))
+//            //                let color2 = bitMap?.colorAt(x: Int(frame.maxX), y: Int(frame.maxY))
+//            //                let color3 = bitMap?.colorAt(x: Int(frame.maxX), y: Int(frame.minY))
+//            //            }
+//            //            image.unlockFocus()
+//            //            Timer.stop(text: "after bitmap")
+//            //
+//            //            let images = frames.compactMap { image.crop(to: $0) }
+//            //            Timer.stop(text: "after crop")
+//            //            for item in images {
+//            //                item.bL
+//            //                item.bR
+//            //                item.tL
+//            //                item.tR
+//            ////                item.bottomRight.color
+//            ////                item.topRight.color
+//            ////                item.topLeft.color
+//            ////                self.updateClassifications(for: item)
+//            //            }
+//            //
+//            //
+//            //            Timer.stop(text: "recognize")
+//            //
+//            wordFrames.forEach {
+//                let frame = CGRect(x: round($0.minX), y: round($0.maxY), width: round($0.width), height: round($0.height))
+//                print("X: \(round($0.minX)), y: \(round($0.minY)) || h: \(round($0.height)), w: \(round($0.width)) ")
+//            }
+//            let bg = layerCreator.layerForFrame(width: 0, color: NSColor.white, frames: [NSScreen.screens.first!.frame])
+//            let layers = layerCreator.layerForFrame(width: 0.7, color: NSColor.blue, frames: wordFrames)
+//            let layers2 = layerCreator.layerForFrame(width: 0.7, color: NSColor.red, frames: frames)
+//            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+//            self.panel.imageView.layer!.addSublayer(bg[0])
+//            layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+//            //            layers2.forEach { self.panel.imageView.layer!.addSublayer($0) }
+//            print("sss")
+//        }
         
         
     }

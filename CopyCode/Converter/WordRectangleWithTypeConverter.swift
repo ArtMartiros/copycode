@@ -8,12 +8,12 @@
 
 import Foundation
 
-class WordRectanglesConverter {
+class WordRectangleWithTypeConverter {
     
     private var mixedWordRectangle: WordRectangleProtocol!
     private let wordClassification = WordTypeClassification()
     
-    func toProtoWords(from rectangles: [WordRectangleProtocol]) -> [ProtoWord] {
+    func convert(_ rectangles: [WordRectangleProtocol]) -> [WordRectangleWithType] {
         mixedWordRectangle = rectangles.firstMixedWord!
         return rectangles.map {
            return getWord(from: $0)
@@ -40,26 +40,25 @@ class WordRectanglesConverter {
         return min(mixedMinHeight, protoMinHeight)
     }
     
-    private func getWord(from protoWord: WordRectangleProtocol) -> ProtoWord {
+    private func getWord(from protoWord: WordRectangleProtocol) -> WordRectangleWithType {
         if wordClassification.isMix(word: protoWord) {
             let chars = getLetters(from: protoWord.letters, wordLowerY: protoWord.lowerY, wordMaxHeight: protoWord.maxLetterHeight, wordMinHeight: protoWord.minLetterHeight)
-            return ProtoWord(rectangle: protoWord, type: .mix, letters: chars)
+            return WordRectangleWithType(rectangle: protoWord, type: .mix, letters: chars)
         } else {
             let lowerY = wordLowerY(from: protoWord)
             let maxHeight = maxLetterHeight(from: protoWord)
             let minHeight = minLetterHeight(from: protoWord)
             let chars = getLetters(from: protoWord.letters, wordLowerY: lowerY, wordMaxHeight: maxHeight, wordMinHeight: minHeight)
             let charType = chars.first?.type ?? .undefined
-            let type = WordType.SameType(type: charType)
-            return ProtoWord(rectangle: protoWord, type: .same(type: type), letters: chars)
+            let type = WordType.SameType(charType)
+            return WordRectangleWithType(rectangle: protoWord, type: .same(type: type), letters: chars)
         }
-        
     }
     
-    private func getLetters(from letters: [RectangleProtocol], wordLowerY: CGFloat, wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> [ProtoLetter] {
+    private func getLetters(from letters: [RectangleProtocol], wordLowerY: CGFloat, wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> [LetterRectangleWithType] {
         return letters.map {
             let classification = LetterTypeClassification(wordLowerY: wordLowerY, wordMaxLetterHeight: wordMaxHeight, wordMinLetterHeight: wordMinHeight, letterFrame: $0.frame)
-            return ProtoLetter(rectangle: $0, type: classification.type)
+            return LetterRectangleWithType(rectangle: $0, type: classification.type)
         }
     }
 }

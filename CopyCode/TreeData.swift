@@ -9,20 +9,21 @@
 import Foundation
 
 private let BpTree: Tree = .n(.xy(x: 1, y: 4/6), .r("B"), .r("P"))
-private let BpOrbTree: Tree = .n(.tC, BpTree, .r("b"))
-private let n7_WTree: Tree = .n(.n7_W, .r("7"), .r("W"))
+private let BpOrbTree: Tree = .n(.tCr, BpTree, .r("b"))
+private let n7_WTree: Tree = .n(.n7_W, .r("7"),
+                                .n(.f_W, .r("f"), .r("W")))
 private let num83Tree: Tree = .n(.n8_3, .r("8"), .r("3"))
 private let num83orSTree: Tree = .n(.r3, num83Tree, .r("S"))
 
 private let nppSubTree: Tree = .n(.tR,
                                   .n(.bL,
                                      .n(.lC,
-                                        .n(.tC, .r("E"), .r("M")),
+                                        .n(.tCr, .r("E"), .r("M")),
                                         .n(.I_Z, .r("I"), .r("Z"))),
                                      .n(.G_C,
-                                        .n(.tC, .r("G"), .r("d")),
+                                        .n(.tCr, .r("G"), .r("d")),
                                         .r("C"))),
-                                  .n(.tC,
+                                  .n(.tCr,
                                      .n(.tL,
                                         .n(.lC,
                                            .r("E"),
@@ -38,7 +39,7 @@ private let nppSubTree: Tree = .n(.tR,
                                         .n(.ratio(1.3, <), .r("L"), .r("M")),
                                         .n(.bL, .r("1"), .r("4")))))
 
-private let npnSubTree: Tree = .n(.tC,
+private let npnSubTree: Tree = .n(.tCr,
                                   .n(.tL,
                                      .r("R"),
                                      .n(.bL,
@@ -63,12 +64,12 @@ private let nnpSubTree: Tree = .n(.bL,
                                      .n(.tL,
                                         .n(.tR,
                                            .r("Z"),
-                                           .n(.tC, .r("B"), .r("b"))),
+                                           .n(.tCr, .r("B"), .r("b"))),
                                         .n(.z_s, .r("Z"), .r("S"))), // если не прижат к краю
                                     .n(.tR, .r("F"), .r("P"))),
                                   .n(.bC,
                                      .n(.tL,
-                                        .n(.tC, .r("T"), .r("Y")),
+                                        .n(.tCr, .r("T"), .r("Y")),
                                         .n(.lC,
                                            .n(.O_G, .r("0"), .r("G")),
                                            .n(.xy(x:1, y: 2/3),
@@ -78,19 +79,19 @@ private let nnpSubTree: Tree = .n(.bL,
                                                     num83orSTree,
                                                     .n(.no5, num83Tree, .r("5")))),
                                               .n(.f_t, .r("f"), .r("t"))))),
-                                     n7_WTree))
+                                     .n(.r6, num83Tree, n7_WTree )))
 
 
 private let nnnSubTree: Tree = .n(.tL,
                                   .n(.bL,
                                      .n(.rC,
-                                        .n(.tC,
+                                        .n(.tCr,
                                            .n(.p_d, .r("P"), .r("D")),
                                            .r("b")),
                                         BpOrbTree),
                                      .n(.bC,
                                         .n(.lC,
-                                           .n(.tC, .r("5"), .r("U")),
+                                           .n(.tCr, .r("5"), .r("U")),
                                            .r("V")),
                                         n7_WTree)),
                                   .n(.rCr,
@@ -99,8 +100,8 @@ private let nnnSubTree: Tree = .n(.tL,
                                            .n(.no5,
                                               .n(.O_G, .r("O"),
                                                  .n(.G_65, .r("G"), .r("6"))),
-                                              .r("5")),
-                                           .r("Q")),
+                                              .n(.n5_9, .r("5"), .r("9"))),
+                                           .n(.xy(x: 0, y: 0.3), .r("Q"), .r("4"))),
                                         .n(.tR, .r("J"), .r("9"))),
                                      .n(.G_C,
                                         .n(.lCr,
@@ -115,20 +116,26 @@ private let nnnSubTree: Tree = .n(.tL,
 private let nnSubTree: Tree = .n(.c, nnpSubTree, nnnSubTree )
 private let npSubTree: Tree = .n(.bC, nppSubTree, npnSubTree)
 private let nSubTree: Tree = .n(.bR, npSubTree, nnSubTree)
-private let pSubTree: Tree = .r("I")
+private let pSubTree: Tree =  .n(.bL, .r("I"), .r("1"))
 
-let upperTree: Tree = .n(.ratio(3.5, <), pSubTree, nSubTree) //можно здесь заменить на проверку замкнутости
+let upperTree: Tree = .n(.ratio(2.5, <), pSubTree, nSubTree) //можно здесь заменить на проверку замкнутости
 
-let lowTree: Tree = .n(.tL,
+let lowTree: Tree = .n(.xy(x:0, y:0.05),
                          .n(.lC,
                             .n(.rC,
                                .n(.ratio(1.1, >),
                                   .r("m"),
-                                  .n(.u_n, .r("u"), .r("n"))),
+                                  .n(.n_u, .r("n"), .r("u"))),
                                .r("r") ),
-                            .n(.tC,
-                               .n(.bC, .r("z"), .r("w")),
-                               .n(.bL, .r("x"), .r("v")))),
+                            .n(.tCr,
+                               .n(.bC,
+                                  .n(.xy(x:0.95, y:0),
+                                     .n(.bR, .r("z"), .r("r")),
+                                     .n(.xy(x: 0.95, y: 0.6),.r("s"), .r("i"))),
+                                  .r("w")),
+                               .n(.xy(x:0.05, y:1),
+                                  .n(.bC, .r("r"), .r("x")),
+                                  .r("v")))),
                          .n(.c,
                             .n(.lC,
                                .r("e"),
@@ -139,7 +146,7 @@ let lowTree: Tree = .n(.tL,
                                .n(.xy(x:1, y: 0.25), .r("a"), .r("o")),
                                .n(.bL, .r("r"), .r("c")))))
 
-let lowWithTailTree: Tree = .n(.tL,
+let lowWithTailTree: Tree = .n(.xy(x:0, y:0.05),
                                .n(.lC,
                                   .r("p"),
                                   .n(.rC, .r("j"), .r("y"))),

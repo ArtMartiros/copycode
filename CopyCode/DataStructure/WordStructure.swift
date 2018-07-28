@@ -43,10 +43,6 @@ extension WordRectangleProtocol {
     }
 }
 
-protocol ValueProtocol {
-    var value: String { get }
-}
-
 //MARK: Rectangle
 struct WordRectangle: WordRectangleProtocol {
     let frame: CGRect
@@ -61,13 +57,13 @@ struct LetterRectangle: RectangleProtocol {
 
 
 // MARK: Proto
-struct ProtoWord: RectangleProtocol {
+struct WordRectangleWithType: RectangleProtocol {
     let frame: CGRect
     let pixelFrame: CGRect
     let type: WordType
-    let letters: [ProtoLetter]
+    let letters: [LetterRectangleWithType]
     
-    init(rectangle: RectangleProtocol, type: WordType, letters: [ProtoLetter]) {
+    init(rectangle: RectangleProtocol, type: WordType, letters: [LetterRectangleWithType]) {
         self.frame = rectangle.frame
         self.pixelFrame = rectangle.pixelFrame
         self.type = type
@@ -75,7 +71,7 @@ struct ProtoWord: RectangleProtocol {
     }
 }
 
-struct ProtoLetter: RectangleProtocol {
+struct LetterRectangleWithType: RectangleProtocol {
     let pixelFrame: CGRect
     let frame: CGRect
     let type: LetterType
@@ -88,11 +84,20 @@ struct ProtoLetter: RectangleProtocol {
 }
 
 //MARK: Final
+protocol ValueProtocol {
+    var value: String { get }
+}
+
 struct Word: RectangleProtocol, ValueProtocol {
-    let frame: CGRect
-    let pixelFrame: CGRect
-    let value: String
+    var frame: CGRect { return wordRectangle.frame }
+    var pixelFrame: CGRect { return wordRectangle.pixelFrame }
+    var value: String { return letters.map { $0.value }.joined() }
     let letters: [Letter]
+    private let wordRectangle: WordRectangleProtocol
+    init(wordRectangle:  WordRectangleProtocol, letters: [Letter]) {
+        self.wordRectangle = wordRectangle
+        self.letters = letters
+    }
 }
 
 struct Letter: RectangleProtocol, ValueProtocol {

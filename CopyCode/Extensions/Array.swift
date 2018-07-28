@@ -25,6 +25,11 @@ extension Array where Element == WordRectangleProtocol {
         let classification = WordTypeClassification()
         return self.first { classification.isMix(word: $0) }
     }
+    
+    var allWordsMixed: Bool {
+        let classification = WordTypeClassification()
+        return first { !classification.isMix(word: $0) } == nil
+    }
 }
 
 //extension Array where Element == RectangleProtocol {
@@ -49,7 +54,7 @@ extension Array where Element == CGRect {
         let minX = map { $0.minX }.sorted(by: < )[0]
         let maxX = map { $0.maxX }.sorted(by: > )[0]
         let minY = map { $0.minY }.sorted(by: < )[0]
-        let maxY = map { $0.maxX }.sorted(by: > )[0]
+        let maxY = map { $0.maxY }.sorted(by: > )[0]
         let width = maxX - minX
         let height = maxY - minY
         return CGRect(x: minX, y: minY, width: width, height: height)

@@ -8,6 +8,7 @@
 
 import Foundation
 let magnitude: CGFloat = 0.06
+let magnitude2: CGFloat = 0.15
 protocol WordTypeClassificationProtocol {
     func isMix(word: WordRectangleProtocol) -> Bool
 }
@@ -37,6 +38,12 @@ class Checker {
     func isSame(first: CGFloat, with second: CGFloat) -> Bool {
         let diff = abs(first - second)
         let different = (diff / height) > magnitude
+        return !different
+    }
+    
+    func isSame2(first: CGFloat, with second: CGFloat) -> Bool {
+        let diff = abs(first - second)
+        let different = (diff / height) > magnitude2
         return !different
     }
 }
