@@ -8,7 +8,7 @@
 
 import AppKit
 
-class WhiteColorChecker {
+final class LetterPixelChecker {
    private let backgroundWhite: CGFloat
     /// From 0 to 100%
     /// Диапазон от backgroundWhite до letterWhite в котором ответ считается правильным
@@ -19,62 +19,33 @@ class WhiteColorChecker {
         self.whitePercent = whitePercent
     }
 
-    func isRight(currentValue value: CGFloat, with letterWhite: CGFloat) -> Bool {
+    func exist(currentValue value: CGFloat, withLetterDefaultWhite letterWhite: CGFloat) -> Bool {
         let allowedInterval = abs(letterWhite - backgroundWhite) / 100 * CGFloat(whitePercent)
-        let ranges = [allowedInterval, letterWhite].sorted(by: < )
-        return ranges[0] ... ranges[1] ~= value
-    }
-}
-
-protocol ColorFinderProtocol {
-    var findedColor: CGFloat { get }
-}
-
-class BackgroundWhiteColorFinder: ColorFinderProtocol {
-
-    private let wordFrame: CGRect
-    private let lettersFrame: [CGRect]
-    
-    init(wordFrame: CGRect, lettersFrame: [CGRect]) {
-        self.wordFrame = wordFrame
-        self.lettersFrame = lettersFrame
-    }
-    
-    var findedColor: CGFloat {
-        return 0
-    }
-}
-
-class LetterWhiteColorFinder: ColorFinderProtocol {
-    private let letterFrame: CGRect
-    init(letterFrame: CGRect) {
-        self.letterFrame = letterFrame
-    }
-    var findedColor: CGFloat {
-        return 0
-    }
-    
-    
-}
-
-class WordFactor {
-    private let zTLXRatio: CGFloat = 31
-    private let frame: CGRect
-    private let bitmap: NSBitmapImageRep
-    
-    var whiteFactor2: UInt {
-        switch baseRatio {
-        case let x where x < 1 && x > 2:  return 80
-        case let x where x < 2: return 75
-        default: return 60
+        if letterWhite >= backgroundWhite{
+            let startPoint = letterWhite - allowedInterval
+            let range = startPoint.rounded(toPlaces: 3) ... 1
+            print("Range \(range)")
+            return range ~= value
+        } else {
+            let endPoint = letterWhite + allowedInterval
+            let range =  0...endPoint.rounded(toPlaces: 3)
+            print("Range \(range)")
+            return range ~= value
         }
     }
+}
+
+
+final class WordFactor {
+    private let zTLXRatio: CGFloat = 31
+    private let frame: CGRect
     
-    var whiteFactor: CGFloat {
+    var whiteRate: UInt {
         switch baseRatio {
-        case let x where x < 1 && x > 2:  return 0.80
-        case let x where x < 2: return 0.75
-        default: return 0.6
+        case let x where x > 0 && x < 1:  return 75
+        case let x where x > 1 && x < 3:  return 70
+        case let x where x >= 3: return 50
+        default: return 30
         }
     }
     
@@ -99,9 +70,8 @@ class WordFactor {
     }
     
     
-    init(frame: CGRect, in bitmap: NSBitmapImageRep) {
+    init(frame: CGRect) {
         self.frame = frame
-        self.bitmap = bitmap
     }
     
     func frameCrop() -> CGRect {
@@ -109,53 +79,6 @@ class WordFactor {
         let size = CGSize(width: frame.width - sizeOffset, height: frame.height - sizeOffset)
         return CGRect(origin: point.rounded, size: size.rounded)
     }
-    
-//    func frameCropExtended() -> CGRect {
-//        let leftXOffset = offsetX(left: true) + 1
-//        let rightXOffset = offsetX(left: false) + 1
-//        let topOffsetY = offsetY(isBottom: false)
-//        let bottomOffsetY = offsetY(isBottom: true)
-//        let width = round(frame.width) - leftXOffset - rightXOffset
-//        let height = round(frame.height) - bottomOffsetY - topOffsetY
-//        return CGRect(x: round(frame.origin.x) + leftXOffset,
-//                      y: round(frame.origin.y) + bottomOffsetY,
-//                      width: width, height: height)
-//    }
-//
-//    private let arrayOfParts = [5, 0, 10, 1, 9, 2, 8, 3, 7, 4, 6]
-//
-//    private func offsetX(left: Bool) -> CGFloat {
-//        let x = round(left ? frame.minX : frame.maxX)
-//        var newX = x
-//        let thing = true
-//        while thing {
-//            for i in arrayOfParts {
-//                let y = frame.yPositionAs(part: i, of: 10)
-//                if bitmap.isGrayscale(at: CGPoint(x: newX, y: y), in: frame) {
-//                    return abs(newX - x)
-//                }
-//            }
-//            newX = newX + (left ? 1 : -1)
-//        }
-//    }
-//
-//    private func offsetY(isBottom: Bool) -> CGFloat {
-//        let y = round(isBottom ? frame.minY : frame.maxY)
-//        var newY = y
-//        let thing = true
-//        while thing {
-//            for i in arrayOfParts {
-//                let x = frame.xPositionAs(part: i, of: 10)
-//                if bitmap.isGrayscale(at: CGPoint(x: x, y: newY), in: frame) {
-//                    return abs(newY - y)
-//                }
-//
-//            }
-//            newY = newY + (isBottom ? 1 : -1)
-//        }
-//
-//    }
-    
 }
 
 

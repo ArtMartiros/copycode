@@ -56,14 +56,10 @@ final class BlockCreator {
         var dictionary: [CGFloat: [WordRectangleProtocol]] = [:]
         
         sortedRectangles.forEach {
-            let test = $0.pixelFrame.minX
-            let test1 = $0.pixelFrame.size.width
-//            print(test)
-//            print(test1)
             dictionary.append(element: $0, toKey: $0.pixelFrame.minX)
             
         }
-        
+
         let recognizer = WordRecognizer(in: bitmap)
         let columnDetection = DigitColumnDetection(recognizer: recognizer)
         let digitColumnsStart = dictionary.values

@@ -26,8 +26,9 @@ extension CGFloat {
 
 extension Int {
     func of(_ number: Int, _ operation: (Int, Int) -> Bool, percent percentNumber: Int) -> Bool {
-        let value = self / number * 100
-        return operation(value, percentNumber)
+        guard number != 0 else { return false }
+        let value = self * 100 / number
+        return  operation(value, percentNumber)
     }
 }
 

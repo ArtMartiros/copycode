@@ -55,7 +55,7 @@ class PanelController: NSWindowController {
         panel.makeKeyAndOrderFront(nil)
         
         if test {
-            let testImage = NSImage(named: .init("picDigitColumn2"))
+            let testImage = NSImage(named: .init("picDigitColumnP2"))
             testImage?.lockFocus()
             let bitMap = NSBitmapImageRep(data: testImage!.tiffRepresentation!)
             let testSize = bitMap!.size
@@ -80,11 +80,20 @@ class PanelController: NSWindowController {
         textDetection.performRequest(image: image) { (bitmap, lines, error) in
             
             let frames = lines.map { $0.frame }
+
+            
             print("Bukaki \(lines.count)")
             let layerCreator = LayerCreator()
             let layers = layerCreator.layerForFrame(width: 1, color: NSColor.blue, frames: frames)
             self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+            var charFrames: [CGRect] = []
+            for word in lines {
+                charFrames.append(contentsOf: word.letters.map { $0.frame })
+            }
+            let charLayers = layerCreator.layerForFrame(width: 0.3, color: NSColor.red, frames: charFrames)
+            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
        
         }
 //        textDetection.performRequest(cgImage: image.toCGImage) { results, error in

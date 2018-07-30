@@ -9,17 +9,22 @@
 import AppKit
 
 class WordRecognizer {
-    private let recognizer: LetterRecognizer
+    private let bitmap: NSBitmapImageRep
     init(in bitmap: NSBitmapImageRep) {
-        self.recognizer = LetterRecognizer(in: bitmap)
+        self.bitmap = bitmap
     }
     
     func recognize(_ rectangle: WordRectangleProtocol, with type: WordType.SameType) -> Word {
-        let type = LetterType(type)
+        let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
+        let bgColor = colorFinder.findedBackgroundColor(rectangle)
+        let recognizer = LetterRecognizer(in: bitmap, backgroundWhiteColor: bgColor, letterColorFinder: colorFinder)
         let letters: [Letter] = rectangle.letters.map {
-            let value = recognizer.recognize(from: $0.pixelFrame, with: type)
+            let value = recognizer.recognize(from: $0.pixelFrame, with: LetterType(type))
             return Letter(rectangle: $0, value: value)
         }
         return Word(wordRectangle: rectangle, letters: letters)
     }
+
+
+    
 }

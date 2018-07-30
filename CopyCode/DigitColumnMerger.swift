@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DigitColumnMerger {
+final class DigitColumnMerger {
     func mergeSameColumn(_ things: [Column]) -> [Column] {
         return []
     }

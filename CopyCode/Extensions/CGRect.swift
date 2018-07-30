@@ -23,26 +23,27 @@ extension CGRect {
     var topY: CGFloat { return maxY }
     var ratio: CGFloat { return height/width  }
     
-    func yPositionAs(part: Int, of number: Int) -> CGFloat {
+    /// Принимает значение от 0 до 1 и на основе него ищет точку у frame
+    func yAs(part: Int, of number: Int) -> CGFloat {
         let innerHeight = height / CGFloat(number) * CGFloat(part)
         let positionY = maxY - innerHeight
         return positionY
     }
-    
-    func xPositionAs(part: Int, of number: Int) -> CGFloat {
+    /// Принимает значение от 0 до 1 и на основе него ищет точку у frame
+    func xAs(part: Int, of number: Int) -> CGFloat {
         let innerWidth = width / CGFloat(number) * CGFloat(part)
         let positionX = minX + innerWidth
         return positionX
     }
-    
-    func yPositionAs(y: CGFloat) -> CGFloat {
-        let innerHeight = height * y
+    /// Принимает значение от 0 до 1 и на основе него ищет точку у frame
+    func yAs(rate: CGFloat) -> CGFloat {
+        let innerHeight = height * rate
         let positionY = maxY - innerHeight
         return positionY
     }
-    
-    func xPositionAs(x: CGFloat) -> CGFloat {
-        let innerWidth = width * x
+    /// Принимает значение от 0 до 1 и на основе него ищет точку у frame
+    func xAs(rate: CGFloat) -> CGFloat {
+        let innerWidth = width * rate
         let positionX = minX + innerWidth
         return positionX
     }

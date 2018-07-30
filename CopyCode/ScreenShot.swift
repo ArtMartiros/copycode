@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ScreenShot {
+final class ScreenShot {
     
     @objc func capture() -> CGImage? {
         let image = CGDisplayCreateImage(CGMainDisplayID())

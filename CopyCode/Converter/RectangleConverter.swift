@@ -34,7 +34,7 @@ class RectangleConverter {
     
     private func getPixelFrame(from rectangle: VNRectangleObservation, in bitmap: NSBitmapImageRep) -> CGRect {
         let frame = rectangle.frame(in: bitmap.pixelSize)
-        let wordFactor = WordFactor(frame: frame, in: bitmap)
+        let wordFactor = WordFactor(frame: frame)
         return wordFactor.frameCrop()
     }
 }

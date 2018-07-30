@@ -8,8 +8,8 @@
 
 import Foundation
 
-class DigitColumnDetection {
-    private let kDigitConcentrationRate = 70
+final class DigitColumnDetection {
+    private let kDigitConcentrationRate = 20
     private let recognizer: WordRecognizer
     
     init(recognizer: WordRecognizer) {
@@ -17,13 +17,18 @@ class DigitColumnDetection {
     }
     
     func detecte( _ wordRectangles: [WordRectangleProtocol]) -> Bool {
-        let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(wordRectangles)
+        let sortedWordRectangles = wordRectangles.sorted { $0.pixelFrame.origin.y > $1.pixelFrame.origin.y}
+        sortedWordRectangles.forEach {
+            print("rate: \($0.pixelFrame.ratio)")
+        }
+        let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
+        
         
         switch Set(types).count {
         case let x where x == 1:
             let isMany = types[0] == .many
             let allWordsMixed = wordRectangles.allWordsMixed
-            let concentration = digitConcentration(moreThan: kDigitConcentrationRate, in: wordRectangles, with: recognizer)
+            let concentration = digitConcentration(moreThan: kDigitConcentrationRate, in: otherRectangles, with: recognizer)
             return  !isMany && !allWordsMixed && concentration
             
             
@@ -64,7 +69,11 @@ class DigitColumnDetection {
     
     private func digitConcentration(moreThan rate: Int, in rectangles: [WordRectangleProtocol], with recognizer: WordRecognizer) -> Bool {
         let words = rectangles.map { recognizer.recognize($0, with: .allUpper) }
-        let numbers = words.compactMap { Int($0.value) }
+        let numbers: [Int] = words.compactMap {
+            print("Value \($0.value)")
+            return Int($0.value)
+            
+        }
         return numbers.count.of(words.count, >, percent: rate)
     }
 }
