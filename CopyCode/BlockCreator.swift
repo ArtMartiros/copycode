@@ -6,85 +6,44 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import AppKit
+import Foundation
 
-struct Column {
-    
-    var maxX: CGFloat {
-        return 0
-    }
-    
-    var minX: CGFloat {
-        return 0
-    }
-    
-    var topY: CGFloat {
-        return 0
-    }
-    var botY: CGFloat {
-        return 0
-    }
-    var pixelFrame: CGRect {
-        return .zero
-    }
-    let columnWords: [WordRectangleProtocol]
-    init(words: [WordRectangleProtocol]) {
-        self.columnWords = words
-    }
-    
+protocol BlockCreatorProtocol {
+    func create(from rectangles: [WordRectangleProtocol]) -> [BlockProtocol]
 }
 
-struct Block {
-    var blockWords: [WordRectangleProtocol]
-    init(words: [WordRectangleProtocol]) {
-        self.blockWords = words
-    }
-}
-
-
-final class BlockCreator {
-    private let rectangles: [WordRectangleProtocol]
-    private let bitmap: NSBitmapImageRep
-    init(rectangles: [WordRectangleProtocol], in bitmap: NSBitmapImageRep) {
-        self.rectangles = rectangles
-        self.bitmap = bitmap
+final class BlockCreator: BlockCreatorProtocol {
+    private let columnCreator: DigitColumnCreator!
+    init(columnCreator: DigitColumnCreator) {
+        self.columnCreator = columnCreator
     }
     
-    func test() {
-        let sortedRectangles = rectangles.sorted { $0.frame.minX < $1.frame.minX }
-        
-        var dictionary: [CGFloat: [WordRectangleProtocol]] = [:]
-        
-        sortedRectangles.forEach {
-            dictionary.append(element: $0, toKey: $0.pixelFrame.minX)
-            
-        }
 
-        let recognizer = WordRecognizer(in: bitmap)
-        let columnDetection = DigitColumnDetection(recognizer: recognizer)
-        let digitColumnsStart = dictionary.values
-            .sorted { $0.count > $1.count }
-            .filter { $0.count > 5 }
-        
-        let digitColumns = digitColumnsStart.filter { columnDetection.detecte($0) }
-        
-        
-        let columns = mergeSameColumn(digitColumns).map { Column(words: $0) }
-        let blocks = getBlocks(from: sortedRectangles, by: columns )
+    func create(from rectangles: [WordRectangleProtocol]) -> [BlockProtocol] {
+        let (columns, blockRectangles) = columnCreator.create(from: rectangles)
+        return  getBlocks(from: blockRectangles, by: columns )
     }
     
-    private func getBlocks(from words: [WordRectangleProtocol], by columns: [Column] ) -> [[WordRectangleProtocol]] {
+    private func getBlocks(from words: [WordRectangleProtocol], by columns: [ColumnProtocol] ) -> [Block] {
+        let columns = columns.sorted { $0.leftX < $1.leftX }
         var blockDictionary: [Int:[WordRectangleProtocol]] = [:]
+        //FIXME это лишние фразы
+        var shitWords: [WordRectangleProtocol] = []
         var startIndex = 0
         for (columnIndex, column) in columns.enumerated() {
             guard startIndex < words.count else { break }
-            for index in startIndex...words.count {
+            let nextIndex = columnIndex + 1
+            for index in startIndex..<words.count {
                 let word = words[index]
                 if isInside(word, in: column) {
-                    let nextIndex = columnIndex + 1
-                    if columns.count > nextIndex,  word.frame.minX > columns[nextIndex].maxX {
-                        startIndex = index
-                        continue
+                    if columns.count > nextIndex {
+                        let nextColumn = columns[nextIndex]
+                        if word.leftX > nextColumn.rightX {
+                            startIndex = index
+                            break
+                        } else if word.rightX > nextColumn.leftX  {
+                            continue
+                        }
                     }
                     blockDictionary.append(element: word, toKey: columnIndex)
                     
@@ -92,18 +51,11 @@ final class BlockCreator {
                 startIndex = index + 1
             }
         }
-        return Array(blockDictionary.values)
-        
+        return Array(blockDictionary.values).map { Block.from($0) }
     }
     
-    func isInside(_  word: WordRectangleProtocol, in column: Column) -> Bool {
-        return word.frame.minX > column.maxX && word.frame.minY < column.topY
-    }
-
-   
-    
-    func mergeSameColumn( _ things: [[WordRectangleProtocol]]) -> [[WordRectangleProtocol]] {
-        return []
+    func isInside(_  word: WordRectangleProtocol, in column: ColumnProtocol) -> Bool {
+        return word.leftX > column.rightX && word.bottomY < column.topY
     }
 }
 
@@ -157,15 +109,16 @@ final class LineCreator {
     }
     
    private func getLines(from rectangles: [WordRectangleProtocol] ) -> [Line] {
+//        Merger.merge(rectangles, valueToCheck: { $0.bottomY } )
         let checker = Checker(height: 20)
         var value: CGFloat = 0
         var lines: [[WordRectangleProtocol]] = []
         var words: [WordRectangleProtocol] = []
         for each in rectangles {
-            if checker.isSame(first: value, with: each.frame.bottomY) {
+            if checker.isSame(first: value, with: each.bottomY) {
                 words.append(each)
             } else {
-                value = each.frame.bottomY
+                value = each.bottomY
                 lines.append(words)
                 words = [each]
             }

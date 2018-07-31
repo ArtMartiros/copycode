@@ -55,7 +55,7 @@ class PanelController: NSWindowController {
         panel.makeKeyAndOrderFront(nil)
         
         if test {
-            let testImage = NSImage(named: .init("picDigitColumnP2"))
+            let testImage = NSImage(named: .init("picColumnDetectTest"))
             testImage?.lockFocus()
             let bitMap = NSBitmapImageRep(data: testImage!.tiffRepresentation!)
             let testSize = bitMap!.size
@@ -77,24 +77,41 @@ class PanelController: NSWindowController {
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { (bitmap, lines, error) in
-            
-            let frames = lines.map { $0.frame }
-
-            
-            print("Bukaki \(lines.count)")
+        textDetection.performRequest(image: image) { (bitmap, words, error) in
             let layerCreator = LayerCreator()
+            
+
+            let recognizer = WordRecognizer(in: bitmap)
+            let columnDetectioin = DigitColumnDetection(recognizer: recognizer)
+            let columnCreator = DigitColumnCreator(columnDetection: columnDetectioin)
+            
+            //------------blocks--------------
+            let creator = BlockCreator(columnCreator: columnCreator)
+            let blocks = creator.create(from: words)
+            let frames = blocks.map { $0.frame }
             let layers = layerCreator.layerForFrame(width: 1, color: NSColor.blue, frames: frames)
-            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+//            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
-            var charFrames: [CGRect] = []
-            for word in lines {
-                charFrames.append(contentsOf: word.letters.map { $0.frame })
-            }
-            let charLayers = layerCreator.layerForFrame(width: 0.3, color: NSColor.red, frames: charFrames)
-            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-       
+            
+            //------------words--------------
+            let wordsFrames = blocks[0].blockWords.map { $0.frame }
+            let wordsLayers = layerCreator.layerForFrame(width: 1, color: NSColor.purple, frames: wordsFrames)
+            wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+            //------------chars--------------
+//            var charFrames: [CGRect] = []
+//            for word in words {
+//                charFrames.append(contentsOf: word.letters.map { $0.frame })
+//            }
+//            let charLayers = layerCreator.layerForFrame(width: 0.3, color: NSColor.red, frames: charFrames)
+//            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+            //------------Column--------------
+//            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }
+//            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
+//            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+//       
         }
 //        textDetection.performRequest(cgImage: image.toCGImage) { results, error in
 //            image.lockFocus()

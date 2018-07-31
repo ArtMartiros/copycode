@@ -7,27 +7,44 @@
 //
 
 import XCTest
+@testable import CopyCode
 
 class BlockCreatorTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    let textManager = TextRecognizerManager()
+    func testThing() {
+        let image = NSImage(named: .init("picColumnDetectTest"))    
+        image?.lockFocus()
+        let bitMap = NSBitmapImageRep(data: image!.tiffRepresentation!)
+        let testSize = bitMap!.size
+        image?.draw(in: CGRect(origin: .zero, size: testSize))
+        image?.unlockFocus()
+        
+        textManager.performRequest(image: image!) { (bitmap, rectangles, error) in
+            
         }
     }
-
+    
+    func testDigitColumnRecognizer() {
+        let image = NSImage(named: .init("picDigitColumnP2"))
+        textManager.performRequest(image: image!) { (bitmap, results, error) in
+            let recognizer = WordRecognizer(in: bitmap)
+            for result in results.sorted(by: { $0.frame.bottomY > $1.frame.bottomY }) {
+                let word = recognizer.recognize(result, with: .allUpper)
+                print("Bukaki \(word.value)")
+                //                let number = Int(word.value.prefix(2))
+                //                XCTAssertTrue(number != nil, "❌ expect number, instead \(word.value)")
+                let letterRecognizer = LetterRecognizer(bitmap, rectangle: result)
+                for letter in result.letters {
+                    let char = letterRecognizer.recognize(from: letter as! LetterRectangle, with: .upper)
+                    print("🔔:" + char.value)
+                    
+                    let _ = 1
+                }
+                //                let word = wordRecognizer.recognize(result, with: .allUpper)
+                //                let _ = 1
+            }
+            let _ = 1
+        }
+    }
+    
 }

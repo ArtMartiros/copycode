@@ -13,13 +13,32 @@ protocol RectangleProtocol {
     var pixelFrame: CGRect { get }
 }
 
+extension RectangleProtocol {
+    var pixelLeftX: CGFloat { return pixelFrame.minX }
+    var pixelRightX: CGFloat { return pixelFrame.maxX }
+    var pixelTopY: CGFloat { return pixelFrame.maxY }
+    var pixelBottomY: CGFloat { return pixelFrame.minY }
+}
+
+extension RectangleProtocol {
+    var leftX: CGFloat { return frame.minX }
+    var rightX: CGFloat { return frame.maxX }
+    var topY: CGFloat { return frame.maxY }
+    var bottomY: CGFloat { return frame.minY }
+}
+
 protocol WordRectangleProtocol: RectangleProtocol {
     var letters: [RectangleProtocol] { get }
+}
+extension WordRectangleProtocol {
+    var symbolsCount: SymbolsCount {
+       return SymbolsCount.symbols(withRatio: frame.ratio)
+    }
 }
 
 extension WordRectangleProtocol {
     private var ascendingLettersBottomY: [RectangleProtocol] {
-       return letters.sorted { $0.frame.bottomY < $1.frame.bottomY }
+       return letters.sorted { $0.bottomY < $1.bottomY }
     }
     
     private var ascendingLettersHeight: [RectangleProtocol] {
@@ -27,11 +46,11 @@ extension WordRectangleProtocol {
     }
     
     var lowerY: CGFloat {
-        return ascendingLettersBottomY.first?.frame.bottomY ?? 0
+        return ascendingLettersBottomY.first?.bottomY ?? 0
     }
     
     var standartBottomY: CGFloat {
-        return ascendingLettersBottomY.last?.frame.bottomY ?? 0
+        return ascendingLettersBottomY.last?.bottomY ?? 0
     }
     
     var maxLetterHeight: CGFloat {
@@ -43,11 +62,80 @@ extension WordRectangleProtocol {
     }
 }
 
+protocol ColumnProtocol: RectangleProtocol {
+    var words: [WordRectangleProtocol] { get }
+}
+
+protocol BlockProtocol: RectangleProtocol {
+    var blockWords: [WordRectangleProtocol] { get }
+    init(blockWords: [WordRectangleProtocol], frame: CGRect)
+}
+
 //MARK: Rectangle
+struct Column: ColumnProtocol {
+    let frame: CGRect
+    var pixelFrame: CGRect {
+        return words.map { $0.pixelFrame }.compoundFrame
+    }
+    
+    let words: [WordRectangleProtocol]
+    init(words: [WordRectangleProtocol], frame: CGRect) {
+        self.words = words
+        self.frame = frame
+    }
+    
+    static func from(_ words: [WordRectangleProtocol]) -> Column {
+        let frame = words.map { $0.frame }.compoundFrame
+        return Column(words: words, frame: frame)
+    }
+}
+
+//protocol ColumnProtocol: RectangleProtocol {
+//    var words: [WordRectangleProtocol] { get }
+//    init(words: [WordRectangleProtocol], frame: CGRect)
+//}
+//extension ColumnProtocol {
+//    static func from<T>(_ words: [WordRectangleProtocol]) -> T where T: BlockProtocol {
+//        let frame = words.map { $0.frame }.compoundFrame
+//        return T(words: words, frame: frame)
+//    }
+//}
+//
+struct Block: BlockProtocol {
+    
+    let frame: CGRect
+    let blockWords: [WordRectangleProtocol]
+    
+    var pixelFrame: CGRect {
+        return blockWords.map { $0.pixelFrame }.compoundFrame
+    }
+    init(blockWords words: [WordRectangleProtocol], frame: CGRect) {
+        self.blockWords = words
+        self.frame = frame
+    }
+    
+    static func from(_ words: [WordRectangleProtocol]) -> Block {
+        let frame = words.map { $0.frame }.compoundFrame
+        return Block(blockWords: words, frame: frame)
+    }
+}
+
+
 struct WordRectangle: WordRectangleProtocol {
     let frame: CGRect
     let pixelFrame: CGRect
-    var letters: [RectangleProtocol]
+    let letters: [RectangleProtocol]
+    init(frame: CGRect, pixelFrame: CGRect, letters: [RectangleProtocol]) {
+        self.frame = frame
+        self.pixelFrame = pixelFrame
+        self.letters = letters
+    }
+    
+    static func from(_ letters: [RectangleProtocol]) -> WordRectangle {
+        let frame = letters.map { $0.frame }.compoundFrame
+        let pixelFrame = letters.map { $0.pixelFrame }.compoundFrame
+        return WordRectangle(frame: frame, pixelFrame: pixelFrame, letters: letters)
+    }
 }
 
 struct LetterRectangle: RectangleProtocol {
