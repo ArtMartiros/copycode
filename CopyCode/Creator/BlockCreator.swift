@@ -9,26 +9,28 @@
 import Foundation
 
 protocol BlockCreatorProtocol {
-    func create(from rectangles: [WordRectangle_]) -> [Block]
+    associatedtype Child: Rectangle
+    func create(from rectangles: [Word<Child>]) -> [Block<Child>]
 }
 
 final class BlockCreator: BlockCreatorProtocol {
-    private let columnCreator: DigitColumnCreator!
-    init(columnCreator: DigitColumnCreator) {
+
+    private let columnCreator: DigitColumnCreator<LetterRectangle>!
+    init(columnCreator: DigitColumnCreator<LetterRectangle>) {
         self.columnCreator = columnCreator
     }
     
-    func create(from rectangles: [WordRectangle_]) -> [Block] {
+    func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
         let (columns, blockRectangles) = columnCreator.create(from: rectangles)
         let blockWords = getBlocks(from: blockRectangles, by: columns )
-        let creator = LineCreator()
+        let creator = LineCreator<LetterRectangle>()
         let lines = blockWords.map { creator.create(from: $0) }
         return lines.map { Block.from($0) }
     }
     
-    private func getBlocks(from words: [WordRectangle_], by columns: [ColumnProtocol] ) -> [[WordRectangle_]] {
+    private func getBlocks(from words: [Word<LetterRectangle>], by columns: [Column<LetterRectangle>] ) -> [[Word<LetterRectangle>]] {
         let columns = columns.sorted { $0.frame.leftX < $1.frame.leftX }
-        var blockDictionary: [Int:[WordRectangle_]] = [:]
+        var blockDictionary: [Int:[Word<LetterRectangle>]] = [:]
         var startIndex = 0
         for (columnIndex, column) in columns.enumerated() {
             guard startIndex < words.count else { break }
@@ -54,7 +56,7 @@ final class BlockCreator: BlockCreatorProtocol {
         return Array(blockDictionary.values)
     }
     
-   private func isInside(_  word: WordRectangle_, in column: ColumnProtocol) -> Bool {
+   private func isInside(_  word: Word<LetterRectangle>, in column: Column<LetterRectangle>) -> Bool {
         return word.frame.leftX > column.frame.rightX && word.frame.bottomY < column.frame.topY
     }
 }

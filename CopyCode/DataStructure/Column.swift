@@ -8,19 +8,20 @@
 
 import Foundation
 
-struct Column: ColumnProtocol {
+struct Column<Child: Rectangle>: ColumnProtocol {
+    
     let frame: CGRect
     var pixelFrame: CGRect {
         return words.map { $0.pixelFrame }.compoundFrame
     }
     
-    let words: [WordRectangle_]
-    init(words: [WordRectangle_], frame: CGRect) {
+    let words: [Word<Child>]
+    init(words: [Word<Child>], frame: CGRect) {
         self.words = words
         self.frame = frame
     }
     
-    static func from(_ words: [WordRectangle_]) -> Column {
+    static func from(_ words: [Word<Child>]) -> Column {
         let frame = words.map { $0.frame }.compoundFrame
         return Column(words: words, frame: frame)
     }

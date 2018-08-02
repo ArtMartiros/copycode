@@ -18,13 +18,13 @@ struct LineChecker: LineChecker_ {
     }
 }
 
-final class LineCreator {
+final class LineCreator<WordChild: Rectangle> {
     let checker: LineChecker
     init(checker: LineChecker = LineChecker() ) {
         self.checker = checker
     }
     
-    func create(from rectangles: [WordRectangle_] ) ->  [Line] {
+    func create(from rectangles: [Word<WordChild>] ) ->  [Line<WordChild>] {
         let rectanglesSortebByY = rectangles.sorted { $0.frame.bottomY < $1.frame.bottomY }
         let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
         let sortedLines = lines.map { Line(rectangles: $0.sorted { $0.frame.minX < $1.frame.minX  }) }

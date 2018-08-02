@@ -8,19 +8,18 @@
 
 import Foundation
 
-struct Block: BlockProtocol {
-    
+struct Block<WordChild: Rectangle>: BlockProtocol {
     let frame: CGRect
-    let lines: [Line] 
+    let lines: [Line<WordChild>]
     var pixelFrame: CGRect {
         return lines.map { $0.pixelFrame }.compoundFrame
     }
-    init(lines: [Line], frame: CGRect) {
+    init(lines: [Line<WordChild>], frame: CGRect) {
         self.lines = lines
         self.frame = frame
     }
     
-    static func from(_ lines: [Line]) -> Block {
+    static func from(_ lines: [Line<WordChild>]) -> Block {
         let frame = lines.map { $0.frame }.compoundFrame
         return Block(lines: lines, frame: frame)
     }

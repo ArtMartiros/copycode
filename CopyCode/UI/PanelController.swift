@@ -82,7 +82,7 @@ class PanelController: NSWindowController {
 
             let recognizer = WordRecognizer(in: bitmap)
             let columnDetectioin = DigitColumnDetection(recognizer: recognizer)
-            let columnCreator = DigitColumnCreator(columnDetection: columnDetectioin)
+            let columnCreator = DigitColumnCreator<LetterRectangle>(columnDetection: columnDetectioin)
             
             //------------blocks--------------
             let creator = BlockCreator(columnCreator: columnCreator)
@@ -97,7 +97,7 @@ class PanelController: NSWindowController {
 //            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             //------------Words--------------
-            let words = lines.reduce([WordRectangle_]()) { $0 + $1.wordsRectangles }
+            let words = lines.reduce([Word]()) { $0 + $1.wordsRectangles }
             let wordsLayers = words.map { $0.layer(.green, width: 1) }
             wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             

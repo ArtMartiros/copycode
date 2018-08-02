@@ -20,8 +20,8 @@ extension Array where Element: NSColor {
     }
 }
 
-extension Array where Element == WordRectangle_ {
-    var firstMixedWord: WordRectangle_? {
+extension Array where Element == Word<LetterRectangle> {
+    var firstMixedWord: Word<LetterRectangle>? {
         let classification = WordTypeClassification()
         return self.first { classification.isMix(word: $0) }
     }

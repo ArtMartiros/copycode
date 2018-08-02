@@ -8,26 +8,28 @@
 
 import Foundation
 
-typealias SplittedWord = (word: WordRectangle_, shitWord: WordRectangle_?)
-typealias SplittedWords = (words: [WordRectangle_], shitWords: [WordRectangle_])
-
-
-final class WordRectangleSplitter {
-   static func split(_ rectangle: WordRectangle_, after number: Int) -> SplittedWord {
+final class WordRectangleSplitter<WordChild: Rectangle> {
+    typealias WordAlias = Word<WordChild>
+    typealias SplittedWord = (word: WordAlias, shitWord: WordAlias?)
+    typealias SplittedWords = (words: [WordAlias], shitWords: [WordAlias])
+    
+   static func split(_ rectangle: WordAlias, after number: Int) -> SplittedWord {
         let letters = rectangle.letters.sorted { $0.frame.leftX < $1.frame.leftX }
-        guard letters.count >= number else { return (WordRectangle.from(letters), nil) }
+        guard letters.count >= number else { return (Word.from(letters), nil) }
         let first = Array(letters[0..<number])
         let second = Array(letters[number..<letters.count])
-        return (WordRectangle.from(first), WordRectangle.from(second))
+        return (Word.from(first), Word.from(second))
     }
 
-   static func split(_ rectangles: [WordRectangle_], after number: Int) -> SplittedWords {
+   static func split(_ rectangles: [WordAlias], after number: Int) -> SplittedWords {
         let splitted = rectangles.map { split($0, after: number) }
         return (splitted.map { $0.word }, splitted.compactMap { $0.shitWord } )
     }
 }
 
 final class DigitColumnDetection {
+    typealias WordAlias = Word<LetterRectangle>
+    typealias SplittedWords = (words: [WordAlias], shitWords: [WordAlias])
     ///Отвечает за то какой процент из распознанных слов являются цифрами
     ///Чем лучше будет распознавание тем больше следует делать процент
     private let kDigitConcentrationRate = 20
@@ -37,7 +39,7 @@ final class DigitColumnDetection {
         self.recognizer = recognizer
     }
     
-    func detecte1( _ wordRectangles: [WordRectangle_]) -> SplittedWords? {
+    func detecte1( _ wordRectangles: [WordAlias]) -> SplittedWords? {
         let sortedWordRectangles = wordRectangles.sorted { $0.pixelFrame.origin.y > $1.pixelFrame.origin.y}
         let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
         
@@ -64,7 +66,7 @@ final class DigitColumnDetection {
     }
     
 
-    func detecte( _ wordRectangles: [WordRectangle_]) -> Bool {
+    func detecte( _ wordRectangles: [WordAlias]) -> Bool {
         let sortedWordRectangles = wordRectangles.sorted { $0.pixelFrame.origin.y > $1.pixelFrame.origin.y}
         let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
         
@@ -90,11 +92,11 @@ final class DigitColumnDetection {
         }
     }
     
-    private func getTypesWithSplitedArrays(_ wordRectangles: [WordRectangle_])
-        -> (types: [SymbolsCount], manyRectangles: [WordRectangle_],  otherRectangles: [WordRectangle_]) {
+    private func getTypesWithSplitedArrays(_ wordRectangles: [WordAlias])
+        -> (types: [SymbolsCount], manyRectangles: [WordAlias],  otherRectangles: [WordAlias]) {
             var types: [SymbolsCount] = []
-            var manyRectangles: [WordRectangle_] = []
-            var otherRectangles: [WordRectangle_] = []
+            var manyRectangles: [WordAlias] = []
+            var otherRectangles: [WordAlias] = []
             for rect in wordRectangles {
                 print("ratio \(rect.frame.ratio)")
                 let type = SymbolsCount.symbols(withRatio: rect.frame.ratio)
@@ -104,7 +106,7 @@ final class DigitColumnDetection {
             return (Array(Set(types)), manyRectangles, otherRectangles)
     }
     
-    private func digitConcentrationInManyType(moreThan rate: Int, in rectangles: [WordRectangle_],
+    private func digitConcentrationInManyType(moreThan rate: Int, in rectangles: [WordAlias],
                                               type: SymbolsCount, with recognizer: WordRecognizer) -> Bool {
         let words = rectangles
             .map { recognizer.recognize($0, with: .allUpper) }
@@ -113,7 +115,7 @@ final class DigitColumnDetection {
         return words.count.of(rectangles.count, >, percent: rate)
     }
     
-    private func digitConcentration(moreThan rate: Int, in rectangles: [WordRectangle_], with recognizer: WordRecognizer) -> Bool {
+    private func digitConcentration(moreThan rate: Int, in rectangles: [WordAlias], with recognizer: WordRecognizer) -> Bool {
         let words = rectangles.map { recognizer.recognize($0, with: .allUpper) }
         let numbers: [Int] = words.compactMap {
             print("Value \($0.value)")

@@ -9,10 +9,10 @@
 import AppKit
 
 final class TextRecognizerManager {
-    typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ results: [WordRectangle_], _ error: Error?) -> Void
-    typealias TextCompletionExtended = (_ bitmap: NSBitmapImageRep, _ results: [WordRectangleWithType], _ error: Error?) -> Void
+    typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ results: [Word<LetterRectangle>], _ error: Error?) -> Void
+    typealias TextCompletionExtended = (_ bitmap: NSBitmapImageRep, _ results: [Word<LetterRectangleWithType>], _ error: Error?) -> Void
     
-    typealias TextCompletionExtended1 = (_ bitmap: NSBitmapImageRep, _ results: [Line], _ error: Error?) -> Void
+    typealias TextCompletionExtended1 = (_ bitmap: NSBitmapImageRep, _ results: [Line<LetterRectangle>], _ error: Error?) -> Void
     
     
     private let textDetection: TextDetection

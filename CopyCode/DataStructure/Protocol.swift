@@ -49,6 +49,38 @@ protocol WordRectangle_: Rectangle {
     var letters: [Rectangle] { get }
 }
 
+extension Container {
+    var symbolsCount: SymbolsCount {
+        return SymbolsCount.symbols(withRatio: frame.ratio)
+    }
+}
+
+extension Container {
+    private var ascendingLettersBottomY: [Rectangle] {
+        return letters.sorted { $0.frame.bottomY < $1.frame.bottomY }
+    }
+    
+    private var ascendingLettersHeight: [Rectangle] {
+        return letters.sorted { $0.frame.height <  $1.frame.height }
+    }
+    
+    var lowerY: CGFloat {
+        return ascendingLettersBottomY.first?.frame.bottomY ?? 0
+    }
+    
+    var standartBottomY: CGFloat {
+        return ascendingLettersBottomY.last?.frame.bottomY ?? 0
+    }
+    
+    var maxLetterHeight: CGFloat {
+        return ascendingLettersHeight.last?.frame.height ?? 0
+    }
+    
+    var minLetterHeight: CGFloat {
+        return ascendingLettersHeight.first?.frame.height ?? 0
+    }
+}
+
 extension WordRectangle_ {
     var symbolsCount: SymbolsCount {
         return SymbolsCount.symbols(withRatio: frame.ratio)
@@ -82,11 +114,13 @@ extension WordRectangle_ {
 }
 
 protocol ColumnProtocol: Rectangle {
-    var words: [WordRectangle_] { get }
+    associatedtype Child: Rectangle
+    var words: [Word<Child>] { get }
 }
 
 protocol BlockProtocol: Rectangle {
-    var lines: [Line] { get }
+    associatedtype WordChild: Rectangle
+    var lines: [Line<WordChild>] { get }
 }
 
 protocol ValueProtocol {

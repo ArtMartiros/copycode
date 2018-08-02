@@ -17,9 +17,10 @@ enum WordType: CustomStringConvertible, Equatable {
         switch self {
         case .mix: return "mix"
         case .same(let type): return type.rawValue
+        case .undefined: return "undefined"
         }
     }
-    
+    case undefined
     case mix
     case same(type: SameType)
     enum SameType: String {
@@ -53,7 +54,7 @@ enum LetterType: String {
 extension LetterType {
     init(_ type: WordType) {
         switch type {
-        case .mix: self = .undefined
+        case .mix, .undefined: self = .undefined
         case .same(let sameType):
             self.init(sameType)
         }

@@ -30,7 +30,7 @@ protocol ColorFinderProtocol {
 protocol BackgroundWhiteColorProtocol {
     /// Нужен для того, чтобы определить какого цвета background
     /// Необходим, чтобы знать от какого цвета отталкиваться при поиске цвета буквы
-    func findedBackgroundColor (_ wordRectangle: WordRectangle_) -> CGFloat
+    func findedBackgroundColor (_ wordRectangle: Word<LetterRectangle>) -> CGFloat
 }
 
 protocol LetterWhiteColorProtocol {
@@ -46,7 +46,7 @@ final class UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhite
         self.picker = picker
     }
     
-    func findedBackgroundColor (_ wordRectangle: WordRectangle_) -> CGFloat {
+    func findedBackgroundColor (_ wordRectangle: Word<LetterRectangle>) -> CGFloat {
         let frame = wordRectangle.pixelFrame
         let point = CGPoint(x: frame.xAs(rate: 0), y: frame.yAs(rate: 0))
         let newPoint = CGPoint(x: point.x - 1, y: point.y + 1)

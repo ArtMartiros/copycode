@@ -11,7 +11,7 @@ import Foundation
 /// Отвечает за соединение столбца с цифрами в одну
 /// Может понадобиться в случае, когда отличается количество цифр допустим сотни и тысячи
 final class DigitColumnMerger {
-    func mergeSameColumn(_ things: [ColumnProtocol]) -> [ColumnProtocol] {
+    func mergeSameColumn<T: Rectangle>(_ things: [Column<T>]) -> [Column<T>] {
         let sortedThings = things.sorted { $0.frame.leftX < $1.frame.leftX }
         //С одинаковым количеством цифр, но со смещением в пиксель
 //        let mergedColumns = Merger.merge(sortedThings, valueToCheck: { $0.rightX })

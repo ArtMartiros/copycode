@@ -8,18 +8,18 @@
 
 import Foundation
 
-final class DigitColumnCreator {
+final class DigitColumnCreator<WordChild:Rectangle> {
     private let columnDetection: DigitColumnDetection
-    typealias ColumnWithBlockWords = (columnWords: [Column], shitWords: [WordRectangle_])
-    
+    typealias ColumnWithBlockWords = (columnWords: [Column<LetterRectangle>], shitWords: [WordAlias])
+    typealias WordAlias = Word<LetterRectangle>
     init(columnDetection: DigitColumnDetection) {
         self.columnDetection = columnDetection
     }
     
-    func create(from rectangles: [WordRectangle_]) -> ColumnWithBlockWords {
+    func create(from rectangles: [WordAlias]) -> ColumnWithBlockWords {
         let dictionary = rectangleDictionaryByXValue(rectangles)
-        var columnsWords: [[WordRectangle_]] = []
-        var blockRectangles: [WordRectangle_] = []
+        var columnsWords: [[WordAlias]] = []
+        var blockRectangles: [WordAlias] = []
         var newDictionary = dictionary
         initialFilling(dictionary, dictionaryToUpdate: &newDictionary, columnsWords: &columnsWords, blockRectangles: &blockRectangles)
         additionUpdate(&newDictionary, columnsWords: &columnsWords, blockRectangles: &blockRectangles)
@@ -27,10 +27,10 @@ final class DigitColumnCreator {
         return (columnsWords.map { Column.from($0) }, blockRectangles.sorted { $0.frame.leftX < $1.frame.leftX } )
     }
     
-    private func initialFilling(_ dictionary: [Int: [WordRectangle_]],
-                                dictionaryToUpdate: inout [Int: [WordRectangle_]],
-                                columnsWords: inout [[WordRectangle_]],
-                                blockRectangles: inout [WordRectangle_]) {
+    private func initialFilling(_ dictionary: [Int: [WordAlias]],
+                                dictionaryToUpdate: inout [Int: [WordAlias]],
+                                columnsWords: inout [[WordAlias]],
+                                blockRectangles: inout [WordAlias]) {
         
         for (key, value) in dictionary where value.count > 5 {
             if let detectedValue = columnDetection.detecte1(value) {
@@ -41,9 +41,9 @@ final class DigitColumnCreator {
         }
     }
     
-    private func additionUpdate(_ dictionary: inout [Int: [WordRectangle_]],
-                                columnsWords: inout [[WordRectangle_]],
-                                blockRectangles: inout [WordRectangle_]) {
+    private func additionUpdate(_ dictionary: inout [Int: [WordAlias]],
+                                columnsWords: inout [[WordAlias]],
+                                blockRectangles: inout [WordAlias]) {
         for i in 0..<columnsWords.count {
             var words = columnsWords[i]
             let word = words[0]
@@ -55,9 +55,9 @@ final class DigitColumnCreator {
         }
     }
     
-    private func update(_ dictionary: inout [Int: [WordRectangle_]],
-                        columnWords: inout [WordRectangle_],
-                        blockRectangles: inout [WordRectangle_],
+    private func update(_ dictionary: inout [Int: [WordAlias]],
+                        columnWords: inout [WordAlias],
+                        blockRectangles: inout [WordAlias],
                         key: Int, number: Int) {
         guard let value = dictionary.removeValue(forKey: key) else { return }
         let splittedWords = WordRectangleSplitter.split(value, after: number)
@@ -65,8 +65,8 @@ final class DigitColumnCreator {
         columnWords = columnWords + splittedWords.words
     }
     
-    private func rectangleDictionaryByXValue(_ rectangles: [WordRectangle_]) -> [Int: [WordRectangle_]] {
-        var dictionary: [Int: [WordRectangle_]] = [:]
+    private func rectangleDictionaryByXValue(_ rectangles: [WordAlias]) -> [Int: [WordAlias]] {
+        var dictionary: [Int: [WordAlias]] = [:]
         rectangles.forEach { dictionary.append(element: $0, toKey: Int($0.frame.leftX.rounded()))  }
         return dictionary
     }

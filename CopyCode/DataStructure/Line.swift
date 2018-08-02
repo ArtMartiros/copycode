@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct Line: Rectangle {
-    let wordsRectangles: [WordRectangle_]
+struct Line<WordChild: Rectangle>: Rectangle {
+    typealias WordAlias = Word<WordChild>
+    let wordsRectangles: [WordAlias]
     let gaps: [ClosedRange<CGFloat>]
     
     var frame: CGRect {
@@ -20,12 +21,12 @@ struct Line: Rectangle {
         return wordsRectangles.map { $0.pixelFrame }.compoundFrame
     }
     
-    init(rectangles: [WordRectangle_]) {
+    init(rectangles: [WordAlias]) {
         self.wordsRectangles = rectangles
         self.gaps = Line.gaps(from: rectangles)
     }
     
-    static func gaps(from rectangles: [WordRectangle_]) -> [ClosedRange<CGFloat>] {
+    static func gaps(from rectangles: [WordAlias]) -> [ClosedRange<CGFloat>] {
         var gaps: [ClosedRange<CGFloat>] = []
         for (index, word) in rectangles.enumerated() {
             if index == 0 { gaps.append(0.0...word.frame.minX) }
