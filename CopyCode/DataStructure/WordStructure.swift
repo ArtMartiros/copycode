@@ -8,92 +8,13 @@
 
 import Foundation
 
-func rangeOf<T: Numeric>(one: T, two: T) -> ClosedRange<T> {
-    let minValue = min(one, two)
-    let maxValue = max(one, two)
-    return minValue...maxValue
+protocol ColumnProtocol: Rectangle {
+    var words: [WordRectangle_] { get }
 }
 
-protocol RectangleProtocol {
-    var frame: CGRect { get }
-    var pixelFrame: CGRect { get }
-    func intersectByX(with rectangle: RectangleProtocol) -> Bool
-    func intersectByY(with rectangle: RectangleProtocol) -> Bool
-}
-
-extension RectangleProtocol {
-    func intersectByX(with rectangle: RectangleProtocol) -> Bool {
-        return intersectValue(with: rectangle) { ($0.leftX.rounded(), $0.rightX.rounded()) }
-    }
-    
-    func intersectByY(with rectangle: RectangleProtocol) -> Bool {
-        return intersectValue(with: rectangle) { ($0.topY.rounded(), $0.bottomY.rounded()) }
-    }
-    
-    private func intersectValue(with rectangle: RectangleProtocol, op: (RectangleProtocol) -> (CGFloat, CGFloat)) -> Bool {
-        let (one, two) = op(self)
-        let (newOne, newTwo) = op(rectangle)
-        return rangeOf(one: one, two: two).overlaps(rangeOf(one: newOne, two: newTwo))
-    }
-}
-
-
-extension RectangleProtocol {
-    var pixelLeftX: CGFloat { return pixelFrame.minX }
-    var pixelRightX: CGFloat { return pixelFrame.maxX }
-    var pixelTopY: CGFloat { return pixelFrame.maxY }
-    var pixelBottomY: CGFloat { return pixelFrame.minY }
-}
-
-extension RectangleProtocol {
-    var leftX: CGFloat { return frame.minX }
-    var rightX: CGFloat { return frame.maxX }
-    var topY: CGFloat { return frame.maxY }
-    var bottomY: CGFloat { return frame.minY }
-}
-
-protocol WordRectangleProtocol: RectangleProtocol {
-    var letters: [RectangleProtocol] { get }
-}
-extension WordRectangleProtocol {
-    var symbolsCount: SymbolsCount {
-       return SymbolsCount.symbols(withRatio: frame.ratio)
-    }
-}
-
-extension WordRectangleProtocol {
-    private var ascendingLettersBottomY: [RectangleProtocol] {
-       return letters.sorted { $0.bottomY < $1.bottomY }
-    }
-    
-    private var ascendingLettersHeight: [RectangleProtocol] {
-        return letters.sorted { $0.frame.height <  $1.frame.height }
-    }
-    
-    var lowerY: CGFloat {
-        return ascendingLettersBottomY.first?.bottomY ?? 0
-    }
-    
-    var standartBottomY: CGFloat {
-        return ascendingLettersBottomY.last?.bottomY ?? 0
-    }
-    
-    var maxLetterHeight: CGFloat {
-        return ascendingLettersHeight.last?.frame.height ?? 0
-    }
-    
-    var minLetterHeight: CGFloat {
-        return ascendingLettersHeight.first?.frame.height ?? 0
-    }
-}
-
-protocol ColumnProtocol: RectangleProtocol {
-    var words: [WordRectangleProtocol] { get }
-}
-
-protocol BlockProtocol: RectangleProtocol {
-    var blockWords: [WordRectangleProtocol] { get }
-    init(blockWords: [WordRectangleProtocol], frame: CGRect)
+protocol BlockProtocol: Rectangle {
+    var blockWords: [WordRectangle_] { get }
+    init(blockWords: [WordRectangle_], frame: CGRect)
 }
 
 //MARK: Rectangle
@@ -103,96 +24,34 @@ struct Column: ColumnProtocol {
         return words.map { $0.pixelFrame }.compoundFrame
     }
     
-    let words: [WordRectangleProtocol]
-    init(words: [WordRectangleProtocol], frame: CGRect) {
+    let words: [WordRectangle_]
+    init(words: [WordRectangle_], frame: CGRect) {
         self.words = words
         self.frame = frame
     }
     
-    static func from(_ words: [WordRectangleProtocol]) -> Column {
+    static func from(_ words: [WordRectangle_]) -> Column {
         let frame = words.map { $0.frame }.compoundFrame
         return Column(words: words, frame: frame)
     }
 }
 
-//protocol ColumnProtocol: RectangleProtocol {
-//    var words: [WordRectangleProtocol] { get }
-//    init(words: [WordRectangleProtocol], frame: CGRect)
-//}
-//extension ColumnProtocol {
-//    static func from<T>(_ words: [WordRectangleProtocol]) -> T where T: BlockProtocol {
-//        let frame = words.map { $0.frame }.compoundFrame
-//        return T(words: words, frame: frame)
-//    }
-//}
-//
 struct Block: BlockProtocol {
     
     let frame: CGRect
-    let blockWords: [WordRectangleProtocol]
+    let blockWords: [WordRectangle_]
     
     var pixelFrame: CGRect {
         return blockWords.map { $0.pixelFrame }.compoundFrame
     }
-    init(blockWords words: [WordRectangleProtocol], frame: CGRect) {
+    init(blockWords words: [WordRectangle_], frame: CGRect) {
         self.blockWords = words
         self.frame = frame
     }
     
-    static func from(_ words: [WordRectangleProtocol]) -> Block {
+    static func from(_ words: [WordRectangle_]) -> Block {
         let frame = words.map { $0.frame }.compoundFrame
         return Block(blockWords: words, frame: frame)
-    }
-}
-
-
-struct WordRectangle: WordRectangleProtocol {
-    let frame: CGRect
-    let pixelFrame: CGRect
-    let letters: [RectangleProtocol]
-    init(frame: CGRect, pixelFrame: CGRect, letters: [RectangleProtocol]) {
-        self.frame = frame
-        self.pixelFrame = pixelFrame
-        self.letters = letters
-    }
-    
-    static func from(_ letters: [RectangleProtocol]) -> WordRectangle {
-        let frame = letters.map { $0.frame }.compoundFrame
-        let pixelFrame = letters.map { $0.pixelFrame }.compoundFrame
-        return WordRectangle(frame: frame, pixelFrame: pixelFrame, letters: letters)
-    }
-}
-
-struct LetterRectangle: RectangleProtocol {
-    let frame: CGRect
-    let pixelFrame: CGRect
-}
-
-
-// MARK: Proto
-struct WordRectangleWithType: RectangleProtocol {
-    let frame: CGRect
-    let pixelFrame: CGRect
-    let type: WordType
-    let letters: [LetterRectangleWithType]
-    
-    init(rectangle: RectangleProtocol, type: WordType, letters: [LetterRectangleWithType]) {
-        self.frame = rectangle.frame
-        self.pixelFrame = rectangle.pixelFrame
-        self.type = type
-        self.letters = letters
-    }
-}
-
-struct LetterRectangleWithType: RectangleProtocol {
-    let pixelFrame: CGRect
-    let frame: CGRect
-    let type: LetterType
-    
-    init(rectangle: RectangleProtocol, type: LetterType) {
-        self.frame = rectangle.frame
-        self.pixelFrame = rectangle.pixelFrame
-        self.type = type
     }
 }
 
@@ -201,27 +60,7 @@ protocol ValueProtocol {
     var value: String { get }
 }
 
-struct Word: RectangleProtocol, ValueProtocol {
-    var frame: CGRect { return wordRectangle.frame }
-    var pixelFrame: CGRect { return wordRectangle.pixelFrame }
-    var value: String { return letters.map { $0.value }.joined() }
-    let letters: [Letter]
-    private let wordRectangle: WordRectangleProtocol
-    init(wordRectangle:  WordRectangleProtocol, letters: [Letter]) {
-        self.wordRectangle = wordRectangle
-        self.letters = letters
-    }
-}
 
-struct Letter: RectangleProtocol, ValueProtocol {
-    let frame: CGRect
-    let pixelFrame: CGRect
-    let value: String
-    
-    init(rectangle: RectangleProtocol, value: String) {
-        self.frame = rectangle.frame
-        self.pixelFrame = rectangle.pixelFrame
-        self.value = value
-    }
-}
+
+
 

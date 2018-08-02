@@ -43,8 +43,8 @@ class ProtoWordTests: XCTestCase {
         }
     }
     
-   private var rectangles: [WordRectangleProtocol] {
-        var wordRectangles: [WordRectangleProtocol] = []
+   private var rectangles: [WordRectangle_] {
+        var wordRectangles: [WordRectangle_] = []
         for (index, item) in images.enumerated() {
             let image = NSImage(named: .init(item))!
             wordRectangles.append(contentsOf: getDetectedRectangles(from: image))
@@ -52,8 +52,8 @@ class ProtoWordTests: XCTestCase {
         return wordRectangles
     }
     
-   private func getDetectedRectangles(from image: NSImage) -> [WordRectangleProtocol] {
-        var wordRectangles: [WordRectangleProtocol] = []
+   private func getDetectedRectangles(from image: NSImage) -> [WordRectangle_] {
+        var wordRectangles: [WordRectangle_] = []
         textManager.performRequest(image: image) { (bitmap, rectangles, error) in
             wordRectangles = rectangles
         }

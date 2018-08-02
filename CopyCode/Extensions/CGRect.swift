@@ -21,6 +21,8 @@ extension CGRect {
     ///minY
     var bottomY: CGFloat { return minY }
     var topY: CGFloat { return maxY }
+    var leftX: CGFloat { return minX }
+    var rightX: CGFloat { return maxX }
     var ratio: CGFloat { return height/width  }
     
     /// Принимает значение от 0 до 1 и на основе него ищет точку у frame

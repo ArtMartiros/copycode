@@ -45,7 +45,7 @@ final class LetterRecognizer {
 }
 
 extension LetterRecognizer {
-    convenience init (_ bitmap: NSBitmapImageRep, rectangle: WordRectangleProtocol ) {
+    convenience init (_ bitmap: NSBitmapImageRep, rectangle: WordRectangle_ ) {
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let bgColor = colorFinder.findedBackgroundColor(rectangle)
         self.init(in: bitmap, backgroundWhiteColor: bgColor, letterColorFinder: colorFinder)

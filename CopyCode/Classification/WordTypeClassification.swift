@@ -10,11 +10,11 @@ import Foundation
 let magnitude: CGFloat = 0.06
 let magnitude2: CGFloat = 0.15
 protocol WordTypeClassificationProtocol {
-    func isMix(word: WordRectangleProtocol) -> Bool
+    func isMix(word: WordRectangle_) -> Bool
 }
 
 class WordTypeClassification: WordTypeClassificationProtocol {
-    func isMix(word: WordRectangleProtocol) -> Bool {
+    func isMix(word: WordRectangle_) -> Bool {
         
         let maxLetterHeight = word.maxLetterHeight
         let checker = Checker(height: maxLetterHeight)

@@ -66,6 +66,16 @@
 		AC4CA40521025DE30093D938 /* WordRectangleWithTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AD21020B9800770DBB /* WordRectangleWithTypeConverter.swift */; };
 		AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AF21020D3000770DBB /* WordFactor.swift */; };
 		AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
+		AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
+		AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
+		AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB662112EAC400EE41C6 /* LineCreator.swift */; };
+		AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB662112EAC400EE41C6 /* LineCreator.swift */; };
+		AC71FB6A2112EBCE00EE41C6 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB692112EBCE00EE41C6 /* Letter.swift */; };
+		AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB692112EBCE00EE41C6 /* Letter.swift */; };
+		AC71FB6D2112EC3500EE41C6 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB6C2112EC3500EE41C6 /* Word.swift */; };
+		AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB6C2112EC3500EE41C6 /* Word.swift */; };
+		AC71FB702112EE8B00EE41C6 /* GlobalMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */; };
+		AC71FB712112EE8B00EE41C6 /* GlobalMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */; };
 		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
 		ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
 		ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
@@ -145,6 +155,11 @@
 		AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnCreator.swift; sourceTree = "<group>"; };
 		AC4CA3EF210250980093D938 /* ProtoWordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtoWordTests.swift; sourceTree = "<group>"; };
 		AC4CA409210462510093D938 /* BlockCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreator.swift; sourceTree = "<group>"; };
+		AC71FB622112E79500EE41C6 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		AC71FB662112EAC400EE41C6 /* LineCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCreator.swift; sourceTree = "<group>"; };
+		AC71FB692112EBCE00EE41C6 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
+		AC71FB6C2112EC3500EE41C6 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMethods.swift; sourceTree = "<group>"; };
 		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACF1AC502108BE0B00897732 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		ACF1AC532108F86C00897732 /* TextRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizerManager.swift; sourceTree = "<group>"; };
@@ -204,6 +219,7 @@
 		AC06D84520FF30D000770DBB /* CopyCode */ = {
 			isa = PBXGroup;
 			children = (
+				AC71FB652112EA5200EE41C6 /* Creator */,
 				ACC82E7D2110AF1C002B299E /* Column */,
 				ACF1AC68210C9F2300897732 /* Color */,
 				ACF1AC5B210B17D200897732 /* Converter */,
@@ -219,7 +235,6 @@
 				AC06D89020FF500200770DBB /* ScreenShot.swift */,
 				AC06D89920FF51CF00770DBB /* TextDetection.swift */,
 				AC06D8AF21020D3000770DBB /* WordFactor.swift */,
-				AC4CA409210462510093D938 /* BlockCreator.swift */,
 			);
 			path = CopyCode;
 			sourceTree = "<group>";
@@ -275,6 +290,7 @@
 		AC06D88520FF4EBE00770DBB /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */,
 				AC06D88620FF4ED100770DBB /* Timer.swift */,
 				AC06D88820FF4EEA00770DBB /* LayerCreator.swift */,
 			);
@@ -301,6 +317,15 @@
 			path = Classification;
 			sourceTree = "<group>";
 		};
+		AC71FB652112EA5200EE41C6 /* Creator */ = {
+			isa = PBXGroup;
+			children = (
+				AC4CA409210462510093D938 /* BlockCreator.swift */,
+				AC71FB662112EAC400EE41C6 /* LineCreator.swift */,
+			);
+			path = Creator;
+			sourceTree = "<group>";
+		};
 		ACC82E7D2110AF1C002B299E /* Column */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +341,9 @@
 			children = (
 				AC06D8A021010FEB00770DBB /* WordStructure.swift */,
 				AC06D8A6210207FF00770DBB /* WordType.swift */,
+				AC71FB622112E79500EE41C6 /* Protocol.swift */,
+				AC71FB692112EBCE00EE41C6 /* Letter.swift */,
+				AC71FB6C2112EC3500EE41C6 /* Word.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -481,21 +509,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */,
 				AC06D88920FF4EEA00770DBB /* LayerCreator.swift in Sources */,
 				AC06D8AC21020A9D00770DBB /* WordTypeClassification.swift in Sources */,
 				AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */,
 				ACF1AC5D210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC06D89120FF500200770DBB /* ScreenShot.swift in Sources */,
+				AC71FB6A2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				ACF1AC66210B528100897732 /* Test.swift in Sources */,
 				AC06D89E20FF538300770DBB /* LetterRecognizer.swift in Sources */,
 				AC06D8AA21020A7C00770DBB /* LetterTypeClassification.swift in Sources */,
 				AC06D88F20FF4FB900770DBB /* TreeData.swift in Sources */,
 				AC06D89720FF514700770DBB /* PanelController.swift in Sources */,
 				AC06D89A20FF51CF00770DBB /* TextDetection.swift in Sources */,
+				AC71FB702112EE8B00EE41C6 /* GlobalMethods.swift in Sources */,
 				AC06D88220FF4DCD00770DBB /* NSColor.swift in Sources */,
 				AC06D87620FF4D1E00770DBB /* Double.swift in Sources */,
 				ACF1AC6A210C9F4800897732 /* ColorPicker.swift in Sources */,
 				AC06D88020FF4DB900770DBB /* NSBitmapImageRep.swift in Sources */,
+				AC71FB6D2112EC3500EE41C6 /* Word.swift in Sources */,
 				ACF1AC542108F86C00897732 /* TextRecognizerManager.swift in Sources */,
 				AC06D8AE21020B9800770DBB /* WordRectangleWithTypeConverter.swift in Sources */,
 				AC06D89420FF504900770DBB /* Panel.swift in Sources */,
@@ -512,6 +544,7 @@
 				AC2B7010210CF6B7008743C9 /* LetterColorChecker.swift in Sources */,
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
+				AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */,
 				ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */,
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
@@ -524,21 +557,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */,
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA3F0210250980093D938 /* ProtoWordTests.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
 				AC4CA3F921025DDF0093D938 /* CGRect.swift in Sources */,
 				AC4CA40521025DE30093D938 /* WordRectangleWithTypeConverter.swift in Sources */,
+				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				ACF1AC67210B528100897732 /* Test.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
 				AC2B7011210CF6B7008743C9 /* LetterColorChecker.swift in Sources */,
 				AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */,
+				AC71FB712112EE8B00EE41C6 /* GlobalMethods.swift in Sources */,
 				ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */,
 				AC4CA3F221025DCA0093D938 /* WordTypeClassification.swift in Sources */,
 				AC4CA3FE21025DE30093D938 /* Tree.swift in Sources */,
 				ACF1AC64210B30A400897732 /* DigitColumnMerger.swift in Sources */,
+				AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */,
 				AC4CA3F121025DCA0093D938 /* LetterTypeClassification.swift in Sources */,
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
 				AC4CA40121025DE30093D938 /* TextDetection.swift in Sources */,
@@ -555,6 +592,7 @@
 				AC4CA3FC21025DDF0093D938 /* CGPoint.swift in Sources */,
 				ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
+				AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC4CA3FD21025DDF0093D938 /* VNRectangleObservation.swift in Sources */,
 				AC4CA3FA21025DDF0093D938 /* NSBitmapImageRep.swift in Sources */,
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,

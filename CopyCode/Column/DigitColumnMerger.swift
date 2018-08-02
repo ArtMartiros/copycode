@@ -12,7 +12,7 @@ import Foundation
 /// Может понадобиться в случае, когда отличается количество цифр допустим сотни и тысячи
 final class DigitColumnMerger {
     func mergeSameColumn(_ things: [ColumnProtocol]) -> [ColumnProtocol] {
-        let sortedThings = things.sorted { $0.leftX < $1.leftX }
+        let sortedThings = things.sorted { $0.frame.leftX < $1.frame.leftX }
         //С одинаковым количеством цифр, но со смещением в пиксель
 //        let mergedColumns = Merger.merge(sortedThings, valueToCheck: { $0.rightX })
         //соединить если с разной разрядностью
@@ -21,7 +21,7 @@ final class DigitColumnMerger {
 }
 
 final class Merger {
-   static func merge<R>(_ rectangles: [R], valueToCheck:(R) -> CGFloat ) -> [[R]] where R: RectangleProtocol {
+   static func merge<R>(_ rectangles: [R], valueToCheck:(R) -> CGFloat ) -> [[R]] where R: Rectangle {
         let checker = Checker(height: 20)
         var value: CGFloat = 0
         var arrayOfRectangles: [[R]] = []

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol BlockCreatorProtocol {
-    func create(from rectangles: [WordRectangleProtocol]) -> [BlockProtocol]
+    func create(from rectangles: [WordRectangle_]) -> [BlockProtocol]
 }
 
 final class BlockCreator: BlockCreatorProtocol {
@@ -18,17 +18,14 @@ final class BlockCreator: BlockCreatorProtocol {
         self.columnCreator = columnCreator
     }
     
-
-    func create(from rectangles: [WordRectangleProtocol]) -> [BlockProtocol] {
+    func create(from rectangles: [WordRectangle_]) -> [BlockProtocol] {
         let (columns, blockRectangles) = columnCreator.create(from: rectangles)
         return  getBlocks(from: blockRectangles, by: columns )
     }
     
-    private func getBlocks(from words: [WordRectangleProtocol], by columns: [ColumnProtocol] ) -> [Block] {
-        let columns = columns.sorted { $0.leftX < $1.leftX }
-        var blockDictionary: [Int:[WordRectangleProtocol]] = [:]
-        //FIXME это лишние фразы
-        var shitWords: [WordRectangleProtocol] = []
+    private func getBlocks(from words: [WordRectangle_], by columns: [ColumnProtocol] ) -> [Block] {
+        let columns = columns.sorted { $0.frame.leftX < $1.frame.leftX }
+        var blockDictionary: [Int:[WordRectangle_]] = [:]
         var startIndex = 0
         for (columnIndex, column) in columns.enumerated() {
             guard startIndex < words.count else { break }
@@ -38,10 +35,10 @@ final class BlockCreator: BlockCreatorProtocol {
                 if isInside(word, in: column) {
                     if columns.count > nextIndex {
                         let nextColumn = columns[nextIndex]
-                        if word.leftX > nextColumn.rightX {
+                        if word.frame.leftX > nextColumn.frame.rightX {
                             startIndex = index
                             break
-                        } else if word.rightX > nextColumn.leftX  {
+                        } else if word.frame.rightX > nextColumn.frame.leftX  {
                             continue
                         }
                     }
@@ -54,15 +51,15 @@ final class BlockCreator: BlockCreatorProtocol {
         return Array(blockDictionary.values).map { Block.from($0) }
     }
     
-    func isInside(_  word: WordRectangleProtocol, in column: ColumnProtocol) -> Bool {
-        return word.leftX > column.rightX && word.bottomY < column.topY
+    func isInside(_  word: WordRectangle_, in column: ColumnProtocol) -> Bool {
+        return word.frame.leftX > column.frame.rightX && word.frame.bottomY < column.frame.topY
     }
 }
 
 
 
 struct Line {
-    let wordsRectangles: [WordRectangleProtocol]
+    let wordsRectangles: [WordRectangle_]
     let gaps: [ClosedRange<CGFloat>]
     
     var frame: CGRect {
@@ -73,12 +70,12 @@ struct Line {
         return wordsRectangles.map { $0.pixelFrame }.compoundFrame
     }
     
-    init(rectangles: [WordRectangleProtocol]) {
+    init(rectangles: [WordRectangle_]) {
         self.wordsRectangles = rectangles
         self.gaps = Line.gaps(from: rectangles)
     }
     
-    static func gaps(from rectangles: [WordRectangleProtocol]) -> [ClosedRange<CGFloat>] {
+    static func gaps(from rectangles: [WordRectangle_]) -> [ClosedRange<CGFloat>] {
         var gaps: [ClosedRange<CGFloat>] = []
         for (index, word) in rectangles.enumerated() {
             if index == 0 { gaps.append(0.0...word.frame.minX) }
@@ -92,29 +89,6 @@ struct Line {
         }
         return gaps
     }
-    
 }
 
-protocol LineChecker_ {
-    func same(_ first: RectangleProtocol, with second: RectangleProtocol) -> Bool
-}
 
-struct LineChecker: LineChecker_ {
-    func same(_ first: RectangleProtocol, with second: RectangleProtocol) -> Bool {
-        return first.intersectByY(with: second)
-    }
-}
-
-final class LineCreator {
-    let checker: LineChecker
-    init(checker: LineChecker) {
-        self.checker = checker
-    }
-    
-    func create(from rectangles: [WordRectangle] ) ->  [Line] {
-        let rectanglesSortebByY = rectangles.sorted { $0.frame.bottomY < $1.frame.bottomY }
-        let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
-        let sortedLines = lines.map { Line(rectangles: $0.sorted { $0.frame.minX < $1.frame.minX  }) }
-        return sortedLines
-    }
-}
