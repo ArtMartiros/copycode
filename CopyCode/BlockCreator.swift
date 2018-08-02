@@ -95,47 +95,26 @@ struct Line {
     
 }
 
+protocol LineChecker_ {
+    func same(_ first: RectangleProtocol, with second: RectangleProtocol) -> Bool
+}
+
+struct LineChecker: LineChecker_ {
+    func same(_ first: RectangleProtocol, with second: RectangleProtocol) -> Bool {
+        return first.intersectByY(with: second)
+    }
+}
 
 final class LineCreator {
-    private let rectangles: [WordRectangleProtocol]
-    init(rectangles: [WordRectangleProtocol]) {
-        self.rectangles = rectangles
+    let checker: LineChecker
+    init(checker: LineChecker) {
+        self.checker = checker
     }
     
-    func create() ->  [Line] {
-        //сортировка
+    func create(from rectangles: [WordRectangle] ) ->  [Line] {
         let rectanglesSortebByY = rectangles.sorted { $0.frame.bottomY < $1.frame.bottomY }
-        return getLines(from: rectanglesSortebByY)
-    }
-    
-   private func getLines(from rectangles: [WordRectangleProtocol] ) -> [Line] {
-//        Merger.merge(rectangles, valueToCheck: { $0.bottomY } )
-        let checker = Checker(height: 20)
-        var value: CGFloat = 0
-        var lines: [[WordRectangleProtocol]] = []
-        var words: [WordRectangleProtocol] = []
-        for each in rectangles {
-            if checker.isSame(first: value, with: each.bottomY) {
-                words.append(each)
-            } else {
-                value = each.bottomY
-                lines.append(words)
-                words = [each]
-            }
-        }
-    
-
-        lines.append(words)
+        let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
         let sortedLines = lines.map { Line(rectangles: $0.sorted { $0.frame.minX < $1.frame.minX  }) }
-    for (index, item) in sortedLines.enumerated() {
-//        print("Line frame \(item.frame)")
-//        item.wordsRectangles.forEach {
-//            print("Line number: \(index), frame: \($0.frame)")
-//        }
-//        print("\n\n")
-    }
         return sortedLines
     }
-    
-    
 }

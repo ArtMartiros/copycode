@@ -58,8 +58,8 @@ final class TextRecognizerManager {
             let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "wordsRectangles")
             self.rectanglesConverter.convert(wordsRectangles)
-            let lines = LineCreator(rectangles: wordsRectangles).create()
-            completion(bitmap, lines, error)
+//            let lines = LineCreator(rectangles: wordsRectangles).create()
+            completion(bitmap, [], error)
             image.unlockFocus()
         }
     }

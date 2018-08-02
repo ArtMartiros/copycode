@@ -8,10 +8,35 @@
 
 import Foundation
 
+func rangeOf<T: Numeric>(one: T, two: T) -> ClosedRange<T> {
+    let minValue = min(one, two)
+    let maxValue = max(one, two)
+    return minValue...maxValue
+}
+
 protocol RectangleProtocol {
     var frame: CGRect { get }
     var pixelFrame: CGRect { get }
+    func intersectByX(with rectangle: RectangleProtocol) -> Bool
+    func intersectByY(with rectangle: RectangleProtocol) -> Bool
 }
+
+extension RectangleProtocol {
+    func intersectByX(with rectangle: RectangleProtocol) -> Bool {
+        return intersectValue(with: rectangle) { ($0.leftX.rounded(), $0.rightX.rounded()) }
+    }
+    
+    func intersectByY(with rectangle: RectangleProtocol) -> Bool {
+        return intersectValue(with: rectangle) { ($0.topY.rounded(), $0.bottomY.rounded()) }
+    }
+    
+    private func intersectValue(with rectangle: RectangleProtocol, op: (RectangleProtocol) -> (CGFloat, CGFloat)) -> Bool {
+        let (one, two) = op(self)
+        let (newOne, newTwo) = op(rectangle)
+        return rangeOf(one: one, two: two).overlaps(rangeOf(one: newOne, two: newTwo))
+    }
+}
+
 
 extension RectangleProtocol {
     var pixelLeftX: CGFloat { return pixelFrame.minX }

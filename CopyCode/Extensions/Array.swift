@@ -32,22 +32,6 @@ extension Array where Element == WordRectangleProtocol {
     }
 }
 
-//extension Array where Element == RectangleProtocol {
-//    var frame: CGRect {
-//        return map { $0.frame }.compoundFrame
-//    }
-//    var pixelFrame: CGRect {
-//        return map { $0.pixelFrame }.compoundFrame
-//    }
-////    var frame: CGRect {
-////        guard let frame = first?.frame else { return .zero }
-////        let wigth = last!.frame.maxX - frame.bL.x
-////        let height = frame.topY - frame.bottomY
-////        let size = CGSize(width: wigth, height: height)
-////        return CGRect(origin: frame.bL, size: size)
-////    }
-//}
-
 extension Array where Element == CGRect {
     var compoundFrame: CGRect {
         guard !isEmpty else { return .zero }
@@ -58,5 +42,31 @@ extension Array where Element == CGRect {
         let width = maxX - minX
         let height = maxY - minY
         return CGRect(x: minX, y: minY, width: width, height: height)
+    }
+}
+
+extension Array {
+    func chunkForSorted(_ action: (Element, Element) -> Bool ) -> [[Element]] {
+        var chunk: [Element] = []
+        var chunks: [[Element]] = []
+        
+        for (index, item) in self.enumerated() {
+            if index == 0 {
+                chunk.append(item)
+                continue
+            }
+            
+            let previousItem = self[index - 1]
+            if action(item, previousItem) {
+                chunk.append(item)
+            } else {
+                chunks.append(chunk)
+                chunk = [item]
+            }
+        }
+        if !chunk.isEmpty {
+            chunks.append(chunk)
+        }
+        return chunks
     }
 }
