@@ -6,9 +6,23 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
-protocol Rectangle {
+protocol Layerable {
+    var frame: CGRect { get }
+    func layer(_ color: NSColor, width: CGFloat) -> CALayer
+}
+extension Layerable {
+    func layer(_ color: NSColor, width: CGFloat = 1) -> CALayer {
+        let outline = CALayer()
+        outline.frame = frame
+        outline.borderWidth = width
+        outline.borderColor = color.cgColor
+        return outline
+    }
+}
+
+protocol Rectangle: Layerable {
     var frame: CGRect { get }
     var pixelFrame: CGRect { get }
     func intersectByX(with rectangle: Rectangle) -> Bool
@@ -72,8 +86,7 @@ protocol ColumnProtocol: Rectangle {
 }
 
 protocol BlockProtocol: Rectangle {
-    var blockWords: [WordRectangle_] { get }
-    init(blockWords: [WordRectangle_], frame: CGRect)
+    var lines: [Line] { get }
 }
 
 protocol ValueProtocol {

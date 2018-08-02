@@ -22,7 +22,6 @@
 		AC06D88220FF4DCD00770DBB /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88120FF4DCD00770DBB /* NSColor.swift */; };
 		AC06D88420FF4DE300770DBB /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88320FF4DE300770DBB /* CGPoint.swift */; };
 		AC06D88720FF4ED100770DBB /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88620FF4ED100770DBB /* Timer.swift */; };
-		AC06D88920FF4EEA00770DBB /* LayerCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88820FF4EEA00770DBB /* LayerCreator.swift */; };
 		AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88A20FF4F0C00770DBB /* Tree.swift */; };
 		AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88C20FF4F7400770DBB /* VNRectangleObservation.swift */; };
 		AC06D88F20FF4FB900770DBB /* TreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88E20FF4FB900770DBB /* TreeData.swift */; };
@@ -45,7 +44,6 @@
 		AC4CA3F121025DCA0093D938 /* LetterTypeClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8A921020A7C00770DBB /* LetterTypeClassification.swift */; };
 		AC4CA3F221025DCA0093D938 /* WordTypeClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AB21020A9D00770DBB /* WordTypeClassification.swift */; };
 		AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88620FF4ED100770DBB /* Timer.swift */; };
-		AC4CA3F421025DDA0093D938 /* LayerCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88820FF4EEA00770DBB /* LayerCreator.swift */; };
 		AC4CA3F521025DDF0093D938 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D87520FF4D1E00770DBB /* Double.swift */; };
 		AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D87720FF4D3900770DBB /* NSImage.swift */; };
 		AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D87920FF4D7200770DBB /* Thread.swift */; };
@@ -139,7 +137,6 @@
 		AC06D88120FF4DCD00770DBB /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		AC06D88320FF4DE300770DBB /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		AC06D88620FF4ED100770DBB /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
-		AC06D88820FF4EEA00770DBB /* LayerCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerCreator.swift; sourceTree = "<group>"; };
 		AC06D88A20FF4F0C00770DBB /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		AC06D88C20FF4F7400770DBB /* VNRectangleObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VNRectangleObservation.swift; sourceTree = "<group>"; };
 		AC06D88E20FF4FB900770DBB /* TreeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeData.swift; sourceTree = "<group>"; };
@@ -298,7 +295,6 @@
 			children = (
 				AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */,
 				AC06D88620FF4ED100770DBB /* Timer.swift */,
-				AC06D88820FF4EEA00770DBB /* LayerCreator.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -518,7 +514,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */,
-				AC06D88920FF4EEA00770DBB /* LayerCreator.swift in Sources */,
 				AC06D8AC21020A9D00770DBB /* WordTypeClassification.swift in Sources */,
 				AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */,
 				ACF1AC5D210B180700897732 /* RectangleConverter.swift in Sources */,
@@ -595,7 +590,6 @@
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
 				AC365FC62110AF7B00764834 /* DigitColumnCreator.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
-				AC4CA3F421025DDA0093D938 /* LayerCreator.swift in Sources */,
 				AC06D85A20FF30D100770DBB /* LetterTests.swift in Sources */,
 				ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,

@@ -30,12 +30,13 @@ final class TextRecognizerManager {
             Timer.stop(text: "textDetection.performRequest")
             image.lockFocus()
             let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
+            image.unlockFocus()
             let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "wordsRectangles")
 //            BlockCreator(rectangles: wordsRectangles, in: bitmap).test()
             Timer.stop(text: "BlockCreator")
             completion(bitmap, wordsRectangles, error)
-            image.unlockFocus()
+            
         }
     }
     

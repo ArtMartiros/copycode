@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Line {
+struct Line: Rectangle {
     let wordsRectangles: [WordRectangle_]
     let gaps: [ClosedRange<CGFloat>]
     

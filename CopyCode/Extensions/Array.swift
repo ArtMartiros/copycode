@@ -45,6 +45,12 @@ extension Array where Element == CGRect {
     }
 }
 
+extension Array where Element: Layerable {
+    func layers(_ color: NSColor, width: CGFloat = 1) -> [CALayer] {
+        return map { $0.layer(color, width: width) }
+    }
+}
+
 extension Array {
     func chunkForSorted(_ action: (Element, Element) -> Bool ) -> [[Element]] {
         var chunk: [Element] = []

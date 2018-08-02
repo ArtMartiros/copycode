@@ -78,8 +78,7 @@ class PanelController: NSWindowController {
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
         textDetection.performRequest(image: image) { (bitmap, words, error) in
-            let layerCreator = LayerCreator()
-            
+            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
 
             let recognizer = WordRecognizer(in: bitmap)
             let columnDetectioin = DigitColumnDetection(recognizer: recognizer)
@@ -88,17 +87,23 @@ class PanelController: NSWindowController {
             //------------blocks--------------
             let creator = BlockCreator(columnCreator: columnCreator)
             let blocks = creator.create(from: words)
-            let frames = blocks.map { $0.frame }
-            let layers = layerCreator.layerForFrame(width: 1, color: NSColor.blue, frames: frames)
-//            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+            let layers = blocks.layers(.blue)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             
-            //------------words--------------
-            let wordsFrames = blocks[0].blockWords.map { $0.frame }
-            let wordsLayers = layerCreator.layerForFrame(width: 1, color: NSColor.purple, frames: wordsFrames)
+            //------------Lines--------------
+             let lines = blocks.reduce([Line]()) { $0 + $1.lines }
+//             let lineLayers = lines.layers(.blue)
+//            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+            //------------Words--------------
+            let words = lines.reduce([WordRectangle_]()) { $0 + $1.wordsRectangles }
+            let wordsLayers = words.map { $0.layer(.green, width: 1) }
             wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
+            let chars = words.reduce([LetterRectangle]()) { $0 + $1.letters }
+            let charLayers = chars.map { $0.layer(.red, width: 0.5) }
+            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------
 //            var charFrames: [CGRect] = []
 //            for word in words {

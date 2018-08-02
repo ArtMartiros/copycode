@@ -9,7 +9,7 @@
 import Foundation
 
 protocol BlockCreatorProtocol {
-    func create(from rectangles: [WordRectangle_]) -> [BlockProtocol]
+    func create(from rectangles: [WordRectangle_]) -> [Block]
 }
 
 final class BlockCreator: BlockCreatorProtocol {
@@ -18,12 +18,15 @@ final class BlockCreator: BlockCreatorProtocol {
         self.columnCreator = columnCreator
     }
     
-    func create(from rectangles: [WordRectangle_]) -> [BlockProtocol] {
+    func create(from rectangles: [WordRectangle_]) -> [Block] {
         let (columns, blockRectangles) = columnCreator.create(from: rectangles)
-        return  getBlocks(from: blockRectangles, by: columns )
+        let blockWords = getBlocks(from: blockRectangles, by: columns )
+        let creator = LineCreator()
+        let lines = blockWords.map { creator.create(from: $0) }
+        return lines.map { Block.from($0) }
     }
     
-    private func getBlocks(from words: [WordRectangle_], by columns: [ColumnProtocol] ) -> [Block] {
+    private func getBlocks(from words: [WordRectangle_], by columns: [ColumnProtocol] ) -> [[WordRectangle_]] {
         let columns = columns.sorted { $0.frame.leftX < $1.frame.leftX }
         var blockDictionary: [Int:[WordRectangle_]] = [:]
         var startIndex = 0
@@ -48,10 +51,10 @@ final class BlockCreator: BlockCreatorProtocol {
                 startIndex = index + 1
             }
         }
-        return Array(blockDictionary.values).map { Block.from($0) }
+        return Array(blockDictionary.values)
     }
     
-    func isInside(_  word: WordRectangle_, in column: ColumnProtocol) -> Bool {
+   private func isInside(_  word: WordRectangle_, in column: ColumnProtocol) -> Bool {
         return word.frame.leftX > column.frame.rightX && word.frame.bottomY < column.frame.topY
     }
 }

@@ -11,18 +11,17 @@ import Foundation
 struct Block: BlockProtocol {
     
     let frame: CGRect
-    let blockWords: [WordRectangle_]
-    
+    let lines: [Line] 
     var pixelFrame: CGRect {
-        return blockWords.map { $0.pixelFrame }.compoundFrame
+        return lines.map { $0.pixelFrame }.compoundFrame
     }
-    init(blockWords words: [WordRectangle_], frame: CGRect) {
-        self.blockWords = words
+    init(lines: [Line], frame: CGRect) {
+        self.lines = lines
         self.frame = frame
     }
     
-    static func from(_ words: [WordRectangle_]) -> Block {
-        let frame = words.map { $0.frame }.compoundFrame
-        return Block(blockWords: words, frame: frame)
+    static func from(_ lines: [Line]) -> Block {
+        let frame = lines.map { $0.frame }.compoundFrame
+        return Block(lines: lines, frame: frame)
     }
 }
