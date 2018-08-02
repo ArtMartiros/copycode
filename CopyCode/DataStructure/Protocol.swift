@@ -67,4 +67,15 @@ extension WordRectangle_ {
     }
 }
 
+protocol ColumnProtocol: Rectangle {
+    var words: [WordRectangle_] { get }
+}
 
+protocol BlockProtocol: Rectangle {
+    var blockWords: [WordRectangle_] { get }
+    init(blockWords: [WordRectangle_], frame: CGRect)
+}
+
+protocol ValueProtocol {
+    var value: String { get }
+}
