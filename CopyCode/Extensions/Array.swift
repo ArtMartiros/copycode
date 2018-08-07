@@ -31,7 +31,6 @@ extension Array where Element == Word<LetterRectangle> {
         return first { !classification.isMix(word: $0) } == nil
     }
 }
-
 extension Array where Element == CGRect {
     var compoundFrame: CGRect {
         guard !isEmpty else { return .zero }

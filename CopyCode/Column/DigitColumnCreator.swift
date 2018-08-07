@@ -48,7 +48,7 @@ final class DigitColumnCreator<WordChild:Rectangle> {
             var words = columnsWords[i]
             let word = words[0]
             let x = Int(word.frame.leftX.rounded())
-            let number = word.symbolsCount.hashValue
+            let number = word.symbolsCount.rawValue + 1
             update(&dictionary, columnWords: &words, blockRectangles: &blockRectangles, key: x + 1, number: number)
             update(&dictionary, columnWords: &words, blockRectangles: &blockRectangles, key: x - 1, number: number)
             columnsWords[i] = words

@@ -133,7 +133,7 @@ enum SymbolsCount: Int {
     static let threeSymbolRatio: CGFloat = 0.45
 //    static let fourSymbolRatio: CGFloat = 0.2
     
-    case one = 1, two, three, many
+    case one = 1, two = 2, three = 3, many = 4
     
     static func symbols(withRatio ratio: CGFloat) -> SymbolsCount {
         switch ratio {

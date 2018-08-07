@@ -102,7 +102,7 @@ class PanelController: NSWindowController {
             wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             let chars = words.reduce([LetterRectangle]()) { $0 + $1.letters }
-            let charLayers = chars.map { $0.layer(.red, width: 0.5) }
+            let charLayers = chars.map { $0.layer(.blue, width: 0.5) }
             charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------
 //            var charFrames: [CGRect] = []

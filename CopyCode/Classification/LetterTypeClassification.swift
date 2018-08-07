@@ -22,6 +22,7 @@ class LetterTypeClassification {
         self.letterFrame = letterFrame
     }
     
+
     var type: LetterType {
         //Высота должна быть самая маленькая, тогда значит, что это будет прописная буква
         //если есть хвостик, то автоматически высота будет отличаться

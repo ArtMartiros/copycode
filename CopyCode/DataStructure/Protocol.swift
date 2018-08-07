@@ -27,7 +27,9 @@ protocol Rectangle: Layerable {
     var pixelFrame: CGRect { get }
     func intersectByX(with rectangle: Rectangle) -> Bool
     func intersectByY(with rectangle: Rectangle) -> Bool
+
 }
+
 
 extension Rectangle {
     func intersectByX(with rectangle: Rectangle) -> Bool {
@@ -45,10 +47,6 @@ extension Rectangle {
     }
 }
 
-protocol WordRectangle_: Rectangle {
-    var letters: [Rectangle] { get }
-}
-
 extension Container {
     var symbolsCount: SymbolsCount {
         return SymbolsCount.symbols(withRatio: frame.ratio)
@@ -60,57 +58,40 @@ extension Container {
         return letters.sorted { $0.frame.bottomY < $1.frame.bottomY }
     }
     
-    private var ascendingLettersHeight: [Rectangle] {
+    var lettersAscendingByHeight: [Rectangle] {
         return letters.sorted { $0.frame.height <  $1.frame.height }
+    }
+
+    var letterWithMaxHeight: Rectangle? {
+       return lettersAscendingByHeight.last
+    }
+    
+    var letterWithMinHeight: Rectangle? {
+        return lettersAscendingByHeight.first
+    }
+    
+    var letterLowerY: Rectangle? {
+        return ascendingLettersBottomY.first
+    }
+    
+    var letterHigherY: Rectangle? {
+        return ascendingLettersBottomY.last
+    }
+    
+    
+    var maxLetterHeight: CGFloat {
+        return lettersAscendingByHeight.last?.frame.height ?? 0
+    }
+    
+    var minLetterHeight: CGFloat {
+        return lettersAscendingByHeight.first?.frame.height ?? 0
     }
     
     var lowerY: CGFloat {
         return ascendingLettersBottomY.first?.frame.bottomY ?? 0
     }
-    
-    var standartBottomY: CGFloat {
-        return ascendingLettersBottomY.last?.frame.bottomY ?? 0
-    }
-    
-    var maxLetterHeight: CGFloat {
-        return ascendingLettersHeight.last?.frame.height ?? 0
-    }
-    
-    var minLetterHeight: CGFloat {
-        return ascendingLettersHeight.first?.frame.height ?? 0
-    }
-}
 
-extension WordRectangle_ {
-    var symbolsCount: SymbolsCount {
-        return SymbolsCount.symbols(withRatio: frame.ratio)
-    }
-}
-
-extension WordRectangle_ {
-    private var ascendingLettersBottomY: [Rectangle] {
-        return letters.sorted { $0.frame.bottomY < $1.frame.bottomY }
-    }
     
-    private var ascendingLettersHeight: [Rectangle] {
-        return letters.sorted { $0.frame.height <  $1.frame.height }
-    }
-    
-    var lowerY: CGFloat {
-        return ascendingLettersBottomY.first?.frame.bottomY ?? 0
-    }
-    
-    var standartBottomY: CGFloat {
-        return ascendingLettersBottomY.last?.frame.bottomY ?? 0
-    }
-    
-    var maxLetterHeight: CGFloat {
-        return ascendingLettersHeight.last?.frame.height ?? 0
-    }
-    
-    var minLetterHeight: CGFloat {
-        return ascendingLettersHeight.first?.frame.height ?? 0
-    }
 }
 
 protocol ColumnProtocol: Rectangle {

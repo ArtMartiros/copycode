@@ -8,10 +8,27 @@
 
 import Foundation
 
-struct LetterRectangle: Rectangle {
+struct LetterRectangle: Rectangle, Hashable {
     let frame: CGRect
     let pixelFrame: CGRect
+    
+    init(rect: Rectangle) {
+        self.frame = rect.frame
+        self.pixelFrame = rect.pixelFrame
+    }
+    
+    init(frame: CGRect, pixelFrame: CGRect) {
+        self.frame = frame
+        self.pixelFrame = pixelFrame
+    }
+    
+    public var hashValue: Int {
+        return frame.width.hashValue ^ frame.height.hashValue ^ frame.origin.x.hashValue ^ frame.origin.y.hashValue
+    }
+    
 }
+
+
 
 struct LetterRectangleWithType: Rectangle {
     let pixelFrame: CGRect

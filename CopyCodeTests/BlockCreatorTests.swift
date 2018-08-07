@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import CopyCode
 
 class BlockCreatorTests: XCTestCase {
     let textManager = TextRecognizerManager()
@@ -35,8 +34,8 @@ class BlockCreatorTests: XCTestCase {
                 //                XCTAssertTrue(number != nil, "❌ expect number, instead \(word.value)")
                 let letterRecognizer = LetterRecognizer(bitmap, rectangle: result)
                 for letter in result.letters {
-                    let char = letterRecognizer.recognize(from: letter as! LetterRectangle, with: .upper)
-                    print("🔔:" + char.value)
+//                    let char = letterRecognizer.recognize(from: letter.pixelFrame, with: .upper)
+//                    print("🔔:" + char)
                     
                     let _ = 1
                 }

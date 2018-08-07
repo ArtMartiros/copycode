@@ -7,43 +7,25 @@
 //
 
 import Foundation
-let magnitude: CGFloat = 0.06
-let magnitude2: CGFloat = 0.15
+
 protocol WordTypeClassificationProtocol {
     func isMix(word: Word<LetterRectangle>) -> Bool
 }
 
 class WordTypeClassification: WordTypeClassificationProtocol {
+    //Этот вариант лучше но надо будет его прописать
+    func isMix(wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> Bool {
+        return true
+    }
     func isMix(word: Word<LetterRectangle>) -> Bool {
-        
         let maxLetterHeight = word.maxLetterHeight
         let checker = Checker(height: maxLetterHeight)
-        let lowerY = word.lowerY
-        let isMixed = word.letters.first {
-            !checker.isSame(first: maxLetterHeight, with: $0.frame.height)
-//                || checker.differentBottomY(maxHeight: maxLetterHeight, wordLowerY: lowerY, letterY: $0.frame.bottomY)
+//        print("WordTypeClassification isMix start")
+        let isMixed = word.letters.first { !checker.isSameHeight(first: maxLetterHeight,
+                                                           with: $0.frame.height,
+                                                           accuracy: 1.24)
             } != nil
+//        print("WordTypeClassification isMix stop \(isMixed)")
         return isMixed
-    }
-    
-}
-
-class Checker {
-    private let height: CGFloat
-    
-    init(height: CGFloat) {
-        self.height = height
-    }
-    
-    func isSame(first: CGFloat, with second: CGFloat) -> Bool {
-        let diff = abs(first - second)
-        let different = (diff / height) > magnitude
-        return !different
-    }
-    
-    func isSame2(first: CGFloat, with second: CGFloat) -> Bool {
-        let diff = abs(first - second)
-        let different = (diff / height) > magnitude2
-        return !different
     }
 }

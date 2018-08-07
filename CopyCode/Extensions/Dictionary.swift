@@ -15,3 +15,16 @@ extension Dictionary where Value: RangeReplaceableCollection {
         self[key] = value
     }
 }
+
+extension Dictionary where Key: Comparable, Key: Hashable {
+    func valuesSortedByKeys() -> [Value] {
+        let keys = self.keys.sorted()
+        return keys.compactMap { self[$0] }
+    }
+}
+extension Dictionary {
+    func valuesSorted(byKey areInIncreasingOrder: (Key, Key) -> Bool) -> [Value] {
+        let keys = self.keys.sorted(by: areInIncreasingOrder)
+        return keys.compactMap { self[$0] }
+    }
+}

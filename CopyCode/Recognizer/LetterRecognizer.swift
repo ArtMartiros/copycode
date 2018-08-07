@@ -21,18 +21,19 @@ final class LetterRecognizer {
    
     func recognize(from frame: CGRect, with type: LetterType) -> String {
         let checker = colorChecker(from: frame)
-        switch type {
-        case .upper: return upperTree.find(checker, with: frame)!
-        case .low: return lowTree.find(checker, with: frame)!
-        case .lowWithTail: return lowWithTailTree.find(checker, with: frame)!
-        default: return "*"
-        }
+        return type.treeOCR.find(checker, with: frame) ?? "*"
     }
     
-    func recognize(from rectangle: LetterRectangle, with type: LetterType) -> Letter {
-        let letterValue = recognize(from: rectangle.pixelFrame, with: type)
-        return Letter(rectangle: rectangle, value: letterValue)
+    /// Метод нужен когда необходимо использовать кастомное древо
+    func recognize(from frame: CGRect, with treeOCR: TreeOCR) -> String {
+        let checker = colorChecker(from: frame)
+        return treeOCR.find(checker, with: frame) ?? "*"
     }
+    
+//    func recognize(from rectangle: LetterRectangle, with type: LetterType) -> Letter {
+//        let letterValue = recognize(from: rectangle.pixelFrame, with: type)
+//        return Letter(rectangle: rectangle, value: letterValue)
+//    }
     
     private func colorChecker(from frame: CGRect) -> LetterColorChecker {
         let whiteRate = WordFactor(frame: frame).whiteRate

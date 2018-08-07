@@ -15,6 +15,7 @@ final class LetterColorChecker {
         case or
         case and
         case allFalse
+        case someFalse
     }
     
     private let bitmap: NSBitmapImageRep
@@ -69,6 +70,7 @@ final class LetterColorChecker {
         case .or: return pointPairs.first { exist(at: $0.0, in: frame) == exist(at: $0.1, in: frame) } != nil
         case .and: return pointPairs.first { exist(at: $0.0, in: frame) != exist(at: $0.1, in: frame) } == nil
         case .allFalse: return pointPairs.first { exist(at: $0.0, in: frame) == exist(at: $0.1, in: frame) } == nil
+        case .someFalse: return pointPairs.first { !exist(at: $0.0, in: frame) == !exist(at: $0.1, in: frame) } != nil
         }
     }
     
@@ -87,6 +89,8 @@ final class LetterColorChecker {
         case .or:  return points.first { exist(at: $0, in: frame) } != nil
         case .and: return points.first { !exist(at: $0, in: frame) } == nil
         case .allFalse: return points.first { exist(at: $0, in: frame) } == nil
+        case .someFalse: return points.first { !exist(at: $0, in: frame) } != nil
+            
         }
     }
 }

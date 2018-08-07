@@ -39,15 +39,20 @@ extension WordType.SameType {
         case .upper: self = .allUpper
         case .undefined: self = .undefined
         case .lowWithTail: self = .allLowWithTail
-            
+        default: self = .allLower
         }
     }
 }
 
-enum LetterType: String {
+enum LetterType: String, Codable {
     case upper
     case low
     case lowWithTail
+    case dot
+    case underscore
+    case dashOrHyphen
+    case colon
+    case quote
     case undefined
 }
 
@@ -69,5 +74,6 @@ extension LetterType {
         }
     }
 }
+
 
 

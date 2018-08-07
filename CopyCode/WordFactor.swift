@@ -42,10 +42,10 @@ final class WordFactor {
     
     var whiteRate: UInt {
         switch baseRatio {
-        case let x where x > 0 && x < 1:  return 75
-        case let x where x > 1 && x < 3:  return 70
-        case let x where x >= 3: return 50
-        default: return 30
+        case let x where x > 0 && x < 1:  return 55
+        case let x where x > 1 && x < 3:  return 65
+        case let x where x >= 3: return 45
+        default: return 25
         }
     }
     
