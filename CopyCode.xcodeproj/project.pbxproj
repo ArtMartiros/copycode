@@ -38,8 +38,8 @@
 		AC1C54D6211878570000460D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC06D85B20FF30D100770DBB /* Info.plist */; };
 		AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
-		AC2B7010210CF6B7008743C9 /* LetterColorChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterColorChecker.swift */; };
-		AC2B7011210CF6B7008743C9 /* LetterColorChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterColorChecker.swift */; };
+		AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
+		AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */; };
 		AC31C3C62114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3C72114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
@@ -163,7 +163,7 @@
 		AC06D8AF21020D3000770DBB /* WordFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordFactor.swift; sourceTree = "<group>"; };
 		AC199EAB211A9A5F00B53656 /* letter_type_classification.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification.json; sourceTree = "<group>"; };
 		AC2405582114B19200017B6F /* TreeLetterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterType.swift; sourceTree = "<group>"; };
-		AC2B700F210CF6B7008743C9 /* LetterColorChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterColorChecker.swift; sourceTree = "<group>"; };
+		AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterExistenceChecker.swift; sourceTree = "<group>"; };
 		AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeClassificationTests.swift; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				ACF1AC69210C9F4800897732 /* ColorPicker.swift */,
-				AC2B700F210CF6B7008743C9 /* LetterColorChecker.swift */,
+				AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
@@ -601,7 +601,7 @@
 				ACF1AC60210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
 				AC06D8A7210207FF00770DBB /* WordType.swift in Sources */,
 				AC06D87820FF4D3900770DBB /* NSImage.swift in Sources */,
-				AC2B7010210CF6B7008743C9 /* LetterColorChecker.swift in Sources */,
+				AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
 				AC71FB762112F17E00EE41C6 /* Line.swift in Sources */,
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */,
@@ -632,7 +632,7 @@
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
 				ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */,
-				AC2B7011210CF6B7008743C9 /* LetterColorChecker.swift in Sources */,
+				AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
 				AC31C3C72114330000E09F91 /* Checker.swift in Sources */,
 				ACF2569A21202C0500B2F084 /* LetterOCRTests.swift in Sources */,
 				AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */,

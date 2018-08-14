@@ -8,7 +8,11 @@
 
 import AppKit
 
-final class LetterPixelChecker {
+protocol LetterPixelExistenceProtocol {
+    func exist(currentValue value: CGFloat, withLetterDefaultWhite letterWhite: CGFloat) -> Bool
+}
+
+final class LetterPixelChecker: LetterPixelExistenceProtocol {
    private let backgroundWhite: CGFloat
     /// From 0 to 100%
     /// Диапазон от backgroundWhite до letterWhite в котором ответ считается правильным

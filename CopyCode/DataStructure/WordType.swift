@@ -51,7 +51,7 @@ enum LetterType: String, Codable {
     case dot
     case underscore
     case dashOrHyphen
-    case colon
+    case comma
     case quote
     case undefined
 }

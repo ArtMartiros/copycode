@@ -22,7 +22,7 @@ class LetterTypeClassificationTests: XCTestCase {
     fileprivate var dictionary: [String: LetterRectangle] = [:]
 
     override func setUp() {
-        let image = NSImage(named: .init("picLetterTypeClassification"))!
+        let image = NSImage(named: .init("picLetterTypeClassificationWhite"))!
         guard let answers = DecodeHelper.decode(self,
                                                 path: "letter_type_classification",
                                                 structType: [Answer].self) else { return }

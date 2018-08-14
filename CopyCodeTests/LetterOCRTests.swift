@@ -5,8 +5,7 @@
 //  Created by Артем on 12/08/2018.
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
-//18
-//26
+//89 white
 import XCTest
 
 fileprivate struct Answer: Codable {
@@ -18,8 +17,8 @@ enum Picture {
     case typeBlack
     var imageName: String {
         switch self {
-        case .typeWhite: return "picLetterTypeClassification"
-        case .typeBlack: return "picLetterTypeClassificationBlack"
+        case .typeWhite: return "picLetterTypeClassificationWhite"
+        case .typeBlack: return "picLetterTypeClassificationBlack3"
         }
     }
     
@@ -44,7 +43,6 @@ class LetterOCRTests: XCTestCase {
                 print("______________________")
             }
         }
-        
     }
     
     func testLetterOCRBlack() {
@@ -52,13 +50,13 @@ class LetterOCRTests: XCTestCase {
             for (index, letter) in letters.enumerated() {
                 let answer = answers[index]
                 let value = recognizer.recognize(from: letter.pixelFrame, with: answer.type)
-                print("🔔: \(answer.letter), pixelFrame: \(letter.pixelFrame)")
+                print("🔔: \(answer.letter), pixelFrame: \(letter.pixelFrame.debugDescription)")
                 XCTAssertTrue(answer.letter == value, "✅\(answer.letter)✅ -- ❌\(value)❌")
                 print("______________________")
             }
         }
     }
-    
+    //0.011
     func testPerformanceExample() {
         setup(with: Picture.typeWhite) { (recognizer, letters, answers) in
             self.measure {
@@ -79,11 +77,14 @@ class LetterOCRTests: XCTestCase {
         textManager.performRequest(image: image) { (bitmap, words, _) in
             let letterRecognizer = LetterRecognizer(bitmap, rectangle: words[0])
             let letters = words[0].letters
+            print("LettersCount: \(letters.count)")
             for (index, letter) in letters.enumerated() {
                 let answer = answers[index]
-                print("🔔: \(answer.letter), pixelFrame: \(letter.pixelFrame)")
+                    print("🔔: \(answer.letter), ratio: \(letter.pixelFrame.ratio), pixelFrame: \(letter.pixelFrame)")
             }
             completion(letterRecognizer, letters, answers)
         }
     }
 }
+
+

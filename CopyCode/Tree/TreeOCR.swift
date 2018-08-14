@@ -9,7 +9,7 @@
 import Foundation
 
 extension Tree where Node == OCROperations, Result == String {
-    func find(_ colorChecker: LetterColorChecker, with frame: CGRect) -> String? {
+    func find(_ colorChecker: LetterExistenceChecker, with frame: CGRect) -> String? {
         switch self {
         case .empty: return nil
         case .r(let element):return element
@@ -26,27 +26,39 @@ extension Tree where Node == OCROperations, Result == String {
 }
 
 enum OCROperations: CustomStringConvertible {
-    typealias Operation = (_ checker: LetterColorChecker, _ frame: CGRect) -> Bool
+    typealias Operation = (_ checker: LetterExistenceChecker, _ frame: CGRect) -> Bool
     
     enum Action {
-        case checkerWithFrame ((LetterColorChecker, CGRect) -> Bool)
+        case checkerWithFrame ((LetterExistenceChecker, CGRect) -> Bool)
         case frameRatio ((CGRect) -> Bool)
     }
     
     case tL, tR, tC, bL, bR, bC, lC, rC
     case tLr, lCr, rCr, tCr
-    case ratio(CGFloat, (CGFloat,CGFloat)->Bool)
+    ///height / width
+    case ratio(((CGFloat,CGFloat)->Bool), CGFloat)
     /// (0,0) - is top left, (1,1) - bottom right
     case xy(x: CGFloat, y: CGFloat)
+//    case out(ratio: CGFloat, d: Dimension)
+    case xRange(x: ClosedRange<Int>, y: CGFloat, op: LogicalOperator)
+    case yRange(x: CGFloat, y: ClosedRange<Int>, op: LogicalOperator)
     case H_N, c, p_d, z_s, q, G_C, r_k, t_4, K_k, n8_3, f_t
     case l_i, O_G, I_Z, n83_S, n4_f, not5, n7_W, G_65
     case n_u, r3, f_W, r6, n5_9
     case l4
-    
     case hyphenOrDash
+    case question
+    case equalOrDash
+    case asterix
+    case S_dollar
+    case semicolon
+    case colon
     var action: Action {
         switch self {
-        case let .ratio(ratio, operation): return .frameRatio { operation(ratio, $0.ratio) }
+        case let .ratio(operation, ratio): return .frameRatio {
+            print("ratio \($0.ratio)")
+            return operation($0.ratio, ratio)
+            }
         case .tL: return .checkerWithFrame { $0.exist(at: $1.tL, in: $1) }
         case .tR: return .checkerWithFrame { $0.exist(yArray:[0,5], of: 100, x: 0.95, with: $1, op: .or) }
         case .tC: return .checkerWithFrame { $0.exist(at: $1.tC, in: $1) }
@@ -54,7 +66,6 @@ enum OCROperations: CustomStringConvertible {
         case .bL: return .checkerWithFrame { $0.exist(at: $1.bL, in: $1) }
         case .bR: return .checkerWithFrame { $0.exist(yArray:[95,100], of: 100, x: 0.95, with: $1, op: .or) }
         case .bC: return .checkerWithFrame { $0.exist(x: 0.5, y: 0.95, in: $1) }
-        //{ $0.exist(at: $1.bC, in: $1) }
         case .lC: return .checkerWithFrame { $0.exist(at: $1.lC, in: $1) }
         case .rC: return .checkerWithFrame { $0.exist(at: $1.rC, in: $1) }
         case .c: return  .checkerWithFrame { $0.exist(at: $1.c, in: $1) }
@@ -76,7 +87,8 @@ enum OCROperations: CustomStringConvertible {
         case .rCr: return .checkerWithFrame { $0.exist(yArray: [1], of: 2, x: 0.90, with: $1, op: .or) }
         case .tLr: return .checkerWithFrame { $0.exist(yArray: [0], of: 1, x: 0.05, with: $1, op: .or) }
         //ищет левую точку соприкосновения у f
-        case .f_W: return .checkerWithFrame { $0.exist(yRange: 4...7, of: 20, x: 0, with: $1, op: .or) }
+        case .f_W: return .checkerWithFrame (findLeft)
+        //{ $0.exist(yRange: 4...7, of: 20, x: 0, with: $1, op: .or) }
         case .n7_W: return .checkerWithFrame { $0.exist(xArray: [2,3], of: 5, y: 0, with: $1, op: .and) }
         case .t_4: return .checkerWithFrame { $0.exist(yRange: 1...3, of: 8, x: 0, with: $1, op: .or) }
         case .n8_3: return .checkerWithFrame {
@@ -91,8 +103,8 @@ enum OCROperations: CustomStringConvertible {
                 $0.exist(xRange: 8...9, of: 10, y: 3/7, with: $1, op: .or)
             }
         case .I_Z: return .checkerWithFrame {
-            $0.exist(x: 0.5, y: 0.3, in: $1) &&
-                $0.sameMirrored(xArray: [2,3], of: 7, y: 0.3, with: $1, op: .and)
+            $0.exist(xRange: 7...10, of: 10, y: 0.3, with: $1, op: .allFalse)
+
             }
         case .n83_S: return .checkerWithFrame {
             $0.exist(xRange: 8...9, of: 10, y: 0.3, with: $1, op: .or) &&
@@ -115,10 +127,19 @@ enum OCROperations: CustomStringConvertible {
             return one && two
             }
         case .l4: return .checkerWithFrame { $0.exist(yRange: 3...5, of: 10, x: 0.1, with: $1, op: .someFalse) }
-            
+        case let .xRange(x, y, op): return .checkerWithFrame { $0.exist(xRange: x, of: 10, y: y, with: $1, op: op) }
+        case let .yRange(x, y, op): return .checkerWithFrame { $0.exist(yRange: y, of: 10, x: x, with: $1, op: op) }
+        case .question: return .checkerWithFrame (questionDot)
+        case .equalOrDash: return .checkerWithFrame (equalOperation)
+        case .asterix: return .checkerWithFrame (asterixOperation)
+        case .S_dollar: return .checkerWithFrame { $0.exist(xArray: [2, 8] , of: 10, y: 0.05, with: $1, op: .and) }
+        case .semicolon: return .checkerWithFrame (semicolonOperation)
+        case .colon: return .checkerWithFrame (equalOperation)
         }
 
     }
+    
+    
     
     var description: String {
         switch self {
@@ -160,13 +181,72 @@ enum OCROperations: CustomStringConvertible {
         case .tR: return "topRight"
         case .z_s: return "z_s"
         case let .xy(x,y): return "xy \(x), \(y)"
+        case let .xRange(x, y, op): return "xRange: \(x), y: \(y), operator: \(op)"
+        case let .yRange(x, y, op): return "yRange: \(y), x: \(x), operator: \(op)"
         case .hyphenOrDash: return "dashOrHyphen"
         case .l4:  return "l4"
+        case .question: return "question"
+        case .equalOrDash: return "equalOrDash"
+        case .asterix: return "asterix"
+        case .S_dollar: return "S_dollar"
+        case .semicolon: return "semicolon"
+        case .colon: return "colon"
+            
+        }
+    }
+    
+    private var findLeft: Operation {
+        return { checker, frame in
+            var exist = true
+            var updatedFrame = frame
+            
+            while exist {
+                let newFrame = updatedFrame.expand(addingOfRatio: 0.05, in: .left)
+                exist = checker.exist(yArray: [0,2,4,6], of: 6, x: 0, with: newFrame, op: .or)
+                updatedFrame = newFrame
+            }
+            return checker.exist(yRange: 4...7, of: 20, x: 0, with: updatedFrame, op: .or)
+        }
+    }
+    
+    private var questionDot: Operation {
+        return { checker, frame in
+            let distance = frame.height / 2.4
+            let newFrame = frame.expand(addingOfValue: distance.rounded(), in: .bottom)
+            
+            return checker.exist(yRange: 8...10, of: 10, x: 0.4, with: newFrame, op: .or) ||
+                checker.exist(yRange: 8...10, of: 10, x: 0.5, with: newFrame, op: .or)
+        }
+    }
+    
+    private var asterixOperation: Operation {
+        return {
+            $0.exist(xRange: 4...8, of: 8, y: 0.8, with: $1, op: .allFalse) ||
+                $0.exist(xRange: 4...8, of: 8, y: 0.7, with: $1, op: .allFalse)
+        }
+    }
+    
+    private var semicolonOperation: Operation {
+        return { checker, frame in
+            let distance = frame.height / 1.1
+            let topFrame = frame.expand(addingOfValue: distance.rounded(), in: .top)
+            return checker.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
+        }
+    }
+    
+    private var equalOperation: Operation {
+        return { checker, frame in
+            let distance = frame.height * 2
+            let topFrame = frame.expand(addingOfValue: distance.rounded(), in: .top)
+            let bottomFrame = frame.expand(addingOfValue: distance.rounded(), in: .bottom)
+            
+            return checker.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or) ||
+                checker.exist(yRange: 8...10, of: 10, x: 0.5, with: bottomFrame, op: .or)
         }
     }
     
     ///находим первую черную точку линии G
-    private var firsGrayscaleOperation: (_ checker: LetterColorChecker, _ frame: CGRect, _ startY: CGFloat) -> CGFloat {
+    private var firsGrayscaleOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect, _ startY: CGFloat) -> CGFloat {
         return { checker, frame, startY  in
             let y = startY
             let x = frame.xAs(rate: 0.9)
@@ -181,7 +261,7 @@ enum OCROperations: CustomStringConvertible {
         }
     }
     
-    private var firsWhiteOperation: (_ checker: LetterColorChecker, _ frame: CGRect) -> CGFloat {
+    private var firsWhiteOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect) -> CGFloat {
         return { checker, frame in
             let y = frame.yAs(rate: 0.2)
             let x = frame.xAs(rate: 0.9)
@@ -219,7 +299,6 @@ enum OCROperations: CustomStringConvertible {
     private var z_sOperation: Operation {
         return { checker, frame in
             return true
-            //FIXME
             //                //изначально стояла 2 я поставил один
             //                // но когда разница столь мала только цветом пикселя можно отличить насколько белый
             //                // допустим B сразу будет черным, Z постепенно так как изначально был пиксель недостающий
@@ -231,5 +310,33 @@ enum OCROperations: CustomStringConvertible {
     }
 }
 
-
-
+extension CGRect {
+    ///  0 == same, 1 == size of frame
+    func expand(addingOfRatio value: CGFloat, in dimension: Dimension) -> CGRect {
+        switch dimension {
+            
+        case .left:
+            let newX = xAs(rate: -value)
+            let addedWidth = abs(leftX - newX)
+            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
+            
+        case .right:
+            let newX = xAs(rate: 1 + value)
+            let addedWidth = abs(leftX - newX)
+            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
+            
+        default: return .zero
+        }
+    }
+    
+    func expand(addingOfValue value: CGFloat, in dimension: Dimension) -> CGRect {
+        switch dimension {
+        case .bottom:
+            let newMinY = bottomY - value
+            return CGRect(x: origin.x, y: newMinY, width: width, height: height + value)
+        case .top:
+            return CGRect(x: origin.x, y: origin.y, width: width, height: height + value)
+        default: return .zero
+        }
+    }
+}

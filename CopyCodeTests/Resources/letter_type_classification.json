@@ -32,6 +32,10 @@
         "type": "upper"
     },
     {
+        "letter": "{",
+        "type": "upper"
+    },
+    {
         "letter": "U",
         "type": "upper"
     },
@@ -60,8 +64,12 @@
         "type": "upper"
     },
     {
+        "letter": "<",
+        "type": "low"
+    },
+    {
         "letter": ",",
-        "type": "colon"
+        "type": "comma"
     },
     {
         "letter": "+",
@@ -137,6 +145,14 @@
     },
     {
         "letter": "]",
+        "type": "upper"
+    },
+    {
+        "letter": "[",
+        "type": "upper"
+    },
+    {
+        "letter": "(",
         "type": "upper"
     },
     {
@@ -341,7 +357,7 @@
     },
     {
         "letter": ";",
-        "type": "colon"
+        "type": "comma"
     },
     {
         "letter": "X",

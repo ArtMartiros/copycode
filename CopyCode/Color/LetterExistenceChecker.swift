@@ -9,28 +9,22 @@
 import AppKit
 
 /// Отвечает за то, что проверяет относится ли конкретный пиксель к букве или к пустоте
-final class LetterColorChecker {
-    /// Cases: or, and, allFalse
-    enum LogicalOperator {
-        case or
-        case and
-        case allFalse
-        case someFalse
-    }
-    
+final class LetterExistenceChecker {
+
     private let bitmap: NSBitmapImageRep
-    private let pixelChecker: LetterPixelChecker
+    private let pixelExistence: LetterPixelExistenceProtocol
     private let letterDefaultWhiteColor: CGFloat
-    init(_ bitmap: NSBitmapImageRep, pixelChecker: LetterPixelChecker, letterDefaultWhite: CGFloat) {
+    
+    init(_ bitmap: NSBitmapImageRep, pixelExistence: LetterPixelExistenceProtocol, letterDefaultWhite: CGFloat) {
         self.bitmap = bitmap
-        self.pixelChecker = pixelChecker
+        self.pixelExistence = pixelExistence
         self.letterDefaultWhiteColor = letterDefaultWhite
     }
     
     func exist(at point: CGPoint, in frame: CGRect) -> Bool {
         let colorPicker = ColorPicker(bitmap)
         let color = colorPicker.pickWhite(at: point)
-        let exist = pixelChecker.exist(currentValue: color, withLetterDefaultWhite: letterDefaultWhiteColor)
+        let exist = pixelExistence.exist(currentValue: color, withLetterDefaultWhite: letterDefaultWhiteColor)
         print(exist ? "✅\n" : "⭕️\n")
         return exist
     }
@@ -65,7 +59,6 @@ final class LetterColorChecker {
             let mirrorX = frame.xAs(part: unit - $0, of: unit)
             return (CGPoint(x: x, y: y), CGPoint(x: mirrorX, y: y))
         }
-  
         switch op {
         case .or: return pointPairs.first { exist(at: $0.0, in: frame) == exist(at: $0.1, in: frame) } != nil
         case .and: return pointPairs.first { exist(at: $0.0, in: frame) != exist(at: $0.1, in: frame) } == nil

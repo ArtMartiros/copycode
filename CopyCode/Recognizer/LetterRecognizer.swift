@@ -35,12 +35,12 @@ final class LetterRecognizer {
 //        return Letter(rectangle: rectangle, value: letterValue)
 //    }
     
-    private func colorChecker(from frame: CGRect) -> LetterColorChecker {
+    private func colorChecker(from frame: CGRect) -> LetterExistenceChecker {
         let whiteRate = WordFactor(frame: frame).whiteRate
-        let pixelChecker = LetterPixelChecker(backgroundWhite: backgroundWhiteColor, whitePercent: whiteRate)
+        let pixelExistence = LetterPixelChecker(backgroundWhite: backgroundWhiteColor, whitePercent: whiteRate)
         let defaultColor = letterColorFinder.findedLetterColor(frame, with: backgroundWhiteColor)
         print("LetterDefaultColor \(defaultColor), bg \(backgroundWhiteColor)")
-        let checker = LetterColorChecker(bitmap, pixelChecker: pixelChecker, letterDefaultWhite: defaultColor)
+        let checker = LetterExistenceChecker(bitmap, pixelExistence: pixelExistence, letterDefaultWhite: defaultColor)
         return checker
     }
 }

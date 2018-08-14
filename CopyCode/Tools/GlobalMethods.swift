@@ -14,3 +14,25 @@ func rangeOf<T: Numeric>(one: T, two: T) -> ClosedRange<T> {
     let maxValue = max(one, two)
     return minValue...maxValue
 }
+
+func print(_ object: Any) {
+    #if DEBUG
+    Swift.print(object)
+    #endif
+}
+
+/// Cases: or, and, allFalse, someFalse
+enum LogicalOperator: String {
+    case or
+    case and
+    case allFalse
+    case someFalse
+}
+
+/// Cases: left, right, top, bottom
+enum Dimension {
+    case left
+    case right
+    case top
+    case bottom
+}
