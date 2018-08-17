@@ -86,6 +86,10 @@
 		AC71FB7A2112F1BB00EE41C6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB782112F1BB00EE41C6 /* Block.swift */; };
 		AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
 		AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
+		AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */; };
+		AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */; };
+		AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89662126F08800B97163 /* TreeOCRLowData.swift */; };
+		AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89662126F08800B97163 /* TreeOCRLowData.swift */; };
 		AC9EF09821232861004ED89D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9EF09721232861004ED89D /* Picture.swift */; };
 		AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */; };
 		AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */; };
@@ -193,6 +197,8 @@
 		AC71FB752112F17E00EE41C6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		AC71FB782112F1BB00EE41C6 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRUpperData.swift; sourceTree = "<group>"; };
+		AC8E89662126F08800B97163 /* TreeOCRLowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRLowData.swift; sourceTree = "<group>"; };
 		AC9EF09721232861004ED89D /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_xcode_light_18.json; sourceTree = "<group>"; };
 		AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_xcode_light_14.json; sourceTree = "<group>"; };
@@ -393,9 +399,8 @@
 		AC31C3C82114565600E09F91 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
+				AC8E89622126C87200B97163 /* OCR Tree */,
 				AC06D88A20FF4F0C00770DBB /* Tree.swift */,
-				AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */,
-				AC31C3CD2114573100E09F91 /* TreeOCR.swift */,
 				ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */,
 				AC2405582114B19200017B6F /* TreeLetterType.swift */,
 			);
@@ -418,6 +423,17 @@
 				AC71FB662112EAC400EE41C6 /* LineCreator.swift */,
 			);
 			path = Creator;
+			sourceTree = "<group>";
+		};
+		AC8E89622126C87200B97163 /* OCR Tree */ = {
+			isa = PBXGroup;
+			children = (
+				AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */,
+				AC31C3CD2114573100E09F91 /* TreeOCR.swift */,
+				AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */,
+				AC8E89662126F08800B97163 /* TreeOCRLowData.swift */,
+			);
+			path = "OCR Tree";
 			sourceTree = "<group>";
 		};
 		ACC82E7D2110AF1C002B299E /* Column */ = {
@@ -661,12 +677,14 @@
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */,
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
+				AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
 				AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */,
 				AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */,
 				ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */,
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC06D87A20FF4D7200770DBB /* Thread.swift in Sources */,
+				AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC6344F2211AA87B00538673 /* DecodeHelper.swift in Sources */,
+				AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
 				AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */,
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
@@ -682,6 +701,7 @@
 				AC4CA40521025DE30093D938 /* WordRectangleWithTypeConverter.swift in Sources */,
 				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */,
+				AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 				ACF1AC67210B528100897732 /* Test.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
