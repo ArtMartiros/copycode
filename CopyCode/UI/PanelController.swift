@@ -97,11 +97,12 @@ class PanelController: NSWindowController {
 //            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             //------------Words--------------
-            let words = lines.reduce([Word]()) { $0 + $1.wordsRectangles }
+//            let words = lines.reduce([Word]()) { $0 + $1.wordsRectangles }
             let wordsLayers = words.map { $0.layer(.green, width: 1) }
             wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             let chars = words.reduce([LetterRectangle]()) { $0 + $1.letters }
+            print("Amin chars \(chars.count)")
             let charLayers = chars.map { $0.layer(.blue, width: 0.5) }
             charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------

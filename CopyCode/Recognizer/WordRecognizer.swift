@@ -17,7 +17,9 @@ class WordRecognizer {
     func recognize(_ rectangle: Word<LetterRectangle>, with type: WordType.SameType) -> Word<Letter> {
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let bgColor = colorFinder.findedBackgroundColor(rectangle)
-        let recognizer = LetterRecognizer(in: bitmap, backgroundWhiteColor: bgColor, letterColorFinder: colorFinder)
+        let wordFactor = WordFactor(rectangle: rectangle)
+        let recognizer = LetterRecognizer(in: bitmap, backgroundWhiteColor: bgColor,
+                                          letterColorFinder: colorFinder, wordFactor: wordFactor)
         let letters: [Letter] = rectangle.letters.map {
             let value = recognizer.recognize(from: $0.pixelFrame, with: LetterType(type))
             return Letter(rectangle: $0, value: value)

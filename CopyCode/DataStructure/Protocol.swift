@@ -22,30 +22,37 @@ extension Layerable {
     }
 }
 
-protocol Rectangle: Layerable {
-    var frame: CGRect { get }
+protocol PixelRectangle {
     var pixelFrame: CGRect { get }
-    func intersectByX(with rectangle: Rectangle) -> Bool
-    func intersectByY(with rectangle: Rectangle) -> Bool
-
 }
 
+protocol StandartRectangle {
+    var frame: CGRect { get }
+    func intersectByX(with rectangle: StandartRectangle) -> Bool
+    func intersectByY(with rectangle: StandartRectangle) -> Bool
+}
 
-extension Rectangle {
-    func intersectByX(with rectangle: Rectangle) -> Bool {
+extension StandartRectangle {
+    func intersectByX(with rectangle: StandartRectangle) -> Bool {
         return intersectValue(with: rectangle) { ($0.frame.leftX.rounded(), $0.frame.rightX.rounded()) }
     }
     
-    func intersectByY(with rectangle: Rectangle) -> Bool {
+    func intersectByY(with rectangle: StandartRectangle) -> Bool {
         return intersectValue(with: rectangle) { ($0.frame.topY.rounded(), $0.frame.bottomY.rounded()) }
     }
     
-    private func intersectValue(with rectangle: Rectangle, op: (Rectangle) -> (CGFloat, CGFloat)) -> Bool {
+    private func intersectValue(with rectangle: StandartRectangle, op: (StandartRectangle) -> (CGFloat, CGFloat)) -> Bool {
         let (one, two) = op(self)
         let (newOne, newTwo) = op(rectangle)
         return rangeOf(one: one, two: two).overlaps(rangeOf(one: newOne, two: newTwo))
     }
 }
+
+protocol Rectangle: PixelRectangle, StandartRectangle, Layerable {
+    var frame: CGRect { get }
+    var pixelFrame: CGRect { get }
+}
+
 
 extension Container {
     var symbolsCount: SymbolsCount {

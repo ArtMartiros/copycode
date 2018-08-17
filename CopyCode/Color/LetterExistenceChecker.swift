@@ -17,11 +17,12 @@ final class LetterExistenceChecker {
     
     init(_ bitmap: NSBitmapImageRep, pixelExistence: LetterPixelExistenceProtocol, letterDefaultWhite: CGFloat) {
         self.bitmap = bitmap
+        NSView().autoresizingMask = []
         self.pixelExistence = pixelExistence
         self.letterDefaultWhiteColor = letterDefaultWhite
     }
     
-    func exist(at point: CGPoint, in frame: CGRect) -> Bool {
+    func exist(at point: CGPoint) -> Bool {
         let colorPicker = ColorPicker(bitmap)
         let color = colorPicker.pickWhite(at: point)
         let exist = pixelExistence.exist(currentValue: color, withLetterDefaultWhite: letterDefaultWhiteColor)
@@ -31,7 +32,7 @@ final class LetterExistenceChecker {
     
     func exist(x: CGFloat, y: CGFloat, in frame: CGRect) -> Bool {
         let point = CGPoint(x: frame.xAs(rate: x), y: frame.yAs(rate: y))
-        return exist(at: point, in: frame)
+        return exist(at: point)
     }
     
     func exist(xRange: ClosedRange<Int>, of unit: Int, y: CGFloat, with frame: CGRect, op: LogicalOperator) -> Bool {
@@ -60,10 +61,10 @@ final class LetterExistenceChecker {
             return (CGPoint(x: x, y: y), CGPoint(x: mirrorX, y: y))
         }
         switch op {
-        case .or: return pointPairs.first { exist(at: $0.0, in: frame) == exist(at: $0.1, in: frame) } != nil
-        case .and: return pointPairs.first { exist(at: $0.0, in: frame) != exist(at: $0.1, in: frame) } == nil
-        case .allFalse: return pointPairs.first { exist(at: $0.0, in: frame) == exist(at: $0.1, in: frame) } == nil
-        case .someFalse: return pointPairs.first { !exist(at: $0.0, in: frame) == !exist(at: $0.1, in: frame) } != nil
+        case .or: return pointPairs.first { exist(at: $0.0) == exist(at: $0.1) } != nil
+        case .and: return pointPairs.first { exist(at: $0.0) != exist(at: $0.1) } == nil
+        case .allFalse: return pointPairs.first { exist(at: $0.0) == exist(at: $0.1) } == nil
+        case .someFalse: return pointPairs.first { !exist(at: $0.0) == !exist(at: $0.1) } != nil
         }
     }
     
@@ -72,17 +73,17 @@ final class LetterExistenceChecker {
         let mirrorX = frame.xAs(part: number - part, of: number)
         let point = CGPoint(x: x, y: y)
         let mirrorPoint = CGPoint(x: mirrorX, y: y)
-        return exist(at: point, in: frame) == exist(at: mirrorPoint, in: frame)
+        return exist(at: point) == exist(at: mirrorPoint)
     }
     
     private func exist(_ points: [CGPoint],
                        op: LogicalOperator,
                        with frame: CGRect) -> Bool {
         switch op {
-        case .or:  return points.first { exist(at: $0, in: frame) } != nil
-        case .and: return points.first { !exist(at: $0, in: frame) } == nil
-        case .allFalse: return points.first { exist(at: $0, in: frame) } == nil
-        case .someFalse: return points.first { !exist(at: $0, in: frame) } != nil
+        case .or:  return points.first { exist(at: $0) } != nil
+        case .and: return points.first { !exist(at: $0) } == nil
+        case .allFalse: return points.first { exist(at: $0) } == nil
+        case .someFalse: return points.first { !exist(at: $0) } != nil
             
         }
     }

@@ -8,7 +8,7 @@
 
 import AppKit
 
-final class ColorPicker {
+struct ColorPicker {
     private let bitmap: NSBitmapImageRep
     init(_ bitmap: NSBitmapImageRep) {
         self.bitmap = bitmap
@@ -39,7 +39,7 @@ protocol LetterWhiteColorProtocol {
     func findedLetterColor(_ frame: CGRect, with backgroundColor: CGFloat) -> CGFloat
 }
 
-final class UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColorProtocol {
+struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColorProtocol {
     private let picker: ColorPicker
     
     init(picker: ColorPicker) {

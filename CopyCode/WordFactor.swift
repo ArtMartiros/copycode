@@ -12,7 +12,7 @@ protocol LetterPixelExistenceProtocol {
     func exist(currentValue value: CGFloat, withLetterDefaultWhite letterWhite: CGFloat) -> Bool
 }
 
-final class LetterPixelChecker: LetterPixelExistenceProtocol {
+struct LetterPixelChecker: LetterPixelExistenceProtocol {
    private let backgroundWhite: CGFloat
     /// From 0 to 100%
     /// Диапазон от backgroundWhite до letterWhite в котором ответ считается правильным
@@ -40,14 +40,17 @@ final class LetterPixelChecker: LetterPixelExistenceProtocol {
 }
 
 
-final class WordFactor {
+struct WordFactor {
     private let zTLXRatio: CGFloat = 31
     private let frame: CGRect
     
     var whiteRate: UInt {
+        print("baseRatio \(baseRatio)")
         switch baseRatio {
-        case let x where x > 0 && x < 1:  return 55
-        case let x where x > 1 && x < 3:  return 65
+        case let x where x > 0 && x < 0.8:  return 65
+        case let x where x >= 0.8 && x < 1:  return 80
+        case let x where x >= 1 && x < 1.45:  return 70
+        case let x where x >= 1.45 && x < 3:  return 65
         case let x where x >= 3: return 45
         default: return 25
         }
@@ -73,9 +76,12 @@ final class WordFactor {
         return xyOffset * 2
     }
     
-    
     init(frame: CGRect) {
         self.frame = frame
+    }
+    
+    init(rectangle: PixelRectangle) {
+        self.frame = rectangle.pixelFrame
     }
     
     func frameCrop() -> CGRect {

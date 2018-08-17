@@ -51,3 +51,54 @@ extension CGRect {
         return positionX
     }
 }
+
+extension CGRect {
+    ///  0 == same, 1 == size of frame
+    func expand(addingOfRatio value: CGFloat, in dimension: Direction) -> CGRect {
+        switch dimension {
+            
+        case .left:
+            let newX = xAs(rate: -value)
+            let addedWidth = abs(leftX - newX)
+            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
+            
+        case .right:
+            let newX = xAs(rate: 1 + value)
+            let addedWidth = abs(leftX - newX)
+            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
+            
+        default: return .zero
+        }
+    }
+    
+    func update(plus value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
+        let direction: Direction
+        let newValue: CGFloat
+        switch edgeDirection {
+        case .inset(let d):
+            newValue = -CGFloat(value)
+            direction = d
+        case .offset(let d):
+            newValue = CGFloat(value)
+            direction = d
+        }
+
+        switch direction {
+        case .bottom:
+            let newMinY = bottomY - newValue
+            return CGRect(x: origin.x, y: newMinY, width: width, height: height + newValue)
+        case .top:
+            return CGRect(x: origin.x, y: origin.y, width: width, height: height + newValue)
+        case .left:
+            let newMinX = leftX - newValue
+            return CGRect(x: newMinX, y: origin.y, width: width + newValue, height: height)
+        case .right:
+            return CGRect(x: origin.x, y: origin.y, width: width + newValue, height: height)
+        }
+    }
+    
+    enum EdgeDirection {
+        case inset(Direction)
+        case offset(Direction)
+    }
+}

@@ -1,0 +1,368 @@
+
+[
+    {
+        "letter": "a",
+        "type": "low"
+    },
+    {
+        "letter": "b",
+        "type": "upper"
+    },
+    {
+        "letter": ".",
+        "type": "dot"
+    },
+    {
+        "letter": "j",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "h",
+        "type": "upper"
+    },
+    {
+        "letter": "?",
+        "type": "low"
+    },
+    {
+        "letter": "t",
+        "type": "upper"
+    },
+    {
+        "letter": "}",
+        "type": "upper"
+    },
+    {
+        "letter": "{",
+        "type": "upper"
+    },
+    {
+        "letter": "U",
+        "type": "upper"
+    },
+    {
+        "letter": "'",
+        "type": "quote"
+    },
+    {
+        "letter": "'",
+        "type": "quote"
+    },
+    {
+        "letter": "H",
+        "type": "upper"
+    },
+    {
+        "letter": "=",
+        "type": "dashOrHyphen"
+    },
+    {
+        "letter": ">",
+        "type": "low"
+    },
+    {
+        "letter": "U",
+        "type": "upper"
+    },
+    {
+        "letter": "<",
+        "type": "low"
+    },
+    {
+        "letter": ",",
+        "type": "comma"
+    },
+    {
+        "letter": "+",
+        "type": "low"
+    },
+    {
+        "letter": "*",
+        "type": "low"
+    },
+    {
+        "letter": "#",
+        "type": "upper"
+    },
+    {
+        "letter": "&",
+        "type": "upper"
+    },
+    {
+        "letter": "@",
+        "type": "upper"
+    },
+    {
+        "letter": "$",
+        "type": "upper"
+    },
+    {
+        "letter": "~",
+        "type": "dashOrHyphen"
+    },
+    {
+        "letter": "-",
+        "type": "dashOrHyphen"
+    },
+    {
+        "letter": "p",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "c",
+        "type": "low"
+    },
+    {
+        "letter": "d",
+        "type": "upper"
+    },
+    {
+        "letter": "e",
+        "type": "low"
+    },
+    {
+        "letter": "f",
+        "type": "upper"
+    },
+    {
+        "letter": "g",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "h",
+        "type": "upper"
+    },
+    {
+        "letter": ")",
+        "type": "upper"
+    },
+    {
+        "letter": "]",
+        "type": "upper"
+    },
+    {
+        "letter": "[",
+        "type": "upper"
+    },
+    {
+        "letter": "(",
+        "type": "upper"
+    },
+    {
+        "letter": "!",
+        "type": "low"
+    },
+    {
+        "letter": "/",
+        "type": "upper"
+    },
+    {
+        "letter": "^",
+        "type": "quote"
+    },
+    {
+        "letter": "i",
+        "type": "low"
+    },
+    {
+        "letter": "k",
+        "type": "upper"
+    },
+    {
+        "letter": "l",
+        "type": "upper"
+    },
+    {
+        "letter": "m",
+        "type": "low"
+    },
+    {
+        "letter": "n",
+        "type": "low"
+    },
+    {
+        "letter": "o",
+        "type": "low"
+    },
+    {
+        "letter": "p",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "q",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "r",
+        "type": "low"
+    },
+    {
+        "letter": "s",
+        "type": "low"
+    },
+    {
+        "letter": "t",
+        "type": "upper"
+    },
+    {
+        "letter": "u",
+        "type": "low"
+    },
+    {
+        "letter": "v",
+        "type": "low"
+    },
+    {
+        "letter": "w",
+        "type": "low"
+    },
+    {
+        "letter": "x",
+        "type": "low"
+    },
+    {
+        "letter": "y",
+        "type": "lowWithTail"
+    },
+    {
+        "letter": "z",
+        "type": "low"
+    },
+    {
+        "letter": "1",
+        "type": "upper"
+    },
+    {
+        "letter": "2",
+        "type": "upper"
+    },
+    {
+        "letter": "3",
+        "type": "upper"
+    },
+    {
+        "letter": "4",
+        "type": "upper"
+    },
+    {
+        "letter": "5",
+        "type": "upper"
+    },
+    {
+        "letter": "6",
+        "type": "upper"
+    },
+    {
+        "letter": "7",
+        "type": "upper"
+    },
+    {
+        "letter": "8",
+        "type": "upper"
+    },
+    {
+        "letter": "9",
+        "type": "upper"
+    },
+    {
+        "letter": "0",
+        "type": "upper"
+    },
+    {
+        "letter": "A",
+        "type": "upper"
+    },
+    {
+        "letter": "B",
+        "type": "upper"
+    },
+    {
+        "letter": "C",
+        "type": "upper"
+    },
+    {
+        "letter": "D",
+        "type": "upper"
+    },
+    {
+        "letter": "E",
+        "type": "upper"
+    },
+    {
+        "letter": "F",
+        "type": "upper"
+    },
+    {
+        "letter": "G",
+        "type": "upper"
+    },
+    {
+        "letter": "I",
+        "type": "upper"
+    },
+    {
+        "letter": "J",
+        "type": "upper"
+    },
+    {
+        "letter": "K",
+        "type": "upper"
+    },
+    {
+        "letter": "L",
+        "type": "upper"
+    },
+    {
+        "letter": "M",
+        "type": "upper"
+    },
+    {
+        "letter": "N",
+        "type": "upper"
+    },
+    {
+        "letter": "O",
+        "type": "upper"
+    },
+    {
+        "letter": "P",
+        "type": "upper"
+    },
+    {
+        "letter": "Q",
+        "type": "upper"
+    },
+    {
+        "letter": "R",
+        "type": "upper"
+    },
+    {
+        "letter": "S",
+        "type": "upper"
+    },
+    {
+        "letter": "T",
+        "type": "upper"
+    },
+    {
+        "letter": "W",
+        "type": "upper"
+    },
+    {
+        "letter": ";",
+        "type": "comma"
+    },
+    {
+        "letter": "X",
+        "type": "upper"
+    },
+    {
+        "letter": "Y",
+        "type": "upper"
+    },
+    {
+        "letter": "Z",
+        "type": "upper"
+    }
+    
+]

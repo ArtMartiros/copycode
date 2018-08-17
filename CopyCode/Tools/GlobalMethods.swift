@@ -30,7 +30,7 @@ enum LogicalOperator: String {
 }
 
 /// Cases: left, right, top, bottom
-enum Dimension {
+enum Direction {
     case left
     case right
     case top
