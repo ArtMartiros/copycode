@@ -8,21 +8,23 @@
 
 import Foundation
 
-struct Column<Child: Rectangle>: ColumnProtocol {
+protocol Column_: StandartRectangle, Layerable { }
+
+struct DigitColumn<Child: Rectangle>: Column_ {
     
     let frame: CGRect
-    var pixelFrame: CGRect {
-        return words.map { $0.pixelFrame }.compoundFrame
-    }
-    
     let words: [Word<Child>]
     init(words: [Word<Child>], frame: CGRect) {
         self.words = words
         self.frame = frame
     }
     
-    static func from(_ words: [Word<Child>]) -> Column {
+    static func from(_ words: [Word<Child>]) -> DigitColumn {
         let frame = words.map { $0.frame }.compoundFrame
-        return Column(words: words, frame: frame)
+        return DigitColumn(words: words, frame: frame)
     }
+}
+
+struct CustomColumn: Column_ {
+     let frame: CGRect
 }

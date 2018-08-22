@@ -11,9 +11,7 @@ import Foundation
 struct Block<WordChild: Rectangle>: BlockProtocol {
     let frame: CGRect
     let lines: [Line<WordChild>]
-    var pixelFrame: CGRect {
-        return lines.map { $0.pixelFrame }.compoundFrame
-    }
+
     init(lines: [Line<WordChild>], frame: CGRect) {
         self.lines = lines
         self.frame = frame

@@ -41,7 +41,7 @@ final class TextRecognizerManager {
             image.lockFocus()
             let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
             let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
-            let protoWords = self.typeIdentifier.convert(wordsRectangles)
+            let protoWords = self.typeIdentifier.convertNew(wordsRectangles, in: bitmap)
             completion(bitmap, protoWords, error)
             image.unlockFocus()
         }
@@ -52,7 +52,7 @@ final class TextRecognizerManager {
             image.lockFocus()
             let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
             let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
-            self.typeIdentifier.convert(wordsRectangles)
+
 //            let lines = LineCreator(rectangles: wordsRectangles).create()
             completion(bitmap, [], error)
             image.unlockFocus()

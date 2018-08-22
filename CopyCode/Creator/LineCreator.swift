@@ -9,23 +9,23 @@
 import Foundation
 
 protocol LineChecker_ {
-    func same(_ first: Rectangle, with second: Rectangle) -> Bool
+    func same(_ first: StandartRectangle, with second: StandartRectangle) -> Bool
 }
 
 struct LineChecker: LineChecker_ {
-    func same(_ first: Rectangle, with second: Rectangle) -> Bool {
+    func same(_ first: StandartRectangle, with second: StandartRectangle) -> Bool {
         return first.intersectByY(with: second)
     }
 }
 
 final class LineCreator<WordChild: Rectangle> {
-    let checker: LineChecker
-    init(checker: LineChecker = LineChecker() ) {
+    let checker: LineChecker_
+    init(checker: LineChecker_ = LineChecker() ) {
         self.checker = checker
     }
     
-    func create(from rectangles: [Word<WordChild>] ) ->  [Line<WordChild>] {
-        let rectanglesSortebByY = rectangles.sorted { $0.frame.bottomY < $1.frame.bottomY }
+    func create(from rectangles: [Word<WordChild>]) ->  [Line<WordChild>] {
+        let rectanglesSortebByY = rectangles.sorted { $0.frame.topY > $1.frame.topY }
         let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
         let sortedLines = lines.map { Line(rectangles: $0.sorted { $0.frame.minX < $1.frame.minX  }) }
         return sortedLines

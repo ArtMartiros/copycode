@@ -51,26 +51,35 @@ extension Array where Element: Layerable {
 }
 
 extension Array {
-    func chunkForSorted(_ action: (Element, Element) -> Bool ) -> [[Element]] {
+    func chunkForSorted(_ compare: (Element, Element) -> Bool ) -> [[Element]] {
         var chunk: [Element] = []
         var chunks: [[Element]] = []
-        
+        var itemForCompare: Element!
         for (index, item) in self.enumerated() {
+            //первоначальная установка
             if index == 0 {
+                itemForCompare = item
                 chunk.append(item)
                 continue
             }
             
-            let previousItem = self[index - 1]
-            if action(item, previousItem) {
+            //если последний элемент то надо прекращать
+            let isLastElement = index + 1 == self.count
+            guard !isLastElement else  {
+                chunks.append(chunk)
+                continue
+            }
+            
+            //сама логика
+            let nextItem = self[index + 1 ]
+            if compare(itemForCompare, nextItem) {
                 chunk.append(item)
             } else {
                 chunks.append(chunk)
+                itemForCompare = item
                 chunk = [item]
             }
-        }
-        if !chunk.isEmpty {
-            chunks.append(chunk)
+            
         }
         return chunks
     }

@@ -81,37 +81,55 @@ class PanelController: NSWindowController {
             self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
 
             let recognizer = WordRecognizer(in: bitmap)
-            let columnDetectioin = DigitColumnDetection(recognizer: recognizer)
-            let columnCreator = DigitColumnCreator<LetterRectangle>(columnDetection: columnDetectioin)
+            let columnDetection = DigitColumnDetection(recognizer: recognizer)
+            let columnMerger = DigitColumnMerger()
+            let columnCreator = DigitColumnCreator(columnDetection: columnDetection, columnMerger: columnMerger)
             
             //------------blocks--------------
-            let creator = BlockCreator(columnCreator: columnCreator)
-            let blocks = creator.create(from: words)
-            let layers = blocks.layers(.blue)
+            let creator = BlockCreator(digitalColumnCreator: columnCreator)
+            let (blocks, columns) = creator.create(from: words)
+            let layers = blocks.layers(.blue, width: 3)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
-            
+            //------------Columns--------------
+            let columnsLayers = columns.map { $0.layer(.green, width: 2) }
+            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+        
             //------------Lines--------------
+            let lineCreator = LineCreator<LetterRectangle>()
+//            let newLines = lineCreator.createCusome2(from: words)
+//            let lineLayers = newLines.map { $0.layer(.green, width: 2) }
              let lines = blocks.reduce([Line]()) { $0 + $1.lines }
-//             let lineLayers = lines.layers(.blue)
-//            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+           
+            let lineLayers = lines.layers(.red, width: 2)
+             lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
             //------------Words--------------
-//            let words = lines.reduce([Word]()) { $0 + $1.wordsRectangles }
-            let wordsLayers = words.map { $0.layer(.green, width: 1) }
-            wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            let wordsLayers = words.map { $0.layer(.blue, width: 1) }
+//            wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+//
+            //------------newWords--------------
+            let newWords = lines.reduce([Word]()) { $0 + $1.wordsRectangles }
+            let newWordsLayers = newWords.map { $0.layer(.green, width: 2) }
+//            newWordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+
+            
+
+//
+//            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            //------------chars--------------
             
             let chars = words.reduce([LetterRectangle]()) { $0 + $1.letters }
-            print("Amin chars \(chars.count)")
             let charLayers = chars.map { $0.layer(.blue, width: 0.5) }
-            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-            //------------chars--------------
-//            var charFrames: [CGRect] = []
-//            for word in words {
-//                charFrames.append(contentsOf: word.letters.map { $0.frame })
-//            }
-//            let charLayers = layerCreator.layerForFrame(width: 0.3, color: NSColor.red, frames: charFrames)
 //            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+//            var charLayers: [CALayer] = []
+//            for word in words {
+//                charLayers.append(contentsOf: word.letters.map {  $0.layer(.red, width: 0.5) } )
+//            }
+//            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+
             
             //------------Column--------------
 //            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }

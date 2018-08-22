@@ -10,7 +10,9 @@ import AppKit
 
 class WordRectangleWithTypeConverter {
     typealias WordAlias = Word<LetterRectangle>
-
+    private var mixedWordRectangle: Word<LetterRectangle>!
+    private let wordClassification = WordTypeClassification()
+    
     func convertNew(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangleWithType>] {
         return rectangles.map {
             return getNewWord(from: $0, in: bitmap)
@@ -37,50 +39,6 @@ class WordRectangleWithTypeConverter {
         return letters
     }
     
-    private var mixedWordRectangle: Word<LetterRectangle>!
-    private let wordClassification = WordTypeClassification()
-    
-    func convert(_ rectangles: [WordAlias]) -> [Word<LetterRectangleWithType>] {
-        mixedWordRectangle = rectangles.firstMixedWord!
-        return rectangles.map {
-            return getWord(from: $0)
-        }
-    }
-    
-    
-    private func maxLetterHeight(from protoWord: WordAlias) -> CGFloat {
-        let mixedMaxHeight = mixedWordRectangle.maxLetterHeight
-        let protoMaxHeight = protoWord.maxLetterHeight
-        return max(mixedMaxHeight, protoMaxHeight)
-    }
-    
-    private func minLetterHeight(from protoWord: WordAlias) -> CGFloat {
-        let mixedMinHeight = mixedWordRectangle.minLetterHeight
-        let protoMinHeight = protoWord.minLetterHeight
-        return min(mixedMinHeight, protoMinHeight)
-    }
 
     
-    
-    private func getWord(from protoWord: WordAlias) -> Word<LetterRectangleWithType> {
-        if wordClassification.isMix(word: protoWord) {
-            let chars = getLetters(from: protoWord.letters, wordLowerY: protoWord.lowerY, wordMaxHeight: protoWord.maxLetterHeight, wordMinHeight: protoWord.minLetterHeight)
-            return Word(rect: protoWord, type: .mix, letters: chars)
-        } else {
-            let maxHeight = maxLetterHeight(from: protoWord)
-            let minHeight = minLetterHeight(from: protoWord)
-            let chars = getLetters(from: protoWord.letters, wordLowerY: protoWord.lowerY, wordMaxHeight: maxHeight, wordMinHeight: minHeight)
-            let charType = chars.first?.type ?? .undefined
-            let type = WordType.SameType(charType)
-            return Word(rect: protoWord, type: .same(type: type), letters: chars)
-        }
-    }
-    
-    private func getLetters(from letters: [Rectangle], wordLowerY: CGFloat, wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> [LetterRectangleWithType] {
-        
-        return letters.map {
-            let classification = LetterTypeClassification(wordLowerY: wordLowerY, wordMaxLetterHeight: wordMaxHeight, wordMinLetterHeight: wordMinHeight, letterFrame: $0.frame)
-            return LetterRectangleWithType(rectangle: $0, type: classification.type)
-        }
-    }
 }

@@ -10,54 +10,58 @@ import Foundation
 
 protocol BlockCreatorProtocol {
     associatedtype Child: Rectangle
-    func create(from rectangles: [Word<Child>]) -> [Block<Child>]
+    func create(from rectangles: [Word<Child>]) -> ([Block<Child>], [Column_])
 }
 
 final class BlockCreator: BlockCreatorProtocol {
 
-    private let columnCreator: DigitColumnCreator<LetterRectangle>!
-    init(columnCreator: DigitColumnCreator<LetterRectangle>) {
-        self.columnCreator = columnCreator
+    private let digitalColumnCreator: DigitColumnCreator
+    init(digitalColumnCreator: DigitColumnCreator) {
+        self.digitalColumnCreator = digitalColumnCreator
     }
     
-    func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
-        let (columns, blockRectangles) = columnCreator.create(from: rectangles)
-        let blockWords = getBlocks(from: blockRectangles, by: columns )
+    func create(from rectangles: [Word<LetterRectangle>]) -> ([Block<LetterRectangle>], [Column_]) {
+        let (blockWords, columns) = getBlockWordsWithColumns(from: rectangles)
         let creator = LineCreator<LetterRectangle>()
         let lines = blockWords.map { creator.create(from: $0) }
-        return lines.map { Block.from($0) }
+        return (lines.map { Block.from($0) }, columns)
     }
     
-    private func getBlocks(from words: [Word<LetterRectangle>], by columns: [Column<LetterRectangle>] ) -> [[Word<LetterRectangle>]] {
-        let columns = columns.sorted { $0.frame.leftX < $1.frame.leftX }
+    /// использует либо столбец с цифрами или если нет то кастомный
+    
+    private func getBlockWordsWithColumns(from words: [Word<LetterRectangle>]) -> ([[Word<LetterRectangle>]], [Column_]) {
+        let (columns, blockRectangles) = digitalColumnCreator.create(from: words)
+        let blockWords: [[Word<LetterRectangle>]]
+        if !columns.isEmpty {
+            blockWords = getBlocks(from: blockRectangles, by: columns )
+            return (blockWords, columns)
+        } else {
+            let creator = CustomColumnCreator<LetterRectangle>()
+            let customColums = creator.create(from: words)
+            blockWords = getBlocks(from: words, by: customColums )
+            return (blockWords, customColums)
+        }
+    }
+    
+    // на данный момент ищет если удовлетворяет критерию правее и ниже, но нужен другой, просто правее
+    private func getBlocks(from words: [Word<LetterRectangle>], by columns: [Column_] ) -> [[Word<LetterRectangle>]] {
+        let columns = columns.sorted { $0.frame.leftX > $1.frame.leftX }
         var blockDictionary: [Int:[Word<LetterRectangle>]] = [:]
         var startIndex = 0
-        for (columnIndex, column) in columns.enumerated() {
-            guard startIndex < words.count else { break }
-            let nextIndex = columnIndex + 1
-            for index in startIndex..<words.count {
-                let word = words[index]
+        for word in words {
+            for (index, column) in columns.enumerated() {
                 if isInside(word, in: column) {
-                    if columns.count > nextIndex {
-                        let nextColumn = columns[nextIndex]
-                        if word.frame.leftX > nextColumn.frame.rightX {
-                            startIndex = index
-                            break
-                        } else if word.frame.rightX > nextColumn.frame.leftX  {
-                            continue
-                        }
-                    }
-                    blockDictionary.append(element: word, toKey: columnIndex)
-                    
+                    blockDictionary.append(element: word, toKey: index)
+                    break
                 }
-                startIndex = index + 1
             }
         }
         return Array(blockDictionary.values)
     }
     
-   private func isInside(_  word: Word<LetterRectangle>, in column: Column<LetterRectangle>) -> Bool {
-        return word.frame.leftX > column.frame.rightX && word.frame.bottomY < column.frame.topY
+   private func isInside(_  word: Word<LetterRectangle>, in column: Column_) -> Bool {
+        return word.frame.leftX > column.frame.rightX
+            //&& word.frame.bottomY < column.frame.topY
     }
 }
 

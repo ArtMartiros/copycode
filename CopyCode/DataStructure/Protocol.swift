@@ -101,12 +101,9 @@ extension Container {
     
 }
 
-protocol ColumnProtocol: Rectangle {
-    associatedtype Child: Rectangle
-    var words: [Word<Child>] { get }
-}
 
-protocol BlockProtocol: Rectangle {
+
+protocol BlockProtocol: StandartRectangle, Layerable {
     associatedtype WordChild: Rectangle
     var lines: [Line<WordChild>] { get }
 }

@@ -12,7 +12,9 @@ extension Tree where Node == OCROperations, Result == String {
     func find(_ colorChecker: LetterExistenceChecker, with frame: CGRect) -> String? {
         switch self {
         case .empty: return nil
-        case .r(let element):return element
+        case .r(let element):
+            print("🔔: \(element)")
+            return element
         case let .n(operation, left, right):
             print("-🔸-" + operation.description)
             let exist: Bool
