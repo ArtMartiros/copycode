@@ -9,18 +9,16 @@
 import AppKit
 import Vision
 
+/// Конвертирует буквы в CGRect
 class RectangleConverter {
     typealias WordAlias = Word<LetterRectangle>
     func convert(_ results: [VNTextObservation], bitmap: NSBitmapImageRep) -> [WordAlias] {
-        //        print("WORD -------")
         let words: [WordAlias] = results.map {
             let letters = convertToLetters(from: $0, in: bitmap)
             let frame = $0.frame(in: bitmap.size)
             let pixelFrame = getPixelFrame(from: $0, in: bitmap)
-            //            print("x: \(pixelFrame.origin.x), y: \(pixelFrame.origin.y) | w: \(pixelFrame.size.width), h: \(pixelFrame.size.height) ")
             return Word(frame: frame, pixelFrame: pixelFrame, letters: letters)
         }
-        //        print("\n\n")
         return words
         
     }
@@ -29,7 +27,6 @@ class RectangleConverter {
         return result.characterBoxes?.map {
             let frame = $0.frame(in: bitmap.size)
             let pixelFrame = getPixelFrame(from: $0, in: bitmap)
-            //            print(pixelFrame)
             return LetterRectangle(frame: frame, pixelFrame: pixelFrame)} ?? []
     }
     

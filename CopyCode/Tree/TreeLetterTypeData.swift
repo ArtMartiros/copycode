@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//Бинарное древо, отвечающее за определение типа буквы
 typealias TreeLetterType = Tree<LetterTypeOperations, LetterType>
 
 private let kUpperMaxRatio: CGFloat = 0.78

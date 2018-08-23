@@ -8,41 +8,12 @@
 
 import AppKit
 
-protocol LetterPixelExistenceProtocol {
-    func exist(currentValue value: CGFloat, withLetterDefaultWhite letterWhite: CGFloat) -> Bool
-}
-
-struct LetterPixelChecker: LetterPixelExistenceProtocol {
-   private let backgroundWhite: CGFloat
-    /// From 0 to 100%
-    /// Диапазон от backgroundWhite до letterWhite в котором ответ считается правильным
-    /// При 100% весь диапазон счтается правильным при 0% только letterWhite
-    private let whitePercent: UInt
-    init(backgroundWhite: CGFloat, whitePercent: UInt) {
-        self.backgroundWhite = backgroundWhite
-        self.whitePercent = whitePercent
-    }
-
-    func exist(currentValue value: CGFloat, withLetterDefaultWhite letterWhite: CGFloat) -> Bool {
-        let allowedInterval = abs(letterWhite - backgroundWhite) / 100 * CGFloat(whitePercent)
-        if letterWhite >= backgroundWhite{
-            let startPoint = letterWhite - allowedInterval
-            let range = startPoint.rounded(toPlaces: 3) ... 1
-            print("Range \(range)")
-            return range ~= value
-        } else {
-            let endPoint = letterWhite + allowedInterval
-            let range =  0...endPoint.rounded(toPlaces: 3)
-            print("Range \(range)")
-            return range ~= value
-        }
-    }
-}
-
-
 struct WordFactor {
-    private let zTLXRatio: CGFloat = 31
+    private let kRatioValue: CGFloat = 25
     private let frame: CGRect
+    private var baseRatio: CGFloat { return frame.height / kRatioValue }
+    private var xyOffset: CGFloat { return round(baseRatio) }
+    private var sizeOffset: CGFloat { return xyOffset * 2 }
     
     var whiteRate: UInt {
         print("baseRatio \(baseRatio)")
@@ -56,25 +27,7 @@ struct WordFactor {
         }
     }
     
-    private var baseRatio: CGFloat {
-        return frame.height / 25
-    }
-    
-    var zTLx: CGFloat {
-        return frame.width / zTLXRatio
-    }
-    
-    var zTLXWhite: CGFloat {
-        return  zTLx < 1 ? 0.75 : 0.5
-    }
-    
-    private var xyOffset: CGFloat {
-        return round(baseRatio)
-    }
-    
-    private var sizeOffset: CGFloat {
-        return xyOffset * 2
-    }
+
     
     init(frame: CGRect) {
         self.frame = frame

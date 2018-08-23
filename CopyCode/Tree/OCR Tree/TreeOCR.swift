@@ -287,7 +287,7 @@ enum OCROperations: CustomStringConvertible {
         }
     }
     
-    private var firsWhiteOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect) -> CGFloat {
+    private var firstWhiteOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect) -> CGFloat {
         return { checker, frame in
             let y = frame.yAs(rate: 0.2)
             let x = frame.xAs(rate: 0.9)
@@ -305,7 +305,7 @@ enum OCROperations: CustomStringConvertible {
     private var G_6Operation: Operation {
         return { checker, frame in
             //так как firsGrayscaleOperation может сразу попасть на верх G то тогда будет ошибка, нужно чтобы сначала нашел пустоту, а потом от нее черный цвет
-            let white = self.firsWhiteOperation(checker, frame)
+            let white = self.firstWhiteOperation(checker, frame)
             let firstBlack = self.firsGrayscaleOperation(checker, frame, white)
             let lastWhite = firstBlack + 1
             for i in Array(4...8).reversed() {

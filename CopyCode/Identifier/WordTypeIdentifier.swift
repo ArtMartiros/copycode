@@ -1,5 +1,5 @@
 //
-//  WordTypeClassification.swift
+//  WordTypeIdentifier.swift
 //  CopyCode
 //
 //  Created by Артем on 20/07/2018.
@@ -12,7 +12,8 @@ protocol WordTypeClassificationProtocol {
     func isMix(word: Word<LetterRectangle>) -> Bool
 }
 
-class WordTypeClassification: WordTypeClassificationProtocol {
+class WordTypeIdentifier: WordTypeClassificationProtocol {
+    private let kWordTypeIdentifierAccuracy: CGFloat = 1.24
     //Этот вариант лучше но надо будет его прописать
     func isMix(wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> Bool {
         return true
@@ -20,12 +21,12 @@ class WordTypeClassification: WordTypeClassificationProtocol {
     func isMix(word: Word<LetterRectangle>) -> Bool {
         let maxLetterHeight = word.maxLetterHeight
         let checker = Checker(height: maxLetterHeight)
-//        print("WordTypeClassification isMix start")
+//        print("WordTypeIdentifier isMix start")
         let isMixed = word.letters.first { !checker.isSameHeight(first: maxLetterHeight,
                                                            with: $0.frame.height,
-                                                           accuracy: 1.24)
+                                                           accuracy: kWordTypeIdentifierAccuracy)
             } != nil
-//        print("WordTypeClassification isMix stop \(isMixed)")
+//        print("WordTypeIdentifier isMix stop \(isMixed)")
         return isMixed
     }
 }

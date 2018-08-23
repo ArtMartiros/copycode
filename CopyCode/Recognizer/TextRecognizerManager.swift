@@ -10,19 +10,15 @@ import AppKit
 
 final class TextRecognizerManager {
     typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ results: [Word<LetterRectangle>], _ error: Error?) -> Void
-    typealias TextCompletionExtended = (_ bitmap: NSBitmapImageRep, _ results: [Word<LetterRectangleWithType>], _ error: Error?) -> Void
-    
-    typealias TextCompletionExtended1 = (_ bitmap: NSBitmapImageRep, _ results: [Line<LetterRectangle>], _ error: Error?) -> Void
-    
-    
+
     private let textDetection: TextDetection
     private let rectangleConverter: RectangleConverter
-    private let typeIdentifier: WordRectangleWithTypeConverter
+    private let typeIdentifier: TypeConverter
     
     init() {
         self.textDetection = TextDetection()
         self.rectangleConverter = RectangleConverter()
-        self.typeIdentifier = WordRectangleWithTypeConverter()
+        self.typeIdentifier = TypeConverter()
     }
     
     func performRequest(image: NSImage, completion: @escaping TextCompletion) {
@@ -35,28 +31,4 @@ final class TextRecognizerManager {
             completion(bitmap, wordsRectangles, error)
         }
     }
-    
-    func performRequestExtended(image: NSImage, completion: @escaping TextCompletionExtended) {
-        textDetection.performRequest(cgImage: image.toCGImage) { (results, error) in
-            image.lockFocus()
-            let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
-            let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
-            let protoWords = self.typeIdentifier.convertNew(wordsRectangles, in: bitmap)
-            completion(bitmap, protoWords, error)
-            image.unlockFocus()
-        }
-    }
-    
-    func performRequestExtended1(image: NSImage, completion: @escaping TextCompletionExtended1) {
-        textDetection.performRequest(cgImage: image.toCGImage) { (results, error) in
-            image.lockFocus()
-            let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
-            let wordsRectangles = self.rectangleConverter.convert(results, bitmap: bitmap)
-
-//            let lines = LineCreator(rectangles: wordsRectangles).create()
-            completion(bitmap, [], error)
-            image.unlockFocus()
-        }
-    }
-    
 }

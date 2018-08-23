@@ -1,5 +1,5 @@
 //
-//  ProtoWordConverter.swift
+//  TypeConverter.swift
 //  CopyCode
 //
 //  Created by Артем on 20/07/2018.
@@ -8,29 +8,31 @@
 
 import AppKit
 
-class WordRectangleWithTypeConverter {
+///Класс конвертирует слова из неизвестного типа в конкретный тип
+class TypeConverter {
     typealias WordAlias = Word<LetterRectangle>
     private var mixedWordRectangle: Word<LetterRectangle>!
-    private let wordClassification = WordTypeClassification()
+    private let wordClassification = WordTypeIdentifier()
     
-    func convertNew(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangleWithType>] {
+    ///Конвертирует в Word<LetterRectangleWithType>
+    func convert(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangleWithType>] {
         return rectangles.map {
-            return getNewWord(from: $0, in: bitmap)
+            return getWord(from: $0, in: bitmap)
         }
     }
     
-    private func getNewWord(from word: WordAlias, in bitmap: NSBitmapImageRep ) -> Word<LetterRectangleWithType> {
+    private func getWord(from word: WordAlias, in bitmap: NSBitmapImageRep ) -> Word<LetterRectangleWithType> {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
         let recognizer = LetterRecognizer(bitmap, rectangle: word)
-        let classification = NewLetterTypeClassification(information: information, recognizer: recognizer)
-        let letters = getNewLetters(from: word.letters, using: classification)
+        let classification = LetterTypeIdentifier(information: information, recognizer: recognizer)
+        let letters = getLetters(from: word.letters, using: classification)
         return Word(rect: word, type: .mix, letters: letters)
     }
     
-    private func getNewLetters(from letters: [LetterRectangle],
-                               using classification: NewLetterTypeClassification) -> [LetterRectangleWithType] {
+    private func getLetters(from letters: [LetterRectangle],
+                               using classification: LetterTypeIdentifier) -> [LetterRectangleWithType] {
         let types = classification.detectType(for: letters)
         var letters: [LetterRectangleWithType] = []
         for (index, item) in letters.enumerated() {

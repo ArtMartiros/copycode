@@ -22,12 +22,12 @@ extension Array where Element: NSColor {
 
 extension Array where Element == Word<LetterRectangle> {
     var firstMixedWord: Word<LetterRectangle>? {
-        let classification = WordTypeClassification()
+        let classification = WordTypeIdentifier()
         return self.first { classification.isMix(word: $0) }
     }
     
     var allWordsMixed: Bool {
-        let classification = WordTypeClassification()
+        let classification = WordTypeIdentifier()
         return first { !classification.isMix(word: $0) } == nil
     }
 }

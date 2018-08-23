@@ -35,21 +35,24 @@ struct LetterRecognizer {
         return treeOCR.find(checker, with: frame) ?? "*"
     }
     
-    func recognize(from rectangle: LetterRectangleWithType) -> String {
-        return recognize(from: rectangle.pixelFrame, with: rectangle.type)
+    func recognize(from letter: LetterRectangleWithType) -> String {
+        return recognize(from: letter.pixelFrame, with: letter.type)
     }
     
     private func letterExistenceChecker(from frame: CGRect) -> LetterExistenceChecker {
-        let pixelExistence = LetterPixelChecker(backgroundWhite: backgroundWhiteColor, whitePercent: wordFactor.whiteRate)
-        let defaultColor = letterColorFinder.findedLetterColor(frame, with: backgroundWhiteColor)
-        print("LetterDefaultColor \(defaultColor), bg \(backgroundWhiteColor)")
-        let checker = LetterExistenceChecker(bitmap, pixelExistence: pixelExistence, letterDefaultWhite: defaultColor)
+        let letterDefaultColor = letterColorFinder.findedLetterColor(frame, with: backgroundWhiteColor)
+        let pixelChecker = LetterPixelChecker(backgroundWhite: backgroundWhiteColor,
+                                              letterDefaultWhite: letterDefaultColor,
+                                              whitePercent: wordFactor.whiteRate)
+        
+        print("LetterDefaultColor \(letterDefaultColor), bg \(backgroundWhiteColor)")
+        let checker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
         return checker
     }
 }
 
 extension LetterRecognizer {
-    init (_ bitmap: NSBitmapImageRep, rectangle: Word<LetterRectangle> ) {
+    init<T: Rectangle> (_ bitmap: NSBitmapImageRep, rectangle: Word<T> ) {
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let bgColor = colorFinder.findedBackgroundColor(rectangle)
         let wordFactor = WordFactor(rectangle: rectangle)

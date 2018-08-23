@@ -13,19 +13,16 @@ final class LetterExistenceChecker {
 
     private let bitmap: NSBitmapImageRep
     private let pixelExistence: LetterPixelExistenceProtocol
-    private let letterDefaultWhiteColor: CGFloat
     
-    init(_ bitmap: NSBitmapImageRep, pixelExistence: LetterPixelExistenceProtocol, letterDefaultWhite: CGFloat) {
+    init(_ bitmap: NSBitmapImageRep, pixelChecker: LetterPixelExistenceProtocol) {
         self.bitmap = bitmap
-        NSView().autoresizingMask = []
-        self.pixelExistence = pixelExistence
-        self.letterDefaultWhiteColor = letterDefaultWhite
+        self.pixelExistence = pixelChecker
     }
     
     func exist(at point: CGPoint) -> Bool {
         let colorPicker = ColorPicker(bitmap)
         let color = colorPicker.pickWhite(at: point)
-        let exist = pixelExistence.exist(currentValue: color, withLetterDefaultWhite: letterDefaultWhiteColor)
+        let exist = pixelExistence.exist(currentValue: color)
         print(exist ? "✅\n" : "⭕️\n")
         return exist
     }

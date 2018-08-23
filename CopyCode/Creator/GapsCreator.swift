@@ -9,7 +9,6 @@
 import Foundation
 
 class GapsCreator {
-    
     func createVertical(from rects: [StandartRectangle], last: CGFloat) -> [ClosedRange<CGFloat>] {
         var gaps: [ClosedRange<CGFloat>] = []
         for (index, rect) in rects.enumerated()  {
