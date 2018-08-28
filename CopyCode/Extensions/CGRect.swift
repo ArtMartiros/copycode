@@ -102,3 +102,22 @@ extension CGRect {
         case offset(Direction)
     }
 }
+
+extension CGRect {
+    ///Разделяет frame на маленькие
+    func chunkToSmallRects(byWidth width: CGFloat) -> [CGRect] {
+        var rects: [CGRect] = []
+        var currentRect = self
+        while true {
+            let splitted = currentRect.divided(atDistance: width, from: .minXEdge)
+            currentRect = splitted.remainder
+            rects.append(splitted.slice)
+            let isCompleteToDevide = currentRect.width / width < 1.5
+            if isCompleteToDevide {
+                rects.append(currentRect)
+                break
+            }
+        }
+        return rects
+    }
+}

@@ -59,20 +59,12 @@ extension Array {
             //первоначальная установка
             if index == 0 {
                 itemForCompare = item
-                chunk.append(item)
-                continue
-            }
-            
-            //если последний элемент то надо прекращать
-            let isLastElement = index + 1 == self.count
-            guard !isLastElement else  {
-                chunks.append(chunk)
+                //                chunk.append(item)
                 continue
             }
             
             //сама логика
-            let nextItem = self[index + 1 ]
-            if compare(itemForCompare, nextItem) {
+            if compare(itemForCompare, item) {
                 chunk.append(item)
             } else {
                 chunks.append(chunk)
@@ -80,7 +72,32 @@ extension Array {
                 chunk = [item]
             }
             
+            //если последний элемент то надо записать все, что в буфере
+            let isLastElement = index + 1 == self.count
+            guard !isLastElement else  {
+                chunks.append(chunk)
+                continue
+            }
+            
         }
         return chunks
+    }
+}
+
+
+extension Array where Element: StandartRectangle {
+    var sortedFromTopToBottom: [Element] {
+        return sorted { $0.frame.bottomY >  $1.frame.bottomY }
+    }
+    
+    var sortedFromBottomToTop: [Element] {
+        return sorted { $0.frame.bottomY <  $1.frame.bottomY }
+    }
+    var sortedFromLeftToRight: [Element] {
+        return sorted { $0.frame.leftX <  $1.frame.leftX }
+    }
+    
+    var sortedFromRightToLeft: [Element] {
+        return sorted { $0.frame.leftX >  $1.frame.leftX }
     }
 }

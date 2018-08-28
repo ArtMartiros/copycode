@@ -27,6 +27,7 @@ final class TextRecognizerManager {
             image.lockFocus()
             let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
             image.unlockFocus()
+            PixelConverter.shared.setRatio(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             completion(bitmap, wordsRectangles, error)
         }

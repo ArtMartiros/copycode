@@ -110,12 +110,12 @@ class LetterTypeClassificationTests: XCTestCase {
         return newDicionary.map { $0.value.letter }.shuffled().prefix(randomSize).joined()
     }
 
-    private func newClassification(for word: Word<LetterRectangle>) -> NewLetterTypeClassification {
+    private func newClassification(for word: Word<LetterRectangle>) -> LetterTypeIdentifier {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
         let recognizer = LetterRecognizer(bitmap, rectangle: word)
-        return NewLetterTypeClassification(information: information, recognizer: recognizer)
+        return LetterTypeIdentifier(information: information, recognizer: recognizer)
     }
 }
 

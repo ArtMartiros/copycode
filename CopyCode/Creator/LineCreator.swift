@@ -25,9 +25,9 @@ final class LineCreator<WordChild: Rectangle> {
     }
     
     func create(from rectangles: [Word<WordChild>]) ->  [Line<WordChild>] {
-        let rectanglesSortebByY = rectangles.sorted { $0.frame.topY > $1.frame.topY }
+        let rectanglesSortebByY = rectangles.sortedFromTopToBottom
         let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
-        let sortedLines = lines.map { Line(rectangles: $0.sorted { $0.frame.minX < $1.frame.minX  }) }
+        let sortedLines = lines.map { Line(words: $0.sortedFromLeftToRight) }
         return sortedLines
     }
 }

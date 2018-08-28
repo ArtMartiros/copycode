@@ -23,7 +23,7 @@ final class DigitColumnDetection {
     ///Обнаруживает если массив слов это digit column
     ///бывает так, что он сцеплен с другими словами, поэтому нужно отделить одни от другого
     func detecte( _ wordRectangles: [WordAlias]) -> SplittedWords? {
-        let sortedWordRectangles = wordRectangles.sorted { $0.pixelFrame.origin.y > $1.pixelFrame.origin.y}
+        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom
         let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
         
         switch types.count {
@@ -73,11 +73,13 @@ final class DigitColumnDetection {
             nCount = nCount + nCount1
         }
         let concentration = nCount.of(chCount, >, percent: kDigitConcentrationRate)
+        print(" CharsAndNumbers nCount: \(nCount), chCount: \(chCount), concentration: \(concentration)")
         return concentration
     }
     
     private func charsAndNumbers(_ rectangles: [WordAlias], with recognizer: WordRecognizer, type: SymbolsCount? = nil) -> (Int, Int) {
         let words = rectangles.map { recognizer.recognize($0, with: .allUpper) }
+        
         let chars = words.reduce([String]()) { result, word in
             print("CharsAndNumbers word value \(word.value)")
             var values = word.letters.map { $0.value }

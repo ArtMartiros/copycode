@@ -69,6 +69,20 @@
 		AC4CA40521025DE30093D938 /* TypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AD21020B9800770DBB /* TypeConverter.swift */; };
 		AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AF21020D3000770DBB /* WordFactor.swift */; };
 		AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
+		AC50A875212F2D7700B196BE /* PixelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A874212F2D7700B196BE /* PixelConverter.swift */; };
+		AC50A876212F2D7700B196BE /* PixelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A874212F2D7700B196BE /* PixelConverter.swift */; };
+		AC50A8792133ECD900B196BE /* MissingElementsFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A8782133ECD900B196BE /* MissingElementsFinder.swift */; };
+		AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A8782133ECD900B196BE /* MissingElementsFinder.swift */; };
+		AC50A87C2133F2F000B196BE /* LetterPixelFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A87B2133F2F000B196BE /* LetterPixelFinder.swift */; };
+		AC50A87D2133F2F000B196BE /* LetterPixelFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A87B2133F2F000B196BE /* LetterPixelFinder.swift */; };
+		AC50A87F2133F32E00B196BE /* LetterBoundsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A87E2133F32E00B196BE /* LetterBoundsRestorer.swift */; };
+		AC50A8802133F32E00B196BE /* LetterBoundsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A87E2133F32E00B196BE /* LetterBoundsRestorer.swift */; };
+		AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */; };
+		AC50A8842134003000B196BE /* missing_dot.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A8832134003000B196BE /* missing_dot.json */; };
+		AC50A8882135461B00B196BE /* missing_dash.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A8872135461B00B196BE /* missing_dash.json */; };
+		AC50A88A2135492300B196BE /* missing_quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A8892135492300B196BE /* missing_quotes.json */; };
+		AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A88B21354D1C00B196BE /* missing_equal.json */; };
+		AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A88D2135BA8100B196BE /* missing_underscore.json */; };
 		AC6344F2211AA87B00538673 /* DecodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6344F1211AA87B00538673 /* DecodeHelper.swift */; };
 		AC675775212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
 		AC675776212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
@@ -96,7 +110,7 @@
 		AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */; };
 		AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89662126F08800B97163 /* TreeOCRLowData.swift */; };
 		AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89662126F08800B97163 /* TreeOCRLowData.swift */; };
-		AC9EF09821232861004ED89D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9EF09721232861004ED89D /* Picture.swift */; };
+		AC9EF09821232861004ED89D /* OCRPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9EF09721232861004ED89D /* OCRPicture.swift */; };
 		AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */; };
 		AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */; };
 		AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF09D21232A12004ED89D /* ocr_xcode_light_12.json */; };
@@ -134,6 +148,8 @@
 		ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
 		ACFC8122212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */; };
 		ACFC8123212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */; };
+		ACFC8125212E959600700C25 /* MissingElementsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */; };
+		ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +212,16 @@
 		AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnCreator.swift; sourceTree = "<group>"; };
 		AC42D3F1212D502E0086A728 /* WordSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSplitter.swift; sourceTree = "<group>"; };
 		AC4CA409210462510093D938 /* BlockCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreator.swift; sourceTree = "<group>"; };
+		AC50A874212F2D7700B196BE /* PixelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelConverter.swift; sourceTree = "<group>"; };
+		AC50A8782133ECD900B196BE /* MissingElementsFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingElementsFinder.swift; sourceTree = "<group>"; };
+		AC50A87B2133F2F000B196BE /* LetterPixelFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelFinder.swift; sourceTree = "<group>"; };
+		AC50A87E2133F32E00B196BE /* LetterBoundsRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterBoundsRestorer.swift; sourceTree = "<group>"; };
+		AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelFinderTests.swift; sourceTree = "<group>"; };
+		AC50A8832134003000B196BE /* missing_dot.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_dot.json; sourceTree = "<group>"; };
+		AC50A8872135461B00B196BE /* missing_dash.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_dash.json; sourceTree = "<group>"; };
+		AC50A8892135492300B196BE /* missing_quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_quotes.json; sourceTree = "<group>"; };
+		AC50A88B21354D1C00B196BE /* missing_equal.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_equal.json; sourceTree = "<group>"; };
+		AC50A88D2135BA8100B196BE /* missing_underscore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_underscore.json; sourceTree = "<group>"; };
 		AC6344F1211AA87B00538673 /* DecodeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeHelper.swift; sourceTree = "<group>"; };
 		AC675774212C578B0051C34A /* ClosedRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedRange.swift; sourceTree = "<group>"; };
 		AC675777212C57CF0051C34A /* GapsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsCreator.swift; sourceTree = "<group>"; };
@@ -210,7 +236,7 @@
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRUpperData.swift; sourceTree = "<group>"; };
 		AC8E89662126F08800B97163 /* TreeOCRLowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRLowData.swift; sourceTree = "<group>"; };
-		AC9EF09721232861004ED89D /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		AC9EF09721232861004ED89D /* OCRPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRPicture.swift; sourceTree = "<group>"; };
 		AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_xcode_light_18.json; sourceTree = "<group>"; };
 		AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_xcode_light_14.json; sourceTree = "<group>"; };
 		AC9EF09D21232A12004ED89D /* ocr_xcode_light_12.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_xcode_light_12.json; sourceTree = "<group>"; };
@@ -237,6 +263,7 @@
 		ACF2569B2120894800B2F084 /* letter_type_classification_black.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification_black.json; sourceTree = "<group>"; };
 		ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelChecker.swift; sourceTree = "<group>"; };
 		ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeIdentifier.swift; sourceTree = "<group>"; };
+		ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingElementsRestorer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +314,7 @@
 		AC06D84520FF30D000770DBB /* CopyCode */ = {
 			isa = PBXGroup;
 			children = (
+				AC50A8772133ECBA00B196BE /* MissingElements */,
 				AC31C3C82114565600E09F91 /* Tree */,
 				AC71FB652112EA5200EE41C6 /* Creator */,
 				ACF1AC68210C9F2300897732 /* Color */,
@@ -315,6 +343,7 @@
 				ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */,
 				AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */,
 				ACF2569921202C0500B2F084 /* LetterOCRTests.swift */,
+				AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -404,6 +433,11 @@
 				AC9EF0AF21233191004ED89D /* ocr_visual_14.json */,
 				AC9EF0AD21233090004ED89D /* ocr_visual_18.json */,
 				AC9EF0AB21232FE4004ED89D /* ocr_visual_20.json */,
+				AC50A8892135492300B196BE /* missing_quotes.json */,
+				AC50A8832134003000B196BE /* missing_dot.json */,
+				AC50A88B21354D1C00B196BE /* missing_equal.json */,
+				AC50A88D2135BA8100B196BE /* missing_underscore.json */,
+				AC50A8872135461B00B196BE /* missing_dash.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -419,11 +453,22 @@
 			path = Tree;
 			sourceTree = "<group>";
 		};
+		AC50A8772133ECBA00B196BE /* MissingElements */ = {
+			isa = PBXGroup;
+			children = (
+				ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */,
+				AC50A8782133ECD900B196BE /* MissingElementsFinder.swift */,
+				AC50A87B2133F2F000B196BE /* LetterPixelFinder.swift */,
+				AC50A87E2133F32E00B196BE /* LetterBoundsRestorer.swift */,
+			);
+			path = MissingElements;
+			sourceTree = "<group>";
+		};
 		AC6344F0211AA86A00538673 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
 				AC6344F1211AA87B00538673 /* DecodeHelper.swift */,
-				AC9EF09721232861004ED89D /* Picture.swift */,
+				AC9EF09721232861004ED89D /* OCRPicture.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -491,6 +536,7 @@
 			children = (
 				AC06D8AD21020B9800770DBB /* TypeConverter.swift */,
 				ACF1AC5C210B180700897732 /* RectangleConverter.swift */,
+				AC50A874212F2D7700B196BE /* PixelConverter.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -621,21 +667,26 @@
 			files = (
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
+				AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
 				ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
+				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
 				AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */,
+				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				AC1C54D6211878570000460D /* Info.plist in Resources */,
+				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC06D87420FF4CA800770DBB /* Assets.xcassets in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
+				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,11 +734,13 @@
 				AC06D87E20FF4DA100770DBB /* CGRect.swift in Sources */,
 				ACF1AC63210B30A400897732 /* DigitColumnMerger.swift in Sources */,
 				AC365FC52110AF7B00764834 /* DigitColumnCreator.swift in Sources */,
+				ACFC8125212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 				AC06D88420FF4DE300770DBB /* CGPoint.swift in Sources */,
 				AC06D87C20FF4D8B00770DBB /* Array.swift in Sources */,
 				AC31C3CB2114570F00E09F91 /* TreeOCRData.swift in Sources */,
 				ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				ACF1AC60210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
+				AC50A87C2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC06D8A7210207FF00770DBB /* WordType.swift in Sources */,
 				AC06D87820FF4D3900770DBB /* NSImage.swift in Sources */,
 				AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
@@ -697,12 +750,15 @@
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
 				AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
 				AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */,
+				AC50A87F2133F32E00B196BE /* LetterBoundsRestorer.swift in Sources */,
 				AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */,
+				AC50A8792133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC42D3F2212D502E0086A728 /* WordSplitter.swift in Sources */,
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
 				ACFC8122212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
+				AC50A875212F2D7700B196BE /* PixelConverter.swift in Sources */,
 				AC06D87A20FF4D7200770DBB /* Thread.swift in Sources */,
 				AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 			);
@@ -718,9 +774,11 @@
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
 				AC4CA3F921025DDF0093D938 /* CGRect.swift in Sources */,
+				AC50A87D2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC4CA40521025DE30093D938 /* TypeConverter.swift in Sources */,
 				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */,
+				AC50A876212F2D7700B196BE /* PixelConverter.swift in Sources */,
 				AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
@@ -745,6 +803,8 @@
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
 				AC4CA40121025DE30093D938 /* TextDetection.swift in Sources */,
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
+				AC50A8802133F32E00B196BE /* LetterBoundsRestorer.swift in Sources */,
+				AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */,
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
 				AC365FC62110AF7B00764834 /* DigitColumnCreator.swift in Sources */,
@@ -754,11 +814,12 @@
 				ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,
 				AC675779212C57CF0051C34A /* GapsCreator.swift in Sources */,
-				AC9EF09821232861004ED89D /* Picture.swift in Sources */,
+				AC9EF09821232861004ED89D /* OCRPicture.swift in Sources */,
 				AC4CA3FC21025DDF0093D938 /* CGPoint.swift in Sources */,
 				AC71FB772112F17E00EE41C6 /* Line.swift in Sources */,
 				ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */,
 				AC31C3CF2114573100E09F91 /* TreeOCR.swift in Sources */,
+				AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */,
 				AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */,
@@ -766,6 +827,7 @@
 				AC4CA3FA21025DDF0093D938 /* NSBitmapImageRep.swift in Sources */,
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,
 				AC4CA3F521025DDF0093D938 /* Double.swift in Sources */,
+				ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

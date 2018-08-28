@@ -79,7 +79,7 @@ class PanelController: NSWindowController {
 //             lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
 //
             //------------Words--------------
-            let wordsLayers = words.map { $0.layer(.blue, width: 1) }
+            let wordsLayers = words.map { $0.layer(.blue, width: 0.5) }
             wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
 //
             //------------newWords--------------
@@ -95,7 +95,7 @@ class PanelController: NSWindowController {
             //------------chars--------------
             
             let chars = words.reduce([LetterRectangle]()) { $0 + $1.letters }
-            let charLayers = chars.map { $0.layer(.red, width: 0.5) }
+            let charLayers = chars.map { $0.layer(.green, width: 0.5) }
             charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             
 //            var charLayers: [CALayer] = []
@@ -156,6 +156,4 @@ class PanelController: NSWindowController {
 //
 //
 //}
-class MissingLettersFinder {
-    
-}
+

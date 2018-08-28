@@ -39,7 +39,7 @@ struct DigitColumnCreator: DigitColumnCreatorProtocol {
         dictionaryWordsByOriginX.values.forEach { blockRectangles.append(contentsOf: $0) }
         let columns = columnsWords.map { DigitColumn.from($0) }
         let mergedColumns = columnMerger.mergeSameColumn(columns)
-        return (mergedColumns, blockRectangles.sorted { $0.frame.leftX < $1.frame.leftX } )
+        return (mergedColumns, blockRectangles.sortedFromLeftToRight )
     }
     
     ///вырезает из словаря значения и разделяет их на column и block слова

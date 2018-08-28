@@ -23,7 +23,7 @@ class LetterOCRTests: XCTestCase {
             for (index, letter) in letters.enumerated() {
                 let answer = answers[index]
                 let value = recognizer.recognize(from: letter.pixelFrame, with: answer.type)
-                print("🔔: \(answer.letter), pixelFrame: \(letter.pixelFrame.debugDescription)")
+                print("🔔: \(answer.letter), frame: \(letter.frame), pixelFrame: \(letter.pixelFrame)")
                 XCTAssertTrue(answer.letter == value, "✅\(answer.letter)✅ -- ❌\(value)❌")
                 print("______________________")
             }
@@ -197,7 +197,7 @@ class LetterOCRTests: XCTestCase {
     }
     
     
-    private func setup(with picture: Picture, _ completion: @escaping (LetterRecognizer, [LetterRectangle], [Answer]) -> Void) {
+    private func setup(with picture: OCRPicture, _ completion: @escaping (LetterRecognizer, [LetterRectangle], [Answer]) -> Void) {
         
         let image = NSImage(named: .init(picture.imageName))!
         guard let answers = DecodeHelper.decode(self,
@@ -214,7 +214,6 @@ class LetterOCRTests: XCTestCase {
             }
 
             completion(letterRecognizer, letters, answers)
-
         }
     }
 }

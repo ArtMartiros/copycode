@@ -19,7 +19,7 @@ class CustomColumnCreator<WordChild: Rectangle> {
     }
     
     private func createColumnDictionary(from words: [Word<WordChild>], withDistance distance: CGFloat) -> [CGFloat: [StandartRectangle]] {
-        let wordsSortedByX = words.sorted { $0.frame.leftX < $1.frame.leftX }
+        let wordsSortedByX = words.sortedFromLeftToRight
         
         var dictionary: [CGFloat: [StandartRectangle]] = [:]
         for word in wordsSortedByX {

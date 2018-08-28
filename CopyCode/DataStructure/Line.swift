@@ -15,18 +15,7 @@ struct Line<WordChild: Rectangle>: StandartRectangle, Layerable {
         return words.map { $0.frame }.compoundFrame
     }
 
-    init(rectangles: [WordAlias]) {
-        self.words = rectangles
-    }
-}
-
-class FingMissingSymbols {
-    func test<T:Rectangle>(line: Line<T>, startPoint: CGFloat, endPoint: CGFloat) {
-        let words = line.words
-        var leftX = startPoint
-        for (index, word) in words.enumerated() {
-            
-            leftX = word.pixelFrame.leftX
-        }
+    init(words: [WordAlias]) {
+        self.words = words
     }
 }
