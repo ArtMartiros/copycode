@@ -46,14 +46,16 @@ class MissingElementsFinder {
         //либо kInRawTimes буквы подряд пустота
         while inRaw < kInRawTimes || correctPixelFrame.width > 0 {
             let defaultLetterFrame = getDefaultLetterFrame(from: correctPixelFrame, letterWidth: letterWidth, and: edge)
-            if let point = letterPixelFinder.find(in: defaultLetterFrame, with: edge ) {
-                let restoredLetterFrame = pixelBoundsRestorer.restore(atPoint: point)
+            let result = letterPixelFinder.find(in: defaultLetterFrame, with: edge )
+            switch result {
+            case .empty:
+                correctPixelFrame = removedLastLetter(from: correctPixelFrame, letterFrame: defaultLetterFrame, and: edge)
+                inRaw += 1
+            case .value(let dictionary):
+                let restoredLetterFrame = pixelBoundsRestorer.restore(at: dictionary, in: defaultLetterFrame)
                 correctPixelFrame = removedLastLetter(from: correctPixelFrame, letterFrame: restoredLetterFrame, and: edge)
                 letters.append(getLetter(from: restoredLetterFrame))
                 inRaw = 0
-            } else {
-                correctPixelFrame = removedLastLetter(from: correctPixelFrame, letterFrame: defaultLetterFrame, and: edge)
-                inRaw += 1
             }
         }
 

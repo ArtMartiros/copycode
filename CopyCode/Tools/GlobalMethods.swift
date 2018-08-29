@@ -29,10 +29,17 @@ enum LogicalOperator: String {
     case someFalse
 }
 
+///case empty or case value(T)
+enum SimpleResult<T> {
+    case empty
+    case value(T)
+}
+
 /// Cases: left, right, top, bottom
 enum Direction {
     case left
     case right
     case top
     case bottom
+    
 }
