@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol Column_: StandartRectangle, Layerable { }
+protocol ColumnProtocol: StandartRectangle, Layerable { }
 
-struct DigitColumn<Child: Rectangle>: Column_ {
+struct DigitColumn<Child: Rectangle>: ColumnProtocol {
     
     let frame: CGRect
     let words: [Word<Child>]
@@ -25,6 +25,6 @@ struct DigitColumn<Child: Rectangle>: Column_ {
     }
 }
 
-struct CustomColumn: Column_ {
+struct CustomColumn: ColumnProtocol {
      let frame: CGRect
 }

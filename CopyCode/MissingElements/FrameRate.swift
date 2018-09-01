@@ -8,13 +8,13 @@
 
 import Foundation
 
+///Создает массив со значениями от 0 до 1 для дальнейшего создания поинтов
 struct FrameRate: Hashable {
     let x: CGFloat
     let y: CGFloat
     
     static func ratesFrom(xArray: [CGFloat], yArray: [CGFloat], in frame: CGRect, edge: CGRectEdge) -> [FrameRate] {
-        let value = CGFloat(edge.rawValue)
-        let newXArray = xArray.map { abs(value - $0) }
+        let newXArray = xArray.map { abs(edge.rate - $0) }
         var rates: [FrameRate] = []
         for x in newXArray {
             for y in yArray {

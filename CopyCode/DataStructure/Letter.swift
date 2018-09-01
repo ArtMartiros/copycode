@@ -26,6 +26,13 @@ struct LetterRectangle: Rectangle, Hashable {
         return frame.width.hashValue ^ frame.height.hashValue ^ frame.origin.x.hashValue ^ frame.origin.y.hashValue
     }
     
+    ///коэфициент с помощью которого, мы по высоте определяем приблизительную длину символов
+    private static let kHeightWidthRatio: CGFloat = 1.72
+    
+    static func letterWidth(from height: CGFloat) -> CGFloat {
+        return height / kHeightWidthRatio
+    }
+    
 }
 
 

@@ -23,12 +23,15 @@ final class TextRecognizerManager {
     
     func performRequest(image: NSImage, completion: @escaping TextCompletion) {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
+            Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
             image.lockFocus()
             let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
             image.unlockFocus()
+            Timer.stop(text: "Bitmap Created")
             PixelConverter.shared.setRatio(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
+            Timer.stop(text: "WordRectangles Converted")
             completion(bitmap, wordsRectangles, error)
         }
     }

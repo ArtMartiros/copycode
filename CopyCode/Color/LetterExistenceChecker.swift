@@ -8,7 +8,7 @@
 
 import AppKit
 
-/// Отвечает за то, что проверяет относится ли конкретный пиксель к букве или к пустоте
+/// Отвечает за то, что проверяет относится ли конкретный пиксель к букве или к фону
 final class LetterExistenceChecker {
 
     private let bitmap: NSBitmapImageRep

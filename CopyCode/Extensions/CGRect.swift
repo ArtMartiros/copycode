@@ -121,3 +121,28 @@ extension CGRect {
         return rects
     }
 }
+
+extension CGRect {
+    init(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
+        let height = abs(top - bottom)
+        let width = abs(right - left)
+        self.init(x: left, y: bottom, width: width, height: height)
+    }
+}
+
+extension CGRect {
+    func divided(atDistance distance: CGFloat,
+                 afterDistance value: CGFloat, from edge: CGRectEdge) -> (slice: CGRect, remainder: CGRect) {
+        let firstDivided = divided(atDistance: distance + value, from: edge)
+        let secondDevided = firstDivided.slice.divided(atDistance: value, from: edge)
+        return (secondDevided.remainder, firstDivided.remainder)
+    }
+}
+
+extension CGRect {
+    ///Returns the intersection of two rectangles or nil
+    func optionalIntersection(_ rect2: CGRect) -> CGRect? {
+        guard intersects(rect2) else { return nil }
+        return self.intersection(rect2)
+    }
+}

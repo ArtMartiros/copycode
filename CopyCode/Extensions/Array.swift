@@ -57,11 +57,7 @@ extension Array {
         var itemForCompare: Element!
         for (index, item) in self.enumerated() {
             //первоначальная установка
-            if index == 0 {
-                itemForCompare = item
-                //                chunk.append(item)
-                continue
-            }
+            if index == 0 { itemForCompare = item }
             
             //сама логика
             if compare(itemForCompare, item) {

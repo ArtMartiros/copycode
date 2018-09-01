@@ -111,3 +111,8 @@ protocol BlockProtocol: StandartRectangle, Layerable {
 protocol ValueProtocol {
     var value: String { get }
 }
+
+protocol Gapable {
+    var gaps: [StandartRectangle] { get }
+}
+

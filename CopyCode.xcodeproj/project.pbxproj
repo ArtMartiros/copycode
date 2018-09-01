@@ -46,8 +46,8 @@
 		AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */; };
 		AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CD2114573100E09F91 /* TreeOCR.swift */; };
 		AC31C3CF2114573100E09F91 /* TreeOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CD2114573100E09F91 /* TreeOCR.swift */; };
-		AC365FC52110AF7B00764834 /* DigitColumnCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */; };
-		AC365FC62110AF7B00764834 /* DigitColumnCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */; };
+		AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
+		AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC42D3F2212D502E0086A728 /* WordSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC42D3F1212D502E0086A728 /* WordSplitter.swift */; };
 		AC42D3F3212D502E0086A728 /* WordSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC42D3F1212D502E0086A728 /* WordSplitter.swift */; };
 		AC4CA3F221025DCA0093D938 /* WordTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AB21020A9D00770DBB /* WordTypeIdentifier.swift */; };
@@ -126,6 +126,13 @@
 		AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0B12123324A004ED89D /* ocr_visual_12.json */; };
 		ACAF236E2136C798009D8409 /* FrameRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF236D2136C798009D8409 /* FrameRate.swift */; };
 		ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF236D2136C798009D8409 /* FrameRate.swift */; };
+		ACAF237121381C95009D8409 /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237021381C95009D8409 /* Gap.swift */; };
+		ACAF237221381C95009D8409 /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237021381C95009D8409 /* Gap.swift */; };
+		ACAF237421386210009D8409 /* LineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237321386210009D8409 /* LineDetection.swift */; };
+		ACAF237521386210009D8409 /* LineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237321386210009D8409 /* LineDetection.swift */; };
+		ACAF237721393B45009D8409 /* ArrayChunkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237621393B44009D8409 /* ArrayChunkTests.swift */; };
+		ACAF237921398BD4009D8409 /* CGRectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237821398BD3009D8409 /* CGRectEdge.swift */; };
+		ACAF237A21398BD4009D8409 /* CGRectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237821398BD3009D8409 /* CGRectEdge.swift */; };
 		ACDA4A7B2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
@@ -211,7 +218,7 @@
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
 		AC31C3CD2114573100E09F91 /* TreeOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCR.swift; sourceTree = "<group>"; };
-		AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnCreator.swift; sourceTree = "<group>"; };
+		AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnSplitter.swift; sourceTree = "<group>"; };
 		AC42D3F1212D502E0086A728 /* WordSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSplitter.swift; sourceTree = "<group>"; };
 		AC4CA409210462510093D938 /* BlockCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreator.swift; sourceTree = "<group>"; };
 		AC50A874212F2D7700B196BE /* PixelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelConverter.swift; sourceTree = "<group>"; };
@@ -253,6 +260,10 @@
 		AC9EF0AF21233191004ED89D /* ocr_visual_14.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_14.json; sourceTree = "<group>"; };
 		AC9EF0B12123324A004ED89D /* ocr_visual_12.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_12.json; sourceTree = "<group>"; };
 		ACAF236D2136C798009D8409 /* FrameRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameRate.swift; sourceTree = "<group>"; };
+		ACAF237021381C95009D8409 /* Gap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
+		ACAF237321386210009D8409 /* LineDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineDetection.swift; sourceTree = "<group>"; };
+		ACAF237621393B44009D8409 /* ArrayChunkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayChunkTests.swift; sourceTree = "<group>"; };
+		ACAF237821398BD3009D8409 /* CGRectEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectEdge.swift; sourceTree = "<group>"; };
 		ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterTypeData.swift; sourceTree = "<group>"; };
 		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACF1AC502108BE0B00897732 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
@@ -347,6 +358,7 @@
 				AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */,
 				ACF2569921202C0500B2F084 /* LetterOCRTests.swift */,
 				AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */,
+				ACAF237621393B44009D8409 /* ArrayChunkTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -385,6 +397,7 @@
 				AC06D88C20FF4F7400770DBB /* VNRectangleObservation.swift */,
 				ACF1AC502108BE0B00897732 /* Dictionary.swift */,
 				AC675774212C578B0051C34A /* ClosedRange.swift */,
+				ACAF237821398BD3009D8409 /* CGRectEdge.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -464,6 +477,7 @@
 				AC50A87B2133F2F000B196BE /* LetterPixelFinder.swift */,
 				AC50A87E2133F32E00B196BE /* LetterBoundsRestorer.swift */,
 				ACAF236D2136C798009D8409 /* FrameRate.swift */,
+				ACAF237321386210009D8409 /* LineDetection.swift */,
 			);
 			path = MissingElements;
 			sourceTree = "<group>";
@@ -505,7 +519,7 @@
 			children = (
 				ACF1AC62210B30A400897732 /* DigitColumnMerger.swift */,
 				ACF1AC5F210B2D1100897732 /* DigitColumnDetection.swift */,
-				AC365FC42110AF7B00764834 /* DigitColumnCreator.swift */,
+				AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */,
 				AC42D3F1212D502E0086A728 /* WordSplitter.swift */,
 			);
 			path = DigitalColumnCreator;
@@ -521,6 +535,7 @@
 				AC71FB692112EBCE00EE41C6 /* Letter.swift */,
 				AC06D8A6210207FF00770DBB /* WordType.swift */,
 				AC71FB622112E79500EE41C6 /* Protocol.swift */,
+				ACAF237021381C95009D8409 /* Gap.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -718,6 +733,7 @@
 				AC675775212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC06D89E20FF538300770DBB /* LetterRecognizer.swift in Sources */,
 				AC06D89720FF514700770DBB /* PanelController.swift in Sources */,
+				ACAF237121381C95009D8409 /* Gap.swift in Sources */,
 				AC06D89A20FF51CF00770DBB /* TextDetection.swift in Sources */,
 				ACDA4A7B2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */,
 				AC31C3C62114330000E09F91 /* Checker.swift in Sources */,
@@ -737,7 +753,7 @@
 				AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */,
 				AC06D87E20FF4DA100770DBB /* CGRect.swift in Sources */,
 				ACF1AC63210B30A400897732 /* DigitColumnMerger.swift in Sources */,
-				AC365FC52110AF7B00764834 /* DigitColumnCreator.swift in Sources */,
+				AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8125212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 				AC06D88420FF4DE300770DBB /* CGPoint.swift in Sources */,
 				AC06D87C20FF4D8B00770DBB /* Array.swift in Sources */,
@@ -748,6 +764,7 @@
 				AC50A87C2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC06D8A7210207FF00770DBB /* WordType.swift in Sources */,
 				AC06D87820FF4D3900770DBB /* NSImage.swift in Sources */,
+				ACAF237421386210009D8409 /* LineDetection.swift in Sources */,
 				AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
 				AC71FB762112F17E00EE41C6 /* Line.swift in Sources */,
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
@@ -763,6 +780,7 @@
 				AC42D3F2212D502E0086A728 /* WordSplitter.swift in Sources */,
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
 				ACFC8122212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
+				ACAF237921398BD4009D8409 /* CGRectEdge.swift in Sources */,
 				AC50A875212F2D7700B196BE /* PixelConverter.swift in Sources */,
 				AC06D87A20FF4D7200770DBB /* Thread.swift in Sources */,
 				AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */,
@@ -784,6 +802,7 @@
 				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */,
 				AC50A876212F2D7700B196BE /* PixelConverter.swift in Sources */,
+				ACAF237521386210009D8409 /* LineDetection.swift in Sources */,
 				AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
@@ -807,13 +826,15 @@
 				AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */,
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
 				AC4CA40121025DE30093D938 /* TextDetection.swift in Sources */,
+				ACAF237A21398BD4009D8409 /* CGRectEdge.swift in Sources */,
+				ACAF237221381C95009D8409 /* Gap.swift in Sources */,
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
 				AC50A8802133F32E00B196BE /* LetterBoundsRestorer.swift in Sources */,
 				AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */,
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
-				AC365FC62110AF7B00764834 /* DigitColumnCreator.swift in Sources */,
+				AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
 				AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */,
@@ -826,6 +847,7 @@
 				ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */,
 				AC31C3CF2114573100E09F91 /* TreeOCR.swift in Sources */,
 				AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
+				ACAF237721393B45009D8409 /* ArrayChunkTests.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */,
 				AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  DigitColumnCreator.swift
+//  DigitColumnSplitter.swift
 //  CopyCode
 //
 //  Created by Артем on 31/07/2018.
@@ -10,10 +10,10 @@ import Foundation
 
 protocol DigitColumnCreatorProtocol {
     associatedtype ColumnWithBlockWords
-    func create(from rectangles: [Word<LetterRectangle>]) -> ColumnWithBlockWords
+    func spltted(from rectangles: [Word<LetterRectangle>]) -> ColumnWithBlockWords
 }
 
-struct DigitColumnCreator: DigitColumnCreatorProtocol {
+struct DigitColumnSplitter: DigitColumnCreatorProtocol {
     private let kMinimumColumnWordsCount = 4
     private let columnDetection: DigitColumnDetection
     private let columnMerger: DigitColumnMerger
@@ -24,14 +24,8 @@ struct DigitColumnCreator: DigitColumnCreatorProtocol {
         self.columnMerger = columnMerger
     }
     
-    func create(from rectangles: [WordAlias]) -> ColumnWithBlockWords {
+    func spltted(from rectangles: [WordAlias]) -> ColumnWithBlockWords {
         var dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
-//        Array(dictionaryWordsByOriginX.values).sorted { $0.count > $1.count }.forEach {
-//            $0.forEach { element in
-//                print("x: \(element.frame.leftX), y: \(element.frame.bottomY), w: \(element.frame.width), h: \(element.frame.height)")
-//            }
-//            print("\($0.count) --------------------------end\n")
-//        }
         var columnsWords: [[WordAlias]] = []
         var blockRectangles: [WordAlias] = []
         divide(from: &dictionaryWordsByOriginX, toColumnsWords: &columnsWords, and: &blockRectangles)

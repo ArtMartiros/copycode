@@ -18,7 +18,7 @@ class LetterBoundsRestorer: PixelBoundsRestorable {
     private let checker: LetterExistenceChecker
     
     private let kEvenArray: [CGFloat] = [0.2, 0.4, 0.6, 0.8]
-    private let kUnevenarray: [CGFloat] = [0.1, 0.3, 0.5, 0.7, 0.9]
+    private let kUnevenarray: [CGFloat] = [0.1, 0.3, 0.5, 0.7, 0.9, ]
     
     init(checker: LetterExistenceChecker) {
         self.checker = checker

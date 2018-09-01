@@ -24,7 +24,6 @@ class LetterPixelFinder {
         let rates = ratesFrom(frame, with: edge)
         for rate in rates {
             let point = CGPoint(x: frame.xAs(rate: rate.x), y: frame.yAs(rate: rate.y))
-            print("Masai \(point)")
             if checker.exist(at: point) {
                 dictionary[rate] = .value(point.rounded)
                 return .value(dictionary)
