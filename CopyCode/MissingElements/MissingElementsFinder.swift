@@ -62,7 +62,7 @@ class MissingElementsFinder {
             case .empty:
                 correctPixelFrame = removedLastLetter(from: correctPixelFrame, letterFrame: defaultLetterFrame, and: edge)
                 inRaw += 1
-            case .value(let dictionary):
+            case .value(_):
 //                let restoredLetterFrame = pixelBoundsRestorer.restore(at: dictionary, in: defaultLetterFrame)
                 correctPixelFrame = removedLastLetter(from: correctPixelFrame, letterFrame: defaultLetterFrame, and: edge)
                 let letter = createLetter(from: defaultLetterFrame)

@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct LetterRectangle: Rectangle, Hashable {
+struct LetterRectangle: Rectangle, Hashable, Codable {
+
     let frame: CGRect
     let pixelFrame: CGRect
     

@@ -23,7 +23,7 @@ class LetterTypeClassificationTests: XCTestCase {
 
     override func setUp() {
         let image = NSImage(named: .init("picLetterTypeClassificationWhite"))!
-        guard let answers = DecodeHelper.decode(self,
+        guard let answers = CodableHelper.decode(self,
                                                 path: "letter_type_classification",
                                                 structType: [Answer].self) else { return }
         

@@ -200,7 +200,7 @@ class LetterOCRTests: XCTestCase {
     private func setup(with picture: OCRPicture, _ completion: @escaping (LetterRecognizer, [LetterRectangle], [Answer]) -> Void) {
         
         let image = NSImage(named: .init(picture.imageName))!
-        guard let answers = DecodeHelper.decode(self,
+        guard let answers = CodableHelper.decode(self,
                                                 path: picture.json,
                                                 structType: [Answer].self) else { return }
         let textManager = TextRecognizerManager()

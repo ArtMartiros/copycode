@@ -14,12 +14,13 @@ protocol BlockCreatorProtocol {
 }
 
 final class BlockCreator: BlockCreatorProtocol {
-    typealias ColumnsWithWords = (column: ColumnProtocol, words: [Word<LetterRectangle>])
+    typealias ColumnsWithWords = (column: ColumnType, words: [Word<LetterRectangle>])
     
     private let lineCreator = LineCreator<LetterRectangle>()
     private let digitalColumnSplitter: DigitColumnSplitter
     private let customColumnCreator = CustomColumnCreator<LetterRectangle>()
     private let missingElementsRestorer: MissingElementsRestorer
+    private let trackingInfoFinder = TrackingInfoFinder()
     
     init(digitalColumnCreator: DigitColumnSplitter, elementsRestorer: MissingElementsRestorer) {
         self.digitalColumnSplitter = digitalColumnCreator
@@ -32,25 +33,42 @@ final class BlockCreator: BlockCreatorProtocol {
             let line = lineCreator.create(from: $0.words)
             return Block.from(line, column: $0.column)
         }
+        
+        let blocksWithInfos: [Block<LetterRectangle>] = blocks.map {
+            let trackingInfos = trackingInfoFinder.find(from: $0)
+            var newBlock = $0
+            newBlock.trackings = trackingInfos
+            return newBlock
+        }
+
         Timer.stop(text: "Block Created")
-        let restoredBlocks = Block.blocksWithConstraints(from: blocks)
+        let restoredBlocks = Block.blocksWithConstraints(from: blocksWithInfos)
             .map { missingElementsRestorer.restore($0.block, constraint: $0.constraint) }
         Timer.stop(text: "Block Restored")
-        return restoredBlocks
+        return blocks
     }
     
+
     /// использует либо столбец с цифрами или если нет то кастомный
     private func getBlockWordsWithColumns(from words: [Word<LetterRectangle>]) -> ([ColumnsWithWords]) {
         let (columns, blockRectangles) = digitalColumnSplitter.spltted(from: words)
-        var newColumns: [ColumnProtocol] = !columns.isEmpty ? columns : customColumnCreator.create(from: words)
-        newColumns.sort { $0.frame.leftX < $1.frame.leftX }
-        let blockWords = getBlocks(from: blockRectangles, by: newColumns )
+        let newColumns = getNewColumnsIfDigitNotExist(columns, words: words)
+        let blockWords = getBlocks(from: blockRectangles, by: newColumns.sortedFromLeftToRight  )
             .sorted { $0[0].frame.leftX <  $1[0].frame.leftX }
         var columnsWithWords: [ColumnsWithWords] = []
         for (index, words) in blockWords.enumerated() {
             columnsWithWords.append((newColumns[index], words))
         }
         return columnsWithWords
+    }
+    
+    private func getNewColumnsIfDigitNotExist(_ columns: [DigitColumn<LetterRectangle>],
+                                              words: [Word<LetterRectangle>]) -> [ColumnType] {
+        if !columns.isEmpty {
+            return columns.map { ColumnType.digit(column: $0) }
+        } else {
+            return customColumnCreator.create(from: words).map { ColumnType.standart(column: $0) }
+        }
     }
     
     // на данный момент ищет если удовлетворяет критерию правее и ниже, но нужен другой, просто правее

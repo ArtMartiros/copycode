@@ -130,6 +130,13 @@ extension CGRect {
     }
 }
 
+extension CGRect: Hashable {
+    public var hashValue: Int {
+        return Int(origin.x) ^ Int(origin.y) ^ Int(size.width) ^ Int(size.height)
+    }
+}
+
+
 extension CGRect {
     func divided(atDistance distance: CGFloat,
                  afterDistance value: CGFloat, from edge: CGRectEdge) -> (slice: CGRect, remainder: CGRect) {
@@ -137,6 +144,36 @@ extension CGRect {
         let secondDevided = firstDivided.slice.divided(atDistance: value, from: edge)
         return (secondDevided.remainder, firstDivided.remainder)
     }
+    
+    /**
+     - Parameter **point**: x position in main frame
+     - Returns: A *tuple* with **left** and **rigth** frame divided by current **X** position
+     
+     - Remark:
+     If **X** point smaller than **minX** then **left** parameter will be **zero**.
+     If **X** point greater than **maxX** then **right** parameter will be **zero**
+     */
+    func divided(atXPoint point: CGFloat) -> (left: CGRect, right: CGRect) {
+        let distance =  point - leftX
+        let dividedValue = divided(atDistance: distance, from: .minXEdge)
+        return (dividedValue.slice, dividedValue.remainder)
+    }
+    
+    /**
+     - Parameter **point**: x position in main frame
+     - Returns: A *tuple* with **left** and **rigth** percent of main width divided by current **X** position
+     
+     - Remark:
+     If **X** point smaller than **minX** then **left** parameter will be **zero**.
+     If **X** point greater than **maxX** then **right** parameter will be **zero**
+     */
+    func dividedInPercent(atXPoint point: CGFloat) -> (left: CGFloat, right: CGFloat) {
+        let dividedValue = divided(atXPoint: point)
+        let left = width / dividedValue.left.width * 100
+        let right = left - 100
+        return (left, right )
+    }
+    
 }
 
 extension CGRect {

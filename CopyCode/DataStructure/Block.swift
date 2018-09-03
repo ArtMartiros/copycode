@@ -12,17 +12,16 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     
     let frame: CGRect
     let lines: [Line<WordChild>]
-    let column: ColumnProtocol
+    let column: ColumnType
+    var trackings: [TrackingInfo]?
     
-    var gaps: [StandartRectangle] {
-        var gaps: [StandartRectangle] = []
-        for (index, line) in lines.enumerated() where index != 0 {
-            let previousLine = lines[index - 1]
+    var gaps: [Gap] {
+        var gaps: [Gap] = []
+        lines.forEachPair {
             let gapFrame = CGRect(left: frame.leftX, right: frame.rightX,
-                             top: previousLine.frame.bottomY, bottom: line.frame.topY)
+                                  top: $0.frame.bottomY, bottom: $1.frame.topY)
             gaps.append(Gap(frame: gapFrame))
         }
-        
         return gaps
     }
     
@@ -38,35 +37,32 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         return sameHeightArray?[0] ?? averageLineHeight
     }
     
-    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnProtocol) {
+    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType) {
         self.lines = lines
         self.frame = frame
         self.column = column
     }
     
-    static func from(_ lines: [Line<WordChild>], column: ColumnProtocol) -> Block {
+    static func from(_ lines: [Line<WordChild>], column: ColumnType) -> Block {
         let frame = lines.map { $0.frame }.compoundFrame
         return Block(lines: lines, frame: frame, column: column)
     }
     
     typealias BlockWithConstraint = (block: Block<WordChild>, constraint: CGRect?)
     
+    ///Если два блока пересекаются то он возвращает то что пересекается
     static func blocksWithConstraints(from blocks: [Block<WordChild>]) -> ([BlockWithConstraint]) {
         let blocks = blocks.sortedFromLeftToRight
         var newBlocks: [BlockWithConstraint] = []
-        for (index, block) in blocks.enumerated() {
-            let nextIndex = index + 1
-            if nextIndex < blocks.count,
-                let constraint = block.frame.optionalIntersection(blocks[nextIndex].column.frame) {
+        blocks.forEachPair {
+            if let constraint = $0.frame.optionalIntersection($1.column.frame) {
                 let updatedConstraint = CGRect(left: constraint.leftX, right: constraint.rightX,
-                                               top: block.frame.topY, bottom: constraint.bottomY)
-                newBlocks.append((block, updatedConstraint))
-            } else {
-                newBlocks.append((block, nil))
+                                               top: $0.frame.topY, bottom: constraint.bottomY)
+                newBlocks.append(($0, updatedConstraint))
             }
         }
+        newBlocks.append((blocks.last!, nil))
         return newBlocks
     }
 }
-
 

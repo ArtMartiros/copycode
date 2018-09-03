@@ -35,6 +35,11 @@ enum SimpleResult<T> {
     case value(T)
 }
 
+enum SimpleSuccess<T> {
+    case failure
+    case success(T)
+}
+
 /// Cases: left, right, top, bottom
 enum Direction {
     case left

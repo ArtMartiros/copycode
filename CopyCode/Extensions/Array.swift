@@ -51,35 +51,35 @@ extension Array where Element: Layerable {
 }
 
 extension Array {
-    func chunkForSorted(_ compare: (Element, Element) -> Bool ) -> [[Element]] {
-        var chunk: [Element] = []
-        var chunks: [[Element]] = []
-        var itemForCompare: Element!
+    
+    func forEachPairWithIndex(_ elements: (_ current: Element, _ next: Element, _ index: Int) -> Void ) {
         for (index, item) in self.enumerated() {
-            //первоначальная установка
-            if index == 0 { itemForCompare = item }
-            
-            //сама логика
-            if compare(itemForCompare, item) {
-                chunk.append(item)
-            } else {
-                chunks.append(chunk)
-                itemForCompare = item
-                chunk = [item]
-            }
-            
-            //если последний элемент то надо записать все, что в буфере
-            let isLastElement = index + 1 == self.count
-            guard !isLastElement else  {
-                chunks.append(chunk)
-                continue
-            }
-            
+            let nextIndex = index + 1
+            guard nextIndex < count else { break }
+            elements(item, self[nextIndex], index)
         }
-        return chunks
+    }
+    
+    ///Два элемента сразу дает, текущий и след
+    func forEachPair(_ elements: (_ current: Element, _ next: Element) -> Void ) {
+        for (index, item) in self.enumerated() {
+            let nextIndex = index + 1
+            guard nextIndex < count else { break }
+            elements(item, self[nextIndex])
+        }
+    }
+    
+    func mapPair<T>(_ transform: (_ current: Element, _ next: Element) throws -> T) rethrows -> [T] {
+        var newArray: [T] = []
+        for (index, item) in self.enumerated() {
+            let nextIndex = index + 1
+            guard nextIndex < count else { break }
+            let element = try transform(item, self[nextIndex])
+            newArray.append(element)
+        }
+        return newArray
     }
 }
-
 
 extension Array where Element: StandartRectangle {
     var sortedFromTopToBottom: [Element] {

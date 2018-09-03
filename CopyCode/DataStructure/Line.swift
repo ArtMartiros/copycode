@@ -12,14 +12,23 @@ struct Line<WordChild: Rectangle>: StandartRectangle, Layerable, Gapable {
     typealias WordAlias = Word<WordChild>
     let words: [WordAlias]
     
-    var gaps: [StandartRectangle] {
-        var gaps: [StandartRectangle] = []
-        for (index, word) in words.enumerated() where index != 0 {
-            let previousWord = words[index - 1]
-            let gapFrame = CGRect(left: previousWord.frame.rightX, right: word.frame.leftX,
+    var gaps: [Gap] {
+        var gaps: [Gap] = []
+        words.forEachPair {
+            let gapFrame = CGRect(left: $0.frame.rightX, right: $1.frame.leftX,
                                   top: frame.topY, bottom: frame.bottomY)
             gaps.append(Gap(frame: gapFrame))
         }
+        return gaps
+    }
+    
+    func biggestWord() -> WordAlias {
+        let word = words.sorted { $0.frame.width > $1.frame.width }[0]
+        return word
+    }
+    
+    func gapsFramesFromBiggestWord() -> [CGRect] {
+        let gaps = biggestWord().gaps.map { $0.frame }
         return gaps
     }
     

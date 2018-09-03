@@ -14,11 +14,13 @@ class PixelConverter {
     
     private init () { }
     
-    private (set) var ratio: CGFloat = 1
-    
-    func setRatio(size: NSSize, pixelSize: NSSize) {
+    var ratio: CGFloat { return pixelSize.width / size.width }
+    private (set) var size = CGSize(width: 1, height: 1)
+    private (set) var pixelSize = CGSize(width: 1, height: 1)
+    func setSize(size: NSSize, pixelSize: NSSize) {
         print("PixelConverter size: \(size), pixelSize: \(pixelSize)")
-        ratio = pixelSize.width / size.width
+        self.size = size
+        self.pixelSize = pixelSize
     }
     
     func toPixel(from frame: CGRect) -> CGRect {

@@ -40,19 +40,19 @@ class CustomColumnCreator<WordChild: Rectangle> {
                                          distance: CGFloat) -> [CGFloat: [ClosedRange<CGFloat>]] {
         let lastKey = dictionary.keys.sorted().last ?? 0
         let lastElement = Int(lastKey / distance)
-        
+        let width = PixelConverter.shared.size.width
         var allGaps: [CGFloat: [ClosedRange<CGFloat>]] = [:]
         let gapsCreator = GapsCreator()
         for index in 0...lastElement {
             let leftX = CGFloat(index) * distance
             if let rects = dictionary[leftX] {
                 let sortedRects = rects.sorted { $0.frame.bottomY < $1.frame.bottomY }
-                let gaps = gapsCreator.createVertical(from: sortedRects, last: 1440)
+                let gaps = gapsCreator.createVertical(from: sortedRects, last: width)
                     .filter { $0.distance > 50 }
                     .sorted { $0.distance > $1.distance }
                 allGaps[leftX] = gaps
             } else {
-                allGaps[leftX] = [0...1440]
+                allGaps[leftX] = [0...width]
             }
         }
         return allGaps

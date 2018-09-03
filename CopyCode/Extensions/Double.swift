@@ -18,9 +18,21 @@ extension Double {
 
 extension CGFloat {
     /// Rounds the double to decimal places value
+    /// For example:
+    ///
+    ///     let x: CGFloat = 1.2345
+    ///     print(x(toPlaces: 3))
+    ///     // Prints "1.235"
+    ///
     func rounded(toPlaces places:Int) -> CGFloat {
         let divisor = pow(10.0, CGFloat(places))
         return (self * divisor).rounded() / divisor
+    }
+    
+    mutating func round(toPlaces places:Int) {
+        let divisor = pow(10.0, CGFloat(places))
+        let newValue = (self * divisor).rounded() / divisor
+        self = newValue
     }
 }
 
@@ -31,11 +43,3 @@ extension Int {
         return  operation(value, percentNumber)
     }
 }
-
-//extension Comparable {
-//
-//    func clamped(to r: ClosedRange<Self>) -> Self {
-//        let min = r.lowerBound, max = r.upperBound
-//        return self < min ? min : (max < self ? max : self)
-//    }
-//}

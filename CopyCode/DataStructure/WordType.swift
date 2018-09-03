@@ -9,6 +9,7 @@
 import Foundation
 
 enum WordType: CustomStringConvertible, Equatable {
+    
     static func == (lhs: WordType, rhs: WordType) -> Bool {
         return lhs.description == rhs.description
     }
@@ -23,13 +24,51 @@ enum WordType: CustomStringConvertible, Equatable {
     case undefined
     case mix
     case same(type: SameType)
-    enum SameType: String {
+    enum SameType: String, Codable {
         case allUpper
         case allLower
         case allLowWithTail
         case undefined
     }
     
+}
+
+extension WordType: Codable {
+    private enum CodingKeys: String, CodingKey {
+        case sameType, base
+    }
+    
+    private enum Base: String, Codable {
+        case undefined, mix, same
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let base = try container.decode(Base.self, forKey: .base)
+        
+        switch base {
+        case .undefined:
+            self = .undefined
+        case .mix:
+            self = .mix
+        case .same:
+            let sameTypeValue = try container.decode(SameType.self, forKey: .sameType)
+            self = .same(type: sameTypeValue)
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        case .undefined:
+             try container.encode(Base.undefined, forKey: .base)
+        case .mix:
+             try container.encode(Base.mix, forKey: .base)
+        case .same(let type):
+            try container.encode(Base.same, forKey: .base)
+            try container.encode(type, forKey: .sameType)
+        }
+    }
 }
 
 extension WordType.SameType {

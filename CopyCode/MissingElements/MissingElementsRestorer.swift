@@ -30,7 +30,6 @@ class MissingElementsRestorer {
     
     ///восстанавливает потерянные линии внутри блока
     func restore(_ block: Block<LetterRectangle>, constraint: CGRect?) -> Block<LetterRectangle> {
-        
         let lineHeight = block.maxLineHeight()
         let letterWidth =  LetterRectangle.letterWidth(from: lineHeight)
         var restoredLines = block.lines
@@ -82,7 +81,7 @@ class MissingElementsRestorer {
                           andBlock block: StandartRectangle, direction: HorizontalDirection) -> Word<LetterRectangle>? {
         let frame = createFrame(betweenLine: line, andBlock: block, direction: direction)
         guard frame.width != 0 else { return nil}
-        return  findWord(inside: frame, letterWidth: letterWidth, with: direction.edge)
+        return findWord(inside: frame, letterWidth: letterWidth, with: direction.edge)
     }
 
     private func createFrame(betweenLine line: StandartRectangle,

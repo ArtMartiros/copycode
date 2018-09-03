@@ -13,7 +13,18 @@ protocol Container: Rectangle {
     var letters: [Content] { get }
 }
 
-struct Word<Child:Rectangle>: Container {
+struct Word<Child:Rectangle>: Container, Gapable {
+    
+    var gaps: [Gap] {
+        var gaps: [Gap] = []
+        letters.forEachPair {
+            let gapFrame = CGRect(left: $0.frame.rightX, right: $1.frame.leftX,
+                                  top: frame.topY, bottom: frame.bottomY)
+            gaps.append(Gap(frame: gapFrame))
+        }
+        return gaps
+    }
+    
     let frame: CGRect
     let pixelFrame: CGRect
     let letters: [Child]

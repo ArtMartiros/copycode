@@ -26,7 +26,7 @@ protocol PixelRectangle {
     var pixelFrame: CGRect { get }
 }
 
-protocol StandartRectangle {
+protocol StandartRectangle: Codable {
     var frame: CGRect { get }
     func intersectByX(with rectangle: StandartRectangle) -> Bool
     func intersectByY(with rectangle: StandartRectangle) -> Bool
@@ -113,6 +113,7 @@ protocol ValueProtocol {
 }
 
 protocol Gapable {
-    var gaps: [StandartRectangle] { get }
+    var gaps: [Gap] { get }
+    
 }
 
