@@ -27,3 +27,26 @@ struct Tracking: Codable {
         self.startPoint = startPoint
     }
 }
+
+extension Tracking {
+    func nearestPoint(to frame: CGRect) -> CGFloat {
+        let distance = abs(frame.leftX - startPoint)
+        let value = (distance / width).rounded()
+        
+        if frame.leftX < startPoint {
+            let point = startPoint - value * width
+            return point
+        } else {
+            let point = startPoint + value * width
+            return point
+        }
+    }
+}
+
+struct TrackingPixelConverter {
+    static func toPixel(from tracking: Tracking) -> Tracking {
+        let startPoint = PixelConverter.shared.toPixel(from: tracking.startPoint)
+        let width = PixelConverter.shared.toPixel(from: tracking.width)
+        return Tracking(startPoint: startPoint, width: width)
+    }
+}

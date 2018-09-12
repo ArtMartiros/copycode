@@ -12,7 +12,7 @@ import Foundation
 class MissingElementsRestorer {
     enum HorizontalDirection {
         case left
-        case right(constraint: CGRect?)
+        case right
         
         var edge: CGRectEdge {
             switch self {
@@ -23,45 +23,44 @@ class MissingElementsRestorer {
     }
 
     let finder: MissingElementsFinder
-    
     init(finder: MissingElementsFinder) {
         self.finder = finder
     }
     
     ///восстанавливает потерянные линии внутри блока
-    func restore(_ block: Block<LetterRectangle>, constraint: CGRect?) -> Block<LetterRectangle> {
+    func restore(_ block: Block<LetterRectangle>) -> Block<LetterRectangle> {
+        guard let tracking = block.tracking else { return block }
         let lineHeight = block.maxLineHeight()
-        let letterWidth =  LetterRectangle.letterWidth(from: lineHeight)
         var restoredLines = block.lines
-            .compactMap { restoreWords(in: $0, letterWidth: letterWidth, blockBounds: block, constraint: constraint) }
+            .compactMap { restoreWords(in: $0, tracking: tracking, blockBounds: block) }
         
         let newLines = block.gaps
-            .compactMap { finder.findMissingLine(in: $0.frame, lineHeight: lineHeight, letterWidth: letterWidth) }
+            .compactMap { finder.findMissingLine(in: $0.frame, lineHeight: lineHeight, tracking: tracking) }
             .reduce([Line<LetterRectangle>]()) { $0 + $1 }
        
         restoredLines.append(contentsOf: newLines)
-        return Block.from(restoredLines.sortedFromTopToBottom, column: block.column)
+        return Block.from(restoredLines.sortedFromTopToBottom, column: block.column, tracking: tracking)
     }
    
     ///восстанавливает потерянные буквы для слов внутри линии
-    func restoreWords(in line: Line<LetterRectangle>, letterWidth: CGFloat,
-                      blockBounds: StandartRectangle, constraint: CGRect?) -> Line<LetterRectangle>? {
+    func restoreWords(in line: Line<LetterRectangle>, tracking: Tracking,
+                      blockBounds: StandartRectangle) -> Line<LetterRectangle>? {
         var newWords: [Word<LetterRectangle>] = []//line.words
         // между началом блока и началом линии
-        if let word = findWord(betweenLine: line, letterWidth: letterWidth, andBlock: blockBounds, direction: .left) {
+        if let word = findWord(betweenLine: line, tracking: tracking, andBlock: blockBounds, direction: .left) {
             newWords.append(word)
         }
         
         // внутри линии
         line.gaps.forEach {
-            if let word = findWord(inside: $0.frame, letterWidth: letterWidth, with: .minXEdge) {
+            if let word = findWord(inside: $0.frame, tracking: tracking, with: .minXEdge) {
                 newWords.append(word)
             }
         }
         
         // между концом линии и концом блока
-        if let word = findWord(betweenLine: line, letterWidth: letterWidth, andBlock: blockBounds,
-                               direction: .right(constraint: constraint)) {
+        if let word = findWord(betweenLine: line, tracking: tracking, andBlock: blockBounds,
+                               direction: .right) {
             newWords.append(word)
         }
         
@@ -69,37 +68,36 @@ class MissingElementsRestorer {
         return Line(words: newWords.sortedFromLeftToRight)
     }
     
-    private func findWord(inside frame: CGRect, letterWidth: CGFloat, with edge: CGRectEdge) -> Word<LetterRectangle>? {
-        let letters = finder.findMissingLetters(in: frame, letterWidth: letterWidth, with: edge)
+    private func findWord(inside frame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> Word<LetterRectangle>? {
+        let letters = finder.findMissingLetters(in: frame, tracking: tracking, with: edge)
         guard !letters.isEmpty else { return nil }
         let word = (Word.from(letters.sortedFromLeftToRight))
         return word
     }
     
     private func findWord(betweenLine line: StandartRectangle,
-                          letterWidth: CGFloat,
+                          tracking: Tracking,
                           andBlock block: StandartRectangle, direction: HorizontalDirection) -> Word<LetterRectangle>? {
         let frame = createFrame(betweenLine: line, andBlock: block, direction: direction)
         guard frame.width != 0 else { return nil}
-        return findWord(inside: frame, letterWidth: letterWidth, with: direction.edge)
+        return findWord(inside: frame, tracking: tracking, with: direction.edge)
     }
 
-    private func createFrame(betweenLine line: StandartRectangle,
-                             andBlock block: StandartRectangle,
+    private func createFrame(betweenLine line: StandartRectangle, andBlock block: StandartRectangle,
                              direction: HorizontalDirection) -> CGRect {
-        var frame: CGRect!
+        let leftX: CGFloat
+        let rightX: CGFloat
+        
         switch direction {
         case .left:
-            frame = CGRect(left: block.frame.leftX, right: line.frame.leftX,
-                           top: line.frame.topY, bottom: line.frame.bottomY)
-        case .right(let constraint):
-            frame = CGRect(left: line.frame.rightX, right: block.frame.rightX,
-                           top: line.frame.topY, bottom: line.frame.bottomY)
-            if let constraint = constraint, constraint.intersects(frame) {
-                frame = CGRect(left: line.frame.rightX, right: constraint.leftX,
-                               top: line.frame.topY, bottom: line.frame.bottomY)
-            }
+            leftX = block.frame.leftX
+            rightX = line.frame.leftX
+        case .right:
+            leftX = line.frame.rightX
+            rightX = block.frame.rightX
         }
+        
+        let frame = CGRect(left: leftX, right: rightX, top: line.frame.topY, bottom: line.frame.bottomY)
         return frame
     }
 }

@@ -108,15 +108,10 @@ extension CGRect {
     func chunkToSmallRects(byWidth width: CGFloat) -> [CGRect] {
         var rects: [CGRect] = []
         var currentRect = self
-        while true {
+        while currentRect.width != 0 {
             let splitted = currentRect.divided(atDistance: width, from: .minXEdge)
             currentRect = splitted.remainder
             rects.append(splitted.slice)
-            let isCompleteToDevide = currentRect.width / width < 1.5
-            if isCompleteToDevide {
-                rects.append(currentRect)
-                break
-            }
         }
         return rects
     }

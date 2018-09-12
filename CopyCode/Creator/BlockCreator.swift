@@ -33,22 +33,29 @@ final class BlockCreator: BlockCreatorProtocol {
             let line = lineCreator.create(from: $0.words)
             return Block.from(line, column: $0.column)
         }
-        
-        let blocksWithInfos: [Block<LetterRectangle>] = blocks.map {
-            let trackingInfos = trackingInfoFinder.find(from: $0)
-            var newBlock = $0
-            newBlock.trackings = trackingInfos
-            return newBlock
-        }
-
         Timer.stop(text: "Block Created")
-        let restoredBlocks = Block.blocksWithConstraints(from: blocksWithInfos)
-            .map { missingElementsRestorer.restore($0.block, constraint: $0.constraint) }
+        let blocksWithTracking = blocksUpdatedAfterTracking(blocks)
+        Timer.stop(text: "Block Tracking")
+        let restoredBlocks = blocksWithTracking
+            .map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "Block Restored")
-        return blocks
+        return restoredBlocks
     }
     
-
+    private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
+        var newBlocks: [Block<LetterRectangle>] = []
+        for block in blocks {
+            let trackingInfos = trackingInfoFinder.find(from: block)
+            for info in trackingInfos {
+                let lines = Array(block.lines[info.startIndex...info.endIndex])
+                var newBlock = Block.from(lines, column: block.column)
+                newBlock.tracking = info.tracking
+                newBlocks.append(newBlock)
+            }
+        }
+        return newBlocks
+    }
+    
     /// использует либо столбец с цифрами или если нет то кастомный
     private func getBlockWordsWithColumns(from words: [Word<LetterRectangle>]) -> ([ColumnsWithWords]) {
         let (columns, blockRectangles) = digitalColumnSplitter.spltted(from: words)

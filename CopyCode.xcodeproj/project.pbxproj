@@ -112,6 +112,8 @@
 		AC71FB7A2112F1BB00EE41C6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB782112F1BB00EE41C6 /* Block.swift */; };
 		AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
 		AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
+		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
+		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */; };
 		AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */; };
 		AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E89662126F08800B97163 /* TreeOCRLowData.swift */; };
@@ -128,11 +130,7 @@
 		AC95B4B021412B1F0007B5C5 /* TrackingChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4AE21412B1F0007B5C5 /* TrackingChecker.swift */; };
 		AC95B4B2214130C60007B5C5 /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4B1214130C60007B5C5 /* Tracking.swift */; };
 		AC95B4B3214130C60007B5C5 /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4B1214130C60007B5C5 /* Tracking.swift */; };
-		AC95B4B5214139900007B5C5 /* gaps_stuck_for_tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = AC95B4B4214139900007B5C5 /* gaps_stuck_for_tracking.json */; };
-		AC95B4B6214139900007B5C5 /* gaps_stuck_for_tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = AC95B4B4214139900007B5C5 /* gaps_stuck_for_tracking.json */; };
 		AC95B4B9214139FB0007B5C5 /* TrackingDistanceFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4B8214139FB0007B5C5 /* TrackingDistanceFinderTests.swift */; };
-		AC95B4BD21413EDD0007B5C5 /* gaps_success_for_tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = AC95B4BC21413EDD0007B5C5 /* gaps_success_for_tracking.json */; };
-		AC95B4C121413FFA0007B5C5 /* gaps_fail_for_tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = AC95B4C021413FFA0007B5C5 /* gaps_fail_for_tracking.json */; };
 		AC95B4C3214142760007B5C5 /* TrackingInfoFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4C2214142760007B5C5 /* TrackingInfoFinderTests.swift */; };
 		AC95B4C6214152120007B5C5 /* ClosedRangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4C5214152120007B5C5 /* ClosedRangeTests.swift */; };
 		AC95B4CA214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95B4C9214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift */; };
@@ -274,6 +272,7 @@
 		AC71FB752112F17E00EE41C6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		AC71FB782112F1BB00EE41C6 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRUpperData.swift; sourceTree = "<group>"; };
 		AC8E89662126F08800B97163 /* TreeOCRLowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRLowData.swift; sourceTree = "<group>"; };
 		AC8EB592213EBF72003D345B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -282,10 +281,7 @@
 		AC95B4AB2141286A0007B5C5 /* TrackingStartPointFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingStartPointFinder.swift; sourceTree = "<group>"; };
 		AC95B4AE21412B1F0007B5C5 /* TrackingChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingChecker.swift; sourceTree = "<group>"; };
 		AC95B4B1214130C60007B5C5 /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
-		AC95B4B4214139900007B5C5 /* gaps_stuck_for_tracking.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gaps_stuck_for_tracking.json; sourceTree = "<group>"; };
 		AC95B4B8214139FB0007B5C5 /* TrackingDistanceFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingDistanceFinderTests.swift; sourceTree = "<group>"; };
-		AC95B4BC21413EDD0007B5C5 /* gaps_success_for_tracking.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gaps_success_for_tracking.json; sourceTree = "<group>"; };
-		AC95B4C021413FFA0007B5C5 /* gaps_fail_for_tracking.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gaps_fail_for_tracking.json; sourceTree = "<group>"; };
 		AC95B4C2214142760007B5C5 /* TrackingInfoFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoFinderTests.swift; sourceTree = "<group>"; };
 		AC95B4C5214152120007B5C5 /* ClosedRangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedRangeTests.swift; sourceTree = "<group>"; };
 		AC95B4C9214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPreliminaryLetterWidthDetection.swift; sourceTree = "<group>"; };
@@ -454,6 +450,7 @@
 				AC71FB6F2112EE8B00EE41C6 /* GlobalMethods.swift */,
 				AC06D88620FF4ED100770DBB /* Timer.swift */,
 				AC03DCFF213DC2F200730DCD /* CodableHelper.swift */,
+				AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -503,9 +500,6 @@
 				AC50A8872135461B00B196BE /* missing_dash.json */,
 				AC03DCE1213D600800730DCD /* block_one.json */,
 				AC03DCF8213D61AF00730DCD /* block_two.json */,
-				AC95B4B4214139900007B5C5 /* gaps_stuck_for_tracking.json */,
-				AC95B4BC21413EDD0007B5C5 /* gaps_success_for_tracking.json */,
-				AC95B4C021413FFA0007B5C5 /* gaps_fail_for_tracking.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -767,7 +761,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC95B4B5214139900007B5C5 /* gaps_stuck_for_tracking.json in Resources */,
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
 				AC06D84B20FF30D100770DBB /* Assets.xcassets in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
@@ -782,7 +775,6 @@
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
-				AC95B4B6214139900007B5C5 /* gaps_stuck_for_tracking.json in Resources */,
 				AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
 				ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */,
@@ -796,7 +788,6 @@
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				AC1C54D6211878570000460D /* Info.plist in Resources */,
-				AC95B4BD21413EDD0007B5C5 /* gaps_success_for_tracking.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC06D87420FF4CA800770DBB /* Assets.xcassets in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
@@ -804,7 +795,6 @@
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
-				AC95B4C121413FFA0007B5C5 /* gaps_fail_for_tracking.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +879,7 @@
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
 				ACFC8122212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
 				ACAF237921398BD4009D8409 /* CGRectEdge.swift in Sources */,
+				AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */,
 				AC50A875212F2D7700B196BE /* PixelConverter.swift in Sources */,
 				AC06D87A20FF4D7200770DBB /* Thread.swift in Sources */,
 				AC8E89672126F08800B97163 /* TreeOCRLowData.swift in Sources */,
@@ -948,6 +939,7 @@
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
+				AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */,
 				AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,

@@ -31,7 +31,12 @@ struct TrackingInfoFinder {
                     .sorted { $0.endIndex > $1.endIndex}
                 trackingInfo = infos[0]
             } else {
-                trackingInfo = TrackingInfo(tracking: nil, startIndex: lineIndex, endIndex: lineIndex)
+                if let info = trackingInfos.last, info.tracking == nil {
+                    let _ = trackingInfos.removeLast()
+                    trackingInfo = TrackingInfo(tracking: nil, startIndex: info.startIndex, endIndex: lineIndex)
+                } else {
+                    trackingInfo = TrackingInfo(tracking: nil, startIndex: lineIndex, endIndex: lineIndex)
+                }
             }
             trackingInfos.append(trackingInfo)
         }

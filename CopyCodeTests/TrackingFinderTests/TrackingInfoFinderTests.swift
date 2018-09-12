@@ -18,7 +18,7 @@ private struct Answer {
 class TrackingInfoFinderTests: XCTestCase {
 
     let finder = TrackingInfoFinder()
-    private let answers: [Answer] = [Answer(currentIndex: 2, count: 3, startIndex: 2, endIndex: 36),
+    private let answers: [Answer] = [Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36),
                                      Answer(currentIndex: 2, count: 4, startIndex: 3, endIndex: 32)]
     
     func testFindTrackingInfos() {
