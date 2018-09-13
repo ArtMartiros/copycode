@@ -9,8 +9,8 @@
 import Foundation
 
 struct EqualityChecker {
-   static func check(of left: CGFloat, with right: CGFloat, errorPercentRate: UInt) -> Bool {
-        let percent = 100 - CGFloat(errorPercentRate)
+   static func check(of left: CGFloat, with right: CGFloat, errorPercentRate: CGFloat) -> Bool {
+        let percent = 100 - errorPercentRate
         let first = left / right * 100
         let second = right / left * 100
         let value = min(first, second)

@@ -28,7 +28,8 @@ struct Word<Child:Rectangle>: Container, Gapable {
     let frame: CGRect
     let pixelFrame: CGRect
     let letters: [Child]
-    let type: WordType 
+    let type: WordType
+    
     init(frame: CGRect, pixelFrame: CGRect, type: WordType = .undefined, letters: [Child]) {
         self.frame = frame
         self.pixelFrame = pixelFrame
@@ -36,10 +37,10 @@ struct Word<Child:Rectangle>: Container, Gapable {
         self.type = type
     }
 
-    static func from(_ letters: [Child]) -> Word<Child> {
+    static func from(_ letters: [Child], type: WordType = .undefined) -> Word<Child> {
         let frame = letters.map { $0.frame }.compoundFrame
         let pixelFrame = letters.map { $0.pixelFrame }.compoundFrame
-        return Word(frame: frame, pixelFrame: pixelFrame, letters: letters)
+        return Word(frame: frame, pixelFrame: pixelFrame, type: type, letters: letters)
     }
 }
 

@@ -16,23 +16,23 @@ struct TrackingStartPointFinder {
     func find(in gaps: [CGRect], with range: TrackingRange) -> [Tracking] {
         guard !gaps.isEmpty else { return [] }
         let (small, leftReversed, right) = gapsDivider(gaps)
-        let trackings = findGapWithDifferentStep(small, leftReversed: leftReversed, right: right, range: range)
+        let trackings = findPointWithDifferentStep(small, leftReversed: leftReversed, right: right, range: range)
         return trackings
     }
     
     
-    private func findGapWithDifferentStep(_ smallestGap: CGRect, leftReversed: [CGRect],
+    private func findPointWithDifferentStep(_ smallestGap: CGRect, leftReversed: [CGRect],
                                            right: [CGRect], range: TrackingRange) -> [Tracking] {
         let width = range.upperBound - range.lowerBound
-        let singleWidth = width / CGFloat(kRangeTimes)
-        let lastNumber = singleWidth == 0 ? 0 : kRangeTimes
+        let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
         var trackings: [Tracking] = []
-        for i in 0...lastNumber {
-            let distance = range.lowerBound + (singleWidth * CGFloat(i))
+        for singleWidth in widths {
+            let distance = range.lowerBound + singleWidth
             let points = findPointInDifferentStartPoint(smallestGap, leftReversed: leftReversed,
-                                                           right: right, distance: distance)
+                                                        right: right, distance: distance)
             points.forEach { trackings.append(Tracking(startPoint: $0, width: distance)) }
         }
+
         return trackings
     }
     
@@ -42,14 +42,11 @@ struct TrackingStartPointFinder {
                                                 right: [CGRect], distance: CGFloat) -> [CGFloat] {
         
         let distance = distance.rounded(toPlaces: 3)
-        var points: [CGFloat] = []
-        for point in getStartPoints(from: smallestGap) {
-            print("\nfindPointInDifferentStartPoint , startPoint: \(point), distance: \(distance)")
-            let gaps = leftReversed + right
-            if checker.check(gaps, withDistance: distance, startPoint: point) {
-                points.append(point)
-            }
+        let gaps = leftReversed + right
+        let points = getStartPoints(from: smallestGap).filter {
+            checker.check(gaps, withDistance: distance, startPoint: $0)
         }
+
         return points
     }
     
@@ -65,36 +62,6 @@ struct TrackingStartPointFinder {
         
         return startPoints
     }
-    
-//    private func findGapWithDifferentStep(_ smallestGap: CGRect,
-//                                          gaps: [CGRect], range: TrackingRange) -> Tracking? {
-//        let width = range.upperBound - range.lowerBound
-//        let singleWidth = width / CGFloat(kRangeTimes)
-//        let lastNumber = singleWidth == 0 ? 0 : kRangeTimes
-//        for i in 0...lastNumber {
-//            let distance = range.lowerBound + (singleWidth * CGFloat(i))
-//            if let point = findPointInDifferentStartPoint(smallestGap, gaps: gaps, distance: distance) {
-//                let tracking = Tracking(startPoint: point, width: distance)
-//                return tracking
-//            }
-//        }
-//        return nil
-//    }
-//
-//    private func findPointInDifferentStartPoint(_ smallestGap: CGRect,
-//                                        gaps: [CGRect], distance: CGFloat) -> CGFloat? {
-//        let amount = Int(smallestGap.width / kGapWidthStep)
-//        for i in 0...amount {
-//            let leftX = smallestGap.leftX - 1
-//            let startPoint = leftX + (CGFloat(i) * kGapWidthStep)
-//            print("\nfindPointInDifferentStartPoint index \(i), startPoint: \(startPoint), distance: \(distance)")
-//            if checker.check(gaps, withDistance: distance, startPoint: startPoint) {
-//                return startPoint
-//            }
-//        }
-//        return nil
-//    }
-    
     
     typealias DividedGaps = (smallest: CGRect, leftReversed: [CGRect], right: [CGRect])
     

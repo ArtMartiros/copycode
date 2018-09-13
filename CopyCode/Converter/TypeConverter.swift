@@ -15,13 +15,13 @@ class TypeConverter {
     private let wordClassification = WordTypeIdentifier()
     
     ///Конвертирует в Word<LetterRectangleWithType>
-    func convert(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangleWithType>] {
+    func convert(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangle>] {
         return rectangles.map {
             return getWord(from: $0, in: bitmap)
         }
     }
     
-    private func getWord(from word: WordAlias, in bitmap: NSBitmapImageRep ) -> Word<LetterRectangleWithType> {
+    private func getWord(from word: WordAlias, in bitmap: NSBitmapImageRep ) -> Word<LetterRectangle> {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
@@ -32,11 +32,11 @@ class TypeConverter {
     }
     
     private func getLetters(from letters: [LetterRectangle],
-                               using classification: LetterTypeIdentifier) -> [LetterRectangleWithType] {
+                               using classification: LetterTypeIdentifier) -> [LetterRectangle] {
         let types = classification.detectType(for: letters)
-        var letters: [LetterRectangleWithType] = []
+        var letters: [LetterRectangle] = []
         for (index, item) in letters.enumerated() {
-            letters.append(LetterRectangleWithType(rectangle: item, type: types[index]))
+            letters.append(LetterRectangle(rect: item, type: types[index]))
         }
         return letters
     }

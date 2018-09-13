@@ -21,6 +21,7 @@ final class BlockCreator: BlockCreatorProtocol {
     private let customColumnCreator = CustomColumnCreator<LetterRectangle>()
     private let missingElementsRestorer: MissingElementsRestorer
     private let trackingInfoFinder = TrackingInfoFinder()
+    private let leadingFinder = LeadingFinder()
     
     init(digitalColumnCreator: DigitColumnSplitter, elementsRestorer: MissingElementsRestorer) {
         self.digitalColumnSplitter = digitalColumnCreator
@@ -34,9 +35,14 @@ final class BlockCreator: BlockCreatorProtocol {
             return Block.from(line, column: $0.column)
         }
         Timer.stop(text: "Block Created")
-        let blocksWithTracking = blocksUpdatedAfterTracking(blocks)
+        
+        var updatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "Block Tracking")
-        let restoredBlocks = blocksWithTracking
+        
+        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
+        Timer.stop(text: "Block Leading")
+        
+        let restoredBlocks = updatedBlocks
             .map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "Block Restored")
         return restoredBlocks
@@ -52,6 +58,16 @@ final class BlockCreator: BlockCreatorProtocol {
                 newBlock.tracking = info.tracking
                 newBlocks.append(newBlock)
             }
+        }
+        return newBlocks
+    }
+    
+    private func blocksUpdatedAfterLeading(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
+        var newBlocks: [Block<LetterRectangle>] = []
+        for block in blocks {
+            var newBlock = block
+            newBlock.leading = leadingFinder.find(block)
+            newBlocks.append(newBlock)
         }
         return newBlocks
     }

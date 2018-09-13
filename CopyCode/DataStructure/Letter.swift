@@ -12,15 +12,18 @@ struct LetterRectangle: Rectangle, Hashable, Codable {
 
     let frame: CGRect
     let pixelFrame: CGRect
+    let type: LetterType
     
-    init(rect: Rectangle) {
+    init(rect: Rectangle, type: LetterType = .undefined) {
         self.frame = rect.frame
         self.pixelFrame = rect.pixelFrame
+        self.type = type
     }
     
-    init(frame: CGRect, pixelFrame: CGRect) {
+    init(frame: CGRect, pixelFrame: CGRect, type: LetterType = .undefined) {
         self.frame = frame
         self.pixelFrame = pixelFrame
+        self.type = type
     }
     
     public var hashValue: Int {
@@ -34,20 +37,6 @@ struct LetterRectangle: Rectangle, Hashable, Codable {
         return height / kHeightWidthRatio
     }
     
-}
-
-
-
-struct LetterRectangleWithType: Rectangle {
-    let pixelFrame: CGRect
-    let frame: CGRect
-    let type: LetterType
-    
-    init(rectangle: Rectangle, type: LetterType) {
-        self.frame = rectangle.frame
-        self.pixelFrame = rectangle.pixelFrame
-        self.type = type
-    }
 }
 
 struct Letter: Rectangle, ValueProtocol {

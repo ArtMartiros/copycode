@@ -14,6 +14,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     let lines: [Line<WordChild>]
     let column: ColumnType
     var tracking: Tracking?
+    var leading: Leading?
     
     var gaps: [Gap] {
         var gaps: [Gap] = []
@@ -32,21 +33,26 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     
     /// исключая аномальные результаты дает самую высокую линию
     func maxLineHeight() -> CGFloat {
-        let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }.chunkForSorted { $0 == $1 }
-        let sameHeightArray = heights.first { $0.count > 3 } ?? heights.first { $0.count > 2 }
-        return sameHeightArray?[0] ?? averageLineHeight
+        let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }
+        return heights[0]
+//        let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }.chunkForSorted { $0 == $1 }
+//        let sameHeightArray = heights.first { $0.count > 3 } ?? heights.first { $0.count > 2 }
+//        return sameHeightArray?[0] ?? averageLineHeight
     }
     
-    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType, tracking: Tracking? = nil) {
+    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType,
+         tracking: Tracking? = nil, leading: Leading? = nil) {
         self.lines = lines
         self.frame = frame
         self.column = column
         self.tracking = tracking
+        self.leading = leading
     }
     
-    static func from(_ lines: [Line<WordChild>], column: ColumnType, tracking: Tracking? = nil) -> Block {
+    static func from(_ lines: [Line<WordChild>], column: ColumnType,
+                     tracking: Tracking? = nil, leading: Leading? = nil) -> Block {
         let frame = lines.map { $0.frame }.compoundFrame
-        return Block(lines: lines, frame: frame, column: column)
+        return Block(lines: lines, frame: frame, column: column, tracking: tracking, leading: leading)
     }
     
     typealias BlockWithConstraint = (block: Block<WordChild>, constraint: CGRect?)

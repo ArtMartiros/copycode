@@ -35,7 +35,7 @@ struct LetterRecognizer {
         return treeOCR.find(checker, with: frame) ?? "*"
     }
     
-    func recognize(from letter: LetterRectangleWithType) -> String {
+    func recognize(from letter: LetterRectangle) -> String {
         return recognize(from: letter.pixelFrame, with: letter.type)
     }
     

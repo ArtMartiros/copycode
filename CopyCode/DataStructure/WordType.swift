@@ -9,9 +9,15 @@
 import Foundation
 
 enum WordType: CustomStringConvertible, Equatable {
-    
-    static func == (lhs: WordType, rhs: WordType) -> Bool {
-        return lhs.description == rhs.description
+    case undefined
+    case mix
+    case same(type: SameType)
+    enum SameType: String, Codable {
+        case allUpper
+        case allLower
+        case allLowWithTail
+        case allCustom
+        case undefined
     }
     
     var description: String {
@@ -21,16 +27,10 @@ enum WordType: CustomStringConvertible, Equatable {
         case .undefined: return "undefined"
         }
     }
-    case undefined
-    case mix
-    case same(type: SameType)
-    enum SameType: String, Codable {
-        case allUpper
-        case allLower
-        case allLowWithTail
-        case undefined
-    }
     
+    static func == (lhs: WordType, rhs: WordType) -> Bool {
+        return lhs.description == rhs.description
+    }
 }
 
 extension WordType: Codable {
@@ -47,10 +47,8 @@ extension WordType: Codable {
         let base = try container.decode(Base.self, forKey: .base)
         
         switch base {
-        case .undefined:
-            self = .undefined
-        case .mix:
-            self = .mix
+        case .undefined: self = .undefined
+        case .mix: self = .mix
         case .same:
             let sameTypeValue = try container.decode(SameType.self, forKey: .sameType)
             self = .same(type: sameTypeValue)
@@ -60,8 +58,7 @@ extension WordType: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case .undefined:
-             try container.encode(Base.undefined, forKey: .base)
+        case .undefined: try container.encode(Base.undefined, forKey: .base)
         case .mix:
              try container.encode(Base.mix, forKey: .base)
         case .same(let type):
@@ -92,6 +89,7 @@ enum LetterType: String, Codable {
     case dashOrHyphen
     case comma
     case quote
+    case custom
     case undefined
 }
 
@@ -99,8 +97,7 @@ extension LetterType {
     init(_ type: WordType) {
         switch type {
         case .mix, .undefined: self = .undefined
-        case .same(let sameType):
-            self.init(sameType)
+        case .same(let sameType): self.init(sameType)
         }
     }
     
@@ -109,6 +106,7 @@ extension LetterType {
         case .allLower: self = .low
         case .allUpper: self = .upper
         case .allLowWithTail: self = .lowWithTail
+        case .allCustom: self = .custom
         case .undefined: self = .undefined
         }
     }

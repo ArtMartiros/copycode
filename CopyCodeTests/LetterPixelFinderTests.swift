@@ -25,13 +25,7 @@ class LetterPixelFinderTests: XCTestCase {
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
             let result = letterPixelFinder.find(in: frame, with: .minXEdge)
-            switch result {
-            case .empty: XCTAssertTrue(false, "dot not find at index: \(index)")
-            case .value(let dictionary):
-                let boundsRestorer = getBoundsRestorer(from: bitmap)
-                let newFrame = boundsRestorer.restore(at: dictionary, in: frame)
-                print(newFrame)
-            }
+            XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
 
@@ -40,13 +34,7 @@ class LetterPixelFinderTests: XCTestCase {
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
             let result = letterPixelFinder.find(in: frame, with: .minXEdge)
-            switch result {
-            case .empty: XCTAssertTrue(false, "dash not find at index: \(index)")
-            case .value(let dictionary):
-                let boundsRestorer = getBoundsRestorer(from: bitmap)
-                let newFrame = boundsRestorer.restore(at: dictionary, in: frame)
-                print(newFrame)
-            }
+            XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
 
@@ -55,13 +43,7 @@ class LetterPixelFinderTests: XCTestCase {
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
             let result = letterPixelFinder.find(in: frame, with: .minXEdge)
-            switch result {
-            case .empty: XCTAssertTrue(false, "equal not find at index: \(index)")
-            case .value(let dictionary):
-                let boundsRestorer = getBoundsRestorer(from: bitmap)
-                let newFrame = boundsRestorer.restore(at: dictionary, in: frame)
-                print(newFrame)
-            }
+            XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
 
@@ -70,13 +52,7 @@ class LetterPixelFinderTests: XCTestCase {
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
             let result = letterPixelFinder.find(in: frame, with: .minXEdge)
-            switch result {
-            case .empty: XCTAssertTrue(false, "quotes not find at index: \(index)")
-            case .value(let dictionary):
-                let boundsRestorer = getBoundsRestorer(from: bitmap)
-                let newFrame = boundsRestorer.restore(at: dictionary, in: frame)
-                print(newFrame)
-            }
+            XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
 
@@ -85,13 +61,7 @@ class LetterPixelFinderTests: XCTestCase {
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
             let result = letterPixelFinder.find(in: frame, with: .minXEdge)
-            switch result {
-            case .empty: XCTAssertTrue(false, "underscore not find at index: \(index)")
-            case .value(let dictionary):
-                let boundsRestorer = getBoundsRestorer(from: bitmap)
-                let newFrame = boundsRestorer.restore(at: dictionary, in: frame)
-                print(newFrame)
-            }
+            XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
 
@@ -112,13 +82,6 @@ class LetterPixelFinderTests: XCTestCase {
         let existenceChecker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
         let letterPixelFinder = LetterPixelFinder(checker: existenceChecker)
         return letterPixelFinder
-    }
-    
-    private func getBoundsRestorer(from bitmap: NSBitmapImageRep) -> LetterBoundsRestorer {
-        let pixelChecker = LetterPixelChecker(backgroundWhite: 1, letterDefaultWhite: 0, whitePercent: 70)
-        let existenceChecker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
-        let boundsRestorer = LetterBoundsRestorer(checker: existenceChecker)
-        return boundsRestorer
     }
     
     private func getFrames(from picture: LetterPixelFinderPicture) -> [CGRect] {

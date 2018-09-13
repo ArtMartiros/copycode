@@ -19,11 +19,10 @@ class TrackingInfoFinderTests: XCTestCase {
 
     let finder = TrackingInfoFinder()
     private let answers: [Answer] = [Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36),
-                                     Answer(currentIndex: 2, count: 4, startIndex: 3, endIndex: 32)]
+                                     Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 32)]
     
     func testFindTrackingInfos() {
         let blocks = BlockTestHelper.getBlocks(self)
-
         //во втором блоке после коммента идет все по пизде, так как визион немного смещает комменты
         for (index, block) in blocks.enumerated() {
             let answer = answers[index]
@@ -38,6 +37,20 @@ class TrackingInfoFinderTests: XCTestCase {
         }
 
 
+    }
+    
+    private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
+        var newBlocks: [Block<LetterRectangle>] = []
+        for block in blocks {
+            let trackingInfos = finder.find(from: block)
+            for info in trackingInfos {
+                let lines = Array(block.lines[info.startIndex...info.endIndex])
+                var newBlock = Block.from(lines, column: block.column)
+                newBlock.tracking = info.tracking
+                newBlocks.append(newBlock)
+            }
+        }
+        return newBlocks
     }
     
     func testPerformanceExample() {
