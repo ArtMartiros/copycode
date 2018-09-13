@@ -6,7 +6,7 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 ///Восстанавилвает потерянные линии, буквы
 class MissingElementsRestorer {
@@ -100,12 +100,16 @@ class MissingElementsRestorer {
         let frame = CGRect(left: leftX, right: rightX, top: line.frame.topY, bottom: line.frame.bottomY)
         return frame
     }
+    
+    
 }
 
 
 extension MissingElementsRestorer {
-    convenience init(existenceChecker: LetterExistenceChecker) {
-        let finder = MissingElementsFinder(existenceChecker: existenceChecker)
+    convenience init(bitmap: NSBitmapImageRep) {
+        let colorPicker = ColorPicker(bitmap)
+        let pixelFinder = LetterPixelFinder(colorPicker: colorPicker)
+        let finder = MissingElementsFinder(pixelFinder: pixelFinder)
         self.init(finder: finder)
     }
 }

@@ -9,22 +9,35 @@
 import Foundation
 
 class LetterPixelFinder {
-    private let checker: LetterExistenceChecker
-    
-    init(checker: LetterExistenceChecker) {
-        self.checker = checker
+
+    private let kDifferenceRate: CGFloat = 0.2
+    private let colorPicker: ColorPicker
+    init(colorPicker: ColorPicker) {
+        self.colorPicker = colorPicker
     }
     
     /// определяет есть ли буква во фрейме
     func find(in frame: CGRect, with edge: CGRectEdge) -> Bool {
-        let rates = ratesFrom(frame, with: edge)
-        for rate in rates {
-            let point = CGPoint(x: frame.xAs(rate: rate.x), y: frame.yAs(rate: rate.y))
-            if checker.exist(at: point) {
-                return true
+        let points = ratesFrom(frame, with: edge)
+            .map { CGPoint(x: frame.xAs(rate: $0.x), y: frame.yAs(rate: $0.y)) }
+        var compareWhite: CGFloat?
+        //находим разницу значит что то есть
+        for point in points {
+            let white = colorPicker.pickWhite(at: point)
+            if let compareWhite = compareWhite {
+                if existDifferent(compareWhite: compareWhite, currentWhite: white) {
+                    return true
+                }
+            } else {
+                compareWhite = white
             }
         }
         return false
+    }
+    
+    private func existDifferent(compareWhite: CGFloat, currentWhite: CGFloat) -> Bool {
+        let difference = abs(compareWhite - currentWhite)
+        return difference > kDifferenceRate
     }
     
     private func ratesFrom(_ frame: CGRect, with edge: CGRectEdge) -> [FrameRate] {
@@ -34,7 +47,7 @@ class LetterPixelFinder {
         let ratios = ratios1 + ratios2 + ratios3
         return ratios
     }
-
+    
 }
 
 

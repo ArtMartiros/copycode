@@ -45,12 +45,8 @@ class PanelController: NSWindowController {
             let columnDetection = DigitColumnDetection(recognizer: recognizer)
             let columnMerger = DigitColumnMerger()
             let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
-            
-            
-            let pixelChecker = LetterPixelChecker(backgroundWhite: 1, letterDefaultWhite: 0, whitePercent: 70)
-            let existanceChecker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
- 
-            let restorer = MissingElementsRestorer(existenceChecker: existanceChecker)
+
+            let restorer = MissingElementsRestorer(bitmap: bitmap)
             
             //------------blocks--------------
             let creator = BlockCreator(digitalColumnCreator: columnCreator, elementsRestorer: restorer)

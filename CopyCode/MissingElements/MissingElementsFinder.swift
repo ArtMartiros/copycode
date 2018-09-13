@@ -15,8 +15,8 @@ class MissingElementsFinder {
     private let kNewLineSymbols = 5
     private let letterPixelFinder: LetterPixelFinder
 
-    init(existenceChecker: LetterExistenceChecker) {
-        self.letterPixelFinder = LetterPixelFinder(checker: existenceChecker)
+    init(pixelFinder: LetterPixelFinder) {
+        self.letterPixelFinder = pixelFinder
     }
     
     func findMissingLine(in gapFrame: CGRect, leading: Leading,  tracking: Tracking) -> [Line<LetterRectangle>] {
