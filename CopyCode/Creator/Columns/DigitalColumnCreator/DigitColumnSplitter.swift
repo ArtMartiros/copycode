@@ -25,15 +25,14 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
     }
     
     func spltted(from rectangles: [WordAlias]) -> ColumnWithBlockWords {
-        var dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
-        var columnsWords: [[WordAlias]] = []
-        var blockRectangles: [WordAlias] = []
-        divide(from: &dictionaryWordsByOriginX, toColumnsWords: &columnsWords, and: &blockRectangles)
-        additionUpdate(&dictionaryWordsByOriginX, columnsWords: &columnsWords, blockRectangles: &blockRectangles)
-        dictionaryWordsByOriginX.values.forEach { blockRectangles.append(contentsOf: $0) }
-        let columns = columnsWords.map { DigitColumn.from($0) }
+        let dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
+        var pre = createPreliminaryWord(from: dictionaryWordsByOriginX)
+        pre = updateByNearestXkey(pre)
+        pre.dictionaryWordsByOriginX.values.forEach { pre.blockWords.append(contentsOf: $0) }
+        
+        let columns = pre.columnsWords.map { DigitColumn.from($0) }
         let mergedColumns = columnMerger.mergeSameColumn(columns)
-        return (mergedColumns, blockRectangles.sortedFromLeftToRight )
+        return (mergedColumns, pre.blockWords.sortedFromLeftToRight )
     }
     
     ///вырезает из словаря значения и разделяет их на column и block слова
@@ -42,7 +41,7 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
                                 and blockRectangles: inout [WordAlias]) {
         let dictionary = dictionaryToUpdate
         for (key, value) in dictionary where value.count >= kMinimumColumnWordsCount {
-            if let detectedValue = columnDetection.detecte(value) {
+            if let detectedValue = columnDetection.detect(value) {
                 dictionaryToUpdate.removeValue(forKey: key)
                 columnsWords.append(detectedValue.digitColumnWords)
                 blockRectangles.append(contentsOf: detectedValue.shitWords)
@@ -50,35 +49,76 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
         }
     }
     
-    //если погрешность в пиксель то добавляем его в digital column
-    private func additionUpdate(_ dictionary: inout [Int: [WordAlias]],
-                                columnsWords: inout [[WordAlias]],
-                                blockRectangles: inout [WordAlias]) {
-        for i in 0..<columnsWords.count {
-            var words = columnsWords[i]
-            let word = words[0]
-            let x = Int(word.frame.leftX.rounded())
-            let number = word.symbolsCount.rawValue + 1
-            update(&dictionary, columnWords: &words, blockRectangles: &blockRectangles, key: x + 1, number: number)
-            update(&dictionary, columnWords: &words, blockRectangles: &blockRectangles, key: x - 1, number: number)
-            columnsWords[i] = words
+    ///вырезает из словаря значения и разделяет их на column и block слова
+    private func createPreliminaryWord(from dictionary: [Int: [SimpleWord]]) -> PreliminaryWords {
+        var dictionaryToUpdate = dictionary
+        var columnsWords: [[SimpleWord]] = []
+        var blockWords: [SimpleWord] = []
+        for (key, value) in dictionary where value.count >= kMinimumColumnWordsCount {
+            if let detectedValue = columnDetection.detect(value) {
+                dictionaryToUpdate.removeValue(forKey: key)
+                columnsWords.append(detectedValue.digitColumnWords)
+                blockWords.append(contentsOf: detectedValue.shitWords)
+            }
         }
+        return PreliminaryWords(dictionaryToUpdate, block: blockWords, columns: columnsWords)
     }
-    
-    private func update(_ dictionary: inout [Int: [WordAlias]],
-                        columnWords: inout [WordAlias],
-                        blockRectangles: inout [WordAlias],
-                        key: Int, number: Int) {
-        guard let value = dictionary.removeValue(forKey: key) else { return }
-        let splittedWords = WordSplitter.split(value, after: number)
-        blockRectangles.append(contentsOf: splittedWords.shitWords)
-        columnWords = columnWords + splittedWords.words
-    }
-    
+   
     ///Возвращает словарь с массивами слов с ключами origin X
     private func rectangleDictionaryByXValue(_ rectangles: [WordAlias]) -> [Int: [WordAlias]] {
         var dictionary: [Int: [WordAlias]] = [:]
         rectangles.forEach { dictionary.append(element: $0, toKey: Int($0.frame.leftX.rounded()))  }
         return dictionary
+    }
+    
+    //x это ключ в словаре, бывает так, что элемент в column имеет погрешность в пиксель от основного массива column
+    //тогда в словаре у него может быть другой ключ
+    //здесь то мы и ищем ключ с погрешностью в пиксель
+    private func updateByNearestXkey(_ preliminary: PreliminaryWords) -> PreliminaryWords {
+        var preliminary = preliminary
+        let columnsCount = preliminary.columnsWords.count
+        for i in 0..<columnsCount {
+            let word = preliminary.columnsWords[i][0]
+            let leftX = Int(word.frame.leftX.rounded())
+            let newWidth = (word.frame.width / 3) * 2
+            let rightX = Int((word.frame.leftX + newWidth).rounded())
+            let number = word.symbolsCount.rawValue
+            
+            preliminary = updated(preliminary, index: i, key: leftX + 1, number: number)
+            preliminary = updated(preliminary, index: i, key: leftX - 1, number: number)
+            
+            guard case .two = word.symbolsCount else { continue }
+            for x in leftX...rightX {
+                preliminary = updated(preliminary, index: i, key: x, number: 1)
+            }
+            
+        }
+        return preliminary
+    }
+    
+    
+    private func updated(_ preliminary: PreliminaryWords, index: Int, key: Int, number: Int) -> PreliminaryWords {
+        var preliminary = preliminary
+        if let value = preliminary.dictionaryWordsByOriginX.removeValue(forKey: key) {
+            let splittedWords = WordSplitter.split(value, after: number)
+            preliminary.blockWords.append(contentsOf: splittedWords.shitWords)
+            let columns = preliminary.columnsWords[index]
+            preliminary.columnsWords[index] = columns + splittedWords.words
+        }
+        return preliminary
+    }
+    
+}
+
+extension DigitColumnSplitter {
+    struct PreliminaryWords {
+        var columnsWords: [[SimpleWord]]
+        var blockWords: [SimpleWord]
+        var dictionaryWordsByOriginX: [Int: [SimpleWord]]
+        init (_ dictionary: [Int: [SimpleWord]], block: [SimpleWord], columns: [[SimpleWord]] ) {
+            self.dictionaryWordsByOriginX = dictionary
+            self.blockWords = block
+            self.columnsWords = columns
+        }
     }
 }

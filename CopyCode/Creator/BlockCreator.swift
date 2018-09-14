@@ -34,18 +34,20 @@ final class BlockCreator: BlockCreatorProtocol {
             let line = lineCreator.create(from: $0.words)
             return Block.from(line, column: $0.column)
         }
+//        let value = CodableHelper.encode(blocks[0])
+//        print(value)
         Timer.stop(text: "Block Created")
         
         var updatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "Block Tracking")
         
-        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
-        Timer.stop(text: "Block Leading")
-        
-        let restoredBlocks = updatedBlocks
-            .map { missingElementsRestorer.restore($0) }
+//        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
+//        Timer.stop(text: "Block Leading")
+//
+//        let restoredBlocks = updatedBlocks
+//            .map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "Block Restored")
-        return restoredBlocks
+        return updatedBlocks
     }
     
     private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
@@ -110,7 +112,7 @@ final class BlockCreator: BlockCreatorProtocol {
     }
     
    private func isInside(_  word: Word<LetterRectangle>, in column: ColumnProtocol) -> Bool {
-        return word.frame.leftX > column.frame.rightX
+        return word.frame.leftX > column.frame.leftX
     }
 }
 

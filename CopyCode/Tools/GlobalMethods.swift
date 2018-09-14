@@ -8,6 +8,11 @@
 
 import Foundation
 
+typealias TrackingRange = ClosedRange<CGFloat>
+typealias SimpleWord = Word<LetterRectangle>
+typealias SimpleLine = Line<LetterRectangle>
+typealias SimpleBlock = Block<LetterRectangle>
+
 /// Create ClosedRange if you dont know what number is greater
 func rangeOf<T: Numeric>(one: T, two: T) -> ClosedRange<T> {
     let minValue = min(one, two)

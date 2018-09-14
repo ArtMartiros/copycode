@@ -66,9 +66,11 @@ struct TrackingPreliminaryLetterWidthDetection {
         let smallWidth = min(firstWidth, secondWidth)
         let bigWidth = max(firstWidth, secondWidth)
         
-        let smallestValue = smallWidth / range.upperBound
-        let biggestValue = bigWidth / range.lowerBound
+        let smallestValue = range.upperBound == 0 ? 0 : smallWidth / range.upperBound
+        let biggestValue = range.lowerBound == 0 ? 0 : bigWidth / range.lowerBound
         
+        guard smallestValue < biggestValue else { return nil }
+            
         let integers = (smallestValue...biggestValue).integers
         guard let first = integers.first, let last = integers.last else { return nil }
         

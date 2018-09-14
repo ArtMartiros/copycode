@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias TrackingRange = ClosedRange<CGFloat>
-
 struct TrackingInfoFinder {
     typealias SplittedWords = (biggestWord: Word<LetterRectangle>, otherWords: [Word<LetterRectangle>])
     private let distanceFinder = TrackingDistanceFinder()
@@ -19,25 +17,29 @@ struct TrackingInfoFinder {
     
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
-        let lines = block.lines
-        for (lineIndex, line) in lines.enumerated() {
+
+        for (lineIndex, line) in block.lines.enumerated() {
             guard shouldStartSearching(in: lineIndex, with: trackingInfos)
                 else { continue }
-            
-            let trackingInfo: TrackingInfo
-            let trackings = findTrackings(from: line)
-            if !trackings.isEmpty {
-                let infos = trackings
-                    .map { findTrackingInfo(in: lines, startIndex: lineIndex, with: $0) }
-                    .sorted { $0.endIndex > $1.endIndex}
-                trackingInfo = infos[0]
-            } else {
-                trackingInfo = TrackingInfo(tracking: nil, startIndex: lineIndex, endIndex: lineIndex)
-            }
+            let trackingInfo = completeFindTrackingInfo(in: line, with: lineIndex, lines: block.lines)
             trackingInfos.append(trackingInfo)
         }
         trackingInfos = sumSequenceOfNil(trackingInfos)
         return trackingInfos
+    }
+    
+    private func completeFindTrackingInfo(in line: SimpleLine, with currentLineIndex: Int, lines: [SimpleLine]) -> TrackingInfo {
+        let trackingInfo: TrackingInfo
+        let trackings = findTrackings(from: line)
+        if !trackings.isEmpty {
+            let infos = trackings
+                .map { findTrackingInfo(in: lines, startIndex: currentLineIndex, with: $0) }
+                .sorted { $0.endIndex > $1.endIndex}
+            trackingInfo = infos[0]
+        } else {
+            trackingInfo = TrackingInfo(tracking: nil, startIndex: currentLineIndex, endIndex: currentLineIndex)
+        }
+        return trackingInfo
     }
     
     private func sumSequenceOfNil(_ trackingInfos: [TrackingInfo]) -> [TrackingInfo] {
@@ -56,7 +58,7 @@ struct TrackingInfoFinder {
     }
    
 
-   private func findTrackings(from line: Line<LetterRectangle>) -> [Tracking] {
+   private func findTrackings(from line: SimpleLine) -> [Tracking] {
         let splitted = splitWords(in: line)
         let result = distanceFinder.find(from: splitted.biggestWord)
         guard case .success(let range) = result else { return [] }
@@ -66,15 +68,19 @@ struct TrackingInfoFinder {
         return filteredTrackings
     }
     
-    private func findTrackingInfo(in lines: [Line<LetterRectangle>], startIndex: Int,
+    private func findTrackingInfo(in lines: [SimpleLine], startIndex: Int,
                                   with tracking: Tracking) -> TrackingInfo {
         var lastIndex = startIndex
         for (index, line) in lines.enumerated() where startIndex < index{
-
+            print("Bukaki startLine: \(startIndex), currentLine \(index)")
+            print("Bukaki width: \(tracking.width), startPoint \(tracking.startPoint)")
             let gapsInRange = checkGaps(line.words, with: tracking)
+            
+            print("Bukaki \n\n")
             guard gapsInRange else { break }
             lastIndex = index
         }
+        print("Bukaki \n\n\n *************FINISH**************")
         let trackingInfo = TrackingInfo(tracking: tracking, startIndex: startIndex, endIndex: lastIndex)
         return trackingInfo
     }
@@ -100,6 +106,7 @@ struct TrackingInfoFinder {
         }
         
         let result = check(positive: positiveCount, negative: negativeCount)
+        print("Bukaki result: \(result), pos: \(positiveCount), neg: \(negativeCount)")
         return result
     }
     
@@ -114,7 +121,7 @@ struct TrackingInfoFinder {
         return (negative / positive) < kBugRate
     }
     
-    private func splitWords(in line: Line<LetterRectangle>) -> SplittedWords {
+    private func splitWords(in line: SimpleLine) -> SplittedWords {
         var sortedWords = line.words.sorted { $0.frame.width > $1.frame.width }
         let biggestWord = sortedWords.remove(at: 0)
         return (biggestWord, sortedWords )

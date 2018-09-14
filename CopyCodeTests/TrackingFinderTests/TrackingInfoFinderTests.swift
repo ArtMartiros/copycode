@@ -16,30 +16,40 @@ private struct Answer {
 }
 
 class TrackingInfoFinderTests: XCTestCase {
-
+    
     let finder = TrackingInfoFinder()
     private let answers: [Answer] = [Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36),
                                      Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 32)]
     
-    func testFindTrackingInfos() {
-        let blocks = BlockTestHelper.getBlocks(self)
-        let results = finder.find(from: blocks[1])
-        //во втором блоке после коммента идет все по пизде, так как визион немного смещает комменты
-//        for (index, block) in blocks.enumerated() {
-//            let answer = answers[index]
-//            let results = finder.find(from: block)
-//            let message0 = "Current results count \(results.count) not equal to \( answer.count) at block number: \(index)"
-//            XCTAssertTrue(results.count == answer.count, message0)
-//            let result = results[answer.currentIndex]
-//            let message1 = "Current startIndex \(result.startIndex) not equal to \(answer.startIndex) at block number: \(index)"
-//            let message2 = "Current endIndex \(result.endIndex) not equal to \(answer.endIndex) at block number: \(index)"
-//            XCTAssertTrue(result.startIndex == answer.startIndex, message1)
-//            XCTAssertTrue(result.endIndex == answer.endIndex, message2)
-//        }
+    func testBlockOne() {
+        let answer = Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36)
+        check(.one, with: answer)
     }
     
-    private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
-        var newBlocks: [Block<LetterRectangle>] = []
+    func testBlockTwo() {
+        let answer = Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 32)
+        check(.two, with: answer)
+    }
+    
+    func testBlockWithComments() {
+        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
+        check(.comments, with: answer)
+    }
+    
+    private func check(_ blockTest: BlockTest, with answer: Answer) {
+        let block = blockTest.getBlock(self)
+        let results = finder.find(from: block)
+        let message0 = "Current results count \(results.count) not equal to \(answer.count)"
+        XCTAssertTrue(results.count == answer.count, message0)
+        let result = results[answer.currentIndex]
+        let message1 = "Current startIndex \(result.startIndex) not equal to \(answer.startIndex)"
+        let message2 = "Current endIndex \(result.endIndex) not equal to \(answer.endIndex)"
+        XCTAssertTrue(result.startIndex == answer.startIndex, message1)
+        XCTAssertTrue(result.endIndex == answer.endIndex, message2)
+    }
+    
+    private func blocksUpdatedAfterTracking(_ blocks: [SimpleBlock]) -> [SimpleBlock] {
+        var newBlocks: [SimpleBlock] = []
         for block in blocks {
             let trackingInfos = finder.find(from: block)
             for info in trackingInfos {
@@ -53,9 +63,9 @@ class TrackingInfoFinderTests: XCTestCase {
     }
     
     func testPerformanceExample() {
-        let blocks = BlockTestHelper.getBlocks(self)
+        let block = BlockTest.one.getBlock(self)
         self.measure {
-            let _ = finder.find(from: blocks[1])
+            let _ = finder.find(from: block)
         }
     }
 }

@@ -109,16 +109,16 @@ struct TrackingDistanceFinder {
     
     private func getCutedGap(outer: CGRect, inner: CGRect, minBigWidth: CGFloat,
                              edge: CGRectEdge) -> CGRect? {
-        let width = outer.width
-        let difference = getDiffernce(left: outer, right: inner, width: minBigWidth)
-        let minWidth = minWidthBetween(left: outer, right: inner)
-        if difference <= width || minWidth == minBigWidth {
+        let width = outer.width + minWidthBetween(left: outer, right: inner)
+        
+        if width < minBigWidth {
+            return outer
+        } else {
+            let difference = width - minBigWidth
+            guard difference <= outer.width else { return nil }
             let divider = outer.divided(atDistance: difference, from: edge)
             return divider.remainder
-        } else if difference <= inner.width {
-            return outer
         }
-        return nil
     }
     
     func minWidthBetween(left: CGRect, right: CGRect) -> CGFloat {

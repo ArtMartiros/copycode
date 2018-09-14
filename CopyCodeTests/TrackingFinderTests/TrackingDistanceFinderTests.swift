@@ -77,15 +77,43 @@ class TrackingDistanceFinderTests: XCTestCase {
         let result = finder.find(from: word)
         switch result {
         case .failure:
-            XCTAssertTrue(false, "Can`t find gap at index \(index)")
+            XCTAssertTrue(false, "Can`t find gap")
         case .success(let range):
             let testRange: TrackingRange = 7.3...7.5
-            let message = "Range: \(range), index \(index)\n"
+            let message = "Range: \(range)\n"
             XCTAssertTrue(testRange.intesected(with: range) != nil, message)
         }
-        print("dd")
     }
     
+    func testBlockComments() {
+        let block = BlockTest.comments.getBlock(self)
+        let line = block.lines[4]
+        let word = line.words[0]
+        let result = finder.find(from: word)
+        switch result {
+        case .failure:
+            XCTAssertTrue(false, "Can`t find gap")
+        case .success(let range):
+            let testRange: TrackingRange = 7.45...7.5
+            let message = "Range: \(range)\n"
+            XCTAssertTrue(testRange.intesected(with: range) != nil, message)
+        }
+    }
 
+    func testBlockTwoComments() {
+        let block = BlockTest.two.getBlock(self)
+        let line = block.lines[3]
+        let word = line.words[0]
+        let result = finder.find(from: word)
+        switch result {
+        case .failure:
+            XCTAssertTrue(false, "Can`t find gap")
+        case .success(let range):
+            let testRange: TrackingRange = 7.45...7.5
+            let message = "Range: \(range)\n"
+            XCTAssertTrue(testRange.intesected(with: range) != nil, message)
+        }
+    }
+    
 
 }
