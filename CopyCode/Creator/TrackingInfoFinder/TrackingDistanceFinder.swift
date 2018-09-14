@@ -40,7 +40,7 @@ struct TrackingDistanceFinder {
    private func find(gaps: [CGRect]) -> SimpleSuccess<TrackingRange> {
         guard gaps.count > 1 else { return  .failure }
         let preliminaryAverageSize = preliminaryLetterWidthDetection.detect(gaps: gaps)
-//        print("size: \(preliminaryAverageSize)")
+
         let bigWidths = gaps.mapPair { abs($0.leftX - $1.rightX) }
         //минимальная ширина от левого края одного гапа до правого края следующего за ним гапа
         let minBigWidth = bigWidths.sorted { $0 < $1 }[0]

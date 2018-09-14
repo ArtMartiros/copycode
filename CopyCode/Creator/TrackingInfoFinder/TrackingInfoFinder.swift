@@ -27,22 +27,35 @@ struct TrackingInfoFinder {
             let trackingInfo: TrackingInfo
             let trackings = findTrackings(from: line)
             if !trackings.isEmpty {
-                let infos = trackings.map { findTrackingInfo(in: lines, startIndex: lineIndex, with: $0) }
+                let infos = trackings
+                    .map { findTrackingInfo(in: lines, startIndex: lineIndex, with: $0) }
                     .sorted { $0.endIndex > $1.endIndex}
                 trackingInfo = infos[0]
             } else {
-                if let info = trackingInfos.last, info.tracking == nil {
-                    let _ = trackingInfos.removeLast()
-                    trackingInfo = TrackingInfo(tracking: nil, startIndex: info.startIndex, endIndex: lineIndex)
-                } else {
-                    trackingInfo = TrackingInfo(tracking: nil, startIndex: lineIndex, endIndex: lineIndex)
-                }
+                trackingInfo = TrackingInfo(tracking: nil, startIndex: lineIndex, endIndex: lineIndex)
             }
             trackingInfos.append(trackingInfo)
         }
+        trackingInfos = sumSequenceOfNil(trackingInfos)
         return trackingInfos
     }
     
+    private func sumSequenceOfNil(_ trackingInfos: [TrackingInfo]) -> [TrackingInfo] {
+        let infos = trackingInfos.reduce([TrackingInfo]()) { (result, info) -> [TrackingInfo] in
+            var newResult = result
+            if let lastInfo = result.last, lastInfo.tracking == nil, info.tracking == nil {
+                let newInfo = TrackingInfo(tracking: nil, startIndex: lastInfo.startIndex, endIndex: info.endIndex)
+                newResult.removeLast()
+                newResult.append(newInfo)
+            } else {
+                newResult.append(info)
+            }
+            return newResult
+        }
+        return infos
+    }
+   
+
    private func findTrackings(from line: Line<LetterRectangle>) -> [Tracking] {
         let splitted = splitWords(in: line)
         let result = distanceFinder.find(from: splitted.biggestWord)

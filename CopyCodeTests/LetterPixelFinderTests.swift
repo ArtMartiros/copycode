@@ -78,9 +78,8 @@ class LetterPixelFinderTests: XCTestCase {
     }
     
     private func getLetterPixelFinder(from bitmap: NSBitmapImageRep) -> LetterPixelFinder {
-        let pixelChecker = LetterPixelChecker(backgroundWhite: 1, letterDefaultWhite: 0, whitePercent: 70)
-        let existenceChecker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
-        let letterPixelFinder = LetterPixelFinder(checker: existenceChecker)
+        let colorPicker = ColorPicker(bitmap)
+        let letterPixelFinder = LetterPixelFinder(colorPicker: colorPicker)
         return letterPixelFinder
     }
     

@@ -41,6 +41,7 @@ class MissingElementsFinder {
     private func getLetters(pixelFrame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> [LetterRectangle] {
         var letters: [LetterRectangle]  = []
         var inRaw = 0
+        return [createLetter(from: pixelFrame)]
         let dividedFrames = arrayOfFrames(from: pixelFrame, by: tracking)
         let rightOrderFrames = edge == .minXEdge ? dividedFrames : dividedFrames.reversed()
         for frame in rightOrderFrames {
