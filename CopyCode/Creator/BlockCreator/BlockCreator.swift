@@ -36,11 +36,11 @@ final class BlockCreator: BlockCreatorProtocol {
             return Block.from(line, column: $0.column, trackingData: nil, leading: nil)
         }
 
-        Timer.stop(text: "BlockCreator Created")
+        Timer.stop(text: "BlockCreator Initial Created")
         var updatedBlocks = blocksUpdatedAfterTracking(blocks)
-        Timer.stop(text: "BlockCreator Tracking")
+        Timer.stop(text: "BlockCreator Tracking Created")
         updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
-        Timer.stop(text: "BlockCreator Leading")
+        Timer.stop(text: "BlockCreator Leading Created")
         let restoredBlocks = updatedBlocks.map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "BlockCreator Restored")
         return restoredBlocks
@@ -107,7 +107,7 @@ final class BlockCreator: BlockCreatorProtocol {
 }
 
 extension BlockCreator {
-    convenience init(bitmap: NSBitmapImageRep) {
+    convenience init(in bitmap: NSBitmapImageRep) {
         let recognizer = WordRecognizer(in: bitmap)
         let columnDetection = DigitColumnDetection(recognizer: recognizer)
         let columnMerger = DigitColumnMerger()

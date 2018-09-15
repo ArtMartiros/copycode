@@ -13,14 +13,29 @@ class TypeConverter {
     private var mixedWordRectangle: SimpleWord!
     private let wordClassification = WordTypeIdentifier()
     
-    ///Конвертирует в слово с типом
-    func convert(_ rectangles: [SimpleWord], in bitmap: NSBitmapImageRep) -> [SimpleWord] {
-        return rectangles.map {
-            return getWord(from: $0, in: bitmap)
-        }
+    let bitmap: NSBitmapImageRep
+    init(in bitmap: NSBitmapImageRep) {
+        self.bitmap = bitmap
     }
     
-    private func getWord(from word: SimpleWord, in bitmap: NSBitmapImageRep ) -> SimpleWord {
+    func convert(_ block: SimpleBlock) -> SimpleBlock {
+        let lines: [SimpleLine] = block.lines.map { convert($0) }
+        let newBlock = Block(lines: lines, frame: block.frame, column: block.column,
+                         trackingData: block.trackingData, leading: block.leading)
+        return newBlock
+    }
+    
+    func convert(_ line: SimpleLine) -> SimpleLine {
+        return  Line(words: convert(line.words))
+    }
+    
+    ///Конвертирует в слово с типом
+    func convert(_ rectangles: [SimpleWord]) -> [SimpleWord] {
+        return rectangles.map { getWord(from: $0) }
+    }
+    
+    private func getWord(from word: SimpleWord) -> SimpleWord {
+        guard word.type != .same(type: .allCustom) else { return word }
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
@@ -33,11 +48,11 @@ class TypeConverter {
     private func getLetters(from letters: [LetterRectangle],
                                using classification: LetterTypeIdentifier) -> [LetterRectangle] {
         let types = classification.detectType(for: letters)
-        var letters: [LetterRectangle] = []
+        var newLetters: [LetterRectangle] = []
         for (index, item) in letters.enumerated() {
-            letters.append(LetterRectangle(rect: item, type: types[index]))
+            newLetters.append(LetterRectangle(rect: item, type: types[index]))
         }
-        return letters
+        return newLetters
     }
     
 

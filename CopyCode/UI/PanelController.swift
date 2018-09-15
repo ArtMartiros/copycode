@@ -38,14 +38,9 @@ class PanelController: NSWindowController {
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { (bitmap, words, error) in
+        textDetection.performRequest(image: image) { (bitmap, blocks, error) in
             self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
-            
 
-            
-            //------------blocks--------------
-            let creator = BlockCreator(bitmap: bitmap)
-            let blocks = creator.create(from: words)
             let layers = blocks.layers(.blue, width: 3)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
 //            let converter = TypeConverter()
@@ -91,7 +86,7 @@ class PanelController: NSWindowController {
 //            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------
             
-            let chars = newWords.reduce([LetterRectangle]()) { $0 + $1.letters }
+            let chars = newWords.reduce([Letter]()) { $0 + $1.letters }
             let charLayers = chars.map { $0.layer(.green, width: 1) }
             charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             

@@ -11,9 +11,8 @@ import Vision
 
 /// Конвертирует буквы в CGRect
 class RectangleConverter {
-    typealias WordAlias = Word<LetterRectangle>
-    func convert(_ results: [VNTextObservation], bitmap: NSBitmapImageRep) -> [WordAlias] {
-        let words: [WordAlias] = results.map {
+    func convert(_ results: [VNTextObservation], bitmap: NSBitmapImageRep) -> [SimpleWord] {
+        let words: [SimpleWord] = results.map {
             let letters = convertToLetters(from: $0, in: bitmap)
             let frame = $0.frame(in: bitmap.size)
             let pixelFrame = getPixelFrame(from: $0, in: bitmap)

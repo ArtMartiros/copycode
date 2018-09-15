@@ -9,16 +9,14 @@
 import AppKit
 
 final class TextRecognizerManager {
-    typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ results: [Word<LetterRectangle>], _ error: Error?) -> Void
+    typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ blocks: [CompletedBlock], _ error: Error?) -> Void
 
     private let textDetection: TextDetection
     private let rectangleConverter: RectangleConverter
-    private let typeIdentifier: TypeConverter
     
     init() {
         self.textDetection = TextDetection()
         self.rectangleConverter = RectangleConverter()
-        self.typeIdentifier = TypeConverter()
     }
     
     func performRequest(image: NSImage, completion: @escaping TextCompletion) {
@@ -27,16 +25,28 @@ final class TextRecognizerManager {
             guard let sself = self else { return }
             
             let bitmap = sself.bitmap(from: image)
-            Timer.stop(text: "Bitmap Created")
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
+            let blockCreator = BlockCreator(in: bitmap)
+            let typeConverter = TypeConverter(in: bitmap)
+            let wordRecognizer = WordRecognizer(in: bitmap)
+            
+            Timer.stop(text: "Bitmap Created")
+            
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "WordRectangles Converted")
-            let blockCreator = BlockCreator(bitmap: bitmap)
-            let blocks = blockCreator.create(from: wordsRectangles)
             
-            completion(bitmap, wordsRectangles, error)
+            let blocks = blockCreator.create(from: wordsRectangles)
+            Timer.stop(text: "BlockCreator created")
+            
+            let blocksWithTypes = blocks.map { typeConverter.convert($0) }
+            Timer.stop(text: "TypeConverter Updated Type ")
+            
+            let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
+            Timer.stop(text: "WordRecognizer Recognize")
+            completion(bitmap, completedBlocks, error)
         }
     }
+    
     private func bitmap(from image: NSImage) -> NSBitmapImageRep {
         image.lockFocus()
         let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
