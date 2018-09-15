@@ -41,15 +41,10 @@ class PanelController: NSWindowController {
         textDetection.performRequest(image: image) { (bitmap, words, error) in
             self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             
-            let recognizer = WordRecognizer(in: bitmap)
-            let columnDetection = DigitColumnDetection(recognizer: recognizer)
-            let columnMerger = DigitColumnMerger()
-            let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
 
-            let restorer = MissingElementsRestorer(bitmap: bitmap)
             
             //------------blocks--------------
-            let creator = BlockCreator(digitalColumnCreator: columnCreator, elementsRestorer: restorer)
+            let creator = BlockCreator(bitmap: bitmap)
             let blocks = creator.create(from: words)
             let layers = blocks.layers(.blue, width: 3)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }

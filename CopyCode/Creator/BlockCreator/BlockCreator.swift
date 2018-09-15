@@ -6,7 +6,7 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 protocol BlockCreatorProtocol {
     associatedtype Child: Rectangle
@@ -36,13 +36,13 @@ final class BlockCreator: BlockCreatorProtocol {
             return Block.from(line, column: $0.column, trackingData: nil, leading: nil)
         }
 
-        Timer.stop(text: "Block Created")
+        Timer.stop(text: "BlockCreator Created")
         var updatedBlocks = blocksUpdatedAfterTracking(blocks)
-        Timer.stop(text: "Block Tracking")
+        Timer.stop(text: "BlockCreator Tracking")
         updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
-        Timer.stop(text: "Block Leading")
+        Timer.stop(text: "BlockCreator Leading")
         let restoredBlocks = updatedBlocks.map { missingElementsRestorer.restore($0) }
-        Timer.stop(text: "Block Restored")
+        Timer.stop(text: "BlockCreator Restored")
         return restoredBlocks
     }
     
@@ -106,6 +106,13 @@ final class BlockCreator: BlockCreatorProtocol {
     }
 }
 
-
-
-
+extension BlockCreator {
+    convenience init(bitmap: NSBitmapImageRep) {
+        let recognizer = WordRecognizer(in: bitmap)
+        let columnDetection = DigitColumnDetection(recognizer: recognizer)
+        let columnMerger = DigitColumnMerger()
+        let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
+        let restorer = MissingElementsRestorer(bitmap: bitmap)
+        self.init(digitalColumnCreator: columnCreator, elementsRestorer: restorer)
+    }
+}

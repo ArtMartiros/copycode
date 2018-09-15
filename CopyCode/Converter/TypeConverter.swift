@@ -10,18 +10,17 @@ import AppKit
 
 ///Класс конвертирует слова из неизвестного типа в конкретный тип
 class TypeConverter {
-    typealias WordAlias = Word<LetterRectangle>
-    private var mixedWordRectangle: Word<LetterRectangle>!
+    private var mixedWordRectangle: SimpleWord!
     private let wordClassification = WordTypeIdentifier()
     
-    ///Конвертирует в Word<LetterRectangleWithType>
-    func convert(_ rectangles: [WordAlias], in bitmap: NSBitmapImageRep) -> [Word<LetterRectangle>] {
+    ///Конвертирует в слово с типом
+    func convert(_ rectangles: [SimpleWord], in bitmap: NSBitmapImageRep) -> [SimpleWord] {
         return rectangles.map {
             return getWord(from: $0, in: bitmap)
         }
     }
     
-    private func getWord(from word: WordAlias, in bitmap: NSBitmapImageRep ) -> Word<LetterRectangle> {
+    private func getWord(from word: SimpleWord, in bitmap: NSBitmapImageRep ) -> SimpleWord {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
