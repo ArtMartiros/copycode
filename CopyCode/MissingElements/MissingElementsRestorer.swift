@@ -29,17 +29,17 @@ class MissingElementsRestorer {
     
     ///восстанавливает потерянные линии внутри блока
     func restore(_ block: Block<LetterRectangle>) -> Block<LetterRectangle> {
-        guard let tracking = block.tracking, let leading = block.leading else { return block }
+        guard let trackingData = block.trackingData, let leading = block.leading else { return block }
 
         var restoredLines = block.lines
-            .compactMap { restoreWords(in: $0, tracking: tracking, blockBounds: block) }
+            .compactMap { restoreWords(in: $0, tracking: trackingData[$0.frame.topY], blockBounds: block) }
         
         let newLines = block.gaps
-            .compactMap { finder.findMissingLine(in: $0.frame, leading: leading, tracking: tracking) }
+            .compactMap { finder.findMissingLine(in: $0.frame, leading: leading, tracking: trackingData[$0.frame.topY]) }
             .reduce([Line<LetterRectangle>]()) { $0 + $1 }
 
         restoredLines.append(contentsOf: newLines)
-        return Block.from(restoredLines.sortedFromTopToBottom, column: block.column, tracking: tracking, leading: leading)
+        return Block.from(restoredLines.sortedFromTopToBottom, column: block.column, trackingData: trackingData, leading: leading)
     }
    
     ///восстанавливает потерянные буквы для слов внутри линии

@@ -21,7 +21,9 @@ extension Collection {
             if compare(itemForCompare, item) {
                 chunk.append(item)
             } else {
-                chunks.append(chunk)
+                if !chunk.isEmpty {
+                   chunks.append(chunk)
+                }
                 itemForCompare = item
                 chunk = [item]
             }

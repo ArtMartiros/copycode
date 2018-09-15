@@ -46,3 +46,30 @@ extension ClosedRange where Bound == CGFloat {
         return upperBound - lowerBound
     }
 }
+
+extension ClosedRange: Codable where Bound: Codable {
+    
+}
+extension ClosedRange where Bound: Codable {
+    private enum CodingKeys: String, CodingKey {
+        case lowerBound, upperBound
+    }
+    public init(from decoder: Decoder) throws {
+        let dict = try [String: Bound](from: decoder)
+        
+        guard let lower = dict[CodingKeys.lowerBound.stringValue] else {
+            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: decoder.codingPath + [CodingKeys.lowerBound], debugDescription: "lowerBound not found"))
+        }
+        guard let upper = dict[CodingKeys.upperBound.stringValue] else {
+            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: decoder.codingPath + [CodingKeys.upperBound], debugDescription: "upperBound not found"))
+        }
+        
+        self.init(uncheckedBounds: (lower: lower, upper: upper))
+    }
+}
+
+extension ClosedRange where Bound: Codable {
+    public func encode(to encoder: Encoder) throws {
+        try [CodingKeys.lowerBound.stringValue: lowerBound, CodingKeys.upperBound.stringValue: upperBound].encode(to: encoder)
+    }
+}

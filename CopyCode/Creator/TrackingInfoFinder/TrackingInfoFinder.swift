@@ -72,15 +72,15 @@ struct TrackingInfoFinder {
                                   with tracking: Tracking) -> TrackingInfo {
         var lastIndex = startIndex
         for (index, line) in lines.enumerated() where startIndex < index{
-            print("Bukaki startLine: \(startIndex), currentLine \(index)")
-            print("Bukaki width: \(tracking.width), startPoint \(tracking.startPoint)")
+//            print("Bukaki startLine: \(startIndex), currentLine \(index)")
+//            print("Bukaki width: \(tracking.width), startPoint \(tracking.startPoint)")
             let gapsInRange = checkGaps(line.words, with: tracking)
             
-            print("Bukaki \n\n")
+//            print("Bukaki \n\n")
             guard gapsInRange else { break }
             lastIndex = index
         }
-        print("Bukaki \n\n\n *************FINISH**************")
+//        print("Bukaki \n\n\n *************FINISH**************")
         let trackingInfo = TrackingInfo(tracking: tracking, startIndex: startIndex, endIndex: lastIndex)
         return trackingInfo
     }
@@ -106,7 +106,7 @@ struct TrackingInfoFinder {
         }
         
         let result = check(positive: positiveCount, negative: negativeCount)
-        print("Bukaki result: \(result), pos: \(positiveCount), neg: \(negativeCount)")
+//        print("Bukaki result: \(result), pos: \(positiveCount), neg: \(negativeCount)")
         return result
     }
     

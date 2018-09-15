@@ -20,8 +20,9 @@ final class BlockCreator: BlockCreatorProtocol {
     private let digitalColumnSplitter: DigitColumnSplitter
     private let customColumnCreator = CustomColumnCreator<LetterRectangle>()
     private let missingElementsRestorer: MissingElementsRestorer
-    private let trackingInfoFinder = TrackingInfoFinder()
     private let leadingFinder = LeadingFinder()
+    private let blockSplitter = BlockSplitter()
+    private let trackingInfoFinder = TrackingInfoFinder()
     
     init(digitalColumnCreator: DigitColumnSplitter, elementsRestorer: MissingElementsRestorer) {
         self.digitalColumnSplitter = digitalColumnCreator
@@ -32,35 +33,24 @@ final class BlockCreator: BlockCreatorProtocol {
         let columnsWithWords = getBlockWordsWithColumns(from: rectangles)
         let blocks: [Block<LetterRectangle>] = columnsWithWords.map {
             let line = lineCreator.create(from: $0.words)
-            return Block.from(line, column: $0.column)
+            return Block.from(line, column: $0.column, trackingData: nil, leading: nil)
         }
-//        let value = CodableHelper.encode(blocks[0])
-//        print(value)
+
         Timer.stop(text: "Block Created")
-        
         var updatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "Block Tracking")
-        
-//        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
-//        Timer.stop(text: "Block Leading")
-//
-//        let restoredBlocks = updatedBlocks
-//            .map { missingElementsRestorer.restore($0) }
+        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
+        Timer.stop(text: "Block Leading")
+        let restoredBlocks = updatedBlocks.map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "Block Restored")
-        return updatedBlocks
+        return restoredBlocks
     }
     
     private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
-        var newBlocks: [Block<LetterRectangle>] = []
-        for block in blocks {
-            let trackingInfos = trackingInfoFinder.find(from: block)
-            for info in trackingInfos {
-                let lines = Array(block.lines[info.startIndex...info.endIndex])
-                var newBlock = Block.from(lines, column: block.column)
-                newBlock.tracking = info.tracking
-                newBlocks.append(newBlock)
-            }
-        }
+        let newBlocks = blocks.map {
+            let infos = trackingInfoFinder.find(from: $0)
+            return blockSplitter.splitAndUpdate($0, by: infos)
+            }.reduce([SimpleBlock](),+)
         return newBlocks
     }
     

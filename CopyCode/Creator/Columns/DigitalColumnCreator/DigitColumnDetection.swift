@@ -78,7 +78,7 @@ final class DigitColumnDetection {
         
         let chars = words.reduce([String]()) { result, word in
             print("CharsAndNumbers word value \(word.value)")
-            var values = word.letters.map { $0.value }
+            let values = word.letters.map { $0.value }
             print("CharsAndNumbers word filtered value \(values)")
             return result + values
         }

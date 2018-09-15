@@ -29,7 +29,7 @@ class BlockCreatorTests: XCTestCase {
             let recognizer = WordRecognizer(in: bitmap)
             for result in results.sorted(by: { $0.frame.bottomY > $1.frame.bottomY }) {
                 let word = recognizer.recognize(result, with: .allUpper)
-                print("Bukaki \(word.value)")
+//                print("Bukaki \(word.value)")
                 //                let number = Int(word.value.prefix(2))
                 //                XCTAssertTrue(number != nil, "❌ expect number, instead \(word.value)")
                 let letterRecognizer = LetterRecognizer(bitmap, rectangle: result)

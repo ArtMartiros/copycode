@@ -48,20 +48,6 @@ class TrackingInfoFinderTests: XCTestCase {
         XCTAssertTrue(result.endIndex == answer.endIndex, message2)
     }
     
-    private func blocksUpdatedAfterTracking(_ blocks: [SimpleBlock]) -> [SimpleBlock] {
-        var newBlocks: [SimpleBlock] = []
-        for block in blocks {
-            let trackingInfos = finder.find(from: block)
-            for info in trackingInfos {
-                let lines = Array(block.lines[info.startIndex...info.endIndex])
-                var newBlock = Block.from(lines, column: block.column)
-                newBlock.tracking = info.tracking
-                newBlocks.append(newBlock)
-            }
-        }
-        return newBlocks
-    }
-    
     func testPerformanceExample() {
         let block = BlockTest.one.getBlock(self)
         self.measure {
