@@ -36,7 +36,7 @@ extension BlockCreator {
             for infos in arrayOfInfos {
                 if let first = infos.last, first.tracking == nil {
                     let lines = Array(block.lines[first.startIndex...first.endIndex])
-                    let newBlock = Block.from(lines, column: block.column, trackingData: nil, leading: nil)
+                    let newBlock = Block.from(lines, column: block.column, typography: .empty)
                     newBlocks.append(newBlock)
                 } else {
                     if let blockWithTrackingData = createNewBlock(from: block, using: infos) {
@@ -52,15 +52,16 @@ extension BlockCreator {
             guard let first = infos.first, let last = infos.last else { return nil }
             
             let lines = Array(block.lines[first.startIndex...last.endIndex])
-            var newBlock = Block.from(lines, column: block.column, trackingData: nil, leading: nil)
-            let range = rangeOf(one: newBlock.frame.bottomY, two: newBlock.frame.topY)
+            
+            let range = rangeOf(one: block.frame.bottomY, two: block.frame.topY)
             
             var data = TrackingData(range: range, defaultTracking: first.tracking!)
             for (index, info) in infos.enumerated() where index > 0 {
                 let yPosition = block.lines[info.startIndex].frame.topY
                 data[yPosition] = info.tracking!
             }
-            newBlock.trackingData = data
+            
+            let newBlock = Block.from(lines, column: block.column, typography: .tracking(data))
             return newBlock
         }
     }

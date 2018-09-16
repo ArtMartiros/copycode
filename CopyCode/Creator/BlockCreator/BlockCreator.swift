@@ -33,7 +33,7 @@ final class BlockCreator: BlockCreatorProtocol {
         let columnsWithWords = getBlockWordsWithColumns(from: rectangles)
         let blocks: [Block<LetterRectangle>] = columnsWithWords.map {
             let line = lineCreator.create(from: $0.words)
-            return Block.from(line, column: $0.column, trackingData: nil, leading: nil)
+            return Block.from(line, column: $0.column, typography: .empty)
         }
 
         Timer.stop(text: "BlockCreator Initial Created")
@@ -57,8 +57,8 @@ final class BlockCreator: BlockCreatorProtocol {
     private func blocksUpdatedAfterLeading(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
         var newBlocks: [Block<LetterRectangle>] = []
         for block in blocks {
-            var newBlock = block
-            newBlock.leading = leadingFinder.find(block)
+            let leading = leadingFinder.find(block)
+            let newBlock = Block.updateTypography(block, with: leading)
             newBlocks.append(newBlock)
         }
         return newBlocks

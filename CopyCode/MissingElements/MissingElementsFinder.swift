@@ -19,8 +19,9 @@ class MissingElementsFinder {
         self.letterPixelFinder = pixelFinder
     }
     
-    func findMissingLine(in gapFrame: CGRect, leading: Leading,  tracking: Tracking) -> [Line<LetterRectangle>] {
-        let frames = leading.findMissingLineFrames(in: gapFrame)
+    func findMissingLine(in gapFrame: CGRect, grid: TypographicalGrid) -> [Line<LetterRectangle>] {
+        let tracking = grid.trackingData[gapFrame.topY]
+        let frames = grid.leading.missingLinesFrame(in: gapFrame)
         let lines = frames.compactMap { findMissingLine(in: $0, tracking: tracking) }
         return lines
     }
@@ -41,7 +42,7 @@ class MissingElementsFinder {
     private func getLetters(pixelFrame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> [LetterRectangle] {
         var letters: [LetterRectangle]  = []
         var inRaw = 0
-        let dividedFrames = arrayOfFrames(from: pixelFrame, by: tracking)
+        let dividedFrames = tracking.missingCharFrames(in: pixelFrame)
         let rightOrderFrames = edge == .minXEdge ? dividedFrames : dividedFrames.reversed()
         for frame in rightOrderFrames {
             guard inRaw < kInRawTimes else { break }
@@ -53,33 +54,6 @@ class MissingElementsFinder {
             }
         }
         return letters
-    }
-    
-    private let kErrorTrackingWidthPercent: CGFloat = 10
-    //разбивает frame с помощью tracking
-    private func arrayOfFrames(from frame: CGRect, by tracking: Tracking) -> [CGRect] {
-        let updatedFrame = updateFrame(from: frame, tracking: tracking)
-        var frames = updatedFrame.chunkToSmallRects(byWidth: tracking.width)
-        guard let last = frames.last else { return [] }
-        if !EqualityChecker.check(of: tracking.width, with: last.width, errorPercentRate: kErrorTrackingWidthPercent) {
-            let _ = frames.removeLast()
-        }
-        return frames
-    }
-    
-    //нужен обновленный фрейм исходя из стартовой позиции tracking иногда надо немного расщирить иногда сузить
-    private func updateFrame(from frame: CGRect, tracking: Tracking) -> CGRect {
-        let nearestPoint = tracking.nearestPoint(to: frame)
-        var newFrame: CGRect?
-        var difference = nearestPoint - frame.leftX
-        
-        if nearestPoint < frame.leftX {
-            difference += tracking.width
-            if EqualityChecker.check(of: difference, with: tracking.width, errorPercentRate: kErrorTrackingWidthPercent) {
-                newFrame = CGRect(left: nearestPoint, right: frame.rightX, top: frame.topY, bottom: frame.bottomY)
-            }
-        }
-        return newFrame ?? frame.divided(atDistance: difference, from: .minXEdge).remainder
     }
     
     private func createLetter(from pixelFrame: CGRect) -> LetterRectangle {

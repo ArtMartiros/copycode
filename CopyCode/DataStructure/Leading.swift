@@ -43,7 +43,7 @@ extension Leading {
         }
     }
     
-    func findMissingLineFrames(in frame: CGRect) -> [CGRect] {
+    func missingLinesFrame(in frame: CGRect) -> [CGRect] {
         let lineCount = (frame.height / leading).rounded(.down)
         guard lineCount != 0 else { return [] }
         let startPoint = findStartPoint(inside: frame)
@@ -74,7 +74,7 @@ extension Leading {
     }
     
     
-    private func findStartPoint(inside frame: CGRect) -> CGFloat {
+   private func findStartPoint(inside frame: CGRect) -> CGFloat {
         let point = findNearestPoint(to: frame)
         var startPoint = point
         if point > frame.topY {

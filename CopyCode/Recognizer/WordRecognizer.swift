@@ -16,8 +16,7 @@ class WordRecognizer {
     
     func recognize(_ block: SimpleBlock) -> CompletedBlock {
         let lines: [CompletedLine] = block.lines.map { recognize($0) }
-        let newBlock = Block(lines: lines, frame: block.frame, column: block.column,
-                             trackingData: block.trackingData, leading: block.leading)
+        let newBlock = Block(lines: lines, frame: block.frame, column: block.column, typography: block.typography )
         return newBlock
     }
     

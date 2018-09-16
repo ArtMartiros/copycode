@@ -20,8 +20,7 @@ class TypeConverter {
     
     func convert(_ block: SimpleBlock) -> SimpleBlock {
         let lines: [SimpleLine] = block.lines.map { convert($0) }
-        let newBlock = Block(lines: lines, frame: block.frame, column: block.column,
-                         trackingData: block.trackingData, leading: block.leading)
+        let newBlock = Block(lines: lines, frame: block.frame, column: block.column, typography: block.typography)
         return newBlock
     }
     

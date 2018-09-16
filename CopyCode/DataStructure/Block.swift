@@ -13,8 +13,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     let frame: CGRect
     let lines: [Line<WordChild>]
     let column: ColumnType
-    var trackingData: TrackingData?
-    var leading: Leading?
+    let typography: Typography
     
     var gaps: [Gap] {
         var gaps: [Gap] = []
@@ -37,19 +36,24 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         return heights[0]
     }
     
-    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType,
-         trackingData: TrackingData?, leading: Leading?) {
+    init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType, typography: Typography) {
         self.lines = lines
         self.frame = frame
         self.column = column
-        self.trackingData = trackingData
-        self.leading = leading
+        self.typography = typography
     }
     
-    static func from(_ lines: [Line<WordChild>], column: ColumnType,
-                     trackingData: TrackingData?, leading: Leading?) -> Block {
+    static func from(_ lines: [Line<WordChild>], column: ColumnType, typography: Typography) -> Block {
         let frame = lines.map { $0.frame }.compoundFrame
-        return Block(lines: lines, frame: frame, column: column, trackingData: trackingData, leading: leading)
+        return Block(lines: lines, frame: frame, column: column, typography: typography)
+    }
+    
+    static func updateTypography(_ block: Block, with leading: Leading?) -> Block {
+        guard case .tracking(let data) = block.typography, let leading = leading
+            else { return  block }
+        let grid = Typography.grid(TypographicalGrid(data: data, leading: leading))
+        let newBlock = Block(lines: block.lines, frame: block.frame, column: block.column, typography: grid)
+        return newBlock
     }
 }
 

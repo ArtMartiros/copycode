@@ -20,17 +20,20 @@ class PanelController: NSWindowController {
     }
     
     func closePanel() {
-        panel.orderOut(nil)
+        panel.closePanel()
     }
 
     func openPanel(with image: CGImage) {
         addNotification()
-        let screenRect = NSScreen.screens.first?.frame
-        panel.makeKeyAndOrderFront(nil)
-        panel.setFrame(screenRect!, display: true)
-        let image = NSImage(cgImage: image, size: screenRect!.size)
-        panel.imageView.image = image//.adjustColors.grayscale
-        showWords(image: image, size:  screenRect!.size)
+        guard let screenRect = NSScreen.screens.first?.frame else { return }
+        panel.initialSetupe(with: screenRect)
+        
+        let frame = NSRect(x: 0, y: 0, width: 200, height: 200)
+        panel.addTextView(with: "Hello more complex", in: frame,  letterWidth: 7.5)
+        
+//        let image = NSImage(cgImage: image, size: screenRect.size)
+//        panel.imageView.image = image
+//        showWords(image: image, size:  screenRect.size)
         
     }
     
@@ -43,7 +46,6 @@ class PanelController: NSWindowController {
 
             let layers = blocks.layers(.blue, width: 3)
             layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-//            let converter = TypeConverter()
             
 //            for block in blocks {
 //                for line in block.lines {

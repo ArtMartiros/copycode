@@ -8,17 +8,6 @@
 
 import Foundation
 
-struct TrackingInfo: Codable {
-    let tracking: Tracking?
-    let startIndex: Int
-    let endIndex: Int
-    init(tracking: Tracking?, startIndex: Int, endIndex: Int) {
-        self.tracking = tracking
-        self.startIndex = startIndex
-        self.endIndex = endIndex
-    }
-}
-
 struct Tracking: Codable {
     let width: CGFloat
     let startPoint: CGFloat
@@ -27,6 +16,8 @@ struct Tracking: Codable {
         self.startPoint = startPoint
     }
 }
+
+
 
 extension Tracking {
     func nearestPoint(to frame: CGRect) -> CGFloat {
@@ -40,6 +31,45 @@ extension Tracking {
             let point = startPoint + value * width
             return point
         }
+    }
+    
+    private var kErrorTrackingWidthPercent: CGFloat { return 10 }
+    
+    //разбивает frame с помощью tracking
+    func missingCharFrames(in frame: CGRect) -> [CGRect] {
+        let updatedFrame = updateFrame(from: frame)
+        var frames = updatedFrame.chunkToSmallRects(byWidth: width)
+        guard let last = frames.last else { return [] }
+        if !EqualityChecker.check(of: self.width, with: last.width, errorPercentRate: kErrorTrackingWidthPercent) {
+            let _ = frames.removeLast()
+        }
+        return frames
+    }
+    
+    //нужен обновленный фрейм исходя из стартовой позиции tracking иногда надо немного расщирить иногда сузить
+    private func updateFrame(from frame: CGRect) -> CGRect {
+        let nearestPoint = self.nearestPoint(to: frame)
+        var newFrame: CGRect?
+        var difference = nearestPoint - frame.leftX
+        
+        if nearestPoint < frame.leftX {
+            difference += self.width
+            if EqualityChecker.check(of: difference, with: self.width, errorPercentRate: kErrorTrackingWidthPercent) {
+                newFrame = CGRect(left: nearestPoint, right: frame.rightX, top: frame.topY, bottom: frame.bottomY)
+            }
+        }
+        return newFrame ?? frame.divided(atDistance: difference, from: .minXEdge).remainder
+    }
+}
+
+struct TrackingInfo: Codable {
+    let tracking: Tracking?
+    let startIndex: Int
+    let endIndex: Int
+    init(tracking: Tracking?, startIndex: Int, endIndex: Int) {
+        self.tracking = tracking
+        self.startIndex = startIndex
+        self.endIndex = endIndex
     }
 }
 
