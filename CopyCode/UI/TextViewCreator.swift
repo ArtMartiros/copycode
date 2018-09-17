@@ -9,11 +9,13 @@
 import AppKit
 
 class TextViewCreator {
+    private let kTextViewColor = NSColor.red
+    
     func create(with frame: NSRect, with attrString: NSAttributedString) -> NSTextView {
         let textView = NSTextView(frame: frame)
         textView.isEditable = false
         textView.isSelectable = true
-        textView.backgroundColor = .blue
+        textView.backgroundColor = kTextViewColor
         textView.textStorage?.append(attrString)
         return textView
     }
@@ -23,16 +25,21 @@ class TextViewCreator {
 // "Menlo-Regular"
 class AttrStringCreator {
     private let kFontWidthRatio: CGFloat = 1.2
-    
+    private let kTextColor = NSColor.black
     private func detectFontSize(from letterWidth: CGFloat) -> CGFloat {
        let fontSize = (letterWidth / kFontWidthRatio * 2).rounded()
         return fontSize
     }
     
-    func create(with text: String, letterWidth width: CGFloat) -> NSAttributedString {
+    func create(with text: String, letterWidth width: CGFloat, spacing: CGFloat) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = spacing
         let fontSize = detectFontSize(from: width)
         let font = NSFont(name: "Menlo-Regular", size: fontSize)
-        let myAttribute: [NSAttributedString.Key : Any] = [.font: font!]
+
+        let myAttribute: [NSAttributedString.Key : Any] = [.font: font!,
+                                                           .paragraphStyle: paragraphStyle,
+                                                           .foregroundColor: kTextColor]
         let myAttrString = NSAttributedString(string: text, attributes: myAttribute )
         return myAttrString
     }

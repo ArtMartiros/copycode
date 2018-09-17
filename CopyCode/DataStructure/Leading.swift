@@ -44,14 +44,16 @@ extension Leading {
     }
     
     func missingLinesFrame(in frame: CGRect) -> [CGRect] {
-        let lineCount = (frame.height / leading).rounded(.down)
-        guard lineCount != 0 else { return [] }
+        guard frame.height > leading else { return [] }
         let startPoint = findStartPoint(inside: frame)
         let difference = frame.topY - startPoint
+        let height = startPoint - frame.bottomY
+        let lineCount = ((height - fontSize - difference) / leading).rounded()
+        
         var currentFrame = frame
         var frames: [CGRect] = []
         
-        for i in 0..<Int(lineCount) {
+        for i in 0...Int(lineCount) {
             let afterDistance = i == 0 ? difference : lineSpacing
             let divided = currentFrame.divided(atDistance: fontSize,
                                         afterDistance: afterDistance, from: .maxYEdge)
@@ -74,10 +76,10 @@ extension Leading {
     }
     
     
-   private func findStartPoint(inside frame: CGRect) -> CGFloat {
+    func findStartPoint(inside frame: CGRect) -> CGFloat {
         let point = findNearestPoint(to: frame)
         var startPoint = point
-        if point > frame.topY {
+        if point > frame.topY, !EqualityChecker.check(of: point, with: frame.topY, errorPercentRate: 10) {
             startPoint -= leading
         }
         return startPoint

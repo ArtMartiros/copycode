@@ -19,8 +19,8 @@ class Panel: NSPanel {
     private let stringCreator = AttrStringCreator()
     private let textViewCreator = TextViewCreator()
     
-    func addTextView(with text: String, in frame: NSRect, letterWidth: CGFloat) {
-        let attrString = stringCreator.create(with: text, letterWidth: letterWidth)
+    func addTextView(with text: String, in frame: NSRect, letterWidth: CGFloat, spacing: CGFloat) {
+        let attrString = stringCreator.create(with: text, letterWidth: letterWidth, spacing: spacing)
         let textView = textViewCreator.create(with: frame, with: attrString)
         self.contentView?.addSubview(textView)
     }

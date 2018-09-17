@@ -9,11 +9,11 @@
 import Foundation
 
 class CustomColumnCreator<WordChild: Rectangle> {
-    func create(from words: [Word<WordChild>]) ->  [CustomColumn]  {
+    func create(from words: [Word<WordChild>], numberOfColumns: Int) ->  [CustomColumn]  {
         let distance: CGFloat = 10
         let dictionary = createColumnDictionary(from: words, withDistance: distance)
         let updatedDictionary = updatedColumnDictionary(dictionary: dictionary, distance: distance)
-        let findedColumns = findCustomColumns(from: updatedDictionary, columns: 3)
+        let findedColumns = findCustomColumns(from: updatedDictionary, columns: numberOfColumns)
         let columns = columnsFrom(from: findedColumns)
         return columns
     }

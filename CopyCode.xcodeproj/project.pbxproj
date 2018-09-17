@@ -51,6 +51,11 @@
 		AC250A62214EC02A00E6D596 /* TypographicalGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A60214EC02A00E6D596 /* TypographicalGrid.swift */; };
 		AC250A64214ECA9100E6D596 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A63214ECA9100E6D596 /* Typography.swift */; };
 		AC250A65214ECA9100E6D596 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A63214ECA9100E6D596 /* Typography.swift */; };
+		AC250A67214EDF7D00E6D596 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A66214EDF7D00E6D596 /* String.swift */; };
+		AC250A68214EDF7D00E6D596 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A66214EDF7D00E6D596 /* String.swift */; };
+		AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */ = {isa = PBXBuildFile; fileRef = AC250A69214EE59800E6D596 /* block_one_completed.json */; };
+		AC250A6C214EE92900E6D596 /* LeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A6B214EE92900E6D596 /* LeadingTests.swift */; };
+		AC250A6E214EF49400E6D596 /* TextTranscriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */; };
 		AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */; };
@@ -123,6 +128,7 @@
 		AC71FB7A2112F1BB00EE41C6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB782112F1BB00EE41C6 /* Block.swift */; };
 		AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
 		AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
+		AC74061C2156323D007AC07E /* TestAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC74061B2156323D007AC07E /* TestAssets.xcassets */; };
 		AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
@@ -271,6 +277,10 @@
 		AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTranscriptor.swift; sourceTree = "<group>"; };
 		AC250A60214EC02A00E6D596 /* TypographicalGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographicalGrid.swift; sourceTree = "<group>"; };
 		AC250A63214ECA9100E6D596 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		AC250A66214EDF7D00E6D596 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		AC250A69214EE59800E6D596 /* block_one_completed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = block_one_completed.json; sourceTree = "<group>"; };
+		AC250A6B214EE92900E6D596 /* LeadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingTests.swift; sourceTree = "<group>"; };
+		AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTranscriptorTests.swift; sourceTree = "<group>"; };
 		AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterExistenceChecker.swift; sourceTree = "<group>"; };
 		AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeClassificationTests.swift; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -304,6 +314,7 @@
 		AC71FB752112F17E00EE41C6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		AC71FB782112F1BB00EE41C6 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		AC74061B2156323D007AC07E /* TestAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TestAssets.xcassets; sourceTree = "<group>"; };
 		AC785A62214D80D2002C918D /* TextViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCreator.swift; sourceTree = "<group>"; };
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
@@ -443,6 +454,8 @@
 				AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */,
 				AC8C0AB2214AB06E00F0FD13 /* LeadingFinderTests */,
 				AC95B4B7214139E10007B5C5 /* TrackingFinderTests */,
+				AC250A6B214EE92900E6D596 /* LeadingTests.swift */,
+				AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -483,6 +496,7 @@
 				AC675774212C578B0051C34A /* ClosedRange.swift */,
 				ACAF237821398BD3009D8409 /* CGRectEdge.swift */,
 				AC8EB592213EBF72003D345B /* Collection.swift */,
+				AC250A66214EDF7D00E6D596 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -559,6 +573,8 @@
 				AC8C0AAF214AB01400F0FD13 /* block_one_code.json */,
 				AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */,
 				AC6B2E49214BF220000ACEDC /* column_detection_words.json */,
+				AC250A69214EE59800E6D596 /* block_one_completed.json */,
+				AC74061B2156323D007AC07E /* TestAssets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -856,6 +872,7 @@
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
+				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
 				AC8C0AB1214AB01400F0FD13 /* block_one_code.json in Resources */,
 				AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
@@ -875,6 +892,7 @@
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
+				AC74061C2156323D007AC07E /* TestAssets.xcassets in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC6B2E4F214BF3B9000ACEDC /* Assets.xcassets in Resources */,
@@ -898,6 +916,7 @@
 			files = (
 				AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */,
 				AC67577B212C5A470051C34A /* CustomColumnCreator.swift in Sources */,
+				AC250A67214EDF7D00E6D596 /* String.swift in Sources */,
 				AC06D8AC21020A9D00770DBB /* WordTypeIdentifier.swift in Sources */,
 				AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */,
 				ACF1AC5D210B180700897732 /* RectangleConverter.swift in Sources */,
@@ -994,6 +1013,7 @@
 				AC8C0A9F214A4DEA00F0FD13 /* Leading.swift in Sources */,
 				AC95B4B021412B1F0007B5C5 /* TrackingChecker.swift in Sources */,
 				AC8C0AB6214AE76500F0FD13 /* LeadingFinderTests.swift in Sources */,
+				AC250A6E214EF49400E6D596 /* TextTranscriptorTests.swift in Sources */,
 				AC50A87D2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC4CA40521025DE30093D938 /* TypeConverter.swift in Sources */,
 				AC15F81D214CE102001DC55E /* SortedArray.swift in Sources */,
@@ -1037,6 +1057,7 @@
 				AC95B4A621410B2F0007B5C5 /* TrackingInfoFinder.swift in Sources */,
 				AC8C0AA5214A4ECB00F0FD13 /* LeadingStartPointFinder.swift in Sources */,
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
+				AC250A68214EDF7D00E6D596 /* String.swift in Sources */,
 				AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */,
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
@@ -1067,6 +1088,7 @@
 				AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC95B4C6214152120007B5C5 /* ClosedRangeTests.swift in Sources */,
 				AC4CA3FD21025DDF0093D938 /* VNRectangleObservation.swift in Sources */,
+				AC250A6C214EE92900E6D596 /* LeadingTests.swift in Sources */,
 				AC15F820214D0ADD001DC55E /* BlockSplitter.swift in Sources */,
 				AC4CA3FA21025DDF0093D938 /* NSBitmapImageRep.swift in Sources */,
 				AC457DF32148198700D9E69F /* BlockTestHelper.swift in Sources */,
