@@ -40,7 +40,7 @@ extension LetterType {
         case .comma: return commaOCRTree
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
-        case .custom: return .r("Custom")
+        case .custom: return .r("~")
         }
     }
 }

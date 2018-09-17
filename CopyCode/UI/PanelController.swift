@@ -28,12 +28,12 @@ class PanelController: NSWindowController {
         guard let screenRect = NSScreen.screens.first?.frame else { return }
         panel.initialSetupe(with: screenRect)
         
-        let frame = NSRect(x: 0, y: 0, width: 200, height: 200)
-        panel.addTextView(with: "Hello more complex", in: frame,  letterWidth: 7.5)
+//        let frame = NSRect(x: 0, y: 0, width: 200, height: 200)
+//        panel.addTextView(with: "Hello more complex", in: frame,  letterWidth: 7.5)
         
-//        let image = NSImage(cgImage: image, size: screenRect.size)
-//        panel.imageView.image = image
-//        showWords(image: image, size:  screenRect.size)
+        let image = NSImage(cgImage: image, size: screenRect.size)
+        panel.imageView.image = image
+        showWords(image: image, size:  screenRect.size)
         
     }
     
@@ -41,11 +41,24 @@ class PanelController: NSWindowController {
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { (bitmap, blocks, error) in
-            self.panel.imageView.layer?.sublayers?.removeSubrange(1...)
-
+        textDetection.performRequest(image: image) { [weak self] (bitmap, blocks, error) in
+            self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+            let transcriptor = TextTranscriptor()
+            
+            for block in blocks {
+              
+                if case .grid(let grid) = block.typography {
+                    let text = transcriptor.test(block: block)
+                    let width = grid.trackingData.defaultTracking.width
+                    let spacing = grid.leading.lineSpacing
+                    self?.panel.addTextView(with: text, in: block.frame, letterWidth: width, spacing: spacing - 1)
+                }
+              
+            }
+              Timer.stop(text: "TextTranscriptor transcriptor")
+            
             let layers = blocks.layers(.blue, width: 3)
-            layers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            layers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             
 //            for block in blocks {
 //                for line in block.lines {
@@ -70,7 +83,7 @@ class PanelController: NSWindowController {
              let lines = blocks.reduce([Line]()) { $0 + $1.lines }
            
             let lineLayers = lines.layers(.red, width: 1)
-             lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+             lineLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
 //
             //------------Words--------------
 //            let wordsLayers = words.map { $0.layer(.blue, width: 0.5) }
@@ -79,7 +92,7 @@ class PanelController: NSWindowController {
             //------------newWords--------------
             let newWords = lines.reduce([Word]()) { $0 + $1.words }
             let newWordsLayers = newWords.map { $0.layer(.blue, width: 1) }
-            newWordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            newWordsLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             
 
             
@@ -90,7 +103,7 @@ class PanelController: NSWindowController {
             
             let chars = newWords.reduce([Letter]()) { $0 + $1.letters }
             let charLayers = chars.map { $0.layer(.green, width: 1) }
-            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             
 //            var charLayers: [CALayer] = []
 //            for word in words {

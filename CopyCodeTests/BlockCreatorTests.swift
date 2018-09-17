@@ -22,28 +22,28 @@ class BlockCreatorTests: XCTestCase {
             
         }
     }
-    
-    func testDigitColumnRecognizer() {
-        let image = NSImage(named: .init("picDigitColumnP2"))
-        textManager.performRequest(image: image!) { (bitmap, results, error) in
-            let recognizer = WordRecognizer(in: bitmap)
-            for result in results.sorted(by: { $0.frame.bottomY > $1.frame.bottomY }) {
-                let word = recognizer.recognize(result, with: .allUpper)
-//                print("Bukaki \(word.value)")
-                //                let number = Int(word.value.prefix(2))
-                //                XCTAssertTrue(number != nil, "❌ expect number, instead \(word.value)")
-                let letterRecognizer = LetterRecognizer(bitmap, rectangle: result)
-                for letter in result.letters {
-//                    let char = letterRecognizer.recognize(from: letter.pixelFrame, with: .upper)
-//                    print("🔔:" + char)
-                    
-                    let _ = 1
-                }
-                //                let word = wordRecognizer.recognize(result, with: .allUpper)
-                //                let _ = 1
-            }
-            let _ = 1
-        }
-    }
+    //FIXME
+//    func testDigitColumnRecognizer() {
+//        let image = NSImage(named: .init("picDigitColumnP2"))
+//        textManager.performRequest(image: image!) { (bitmap, results, error) in
+//            let recognizer = WordRecognizer(in: bitmap)
+//            for result in results.sorted(by: { $0.frame.bottomY > $1.frame.bottomY }) {
+//                let word = recognizer.recognize(result, with: .allUpper)
+////                print("Bukaki \(word.value)")
+//                //                let number = Int(word.value.prefix(2))
+//                //                XCTAssertTrue(number != nil, "❌ expect number, instead \(word.value)")
+//                let letterRecognizer = LetterRecognizer(bitmap, rectangle: result)
+//                for letter in result.letters {
+////                    let char = letterRecognizer.recognize(from: letter.pixelFrame, with: .upper)
+////                    print("🔔:" + char)
+//                    
+//                    let _ = 1
+//                }
+//                //                let word = wordRecognizer.recognize(result, with: .allUpper)
+//                //                let _ = 1
+//            }
+//            let _ = 1
+//        }
+//    }
     
 }

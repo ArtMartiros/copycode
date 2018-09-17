@@ -13,7 +13,7 @@ class TextViewCreator {
         let textView = NSTextView(frame: frame)
         textView.isEditable = false
         textView.isSelectable = true
-        textView.backgroundColor = .blue
+        textView.backgroundColor = .clear
         textView.textStorage?.append(attrString)
         return textView
     }
@@ -29,10 +29,15 @@ class AttrStringCreator {
         return fontSize
     }
     
-    func create(with text: String, letterWidth width: CGFloat) -> NSAttributedString {
+    func create(with text: String, letterWidth width: CGFloat, spacing: CGFloat) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = spacing
         let fontSize = detectFontSize(from: width)
         let font = NSFont(name: "Menlo-Regular", size: fontSize)
-        let myAttribute: [NSAttributedString.Key : Any] = [.font: font!]
+
+        let myAttribute: [NSAttributedString.Key : Any] = [.font: font!,
+                                                           .paragraphStyle: paragraphStyle,
+                                                           .foregroundColor: NSColor.clear]
         let myAttrString = NSAttributedString(string: text, attributes: myAttribute )
         return myAttrString
     }
