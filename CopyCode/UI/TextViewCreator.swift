@@ -9,13 +9,14 @@
 import AppKit
 
 class TextViewCreator {
-    private let kTextViewColor = NSColor.red
+    private let kTextViewColor = NSColor.clear
     
     func create(with frame: NSRect, with attrString: NSAttributedString) -> NSTextView {
         let textView = NSTextView(frame: frame)
         textView.isEditable = false
         textView.isSelectable = true
         textView.backgroundColor = kTextViewColor
+        textView.selectedTextAttributes = [ .backgroundColor : NSColor.blue.withAlphaComponent(0.4)]
         textView.textStorage?.append(attrString)
         return textView
     }
@@ -25,7 +26,7 @@ class TextViewCreator {
 // "Menlo-Regular"
 class AttrStringCreator {
     private let kFontWidthRatio: CGFloat = 1.2
-    private let kTextColor = NSColor.black
+    private let kTextColor = NSColor.clear
     private func detectFontSize(from letterWidth: CGFloat) -> CGFloat {
        let fontSize = (letterWidth / kFontWidthRatio * 2).rounded()
         return fontSize

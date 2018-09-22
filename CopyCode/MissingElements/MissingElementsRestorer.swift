@@ -41,7 +41,7 @@ class MissingElementsRestorer {
             .reduce([Line<LetterRectangle>]()) { $0 + $1 }
 
         restoredLines.append(contentsOf: newLines)
-        return Block.from(restoredLines.sortedFromTopToBottom, column: block.column, typography: .grid(grid))
+        return Block.from(restoredLines.sortedFromTopToBottom(), column: block.column, typography: .grid(grid))
     }
    
     ///восстанавливает потерянные буквы для слов внутри линии
@@ -67,13 +67,13 @@ class MissingElementsRestorer {
         }
         
         guard !newWords.isEmpty else { return nil }
-        return Line(words: newWords.sortedFromLeftToRight)
+        return Line(words: newWords.sortedFromLeftToRight())
     }
     
     private func findWord(inside frame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> Word<LetterRectangle>? {
         let letters = finder.findMissingLetters(in: frame, tracking: tracking, with: edge)
         guard !letters.isEmpty else { return nil }
-        let word = (Word.from(letters.sortedFromLeftToRight))
+        let word = (Word.from(letters.sortedFromLeftToRight()))
         return word
     }
     

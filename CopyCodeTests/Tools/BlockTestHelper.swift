@@ -23,8 +23,17 @@ enum BlockTest: String {
     case one = "block_one"
     case oneCode = "block_one_code"
     case two = "block_two"
+    case sc1 = "sc1_text_view_creator"
+    case sc2 = "sc2_block_creator"
     
     func getBlock(_ object: AnyObject) -> SimpleBlock {
         return CodableHelper.decode(object, path: self.rawValue, structType: SimpleBlock.self, shouldPrint: false)!
+    }
+}
+
+enum TrackingInfoTest: String {
+    case sc1 = "tracking_info_sc1"
+    func get(_ object: AnyObject) -> [TrackingInfo] {
+        return CodableHelper.decode(object, path: self.rawValue, structType: [TrackingInfo].self, shouldPrint: false)!
     }
 }

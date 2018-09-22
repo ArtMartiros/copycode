@@ -11,26 +11,15 @@ import Foundation
 extension BlockCreator {
     ///Отвечает за то чтобы разделять Блоки на более мелкие смысловые части основываясь на TrackingInfo
     struct BlockSplitter {
-        
+        private let formattter = TrackingInfoFormatter()
         private let kErrorPercentRate: CGFloat = 2
         ///Splite blocks and update its tracking Information
         func splitAndUpdate(_ block: SimpleBlock, by infos: [TrackingInfo]) -> [SimpleBlock] {
-            let arrayOfInfos = chunkTrackingInfo(infos)
+            let arrayOfInfos = formattter.chunkTrackingInfo(infos, block: block)
             let createdBlocks = splitToNewBlocks(from: block, using: arrayOfInfos)
             return createdBlocks
         }
-        
-        private func chunkTrackingInfo(_ infos: [TrackingInfo]) -> [[TrackingInfo]] {
-            let arrayOfInfos = infos.chunkForSorted {
-                if let previous = $0.tracking, let current = $1.tracking,
-                    EqualityChecker.check(of: previous.width, with: current.width, errorPercentRate: kErrorPercentRate) {
-                    return true
-                }
-                return false
-            }
-            return arrayOfInfos
-        }
-        
+
         private func splitToNewBlocks(from block: SimpleBlock, using arrayOfInfos: [[TrackingInfo]]) -> [SimpleBlock] {
             var newBlocks: [SimpleBlock] = []
             for infos in arrayOfInfos {
@@ -39,7 +28,7 @@ extension BlockCreator {
                     let newBlock = Block.from(lines, column: block.column, typography: .empty)
                     newBlocks.append(newBlock)
                 } else {
-                    if let blockWithTrackingData = createNewBlock(from: block, using: infos) {
+                    if let blockWithTrackingData = createNewBlock2(from: block, using: infos) {
                         newBlocks.append(blockWithTrackingData)
                     }
                 }
@@ -47,8 +36,43 @@ extension BlockCreator {
             return newBlocks
         }
         
+        private func createNewBlock2(from block: SimpleBlock, using infos: [TrackingInfo]) -> SimpleBlock? {
+            let infos = infos.filter { $0.tracking != nil }
+            
+            var allLines: [SimpleLine] = []
+            
+            for info in infos {
+                let arrayOfWords = info.findArrayOfWords(in: block, type: .allowed).compactMap { $0 }
+                let lines: [SimpleLine] = arrayOfWords.compactMap {
+                    guard !$0.isEmpty else { return nil }
+                    return Line(words: $0)
+                    
+                }
+                
+                allLines.append(contentsOf: lines)
+            }
+            
+            guard let firstLine = allLines.first, let lastLine = allLines.last, let info = infos.first
+                else { return nil }
+            
+            let range = rangeOf(one: firstLine.frame.topY, two: lastLine.frame.bottomY)
+            
+            var data = TrackingData(range: range, defaultTracking: info.tracking!)
+            for (index, info) in infos.enumerated() where index > 0 {
+                let yPosition = block.lines[info.startIndex].frame.topY
+                data[yPosition] = info.tracking!
+            }
+            
+            allLines.forEach {
+                print($0.frame)
+            }
+            let newBlock = Block.from(allLines, column: block.column, typography: .tracking(data))
+            return newBlock
+        }
+        
         private func createNewBlock(from block: SimpleBlock, using infos: [TrackingInfo]) -> SimpleBlock? {
             let infos = infos.filter { $0.tracking != nil }
+            
             guard let first = infos.first, let last = infos.last else { return nil }
             
             let lines = Array(block.lines[first.startIndex...last.endIndex])

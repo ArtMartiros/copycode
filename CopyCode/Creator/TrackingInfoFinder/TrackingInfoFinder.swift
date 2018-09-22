@@ -13,11 +13,10 @@ struct TrackingInfoFinder {
     private let distanceFinder = TrackingDistanceFinder()
     private let startPointFinder = TrackingStartPointFinder()
     private let checker = TrackingChecker()
-    private let kBugRate = 0.15
-    
+
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
-
+        
         for (lineIndex, line) in block.lines.enumerated() {
             guard shouldStartSearching(in: lineIndex, with: trackingInfos)
                 else { continue }
@@ -29,24 +28,116 @@ struct TrackingInfoFinder {
     }
     
     private func completeFindTrackingInfo(in line: SimpleLine, with currentLineIndex: Int, lines: [SimpleLine]) -> TrackingInfo {
-        let trackingInfo: TrackingInfo
-        let trackings = findTrackings(from: line)
-        if !trackings.isEmpty {
-            let infos = trackings
-                .map { findTrackingInfo(in: lines, startIndex: currentLineIndex, with: $0) }
-                .sorted { $0.endIndex > $1.endIndex}
-            trackingInfo = infos[0]
-        } else {
-            trackingInfo = TrackingInfo(tracking: nil, startIndex: currentLineIndex, endIndex: currentLineIndex)
+
+        let posInfos = getTrackingPosInfos(from: line.words).sorted { $0.startX < $1.startX }
+        guard let posInfo = posInfos.first, !posInfo.trackings.isEmpty
+            else { return TrackingInfo(startIndex: currentLineIndex, endIndex: currentLineIndex) }
+        
+        var forbiddens: [Int: CGFloat] = [:]
+        if posInfos.count > 1 {
+            forbiddens[currentLineIndex] = posInfos[1].startX
         }
+        
+        let trackings = posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
+        let trackingInfo = findTrackingInfo(in: lines, startIndex: currentLineIndex,
+                                            forbiddens: forbiddens, trackings: trackings)
+        
         return trackingInfo
+    }
+    
+    func shoulRemoveLastForbidden(_ forbiddens: [Int: CGFloat], lines: [SimpleLine], lineIndex: Int) -> Bool {
+        let previousIndex =  lineIndex - 1
+        guard let forbiddenX = forbiddens[previousIndex] else { return false }
+        let exist = lines[previousIndex].words.first { $0.frame.leftX < forbiddenX } != nil
+        return !exist
+    }
+    
+    
+    //если раньше мы пропускали тракинг через линии пытаю=ясь найти самую дальнюю
+    //теперь мы пропускаем как сперматазоидов скопом сначала через одну линию потмо через другую
+    private func findTrackingInfo(in lines: [SimpleLine], startIndex: Int,
+                                  forbiddens: [Int: CGFloat], trackings: [TrackingError]) -> TrackingInfo {
+        var lineTrackings = trackings
+        var lastIndex = startIndex
+        var forbiddens = forbiddens
+        
+        lineLoop: for (lineIndex, line) in lines.enumerated() where startIndex < lineIndex {
+            print("lineIndex \(lineIndex)\n\n")
+            let words = line.words
+            var wordTrackings = lineTrackings
+            
+            for (wordIndex, word) in words.enumerated() {
+                print("wordIndex \(wordIndex)\n")
+                let updatedTrackings = updateFilteredTrackingErrors(word, with: wordTrackings)
+                if updatedTrackings.isEmpty {
+                    if wordIndex == 0 && shoulRemoveLastForbidden(forbiddens, lines: lines, lineIndex: lineIndex) {
+                        let previousIndex = lineIndex - 1
+                        forbiddens.removeValue(forKey: previousIndex)
+                        lastIndex -= 1
+                        break lineLoop
+                    }
+                    
+                    if checkIsException(word) {
+                        forbiddens[lineIndex] = word.frame.leftX
+                        break
+                    } else {
+                        if shoulRemoveLastForbidden(forbiddens, lines: lines, lineIndex: lineIndex) {
+                            let previousIndex = lineIndex - 1
+                            forbiddens.removeValue(forKey: previousIndex)
+                            lastIndex -= 1
+                        }
+                        break lineLoop
+                    }
+                } else {
+                    wordTrackings = updatedTrackings
+                }
+            }
+            
+            lineTrackings = wordTrackings
+            lastIndex = lineIndex
+        }
+        
+        guard !lineTrackings.isEmpty  else {
+            return TrackingInfo(startIndex: startIndex, endIndex: startIndex)
+        }
+        
+        let smallestErrorRate = lineTrackings.sorted { $0.errorRate < $1.errorRate }[0]
+        let info = TrackingInfo(tracking: smallestErrorRate.tracking,
+                                 forbiddens: forbiddens, startIndex: startIndex, endIndex: lastIndex)
+        return info
+    }
+    
+    private func updateFilteredTrackingErrors(_ word: SimpleWord,
+                                              with trackingErrors: [TrackingError]) -> [TrackingError] {
+        var updatedTrackings: [TrackingError] = []
+        let wordGaps = word.fixedGapsWithOutside
+        for trackingError in trackingErrors  {
+            guard let gaps = Gap.updatedOutside(wordGaps, with: trackingError.tracking.width) else { continue }
+            let result = checker.check(gaps, with: trackingError.tracking)
+            if result.result {
+                let newRate = trackingError.errorRate + result.errorRate
+                let newTracking = TrackingError(tracking: trackingError.tracking, errorRate: newRate)
+                updatedTrackings.append(newTracking)
+            }
+        }
+        return updatedTrackings
+    }
+    
+    private func checkIsException(_ word: SimpleWord) -> Bool {
+        let result = distanceFinder.find(from: word)
+        switch result {
+        case .failure: return true
+        case .success(let range):
+            print(range)
+         return false
+        }
     }
     
     private func sumSequenceOfNil(_ trackingInfos: [TrackingInfo]) -> [TrackingInfo] {
         let infos = trackingInfos.reduce([TrackingInfo]()) { (result, info) -> [TrackingInfo] in
             var newResult = result
             if let lastInfo = result.last, lastInfo.tracking == nil, info.tracking == nil {
-                let newInfo = TrackingInfo(tracking: nil, startIndex: lastInfo.startIndex, endIndex: info.endIndex)
+                let newInfo = TrackingInfo(startIndex: lastInfo.startIndex, endIndex: info.endIndex)
                 newResult.removeLast()
                 newResult.append(newInfo)
             } else {
@@ -56,35 +147,7 @@ struct TrackingInfoFinder {
         }
         return infos
     }
-   
 
-   private func findTrackings(from line: SimpleLine) -> [Tracking] {
-        let splitted = splitWords(in: line)
-        let result = distanceFinder.find(from: splitted.biggestWord)
-        guard case .success(let range) = result else { return [] }
-        let biggestWordGaps = splitted.biggestWord.gaps.map { $0.frame }
-        let trackings = startPointFinder.find(in: biggestWordGaps, with: range)
-        let filteredTrackings = trackings.filter { checkGaps(splitted.otherWords, with: $0) }
-        return filteredTrackings
-    }
-    
-    private func findTrackingInfo(in lines: [SimpleLine], startIndex: Int,
-                                  with tracking: Tracking) -> TrackingInfo {
-        var lastIndex = startIndex
-        for (index, line) in lines.enumerated() where startIndex < index{
-//            print("Bukaki startLine: \(startIndex), currentLine \(index)")
-//            print("Bukaki width: \(tracking.width), startPoint \(tracking.startPoint)")
-            let gapsInRange = checkGaps(line.words, with: tracking)
-            
-//            print("Bukaki \n\n")
-            guard gapsInRange else { break }
-            lastIndex = index
-        }
-//        print("Bukaki \n\n\n *************FINISH**************")
-        let trackingInfo = TrackingInfo(tracking: tracking, startIndex: startIndex, endIndex: lastIndex)
-        return trackingInfo
-    }
-    
     private func shouldStartSearching(in currentIndex: Int, with infos: [TrackingInfo] ) -> Bool {
         if let endIndex = infos.last?.endIndex {
             return currentIndex == endIndex + 1
@@ -92,45 +155,85 @@ struct TrackingInfoFinder {
             return currentIndex == 0
         }
     }
-    
 
-    private func checkGaps(_ words: [Word<LetterRectangle>], with tracking: Tracking) -> Bool {
-        let arrayOfGaps = words.map { $0.gaps.map {$0.frame } }
-        var positiveCount: Int = 0
-        var negativeCount: Int = 0
-        
-        for gaps in arrayOfGaps {
-            let result = checker.checkWithCounts(gaps, with: tracking)
-            positiveCount += result.positive
-            negativeCount += result.negative
-        }
-        
-        let result = check(positive: positiveCount, negative: negativeCount)
-//        print("Bukaki result: \(result), pos: \(positiveCount), neg: \(negativeCount)")
-        return result
-    }
-    
-    
- 
-    
-    private func check(positive: Int, negative: Int) -> Bool {
-        guard negative != 0 else { return true }
-        let positive = Double(positive)
-        let negative = Double(negative)
-        
-        return (negative / positive) < kBugRate
-    }
-    
-    private func splitWords(in line: SimpleLine) -> SplittedWords {
-        var sortedWords = line.words.sorted { $0.frame.width > $1.frame.width }
+    private func separateBiggestWordFromOthers(_ words: [SimpleWord]) -> SplittedWords {
+        var sortedWords = words.sorted { $0.frame.width > $1.frame.width }
         let biggestWord = sortedWords.remove(at: 0)
         return (biggestWord, sortedWords )
     }
-
+    
 }
 
+extension TrackingInfoFinder {
+    struct TrackingPosInfo {
+        let startX: CGFloat
+        let lastKnowX: CGFloat
+        let trackings: [Tracking]
+    }
+    
+    struct TrackingError {
+        let tracking: Tracking
+        let errorRate: CGFloat
+    }
 
 
+    func getTrackingPosInfos(from lineWords: [SimpleWord]) -> [TrackingPosInfo] {
+        var posInfos: [TrackingPosInfo] = []
+        
+        guard !lineWords.isEmpty else { return [] }
+        
+        let (biggestWord, otherWords) = separateBiggestWordFromOthers(lineWords)
+        let result = distanceFinder.find(from: biggestWord)
+        switch result {
+        case .success(let range):
+            let trackings = startPointFinder.find(in: biggestWord, with: range)
+            var filteredTrackings = trackings
+            let sortedWords = otherWords.sortedFromLeftToRight()
+            for (index, word) in sortedWords.enumerated() {
+                let wordGaps = word.fixedGapsWithOutside
+                let newTrackings = filteredTrackings.filter {
+                    guard let gaps = Gap.updatedOutside(wordGaps, with: $0.width) else { return false }
+                    return  checker.check(gaps, with: $0).result
+                }
+                
+                if newTrackings.isEmpty {
+                    let startX = index == 0 ? biggestWord.frame.leftX : min(sortedWords[0].frame.leftX, biggestWord.frame.leftX)
+                    let lastX = index == 0 ? biggestWord.frame.rightX : sortedWords[index - 1].frame.rightX
+                    let posInfo = TrackingPosInfo(startX: startX, lastKnowX: lastX, trackings: filteredTrackings)
+                    posInfos.append(posInfo)
+                    
+                    let new = Array(sortedWords[index..<sortedWords.count])
+                    let results = getTrackingPosInfos(from: new)
+                    posInfos.append(contentsOf: results)
+                    break
+                } else {
+                    filteredTrackings = newTrackings
+                    if index == sortedWords.count - 1 {
+                        let startX = min(sortedWords[0].frame.leftX, biggestWord.frame.leftX )
+                        let posInfo = TrackingPosInfo(startX: startX, lastKnowX: word.frame.rightX, trackings: filteredTrackings)
+                        posInfos.append(posInfo)
+                    }
+                    
+                }
+            }
+            
+            if sortedWords.isEmpty {
+                let posInfo = TrackingPosInfo(startX: biggestWord.frame.leftX, lastKnowX: biggestWord.frame.rightX,
+                                              trackings: filteredTrackings)
+                posInfos.append(posInfo)
+            }
+        case .failure:
+            let posInfo = TrackingPosInfo(startX: biggestWord.frame.leftX, lastKnowX: biggestWord.frame.rightX, trackings: [])
+            posInfos.append(posInfo)
+            
+            let lefterWords = otherWords.filter { $0.frame.leftX < biggestWord.frame.leftX }
+            let results = getTrackingPosInfos(from: lefterWords)
+            posInfos.append(contentsOf: results)
+        }
+        return posInfos
+    }
+
+}
 
 
 

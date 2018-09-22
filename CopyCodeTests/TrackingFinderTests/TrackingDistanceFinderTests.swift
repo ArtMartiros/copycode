@@ -115,5 +115,20 @@ class TrackingDistanceFinderTests: XCTestCase {
         }
     }
     
+    func testExample() {
+        let block = BlockTest.sc1.getBlock(self)
+        let line = block.lines[16]
+        let word = line.words[0]
+        let result = finder.find(from: word)
+        switch result {
+        case .success(let range):
+            let startPointFinder = TrackingStartPointFinder()
+            let test = startPointFinder.find(in: word, with: range)
+            print("ddd")
+        default:
+            break
+        }
+
+    }
 
 }

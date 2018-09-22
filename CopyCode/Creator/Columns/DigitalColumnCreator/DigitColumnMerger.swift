@@ -13,7 +13,7 @@ import Foundation
 /// а также в случае если одинаковая разрядность но отличается на пиксель
 final class DigitColumnMerger {
     func mergeSameColumn<T: Rectangle>(_ things: [DigitColumn<T>]) -> [DigitColumn<T>] {
-        let sortedColumns = things.sortedFromLeftToRight
+        let sortedColumns = things.sortedFromLeftToRight()
         let mergedLeftColumns = merge(sortedColumns, fault: 1, valueToCheck: { $0.frame.leftX })
         let mergedRightColumns = merge(mergedLeftColumns, fault: 1, valueToCheck: { $0.frame.rightX })
         return mergedRightColumns

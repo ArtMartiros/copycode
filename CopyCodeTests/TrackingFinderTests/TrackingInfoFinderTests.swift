@@ -18,8 +18,6 @@ private struct Answer {
 class TrackingInfoFinderTests: XCTestCase {
     
     let finder = TrackingInfoFinder()
-    private let answers: [Answer] = [Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36),
-                                     Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 32)]
     
     func testBlockOne() {
         let answer = Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36)
@@ -27,18 +25,24 @@ class TrackingInfoFinderTests: XCTestCase {
     }
     
     func testBlockTwo() {
-        let answer = Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 32)
+        let answer = Answer(currentIndex:2, count: 3, startIndex: 3, endIndex: 34)
         check(.two, with: answer)
     }
     
     func testBlockWithComments() {
-        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
+        let answer = Answer(currentIndex: 4, count: 5, startIndex: 4, endIndex: 34)
         check(.comments, with: answer)
+    }
+
+    func testSc1() {
+        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
+        check(.sc1, with: answer)
     }
     
     private func check(_ blockTest: BlockTest, with answer: Answer) {
         let block = blockTest.getBlock(self)
         let results = finder.find(from: block)
+
         let message0 = "Current results count \(results.count) not equal to \(answer.count)"
         XCTAssertTrue(results.count == answer.count, message0)
         let result = results[answer.currentIndex]

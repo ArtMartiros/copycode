@@ -28,12 +28,15 @@ final class BlockCreator: BlockCreatorProtocol {
     
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
         let blocks = blockPreparator.initialPrepare(from: rectangles)
+//        let block = blocks[0]
+//        let value = CodableHelper.encode(block)
+//        print(value)
         Timer.stop(text: "BlockCreator Initial Created")
-        var updatedBlocks = blocksUpdatedAfterTracking(blocks)
+        let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
-        updatedBlocks = blocksUpdatedAfterLeading(updatedBlocks)
+        let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)
         Timer.stop(text: "BlockCreator Leading Created")
-        let restoredBlocks = updatedBlocks.map { missingElementsRestorer.restore($0) }
+        let restoredBlocks = leadingUpdatedBlocks.map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "BlockCreator Restored")
         return restoredBlocks
     }
@@ -66,88 +69,5 @@ extension BlockCreator {
         let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
         let restorer = MissingElementsRestorer(bitmap: bitmap)
         self.init(digitalColumnCreator: columnCreator, elementsRestorer: restorer)
-    }
-}
-
-extension BlockCreator {
-    
-    class BlockPreparator {
-        
-        typealias ColumnsWithWords = (column: ColumnType, words: [Word<LetterRectangle>])
-        private let kNumberOfCustomColums = 3
-        private let digitalColumnSplitter: DigitColumnSplitter
-        private let customColumnCreator = CustomColumnCreator<LetterRectangle>()
-        private let lineCreator = LineCreator<LetterRectangle>()
-        
-        init(digitalColumnSplitter: DigitColumnSplitter) {
-            self.digitalColumnSplitter = digitalColumnSplitter
-        }
-        
-        func initialPrepare(from words: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
-            var columnsWithWords = getBlockWordsWithColumns(from: words)
-            columnsWithWords = cutLastBlock(columnWithWords: columnsWithWords)
-
-            let blocks: [Block<LetterRectangle>] = columnsWithWords.map {
-                let line = lineCreator.create(from: $0.words)
-                return Block.from(line, column: $0.column, typography: .empty)
-            }
-            
-            return blocks
-        }
-        
-        /// использует либо столбец с цифрами или если нет то кастомный
-        private func getBlockWordsWithColumns(from words: [Word<LetterRectangle>]) -> ([ColumnsWithWords]) {
-            let (columns, blockRectangles) = digitalColumnSplitter.spltted(from: words)
-            
-            let newColumns = getNewColumnsIfDigitNotExist(columns, words: words)
-            let blockWords = getBlockWords(from: blockRectangles, by: newColumns.sortedFromLeftToRight  )
-                .sorted { $0[0].frame.leftX <  $1[0].frame.leftX }
-            
-            var columnsWithWords: [ColumnsWithWords] = []
-            for (index, words) in blockWords.enumerated() {
-                columnsWithWords.append((newColumns[index], words))
-            }
-            return columnsWithWords
-        }
-        
-        // на данный момент ищет если удовлетворяет критерию правее и ниже, но нужен другой, просто правее
-        private func getBlockWords(from words: [Word<LetterRectangle>],
-                                   by columns: [ColumnProtocol] ) -> [[Word<LetterRectangle>]] {
-            let columns = columns.sorted { $0.frame.leftX > $1.frame.leftX }
-            var blockDictionary: [Int:[Word<LetterRectangle>]] = [:]
-            for word in words {
-                for (index, column) in columns.enumerated() {
-                    if isInside(word, in: column) {
-                        blockDictionary.append(element: word, toKey: index)
-                        break
-                    }
-                }
-            }
-            return Array(blockDictionary.values)
-        }
-        
-        private func isInside(_  word: Word<LetterRectangle>, in column: ColumnProtocol) -> Bool {
-            return word.frame.leftX > column.frame.leftX
-        }
-        
-        private func cutLastBlock(columnWithWords: [ColumnsWithWords]) ->  [ColumnsWithWords] {
-            var newColumnWithWords = columnWithWords
-            let lastColumnWithWords = newColumnWithWords.removeFirst()
-            let column = customColumnCreator.create(from: lastColumnWithWords.words, numberOfColumns: 2)
-            let blocks = getBlockWords(from: lastColumnWithWords.words, by: column)
-            let updatedColumnWithWords = (lastColumnWithWords.column, blocks[0])
-            newColumnWithWords.insert(updatedColumnWithWords, at: 0)
-            return newColumnWithWords
-        }
-        
-        private func getNewColumnsIfDigitNotExist(_ columns: [DigitColumn<LetterRectangle>],
-                                                  words: [Word<LetterRectangle>]) -> [ColumnType] {
-            if !columns.isEmpty {
-                return columns.map { ColumnType.digit(column: $0) }
-            } else {
-                return customColumnCreator.create(from: words, numberOfColumns: kNumberOfCustomColums)
-                    .map { ColumnType.standart(column: $0) }
-            }
-        }
     }
 }

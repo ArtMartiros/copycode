@@ -43,3 +43,12 @@ extension Int {
         return  operation(value, percentNumber)
     }
 }
+
+extension CGFloat {
+    var remainder: CGFloat {
+        let divider: CGFloat = 1000
+        let value = Int(self * divider)
+        let test = value % Int(divider)
+        return CGFloat(test) / divider
+    }
+}

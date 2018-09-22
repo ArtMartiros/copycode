@@ -9,80 +9,51 @@
 import Foundation
 
 struct TrackingChecker {
-    typealias CountResult = (positive: Int, negative: Int)
     
-    //проверяет текущий гап
-    func check(_ gap: CGRect, withDistance distance: CGFloat, startPoint: CGFloat) -> Bool {
-        let leftX: CGFloat
-        let rightX: CGFloat
-
-        if gap.width < 2 {
-            leftX = gap.leftX - 0.5
-            rightX = gap.rightX + 0.5
-        } else if gap.width < 3 {
-            leftX = gap.leftX - 0.2
-            rightX = gap.rightX + 0.2
-        } else {
-            leftX = gap.leftX
-            rightX = gap.rightX
-        }
-
-        let width =  leftX - startPoint
-        let width1 =  rightX - startPoint
+    func getMiscalculation(_ gap: CGRect, withDistance distance: CGFloat, startPoint: CGFloat) -> CGFloat {
+        let leftX = gap.leftX - (gap.width == 0 ? 0.25 : 0)
+        let rightX = gap.rightX + (gap.width == 0 ? 0.25 : 0)
+        
+        let width = leftX - startPoint
+        let width1 = rightX - startPoint
         var amount = (width / distance)
         var amount1 = (width1 / distance)
-        amount.round(toPlaces: 1)
-        amount1.round(toPlaces: 1)
+        amount.round(toPlaces: 3)
+        amount1.round(toPlaces: 3)
         print("amount \(amount), amount1 \(amount1),  startPoint: \(startPoint), left \(leftX), right \(rightX) ")
 
-        
-        if abs(amount) < 1 {
-            amount.round()
-            amount1.round()
-        }
-        
         let integers = rangeOf(one: amount, two: amount1).integers
-        return !integers.isEmpty
+        
+        guard integers.isEmpty else { return 0 }
+        
+        let amountRemainder = abs(amount.remainder)
+        let amountReminder1 = abs(amount1.remainder)
+        let reversedAmountRemainder = 1 - amountRemainder
+        let reversedAmountRemainder1 = 1 - amountReminder1
+        let one = min(reversedAmountRemainder, amountRemainder)
+        let two = min(reversedAmountRemainder1, amountReminder1)
+        let miscalculation = min(one, two)
+        return miscalculation
+        
     }
     
-    func check(_ gaps: [CGRect], with tracking: Tracking) -> Bool {
+    typealias Result = (result: Bool, errorRate: CGFloat)
+    private let kMiscalculationSuccessedRate: CGFloat = 0.04
+    
+    func check(_ gaps: [CGRect], with tracking: Tracking) -> Result {
         return check(gaps, withDistance: tracking.width, startPoint: tracking.startPoint)
     }
     
-    func check(_ gaps: [CGRect], withDistance distance: CGFloat, startPoint: CGFloat) -> Bool {
-        for gap in gaps {
-            if !check(gap, withDistance: distance, startPoint: startPoint) {
-                return false
-            }
-        }
-        return true
-    }
-    
+    func check(_ gaps: [CGRect], withDistance distance: CGFloat, startPoint: CGFloat) -> Result {
 
-    func checkWithCounts(_ gaps: [CGRect], with tracking: Tracking) -> CountResult {
-        return checkWithCounts(gaps, withDistance: tracking.width, startPoint: tracking.startPoint)
-    }
-
-    func checkWithCounts(_ gaps: [CGRect], withDistance distance: CGFloat, startPoint: CGFloat) -> CountResult {
-        var trueCount: Int = 0
-        var falseCount: Int = 0
-        for gap in gaps {
-            if check(gap, withDistance: distance, startPoint: startPoint) {
-                trueCount += 1
-            } else {
-                falseCount += 1
-            }
-        }
+        let miscalculation = gaps
+            .map { getMiscalculation($0, withDistance: distance, startPoint: startPoint) }
+            .reduce(0, +)
         
-        return (trueCount, falseCount)
+        let average = miscalculation / CGFloat(gaps.count)
+        print("Bukaki sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4))")
+        let result = average < kMiscalculationSuccessedRate
+        return (result, average)
     }
-
-    
-//    func check(_ gaps: [CGRect], withDistance distance: CGFloat, startPoint: CGFloat) -> Bool {
-//        for gap in gaps {
-//            check(gap, withDistance: distance, startPoint: startPoint)
-//        }
-//        return true
-//    }
 
 }

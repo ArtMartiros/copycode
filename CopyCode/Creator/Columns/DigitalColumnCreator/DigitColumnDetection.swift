@@ -22,7 +22,7 @@ final class DigitColumnDetection {
     ///Обнаруживает если массив слов это digit column
     ///бывает так, что он сцеплен с другими словами, поэтому нужно отделить одни от другого
     func detect( _ wordRectangles: [SimpleWord]) -> SplittedWords? {
-        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom
+        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom()
         let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
         
         switch types.count {
@@ -46,7 +46,7 @@ final class DigitColumnDetection {
     }
     
     func detectFirstLetter(_ wordRectangles: [SimpleWord]) -> SplittedWords? {
-        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom
+        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom()
         let splitted = WordSplitter.split(sortedWordRectangles, after: 1)
         guard checkIsDigit(splitted.words) else { return nil }
         return  (splitted.words, splitted.shitWords)

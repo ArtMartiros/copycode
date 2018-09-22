@@ -20,7 +20,6 @@ struct TypographicalGrid: Codable {
 
 extension TypographicalGrid {
     func getArrayOfFrames(from frame: CGRect) -> [[CGRect]] {
-        print(frame)
         let lineFrames = leading.missingLinesFrame(in: frame)
         let arrayOfFrames: [[CGRect]] = lineFrames.map {
             let tracking = trackingData[$0.topY]

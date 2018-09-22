@@ -38,9 +38,7 @@ extension Array where Element == CGRect {
         let maxX = map { $0.maxX }.sorted(by: > )[0]
         let minY = map { $0.minY }.sorted(by: < )[0]
         let maxY = map { $0.maxY }.sorted(by: > )[0]
-        let width = maxX - minX
-        let height = maxY - minY
-        return CGRect(x: minX, y: minY, width: width, height: height)
+        return CGRect(left: minX, right: maxX, top: maxY, bottom: minY)
     }
 }
 
@@ -82,18 +80,18 @@ extension Array {
 }
 
 extension Array where Element: StandartRectangle {
-    var sortedFromTopToBottom: [Element] {
+    func sortedFromTopToBottom() -> [Element] {
         return sorted { $0.frame.bottomY >  $1.frame.bottomY }
     }
     
-    var sortedFromBottomToTop: [Element] {
+    func sortedFromBottomToTop() -> [Element] {
         return sorted { $0.frame.bottomY <  $1.frame.bottomY }
     }
-    var sortedFromLeftToRight: [Element] {
+    func sortedFromLeftToRight() -> [Element] {
         return sorted { $0.frame.leftX <  $1.frame.leftX }
     }
     
-    var sortedFromRightToLeft: [Element] {
+    func sortedFromRightToLeft() -> [Element] {
         return sorted { $0.frame.leftX >  $1.frame.leftX }
     }
 }

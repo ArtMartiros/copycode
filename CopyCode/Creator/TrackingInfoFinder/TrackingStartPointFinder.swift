@@ -13,29 +13,52 @@ struct TrackingStartPointFinder {
     private let kGapWidthStep: CGFloat = 0.5
     private let kRangeTimes = 4
     private let checker = TrackingChecker()
-    func find(in gaps: [CGRect], with range: TrackingRange) -> [Tracking] {
-        guard !gaps.isEmpty else { return [] }
-        let (small, leftReversed, right) = gapsDivider(gaps)
-        let trackings = findPointWithDifferentStep(small, leftReversed: leftReversed, right: right, range: range)
+//    func find(in gaps: [CGRect], with range: TrackingRange) -> [Tracking] {
+//        guard !gaps.isEmpty else { return [] }
+//        let (small, leftReversed, right) = gapsDivider(gaps)
+//        let trackings = findPointWithDifferentStep(small, leftReversed: leftReversed, right: right, range: range)
+//        return trackings
+//    }
+//    
+    func find(in word: SimpleWord, with range: TrackingRange) -> [Tracking] {
+        let trackings = findPointWithDifferentStep(word, range: range)
         return trackings
     }
     
-    
-    private func findPointWithDifferentStep(_ smallestGap: CGRect, leftReversed: [CGRect],
-                                           right: [CGRect], range: TrackingRange) -> [Tracking] {
+    private func findPointWithDifferentStep(_ word: SimpleWord, range: TrackingRange) -> [Tracking] {
+        
+        let wordGaps = word.fixedGapsWithOutside
         let width = range.upperBound - range.lowerBound
         let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
         var trackings: [Tracking] = []
         for singleWidth in widths {
             let distance = range.lowerBound + singleWidth
+            guard let gaps = Gap.updatedOutside(wordGaps, with: distance), !gaps.isEmpty else { continue }
+            let (smallestGap, leftReversed, right) = gapsDivider(gaps)
             let points = findPointInDifferentStartPoint(smallestGap, leftReversed: leftReversed,
                                                         right: right, distance: distance)
             points.forEach { trackings.append(Tracking(startPoint: $0, width: distance)) }
         }
-
+        
         return trackings
     }
     
+//
+//    private func findPointWithDifferentStep(_ smallestGap: CGRect, leftReversed: [CGRect],
+//                                           right: [CGRect], range: TrackingRange) -> [Tracking] {
+//        let width = range.upperBound - range.lowerBound
+//        let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
+//        var trackings: [Tracking] = []
+//        for singleWidth in widths {
+//            let distance = range.lowerBound + singleWidth
+//            let points = findPointInDifferentStartPoint(smallestGap, leftReversed: leftReversed,
+//                                                        right: right, distance: distance)
+//            points.forEach { trackings.append(Tracking(startPoint: $0, width: distance)) }
+//        }
+//
+//        return trackings
+//    }
+//
 
     
     private func findPointInDifferentStartPoint(_ smallestGap: CGRect, leftReversed: [CGRect],
@@ -44,7 +67,7 @@ struct TrackingStartPointFinder {
         let distance = distance.rounded(toPlaces: 3)
         let gaps = leftReversed + right
         let points = getStartPoints(from: smallestGap).filter {
-            checker.check(gaps, withDistance: distance, startPoint: $0)
+            checker.check(gaps, withDistance: distance, startPoint: $0).result
         }
 
         return points

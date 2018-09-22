@@ -32,7 +32,7 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
         
         let columns = pre.columnsWords.map { DigitColumn.from($0) }
         let mergedColumns = columnMerger.mergeSameColumn(columns)
-        return (mergedColumns, pre.blockWords.sortedFromLeftToRight )
+        return (mergedColumns, pre.blockWords.sortedFromLeftToRight() )
     }
     
     ///вырезает из словаря значения и разделяет их на column и block слова

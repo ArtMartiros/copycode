@@ -23,6 +23,10 @@ func rangeOf<T: Numeric>(one: T, two: T) -> ClosedRange<T> {
     return minValue...maxValue
 }
 
+func releasePrint(_ object: Any) {
+    Swift.print(object)
+}
+
 func print(_ object: Any) {
     #if DEBUG
     Swift.print(object)
@@ -42,7 +46,7 @@ enum SimpleResult<T> {
     case empty
     case value(T)
 }
-
+///case failure or case success(T)
 enum SimpleSuccess<T> {
     case failure
     case success(T)

@@ -18,12 +18,20 @@ struct Word<Child:Rectangle>: Container, Gapable {
     var gaps: [Gap] {
         var gaps: [Gap] = []
         letters.forEachPair {
-            let gapFrame = CGRect(left: $0.frame.rightX, right: $1.frame.leftX,
+            let gapFrame: CGRect
+            if $0.frame.rightX > $1.frame.leftX {
+                let width = $0.frame.rightX - $1.frame.leftX
+                let position = $1.frame.leftX + width / 2
+                gapFrame = CGRect(x: position, y: frame.bottomY, width: 0, height: frame.height)
+            } else {
+                gapFrame = CGRect(left: $0.frame.rightX, right: $1.frame.leftX,
                                   top: frame.topY, bottom: frame.bottomY)
-            gaps.append(Gap(frame: gapFrame))
+            }
+           gaps.append(Gap(frame: gapFrame))
         }
         return gaps
     }
+    
     
     let frame: CGRect
     let pixelFrame: CGRect
@@ -53,4 +61,45 @@ extension Word {
     init(rect: Rectangle, type: WordType, letters: [Word.Content]) {
         self.init(frame: rect.frame, pixelFrame: rect.pixelFrame, type: type, letters: letters)
     }
+}
+
+extension Word {
+
+    private var kQuotesRatio: CGFloat { return 2 }
+    ///бывает такое что кавычки показаны как разные буквы, убираем гапы между кавычками
+    var fixedGaps: [CGRect] {
+        var newGaps = gaps
+        var alreadyRemovedCount = 0
+        letters.forEachPairWithIndex { (left, right, index) in
+            let completeWidthBetweenTwoLetter = right.frame.rightX - left.frame.leftX
+            let isQuotes = frame.height / completeWidthBetweenTwoLetter >= kQuotesRatio
+            if isQuotes {
+                newGaps.remove(at: index - alreadyRemovedCount)
+                alreadyRemovedCount += 1
+            }
+        }
+        return newGaps.map { $0.frame }
+    }
+    
+    func fixedGapsWthCutedOutside(letterWidth: CGFloat) -> [CGRect]? {
+        return Gap.updatedOutside(fixedGapsWithOutside, with: letterWidth)
+    }
+    
+    /// Gapы с внешними гапами, так как ширина их неизвестна, то ставим равной высоты
+    /// Просто, чтоб чему-то было равно
+    var fixedGapsWithOutside: [CGRect] {
+        var fixedGaps = self.fixedGaps
+        let width = frame.height
+        let firstLetter = letters[0]
+        let leftFrame = CGRect(left: firstLetter.frame.leftX - width, right: firstLetter.frame.leftX,
+                               top: frame.topY, bottom: frame.bottomY)
+        let lastLetterFrame = letters.last ?? firstLetter
+        let rightFrame = CGRect(left: lastLetterFrame.frame.rightX, right: lastLetterFrame.frame.rightX + width,
+                                top: frame.topY, bottom: frame.bottomY)
+        
+        fixedGaps.insert(leftFrame, at: 0)
+        fixedGaps.append(rightFrame)
+        return fixedGaps
+    }
+    
 }
