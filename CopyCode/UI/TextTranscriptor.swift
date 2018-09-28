@@ -15,7 +15,7 @@ struct TextTranscriptor {
         var lastLineIndex = 0
         var stringLines: [String] = []
         let lines = block.lines
-        for singleLine in arrayOfFrames {
+        for (index, singleLine) in arrayOfFrames.enumerated() {
             guard lastLineIndex < lines.count else {
                 stringLines.append("\n")
                 continue
@@ -33,14 +33,14 @@ struct TextTranscriptor {
         let result = compare(singleLine, with: lines[startIndex])
         switch result {
         case .inside:
-            let lineString = self.lineString(singleLine, with: lines[startIndex])
+            let lineString = self.getLineString(singleLine, with: lines[startIndex])
             return (startIndex + 1, lineString)
         case .higher: return (startIndex, "\n")
         case .lower: return nil
         }
     }
     
-    func lineString(_ singleLine: [CGRect], with line: CompletedLine) -> String {
+    func getLineString(_ singleLine: [CGRect], with line: CompletedLine) -> String {
         let letters = line.words.map { $0.letters }.reduce([], +)
         var lastIndex: Int = 0
         var word = ""
@@ -49,7 +49,7 @@ struct TextTranscriptor {
                 word.append(" ")
                 continue
             }
-            let result = compare(frame, with: letters[lastIndex])
+            let result = compareLetter(frame, with: letters[lastIndex])
             switch result {
             case .inside:
                 word.append(letters[lastIndex].value)
@@ -72,12 +72,14 @@ struct TextTranscriptor {
         }
     }
     
-    func compare(_ letterFrame: CGRect, with letter: Letter) -> CompareX {
+    func compareLetter(_ letterFrame: CGRect, with letter: Letter) -> CompareX {
         let range: TrackingRange = letterFrame.leftX...letterFrame.rightX
         let range2: TrackingRange = letter.frame.leftX...letter.frame.rightX
-        guard let newRange = range.intesected(with: range2),
-            EqualityChecker.check(of: newRange.distance, with: range2.distance, errorPercentRate: 20)
+        let newRangeOptional = range.intesected(with: range2)
+        guard let newRange = newRangeOptional else { return .lefter }
+        guard EqualityChecker.check(of: newRange.distance, with: range2.distance, errorPercentRate: 20)
             else { return .lefter }
+        
         return .inside
     }
     

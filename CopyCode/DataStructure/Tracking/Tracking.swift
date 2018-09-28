@@ -31,7 +31,7 @@ extension Tracking {
         }
     }
     
-    private var kErrorTrackingWidthPercent: CGFloat { return 10 }
+    private var kErrorTrackingWidthPercent: CGFloat { return 30 }
     
     //разбивает frame с помощью tracking
     func missingCharFrames(in frame: CGRect) -> [CGRect] {

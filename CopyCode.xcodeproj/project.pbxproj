@@ -214,6 +214,7 @@
 		ACDA6DC5215E7F9300A7AA62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */; };
 		ACDA6DC6215E7F9300A7AA62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */; };
 		ACDA6DC7215E9E7500A7AA62 /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
+		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
 		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
 		ACEC1A25215E26C300A2B767 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; };
 		ACEC1A27215E26D900A2B767 /* HockeySDK.framework in Hockey Framework */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -417,6 +418,7 @@
 		ACDA6DBD215E724B00A7AA62 /* DrawTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTextView.swift; sourceTree = "<group>"; };
 		ACDA6DC0215E727700A7AA62 /* AttrStringCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrStringCreator.swift; sourceTree = "<group>"; };
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACEC1A24215E26C300A2B767 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-Mac/HockeySDK.framework"; sourceTree = SOURCE_ROOT; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 				AC95B4B8214139FB0007B5C5 /* TrackingDistanceFinderTests.swift */,
 				AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */,
 				AC790434215CDA44001D1FB1 /* TrackingFormatterTests.swift */,
+				ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */,
 			);
 			path = TrackingFinderTests;
 			sourceTree = "<group>";
@@ -1352,6 +1355,7 @@
 				AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,
 				AC790430215CBE13001D1FB1 /* TrackingData.swift in Sources */,
+				ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */,
 				AC74061F21563AD6007AC07E /* BlockPreparator.swift in Sources */,
 				AC95B4B3214130C60007B5C5 /* Tracking.swift in Sources */,
 				AC675779212C57CF0051C34A /* GapsCreator.swift in Sources */,

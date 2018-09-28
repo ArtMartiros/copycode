@@ -14,7 +14,7 @@ class TextViewCreator {
         let textView = DrawTextView(frame: frame)
         textView.isEditable = false
         textView.isSelectable = true
-        textView.backgroundColor = NSColor.textViewFillColor
+        textView.backgroundColor = NSColor.textViewBackgroundColor
         textView.selectedTextAttributes = [ .backgroundColor : NSColor.blue.withAlphaComponent(0.4)]
         textView.textStorage?.append(attrString)
         return textView

@@ -23,9 +23,12 @@ extension NSColor {
         return NSColor.red
     }
     
-    static var textViewFillColor: NSColor {
+    static var textViewBackgroundColor: NSColor {
         return NSColor.white
-//        return NSColor.clear
+    }
+    
+    static var textViewFillColor: NSColor {
+        return NSColor.clear
     }
     
     static var textColor: NSColor {
