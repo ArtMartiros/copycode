@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         createStatusBar()
         createMenu()
+        listenGlobalKey()
+
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -56,5 +58,13 @@ extension AppDelegate {
     
     @objc func terminate() {
         NSApplication.shared.terminate(self)
+    }
+    
+    private func listenGlobalKey() {
+        let flags = UInt(NSEvent.ModifierFlags.command.rawValue + NSEvent.ModifierFlags.shift.rawValue)
+        let shortcut = MASShortcut(keyCode: UInt(kVK_ANSI_K), modifierFlags: flags)
+        MASShortcutMonitor.shared()?.register(shortcut, withAction: { [weak self] in
+            self?.screeenCapture()
+        })
     }
 }
