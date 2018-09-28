@@ -40,7 +40,10 @@ extension AppDelegate {
     private func createMenu() {
         let menu = NSMenu()
         let screenCaptureItem = NSMenuItem(title: "Capture Screen", action: #selector(screeenCapture), keyEquivalent: "s")
+        let exitItem = NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "")
+        
         menu.addItem(screenCaptureItem)
+        menu.addItem(exitItem)
         statusBar.menu = menu
     }
     
@@ -49,5 +52,9 @@ extension AppDelegate {
         let image = shotCreator.capture()
         Timer.stop(text: "screen shot")
         panel.openPanel(with: image!)
+    }
+    
+    @objc func terminate() {
+        NSApplication.shared.terminate(self)
     }
 }
