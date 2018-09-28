@@ -17,3 +17,19 @@ extension NSColor {
         return grayscale
     }
 }
+
+extension NSColor {
+    static var textViewStrokeColor: NSColor {
+        return NSColor.red
+    }
+    
+    static var textViewFillColor: NSColor {
+        return NSColor.white
+//        return NSColor.clear
+    }
+    
+    static var textColor: NSColor {
+        return NSColor.black
+//        return NSColor.clear
+    }
+}

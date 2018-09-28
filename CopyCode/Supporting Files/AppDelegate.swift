@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         createStatusBar()
         createMenu()
         listenGlobalKey()
-
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -35,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
     private func createStatusBar() {
         if let button = statusBar.button {
-            button.image = NSImage(named: .init("picMan"))
+            button.image = NSImage(named: .init("tabIcon"))
         }
     }
     

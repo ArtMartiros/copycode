@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct TextTranscriptor {
     func test(block: CompletedBlock) -> String {
         guard case .grid(let grid) = block.typography else { return "empty" }

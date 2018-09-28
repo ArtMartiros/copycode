@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +19,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="85" width="276" height="195"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
-            <view key="contentView" id="qYX-r8-tiw">
+            <view key="contentView" wantsLayer="YES" id="qYX-r8-tiw">
                 <rect key="frame" x="0.0" y="0.0" width="276" height="195"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -27,9 +28,13 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="kcg-oW-Si3"/>
                         <color key="contentTintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNU-J6-n8y">
-                        <rect key="frame" x="-6" y="137" width="81" height="32"/>
-                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DkD-IF-Rl9">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNU-J6-n8y" customClass="CustomButton" customModule="CopyCode" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="102" width="93" height="63"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="63" id="M5Y-nj-AJf"/>
+                            <constraint firstAttribute="width" constant="93" id="cEY-cv-enp"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" title="Close" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DkD-IF-Rl9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <connections>

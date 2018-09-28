@@ -10,6 +10,7 @@ import AppKit
 
 final class TextRecognizerManager {
     typealias TextCompletion = (_ bitmap: NSBitmapImageRep, _ blocks: [CompletedBlock], _ error: Error?) -> Void
+    typealias TestTextCompletion = (_ bitmap: NSBitmapImageRep, _ words: [SimpleWord]) -> Void
 
     private let textDetection: TextDetection
     private let rectangleConverter: RectangleConverter
@@ -17,6 +18,16 @@ final class TextRecognizerManager {
     init() {
         self.textDetection = TextDetection()
         self.rectangleConverter = RectangleConverter()
+    }
+    
+    func testPerformReques(image: NSImage, completion: @escaping TestTextCompletion) {
+        textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
+            guard let sself = self else { return }
+            let bitmap = sself.bitmap(from: image)
+            PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
+            let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
+            completion(bitmap, wordsRectangles)
+        }
     }
     
     func performRequest(image: NSImage, completion: @escaping TextCompletion) {

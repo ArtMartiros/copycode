@@ -16,6 +16,7 @@ class Panel: NSPanel {
 	@IBAction func tapClose(_ sender: NSButtonCell) {
 		NotificationCenter.default.post(name: TapCloseButton, object: nil)
 	}
+    
     private let stringCreator = AttrStringCreator()
     private let textViewCreator = TextViewCreator()
     
@@ -51,3 +52,4 @@ class Panel: NSPanel {
 		return true
 	}
 }
+
