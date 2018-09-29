@@ -113,7 +113,6 @@
 		AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */; };
 		AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E49214BF220000ACEDC /* column_detection_words.json */; };
 		AC6B2E4C214BF25B000ACEDC /* DigitColumnDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6B2E4B214BF25B000ACEDC /* DigitColumnDetectionTests.swift */; };
-		AC6B2E4E214BF3B9000ACEDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */; };
 		AC6B2E4F214BF3B9000ACEDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */; };
 		AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
 		AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
@@ -215,6 +214,8 @@
 		ACDA6DC6215E7F9300A7AA62 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */; };
 		ACDA6DC7215E9E7500A7AA62 /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
+		ACDA6DCC215EBB2900A7AA62 /* Scene1OCRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DCB215EBB2900A7AA62 /* Scene1OCRTests.swift */; };
+		ACDA6DCF215EBF9F00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */; };
 		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
 		ACEC1A25215E26C300A2B767 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; };
 		ACEC1A27215E26D900A2B767 /* HockeySDK.framework in Hockey Framework */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -419,6 +420,7 @@
 		ACDA6DC0215E727700A7AA62 /* AttrStringCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrStringCreator.swift; sourceTree = "<group>"; };
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
+		ACDA6DCB215EBB2900A7AA62 /* Scene1OCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene1OCRTests.swift; sourceTree = "<group>"; };
 		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACEC1A24215E26C300A2B767 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-Mac/HockeySDK.framework"; sourceTree = SOURCE_ROOT; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		AC06D85820FF30D100770DBB /* CopyCodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				ACDA6DCA215EBB0400A7AA62 /* OCRScenes */,
 				AC95B4C4214151F30007B5C5 /* ExtensionsTests */,
 				AC6344F0211AA86A00538673 /* Tools */,
 				AC199EAA211A98AA00B53656 /* Resources */,
@@ -812,6 +815,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		ACDA6DCA215EBB0400A7AA62 /* OCRScenes */ = {
+			isa = PBXGroup;
+			children = (
+				ACDA6DCB215EBB2900A7AA62 /* Scene1OCRTests.swift */,
+			);
+			path = OCRScenes;
+			sourceTree = "<group>";
+		};
 		ACEC1A23215E26B500A2B767 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,7 +1027,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
-				AC6B2E4E214BF3B9000ACEDC /* Assets.xcassets in Resources */,
+				ACDA6DCF215EBF9F00A7AA62 /* Assets.xcassets in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1342,6 +1353,7 @@
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
 				AC79042D215CBE00001D1FB1 /* TrackingInfo.swift in Sources */,
 				AC250A68214EDF7D00E6D596 /* String.swift in Sources */,
+				ACDA6DCC215EBB2900A7AA62 /* Scene1OCRTests.swift in Sources */,
 				AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */,
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
@@ -1605,6 +1617,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J95NJ42N7K;
@@ -1616,6 +1629,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ssss.CopyCodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CopyCode.app/Contents/MacOS/CopyCode";
 			};
@@ -1627,6 +1641,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J95NJ42N7K;
@@ -1638,6 +1653,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ssss.CopyCodeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CopyCode.app/Contents/MacOS/CopyCode";
 			};

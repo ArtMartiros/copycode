@@ -26,17 +26,16 @@ class LetterTypeClassificationTests: XCTestCase {
         guard let answers = CodableHelper.decode(self,
                                                 path: "letter_type_classification",
                                                 structType: [Answer].self) else { return }
-        //FIXME
-//        textManager.performRequest(image: image) { [weak self] (bitmap, words, _) in
-//            for (index, letter) in words[0].letters.enumerated() {
-//
-//                self?.bitmap = bitmap
-//                let currentAnswer = answers[index]
-//                self?.newDicionary[letter] = currentAnswer
-//                self?.dictionary[currentAnswer.letter] = letter
-//                print("✔️ \(currentAnswer.letter) == \(letter.frame)")
-//            }
-//        }
+    
+        textManager.testPerformReques(image: image) { [weak self] (bitmap, words) in
+            for (index, letter) in words[0].letters.enumerated() {
+                self?.bitmap = bitmap
+                let currentAnswer = answers[index]
+                self?.newDicionary[letter] = currentAnswer
+                self?.dictionary[currentAnswer.letter] = letter
+                print("✔️ \(currentAnswer.letter) == \(letter.frame)")
+            }
+        }
     }
     
     override func tearDown() {

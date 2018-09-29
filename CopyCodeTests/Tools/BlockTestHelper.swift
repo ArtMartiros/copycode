@@ -6,7 +6,7 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 struct BlockTestHelper {
     private static let blockNames = ["block_one", "block_two"]
@@ -36,4 +36,19 @@ enum TrackingInfoTest: String {
     func get(_ object: AnyObject) -> [TrackingInfo] {
         return CodableHelper.decode(object, path: self.rawValue, structType: [TrackingInfo].self, shouldPrint: false)!
     }
+}
+
+enum Scene {
+    case sc1
+    var imageName: String {
+        switch self {
+        case .sc1: return "sc1_text_view_creator"
+        }
+    }
+    
+    var image: NSImage {
+       return NSImage(named: .init(imageName))!
+    }
+    
+    
 }
