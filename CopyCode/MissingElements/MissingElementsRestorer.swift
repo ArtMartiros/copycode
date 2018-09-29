@@ -55,7 +55,7 @@ class MissingElementsRestorer {
         
         // внутри линии
         line.gaps.forEach {
-            if let word = findWord(inside: $0.frame, tracking: tracking, with: .minXEdge) {
+            if let word = finder.findMissingWord(in: $0.frame, tracking: tracking, with: .minXEdge) {
                 newWords.append(word)
             }
         }
@@ -70,19 +70,12 @@ class MissingElementsRestorer {
         return Line(words: newWords.sortedFromLeftToRight())
     }
     
-    private func findWord(inside frame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> Word<LetterRectangle>? {
-        let letters = finder.findMissingLetters(in: frame, tracking: tracking, with: edge)
-        guard !letters.isEmpty else { return nil }
-        let word = (Word.from(letters.sortedFromLeftToRight()))
-        return word
-    }
-    
     private func findWord(betweenLine line: StandartRectangle,
                           tracking: Tracking,
                           andBlock block: StandartRectangle, direction: HorizontalDirection) -> Word<LetterRectangle>? {
         let frame = createFrame(betweenLine: line, andBlock: block, direction: direction)
-        guard frame.width != 0 else { return nil}
-        return findWord(inside: frame, tracking: tracking, with: direction.edge)
+        guard frame.width != 0 else { return nil }
+        return finder.findMissingWord(in: frame, tracking: tracking, with: direction.edge)
     }
 
     private func createFrame(betweenLine line: StandartRectangle, andBlock block: StandartRectangle,

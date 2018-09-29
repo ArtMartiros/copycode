@@ -9,6 +9,7 @@
 import Cocoa
 
 let showBlock = true
+let showChars = true
 let showTextView = true
 
 class PanelController: NSWindowController {
@@ -60,18 +61,6 @@ class PanelController: NSWindowController {
                 layers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             }
             
-            //            for block in blocks {
-//                for line in block.lines {
-//                    let words = line.wordsRectangles
-//                    let newWords = converter.convertNew(words, in: bitmap)
-//                    for word in newWords {
-//                        let letterRecognizer = LetterRecognizer(bitmap, rectangle: word)
-//                        let test = word.letters.map { letterRecognizer.recognize(from: $0) }
-//                        print("Gansta \(test)")
-//                    }
-//                    print("Gansta next line ---------------")
-//                }
-//            }
             //------------Columns--------------
 //            let columnsLayers = columns.map { $0.layer(.green, width: 2) }
 //            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
@@ -100,11 +89,12 @@ class PanelController: NSWindowController {
 //
 //            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------
-            
+            if showChars {
+                
             let chars = newWords.reduce([Letter]()) { $0 + $1.letters }
             let charLayers = chars.map { $0.layer(.green, width: 1) }
             charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            
+            }
 //            var charLayers: [CALayer] = []
 //            for word in words {
 //                charLayers.append(contentsOf: word.letters.map {  $0.layer(.red, width: 0.5) } )

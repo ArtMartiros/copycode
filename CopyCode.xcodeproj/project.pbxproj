@@ -44,7 +44,6 @@
 		AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */; };
 		AC15F820214D0ADD001DC55E /* BlockSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */; };
 		AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */ = {isa = PBXBuildFile; fileRef = AC199EAB211A9A5F00B53656 /* letter_type_classification.json */; };
-		AC1C54D6211878570000460D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC06D85B20FF30D100770DBB /* Info.plist */; };
 		AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC250A5E214EBC4500E6D596 /* TextTranscriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */; };
@@ -113,7 +112,6 @@
 		AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */; };
 		AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E49214BF220000ACEDC /* column_detection_words.json */; };
 		AC6B2E4C214BF25B000ACEDC /* DigitColumnDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6B2E4B214BF25B000ACEDC /* DigitColumnDetectionTests.swift */; };
-		AC6B2E4F214BF3B9000ACEDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */; };
 		AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
 		AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB622112E79500EE41C6 /* Protocol.swift */; };
 		AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB662112EAC400EE41C6 /* LineCreator.swift */; };
@@ -215,7 +213,9 @@
 		ACDA6DC7215E9E7500A7AA62 /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
 		ACDA6DCC215EBB2900A7AA62 /* Scene1OCRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DCB215EBB2900A7AA62 /* Scene1OCRTests.swift */; };
-		ACDA6DCF215EBF9F00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */; };
+		ACDA6DD2215F56E800A7AA62 /* Scene1TypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DD1215F56E800A7AA62 /* Scene1TypeTests.swift */; };
+		ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
+		ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
 		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
 		ACEC1A25215E26C300A2B767 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; };
 		ACEC1A27215E26D900A2B767 /* HockeySDK.framework in Hockey Framework */ = {isa = PBXBuildFile; fileRef = ACEC1A24215E26C300A2B767 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -357,7 +357,6 @@
 		AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = block_with_comments.json; sourceTree = "<group>"; };
 		AC6B2E49214BF220000ACEDC /* column_detection_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = column_detection_words.json; sourceTree = "<group>"; };
 		AC6B2E4B214BF25B000ACEDC /* DigitColumnDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnDetectionTests.swift; sourceTree = "<group>"; };
-		AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC71FB622112E79500EE41C6 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		AC71FB662112EAC400EE41C6 /* LineCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCreator.swift; sourceTree = "<group>"; };
 		AC71FB692112EBCE00EE41C6 /* Letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
@@ -421,6 +420,8 @@
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		ACDA6DCB215EBB2900A7AA62 /* Scene1OCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene1OCRTests.swift; sourceTree = "<group>"; };
+		ACDA6DD1215F56E800A7AA62 /* Scene1TypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene1TypeTests.swift; sourceTree = "<group>"; };
+		ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACEC1A24215E26C300A2B767 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-Mac/HockeySDK.framework"; sourceTree = SOURCE_ROOT; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -517,6 +518,7 @@
 		AC06D85820FF30D100770DBB /* CopyCodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				ACDA6DD0215F56C000A7AA62 /* TypeScenes */,
 				ACDA6DCA215EBB0400A7AA62 /* OCRScenes */,
 				AC95B4C4214151F30007B5C5 /* ExtensionsTests */,
 				AC6344F0211AA86A00538673 /* Tools */,
@@ -547,7 +549,7 @@
 		AC06D87220FF30ED00770DBB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AC6B2E4D214BF3B9000ACEDC /* Assets.xcassets */,
+				ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */,
 				AC06D84620FF30D000770DBB /* AppDelegate.swift */,
 				AC06D84F20FF30D100770DBB /* Info.plist */,
 				AC06D85020FF30D100770DBB /* CopyCode.entitlements */,
@@ -823,6 +825,14 @@
 			path = OCRScenes;
 			sourceTree = "<group>";
 		};
+		ACDA6DD0215F56C000A7AA62 /* TypeScenes */ = {
+			isa = PBXGroup;
+			children = (
+				ACDA6DD1215F56E800A7AA62 /* Scene1TypeTests.swift */,
+			);
+			path = TypeScenes;
+			sourceTree = "<group>";
+		};
 		ACEC1A23215E26B500A2B767 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,7 +1037,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
-				ACDA6DCF215EBF9F00A7AA62 /* Assets.xcassets in Resources */,
+				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1040,6 +1050,7 @@
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
+				ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
 				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
 				AC8C0AB1214AB01400F0FD13 /* block_one_code.json in Resources */,
@@ -1058,14 +1069,12 @@
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
-				AC1C54D6211878570000460D /* Info.plist in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
-				AC6B2E4F214BF3B9000ACEDC /* Assets.xcassets in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1358,6 +1367,7 @@
 				AC4CA40221025DE30093D938 /* LetterRecognizer.swift in Sources */,
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
+				ACDA6DD2215F56E800A7AA62 /* Scene1TypeTests.swift in Sources */,
 				AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */,
 				AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
@@ -1664,6 +1674,7 @@
 			baseConfigurationReference = 66DE22F413DB1107D0285DD8 /* Pods-CopyCodeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J95NJ42N7K;
@@ -1675,6 +1686,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ssss.CopyCodeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = CopyCode;
 			};
@@ -1685,6 +1697,7 @@
 			baseConfigurationReference = BC5E095790DA4D9099E29E30 /* Pods-CopyCodeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J95NJ42N7K;
@@ -1696,6 +1709,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ssss.CopyCodeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = CopyCode;
 			};

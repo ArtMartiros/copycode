@@ -26,17 +26,19 @@ class MissingElementsFinder {
         return lines
     }
     
-    func findMissingLetters(in frame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> [LetterRectangle] {
+    func findMissingWord(in frame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> SimpleWord? {
         let pixelFrame = PixelConverter.shared.toPixel(from: frame)
         let tracking = TrackingPixelConverter.toPixel(from: tracking)
         let letters = getLetters(pixelFrame: pixelFrame, tracking: tracking, with: edge)
-        return letters
+        guard !letters.isEmpty else { return nil }
+        let word = Word.from(letters.sortedFromLeftToRight(), type: .same(type: .allCustom))
+        return word
     }
     
     private func findMissingLine(in rect: CGRect,  tracking: Tracking) -> Line<LetterRectangle>? {
         let divided = rect.divided(atDistance: tracking.width * CGFloat(kNewLineSymbols), from: .minXEdge)
-        let letters = findMissingLetters(in: divided.slice, tracking: tracking, with: .minXEdge)
-        return createLine(from: letters)
+        guard let word = findMissingWord(in: divided.slice, tracking: tracking, with: .minXEdge) else { return nil }
+        return Line(words: [word])
     }
     
     private func getLetters(pixelFrame: CGRect, tracking: Tracking, with edge: CGRectEdge) -> [LetterRectangle] {
@@ -61,12 +63,7 @@ class MissingElementsFinder {
         let letter = LetterRectangle(frame: frame, pixelFrame: pixelFrame, type: .custom)
         return letter
     }
-    
-    private func createLine(from letters: [LetterRectangle]) -> Line<LetterRectangle>? {
-        guard !letters.isEmpty else { return nil }
-        let word = Word.from(letters, type: .same(type: .allCustom))
-        return Line(words: [word])
-    }
+
 }
 
 

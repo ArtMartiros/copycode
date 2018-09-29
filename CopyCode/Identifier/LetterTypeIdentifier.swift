@@ -32,6 +32,7 @@ struct LetterTypeIdentifier {
         let types = letters.compactMap { undefinedTypeTree.find($0, with: wordInformation, recognizer: recognizer) }
         let lowExist = types.first { $0 == .low } != nil
         let upperExist = types.first { $0 == .upper } != nil
+        
         guard !lowExist && !upperExist else { return types }
         let lowWIthTailCount = types.filter { $0 == .lowWithTail }.count
         guard lowWIthTailCount != 0 else { return types }

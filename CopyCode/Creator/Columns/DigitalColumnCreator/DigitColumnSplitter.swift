@@ -17,15 +17,22 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
     private let kMinimumColumnWordsCount = 4
     private let columnDetection: DigitColumnDetection
     private let columnMerger: DigitColumnMerger
-    typealias ColumnWithBlockWords = (columnWords: [DigitColumn<LetterRectangle>], shitWords: [WordAlias])
-    typealias WordAlias = Word<LetterRectangle>
+    typealias ColumnWithBlockWords = (columnWords: [DigitColumn<LetterRectangle>], shitWords: [SimpleWord])
+
     init(columnDetection: DigitColumnDetection, columnMerger: DigitColumnMerger) {
         self.columnDetection = columnDetection
         self.columnMerger = columnMerger
     }
     
-    func spltted(from rectangles: [WordAlias]) -> ColumnWithBlockWords {
+    func spltted(from rectangles: [SimpleWord]) -> ColumnWithBlockWords {
         let dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
+//        let values = dictionaryWordsByOriginX.sorted { $0.key < $1.key}
+//        for item in values {
+//          print(item.key)
+//            item.value.forEach {
+//                print($0.pixelFrame)
+//            }
+//        }
         var pre = createPreliminaryWord(from: dictionaryWordsByOriginX)
         pre = updateByNearestXkey(pre)
         pre.dictionaryWordsByOriginX.values.forEach { pre.blockWords.append(contentsOf: $0) }
@@ -36,9 +43,9 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
     }
     
     ///вырезает из словаря значения и разделяет их на column и block слова
-    private func divide(from dictionaryToUpdate: inout [Int: [WordAlias]],
-                                toColumnsWords columnsWords: inout [[WordAlias]],
-                                and blockRectangles: inout [WordAlias]) {
+    private func divide(from dictionaryToUpdate: inout [Int: [SimpleWord]],
+                                toColumnsWords columnsWords: inout [[SimpleWord]],
+                                and blockRectangles: inout [SimpleWord]) {
         let dictionary = dictionaryToUpdate
         for (key, value) in dictionary where value.count >= kMinimumColumnWordsCount {
             if let detectedValue = columnDetection.detect(value) {
@@ -65,8 +72,8 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
     }
    
     ///Возвращает словарь с массивами слов с ключами origin X
-    private func rectangleDictionaryByXValue(_ rectangles: [WordAlias]) -> [Int: [WordAlias]] {
-        var dictionary: [Int: [WordAlias]] = [:]
+    private func rectangleDictionaryByXValue(_ rectangles: [SimpleWord]) -> [Int: [SimpleWord]] {
+        var dictionary: [Int: [SimpleWord]] = [:]
         rectangles.forEach { dictionary.append(element: $0, toKey: Int($0.frame.leftX.rounded()))  }
         return dictionary
     }

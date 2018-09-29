@@ -35,8 +35,7 @@ final class DigitColumnDetection {
             
         case let x where x == 2:
             guard !manyRectangles.isEmpty else { return nil }
-            let type = SymbolsCount.symbols(withRatio: otherRectangles[0].frame.ratio)
-            let splitted = WordSplitter.split(manyRectangles, after: type.rawValue)
+            let splitted = WordSplitter.split(manyRectangles, after: x)
             let columnRectangles = otherRectangles + splitted.words
             guard !otherRectangles.allWordsMixed, checkIsDigit(columnRectangles)
                 else { return nil }
