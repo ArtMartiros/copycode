@@ -28,7 +28,7 @@ extension BlockCreator {
                     let newBlock = Block.from(lines, column: block.column, typography: .empty)
                     newBlocks.append(newBlock)
                 } else {
-                    if let blockWithTrackingData = createNewBlock2(from: block, using: infos) {
+                    if let blockWithTrackingData = createNewBlock(from: block, using: infos) {
                         newBlocks.append(blockWithTrackingData)
                     }
                 }
@@ -36,7 +36,7 @@ extension BlockCreator {
             return newBlocks
         }
         
-        private func createNewBlock2(from block: SimpleBlock, using infos: [TrackingInfo]) -> SimpleBlock? {
+        private func createNewBlock(from block: SimpleBlock, using infos: [TrackingInfo]) -> SimpleBlock? {
             let infos = infos.filter { $0.tracking != nil }
             
             var allLines: [SimpleLine] = []
@@ -67,25 +67,6 @@ extension BlockCreator {
                 print($0.frame)
             }
             let newBlock = Block.from(allLines, column: block.column, typography: .tracking(data))
-            return newBlock
-        }
-        
-        private func createNewBlock(from block: SimpleBlock, using infos: [TrackingInfo]) -> SimpleBlock? {
-            let infos = infos.filter { $0.tracking != nil }
-            
-            guard let first = infos.first, let last = infos.last else { return nil }
-            
-            let lines = Array(block.lines[first.startIndex...last.endIndex])
-            
-            let range = rangeOf(one: block.frame.bottomY, two: block.frame.topY)
-            
-            var data = TrackingData(range: range, defaultTracking: first.tracking!)
-            for (index, info) in infos.enumerated() where index > 0 {
-                let yPosition = block.lines[info.startIndex].frame.topY
-                data[yPosition] = info.tracking!
-            }
-            
-            let newBlock = Block.from(lines, column: block.column, typography: .tracking(data))
             return newBlock
         }
     }

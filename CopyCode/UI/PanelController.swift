@@ -8,10 +8,6 @@
 
 import Cocoa
 
-let showBlock = true
-let showChars = true
-let showTextView = true
-
 class PanelController: NSWindowController {
     var observer: NSObjectProtocol?
     private var panel: Panel {
@@ -44,7 +40,7 @@ class PanelController: NSWindowController {
         textDetection.performRequest(image: image) { [weak self] (bitmap, blocks, error) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             let transcriptor = TextTranscriptor()
-            if showTextView {
+            if Settings.showTextView {
                 for block in blocks {
                     if case .grid(let grid) = block.typography {
                         let text = transcriptor.test(block: block)
@@ -56,7 +52,7 @@ class PanelController: NSWindowController {
             }
             
             Timer.stop(text: "TextTranscriptor transcriptor")
-            if showBlock {
+            if Settings.showBlock {
                 let layers = blocks.layers(.blue, width: 3)
                 layers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             }
@@ -89,7 +85,7 @@ class PanelController: NSWindowController {
 //
 //            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //------------chars--------------
-            if showChars {
+            if Settings.showChars {
                 
             let chars = newWords.reduce([Letter]()) { $0 + $1.letters }
             let charLayers = chars.map { $0.layer(.green, width: 1) }

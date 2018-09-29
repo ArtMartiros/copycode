@@ -1,16 +1,20 @@
 PODS:
+  - HockeySDK-Mac (5.1.0)
   - MASShortcut (2.3.6)
 
 DEPENDENCIES:
+  - HockeySDK-Mac (~> 5.1.0)
   - MASShortcut
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - HockeySDK-Mac
     - MASShortcut
 
 SPEC CHECKSUMS:
+  HockeySDK-Mac: b313b42665ee33546a861996ad60267f86bfd585
   MASShortcut: 9c215e8a8a78f3d01ce56da48e2730ab66b538fa
 
-PODFILE CHECKSUM: 579a75809d735ec31bf2d989a55e4ab8e9f0d781
+PODFILE CHECKSUM: 0ce7991ac7a370d0f872acdf1cc902f78b1ac619
 
 COCOAPODS: 1.6.0.beta.1

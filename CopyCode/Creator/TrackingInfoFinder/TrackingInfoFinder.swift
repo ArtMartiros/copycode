@@ -44,14 +44,13 @@ struct TrackingInfoFinder {
         
         return trackingInfo
     }
-    
-    func shoulRemoveLastForbidden(_ forbiddens: [Int: CGFloat], lines: [SimpleLine], lineIndex: Int) -> Bool {
+    //удаляет если не остается слов
+    func isPreviousLineWordsExist(_ forbiddens: [Int: CGFloat], lines: [SimpleLine], lineIndex: Int) -> Bool {
         let previousIndex =  lineIndex - 1
         guard let forbiddenX = forbiddens[previousIndex] else { return false }
         let exist = lines[previousIndex].words.first { $0.frame.leftX < forbiddenX } != nil
         return !exist
     }
-    
     
     //если раньше мы пропускали тракинг через линии пытаю=ясь найти самую дальнюю
     //теперь мы пропускаем как сперматазоидов скопом сначала через одну линию потмо через другую
@@ -70,26 +69,35 @@ struct TrackingInfoFinder {
                 print("wordIndex \(wordIndex)\n")
                 let updatedTrackings = updateFilteredTrackingErrors(word, with: wordTrackings)
                 if updatedTrackings.isEmpty {
-                    if wordIndex == 0 && shoulRemoveLastForbidden(forbiddens, lines: lines, lineIndex: lineIndex) {
-                        let previousIndex = lineIndex - 1
-                        forbiddens.removeValue(forKey: previousIndex)
-                        lastIndex -= 1
-                        break lineLoop
-                    }
-                    
-                    if checkIsException(word) {
-                        forbiddens[lineIndex] = word.frame.leftX
-                        break
-                    } else {
-                        if shoulRemoveLastForbidden(forbiddens, lines: lines, lineIndex: lineIndex) {
+                    if wordIndex == 0 {
+                        if isPreviousLineWordsExist(forbiddens, lines: lines, lineIndex: lineIndex) {
                             let previousIndex = lineIndex - 1
                             forbiddens.removeValue(forKey: previousIndex)
                             lastIndex -= 1
+                            break lineLoop
+                        } else {
+                            if findDistance(in: word) == nil {
+                                forbiddens[lineIndex] = word.frame.leftX
+                                break
+                            } else {
+                                break lineLoop
+                            }
                         }
-                        break lineLoop
+                    } else {
+                        if anotherTypeOfWord(word, previous: words[wordIndex - 1], tracking: wordTrackings[0].tracking) {
+                            forbiddens[lineIndex] = word.frame.leftX
+                            break
+                        } else {
+                            if isPreviousLineWordsExist(forbiddens, lines: lines, lineIndex: lineIndex) {
+                                let previousIndex = lineIndex - 1
+                                forbiddens.removeValue(forKey: previousIndex)
+                                lastIndex -= 1
+                            }
+                            break lineLoop
+                        }
                     }
                 } else {
-                    wordTrackings = updatedTrackings
+                     wordTrackings = updatedTrackings
                 }
             }
             
@@ -123,14 +131,26 @@ struct TrackingInfoFinder {
         return updatedTrackings
     }
     
-    private func checkIsException(_ word: SimpleWord) -> Bool {
+    private func findDistance(in word: SimpleWord) -> TrackingRange? {
         let result = distanceFinder.find(from: word)
         switch result {
-        case .failure: return true
-        case .success(let range):
-            print(range)
-         return false
+        case .failure: return nil
+        case .success(let range): return range
         }
+    }
+
+    ///Exeption when nil distance or differentDistance
+    private func anotherTypeOfWord(_ word: SimpleWord, previous: SimpleWord, tracking: Tracking) -> Bool {
+        //        let checker = BreakChecker()
+        guard let range = findDistance(in: word) else { return true }
+        
+        let width = tracking.width
+        let contain = range.contains(width)
+        let first = EqualityChecker.check(of: range.lowerBound, with: width, errorPercentRate: 10)
+        let second = EqualityChecker.check(of: range.upperBound, with: width, errorPercentRate: 10)
+        let sameTracking = contain || first || second
+        
+        return !sameTracking
     }
     
     private func sumSequenceOfNil(_ trackingInfos: [TrackingInfo]) -> [TrackingInfo] {

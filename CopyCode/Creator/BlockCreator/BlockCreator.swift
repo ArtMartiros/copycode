@@ -31,6 +31,7 @@ final class BlockCreator: BlockCreatorProtocol {
 //        let block = blocks[0]
 //        let value = CodableHelper.encode(block)
 //        print(value)
+//        return blocks
         Timer.stop(text: "BlockCreator Initial Created")
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
@@ -38,7 +39,7 @@ final class BlockCreator: BlockCreatorProtocol {
         Timer.stop(text: "BlockCreator Leading Created")
         let restoredBlocks = leadingUpdatedBlocks.map { missingElementsRestorer.restore($0) }
         Timer.stop(text: "BlockCreator Restored")
-        return restoredBlocks
+        return Settings.includeMissingChars ? restoredBlocks : leadingUpdatedBlocks
     }
     
     private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {

@@ -8,6 +8,7 @@ target 'CopyCode' do
   # Pods for CopyCode
 
 pod 'MASShortcut'
+pod 'HockeySDK-Mac', '~> 5.1.0'
 
   target 'CopyCodeTests' do
     inherit! :search_paths

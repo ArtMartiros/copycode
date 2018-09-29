@@ -10,6 +10,7 @@ import Foundation
 
 struct TrackingInfoFormatter {
     private let kErrorPercentRate: CGFloat = 2
+    private let breackChecker = BreakChecker()
     
     func chunkTrackingInfo(_ infos: [TrackingInfo], block: SimpleBlock) -> [[TrackingInfo]] {
         var arrayOfInfos: [[TrackingInfo]] = []
@@ -20,7 +21,7 @@ struct TrackingInfoFormatter {
             usedIndexes.insert(index)
             
             subLoop: for (subIndex, subInfo) in infos.enumerated() where !usedIndexes.contains(subIndex) {
-                //если e текущего трекинг отсутствует тогда прерываем цепь
+                //если у текущего трекинг отсутствует тогда прерываем цепь
                 let relationType = getRelation(between: info, and: subInfo)
                 switch relationType {
                 case .failure(let failType):
@@ -135,9 +136,6 @@ struct TrackingInfoFormatter {
         return .passedBy
     }
 
-    ///сколько высот слова должно быть в ширине между словами, чтоб разделить линию
-    private let kBreakLineRate: CGFloat = 6
-    
     private func isIntersect(info: TrackingInfo, current: TrackingRange, or next: TrackingRange, block: SimpleBlock) -> IntersectionType {
         
         guard let range = info.xRange(at: block, type: .all) else { return .noOne }
@@ -158,12 +156,7 @@ struct TrackingInfoFormatter {
                 let wordRange = word.frame.leftX...word.frame.rightX
                 guard wordRange.intesected(with: range) != nil else { continue }
                 guard wordIndex != 0  else { return .failure }
-                
-                let previous = words[wordIndex - 1]
-                
-                let different =  word.frame.leftX - previous.frame.rightX
-                let shouldBreak = different / word.frame.height > kBreakLineRate
-                if shouldBreak  {
+                if breackChecker.check(if: word, shouldBreakWith: words[wordIndex - 1])  {
                     forbidden[index] = word.frame.leftX
                     break
                 } else {
@@ -210,3 +203,15 @@ extension TrackingInfoFormatter {
         }
     }
 }
+
+
+class BreakChecker {
+    ///сколько высот слова должно быть в ширине между словами, чтоб разделить линию
+    private let kBreakLineRate: CGFloat = 6
+    func check(if word: SimpleWord, shouldBreakWith second: SimpleWord) -> Bool  {
+        let different = word.frame.leftX - second.frame.rightX
+        let shouldBreak = different / word.frame.height > kBreakLineRate
+        return shouldBreak
+    }
+}
+
