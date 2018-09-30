@@ -18,11 +18,11 @@ struct Settings {
     private static let defaultShowGrid = false
     
 
-    static let showBlock =  isDefault ? defaultShowBlock : true
-    static let showChars = isDefault ? defaultShowChars : true
+    static let showBlock =  isDefault ? defaultShowBlock : false
+    static let showChars = isDefault ? defaultShowChars : false
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
     static let showTextView =  isDefault ? defaultShowTextView : true
     static let showText = isDefault ? defaultShowText : true
-    static let showGrid =  isDefault ? defaultShowGrid : true
+    static let showGrid =  isDefault ? defaultShowGrid : false
 }
 
