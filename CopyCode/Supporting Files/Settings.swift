@@ -9,9 +9,20 @@
 import Foundation
 
 struct Settings {
-    static let showBlock = true
-    static let showChars = true
-    static let includeMissingChars = true
-    static let showTextView = true
+    private static let isDefault = true
+    private static let defaultShowBlock = false
+    private static let defaultShowChars = false
+    private static let defaultIncludeMissingChars = true
+    private static let defaultShowTextView = true
+    private static let defaultShowText = false
+    private static let defaultShowGrid = false
+    
+
+    static let showBlock =  isDefault ? defaultShowBlock : true
+    static let showChars = isDefault ? defaultShowChars : true
+    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
+    static let showTextView =  isDefault ? defaultShowTextView : true
+    static let showText = isDefault ? defaultShowText : true
+    static let showGrid =  isDefault ? defaultShowGrid : true
 }
 

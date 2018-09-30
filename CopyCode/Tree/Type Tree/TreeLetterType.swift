@@ -55,11 +55,10 @@ enum LetterTypeOperations: CustomStringConvertible {
         switch self {
         case .square: return "square"
         case let .maxHRatio(_, ratio): return "maxHRatio: \(ratio)"
-        case .isLowWIthTail: return "isLowWIthTail"
+        case .isLowWIthTail: return "isLowWithTail"
         case .dashOrHyphen: return "dashOrHyphen"
         case .bottomY: return "bottomY"
         case .quotesOrColumn: return "quotesOrColumn"
         }
     }
 }
-

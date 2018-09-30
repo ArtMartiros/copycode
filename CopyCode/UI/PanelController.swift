@@ -67,7 +67,7 @@ class PanelController: NSWindowController {
 //            let lineLayers = newLines.map { $0.layer(.green, width: 2) }
              let lines = blocks.reduce([Line]()) { $0 + $1.lines }
            
-            let lineLayers = lines.layers(.red, width: 3)
+            let lineLayers = lines.layers(.red, width: 1)
              lineLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
 //
             //------------Words--------------

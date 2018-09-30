@@ -31,8 +31,10 @@ class MissingElementsRestorer {
     func restore(_ block: Block<LetterRectangle>) -> Block<LetterRectangle> {
         
         guard case .grid(let grid) = block.typography else { return block }
-//            trackingData = block.trackingData, let leading = block.leading
-
+        if Settings.showGrid {
+           return grid.getTestBlock(from: block)
+        }
+        
         var restoredLines = block.lines
             .compactMap { restoreWords(in: $0, tracking: grid.trackingData[$0.frame.topY], blockBounds: block) }
         

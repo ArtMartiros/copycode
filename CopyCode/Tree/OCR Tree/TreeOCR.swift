@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//start top left corner
 extension Tree where Node == OCROperations, Result == String {
     func find(_ colorChecker: LetterExistenceChecker, with frame: CGRect) -> String? {
         switch self {

@@ -28,7 +28,7 @@ struct LetterTypeIdentifier {
         return .undefined
     }
     
-    func detectType(for letters: [LetterRectangle]) -> [LetterType] {
+   private func detectType(for letters: [LetterRectangle]) -> [LetterType] {
         let types = letters.compactMap { undefinedTypeTree.find($0, with: wordInformation, recognizer: recognizer) }
         let lowExist = types.first { $0 == .low } != nil
         let upperExist = types.first { $0 == .upper } != nil
@@ -43,53 +43,71 @@ struct LetterTypeIdentifier {
         }
         return types
     }
+    
+    func detectType(for letters: [LetterRectangle], typography: Typography) -> [LetterType] {
+        switch typography {
+        case .empty, .tracking:
+            return detectType(for: letters)
+        case .grid(let grid):
+            let frame = grid.leading.createVirtualFrame(from: letters[0].frame)
+            let newWordInformation = WordInformation(standartLetter: frame)
+            let types = letters.compactMap {
+                gridUndefineType.find($0, with: newWordInformation, recognizer: recognizer)
+            }
+            return types
+        }
+    }
 }
 
-struct WordInformation {
+struct WordInformation: TypeChecker {
     private let _midDiffRate: CGFloat = 30
-    enum Position {
-        case top
-        case mid
-        case bottom
-    }
+
     private let checker: Checker
-    let maxHeightChar: Rectangle
-    let lowerYChar: Rectangle
-    let word: Rectangle
+    let maxHeightChar: CGRect
+    let lowerYChar: CGRect
+    let word: CGRect
     init(max: Rectangle, lowerY: Rectangle, word: Rectangle) {
-        self.maxHeightChar = max
-        self.lowerYChar = lowerY
-        self.checker = Checker(height: maxHeightChar.frame.height)
-        self.word = word
+        self.maxHeightChar = max.frame
+        self.lowerYChar = lowerY.frame
+        self.checker = Checker(height: maxHeightChar.height)
+        self.word = word.frame
+    }
+    
+    init(standartLetter: CGRect) {
+        self.maxHeightChar = standartLetter
+        self.lowerYChar = standartLetter
+        self.checker = Checker(height: standartLetter.height)
+        self.word = standartLetter
     }
     
     func exist(in position: Position, with frame: CGRect) -> Bool {
         switch position {
         case .top:
-            return checker.isSame(first: word.frame.topY, with: frame.topY, height: frame.height, accuracy: .high)
+            return checker.isSame(first: word.topY, with: frame.topY, height: frame.height, accuracy: .high)
         case .mid:
-            return positionOf(currentY: frame.bottomY, relativeTo: word.frame) > _midDiffRate
+            return positionOf(currentY: frame.bottomY, relativeTo: word) > _midDiffRate
         case .bottom:
-            return checker.isSame(first: frame.bottomY, with: word.frame.bottomY, accuracy: .high)
+            return checker.isSame(first: frame.bottomY, with: word.bottomY, accuracy: .high)
         }
     }
     
     func maxHeightRatio(with frame: CGRect) -> CGFloat {
-        let ratio = frame.height / maxHeightChar.frame.height
+        let ratio = frame.height / maxHeightChar.height
         print("Ratio: \(ratio)")
         return ratio
     }
     
     func lowWithTail(with frame: CGRect) -> Bool {
-        print("first top \(frame), second top \(lowerYChar.frame.bottomY) ")
-        let same = checker.isSame(first: frame.bottomY, with: lowerYChar.frame.bottomY, height: frame.height, accuracy: .superHigh)
+        print("first top \(frame), second top \(lowerYChar.bottomY) ")
+        //FIXME поменял аккуратность с superHigh до high
+        let same = checker.isSame(first: frame.bottomY, with: lowerYChar.bottomY, height: frame.height, accuracy: .high)
         print("lowWithTail \(same)")
         return same
     }
     
     func quotesOrColumn(with frame: CGRect) -> Bool {
-        let same = checker.isSame(first: word.frame.topY, with: frame.topY, height: frame.height, accuracy: .superLow)
-        let inTheMid = positionOf(currentY: frame.bottomY, relativeTo: word.frame) > _midDiffRate
+        let same = checker.isSame(first: word.topY, with: frame.topY, height: frame.height, accuracy: .superLow)
+        let inTheMid = positionOf(currentY: frame.bottomY, relativeTo: word) > _midDiffRate
         return same && inTheMid
     }
     

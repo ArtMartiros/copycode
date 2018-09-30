@@ -27,3 +27,16 @@ let undefinedTypeTree: TreeLetterType = .n(.maxHRatio(>, kUpperMaxRatio),
                                                       .n(.maxHRatio(>, kCommaMaxRatio),
                                                          quotesOrColumnTree,
                                                          dotsOrDash)))
+
+
+private let kGridUpperMaxRatio: CGFloat = 0.6
+private let kGridLowMaxRatio: CGFloat = 0.5
+private let kGridCommaMaxRatio: CGFloat = 0.37
+
+let gridUndefineType: TreeLetterType = .n(.maxHRatio(>, kGridUpperMaxRatio),
+                                          tailOrUpper,
+                                          .n(.maxHRatio(>, kGridLowMaxRatio),
+                                             .r(.low),
+                                             .n(.maxHRatio(>, kGridCommaMaxRatio),
+                                                quotesOrColumnTree,
+                                                dotsOrDash)))

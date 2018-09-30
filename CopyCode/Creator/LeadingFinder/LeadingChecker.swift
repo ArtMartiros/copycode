@@ -22,7 +22,7 @@ struct LeadingChecker {
     
     private func check(_ line: Line<LetterRectangle>, with distance: CGFloat, at point: CGFloat) -> Bool {
         let leading = Leading(fontSize: maxLineHeight, lineSpacing: distance - maxLineHeight, startPointTop: point)
-        let isInside = leading.checkFrameInsideLinePosition(frame: line.frame)
+        let isInside = leading.checkIsFrameInsideLinePosition(frame: line.frame)
         return isInside
     }
 }

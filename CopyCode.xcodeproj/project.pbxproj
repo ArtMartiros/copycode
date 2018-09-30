@@ -145,6 +145,7 @@
 		AC7CAC90215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC94215FE4CC004458D1 /* TrackingTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC93215FE4CC004458D1 /* TrackingTree.swift */; };
 		AC7CAC95215FE4CC004458D1 /* TrackingTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC93215FE4CC004458D1 /* TrackingTree.swift */; };
+		AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */; };
 		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9E214A4DEA00F0FD13 /* Leading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */; };
@@ -376,6 +377,7 @@
 		AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block_creator.json; sourceTree = "<group>"; };
 		AC7CAC8E215F7919004458D1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC7CAC93215FE4CC004458D1 /* TrackingTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTree.swift; sourceTree = "<group>"; };
+		AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRCustomData.swift; sourceTree = "<group>"; };
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
 		AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingDistanceFinder.swift; sourceTree = "<group>"; };
@@ -506,7 +508,6 @@
 		AC06D84520FF30D000770DBB /* CopyCode */ = {
 			isa = PBXGroup;
 			children = (
-				AC50A8772133ECBA00B196BE /* MissingElements */,
 				AC31C3C82114565600E09F91 /* Tree */,
 				AC71FB652112EA5200EE41C6 /* Creator */,
 				ACF1AC68210C9F2300897732 /* Color */,
@@ -683,11 +684,10 @@
 		AC31C3C82114565600E09F91 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
+				AC7CAC9A2160CFCF004458D1 /* Type Tree */,
 				AC7CAC92215FE4B1004458D1 /* TrackingTree */,
 				AC8E89622126C87200B97163 /* OCR Tree */,
 				AC06D88A20FF4F0C00770DBB /* Tree.swift */,
-				ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */,
-				AC2405582114B19200017B6F /* TreeLetterType.swift */,
 			);
 			path = Tree;
 			sourceTree = "<group>";
@@ -715,6 +715,7 @@
 		AC71FB652112EA5200EE41C6 /* Creator */ = {
 			isa = PBXGroup;
 			children = (
+				AC50A8772133ECBA00B196BE /* MissingElements */,
 				AC15F821214D1D21001DC55E /* BlockCreator */,
 				AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */,
 				AC95B4A721410F9D0007B5C5 /* TrackingInfoFinder */,
@@ -751,6 +752,15 @@
 			path = TrackingTree;
 			sourceTree = "<group>";
 		};
+		AC7CAC9A2160CFCF004458D1 /* Type Tree */ = {
+			isa = PBXGroup;
+			children = (
+				ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */,
+				AC2405582114B19200017B6F /* TreeLetterType.swift */,
+			);
+			path = "Type Tree";
+			sourceTree = "<group>";
+		};
 		AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,6 +788,7 @@
 				AC31C3CD2114573100E09F91 /* TreeOCR.swift */,
 				AC8E89632126C89800B97163 /* TreeOCRUpperData.swift */,
 				AC8E89662126F08800B97163 /* TreeOCRLowData.swift */,
+				AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */,
 			);
 			path = "OCR Tree";
 			sourceTree = "<group>";
@@ -1294,6 +1305,7 @@
 				AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */,
 				AC7734A1215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */,
 				AC06D88720FF4ED100770DBB /* Timer.swift in Sources */,
+				AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */,
 				AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */,
 				AC06D87E20FF4DA100770DBB /* CGRect.swift in Sources */,
 				AC8C0AAD214A67CC00F0FD13 /* LeadingFinder.swift in Sources */,

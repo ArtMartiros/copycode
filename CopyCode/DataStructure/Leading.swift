@@ -25,12 +25,10 @@ extension Leading {
     var leading: CGFloat {
         return fontSize + lineSpacing
     }
-    
 
-    func checkFrameInsideLinePosition(frame: CGRect) -> Bool {
-        let point = findNearestPoint(to: frame)
+    func checkIsFrameInsideLinePosition(frame: CGRect) -> Bool {
+        let point = findNearestPointTop(to: frame)
         let errorRate: CGFloat = 1
-        
         guard !(point < frame.topY &&
             !EqualityChecker.check(of: point, with: frame.topY, errorPercentRate: errorRate))
             else { return false }
@@ -63,7 +61,7 @@ extension Leading {
         return frames
     }
     
-    private func findNearestPoint(to frame: CGRect) -> CGFloat {
+    private func findNearestPointTop(to frame: CGRect) -> CGFloat {
         let distance = abs(frame.topY - startPointTop)
         let value = (distance / leading).rounded()
         if frame.topY < startPointTop {
@@ -75,13 +73,34 @@ extension Leading {
         }
     }
     
-    
+    ///topY
     func findStartPoint(inside frame: CGRect) -> CGFloat {
-        let point = findNearestPoint(to: frame)
+        let point = findNearestPointTop(to: frame)
         var startPoint = point
         if point > frame.topY, !EqualityChecker.check(of: point, with: frame.topY, errorPercentRate: 10) {
             startPoint -= leading
         }
         return startPoint
     }
+    
+    func createVirtualFrame(from frame: CGRect) -> CGRect {
+        let startPoint = findStartPoint(inside: frame) - fontSize
+        let frame = CGRect(x: frame.origin.x, y: startPoint, width: frame.width, height: fontSize)
+        return frame
+    }
+    
+    
+}
+
+enum Position {
+    case top
+    case mid
+    case bottom
+}
+
+protocol TypeChecker {
+    func maxHeightRatio(with frame: CGRect) -> CGFloat
+    func lowWithTail(with frame: CGRect) -> Bool
+    func quotesOrColumn(with frame: CGRect) -> Bool
+    func exist(in position: Position, with frame: CGRect) -> Bool
 }
