@@ -50,6 +50,8 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
         return picker.pickWhite(at: newPoint)
     }
     
+    private let defaultLetterColorDifference: CGFloat = 0.7
+    
     func findedLetterColor(_ frame: CGRect, with backgroundColor: CGFloat) -> CGFloat {
 //        let y = frame.yAs(rate: 0.5)
         let y = frame.yAs(rate: 0.1)
@@ -59,6 +61,9 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
 //        xPoints.append(contentsOf: xPoints)
         let colors = xPoints.map { picker.pickWhite(at: $0) }
         let letterColor = colors.sorted { abs(backgroundColor - $0) > abs(backgroundColor - $1) }[0]
+        if abs(letterColor - backgroundColor) < 0.15 {
+            return abs(backgroundColor - defaultLetterColorDifference)
+        }
         return letterColor
     }
 }

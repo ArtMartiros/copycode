@@ -16,7 +16,7 @@ private let kCommaMaxRatio: CGFloat = 0.37
 
 private let tailOrUpper: TreeLetterType = .n(.isLowWIthTail, .r(.lowWithTail), .r(.upper))
 private let quotesOrColumnTree: TreeLetterType = .n(.quotesOrColumn, .r(.quote), .r(.comma))
-private let dotsOrDash: TreeLetterType = .n(.square,
+private let dotsOrDash: TreeLetterType = .n(.squareForDot,
                                             .r(.dot),
                                             .n(.bottomY, .r(.underscore), .r(.dashOrHyphen)))
 

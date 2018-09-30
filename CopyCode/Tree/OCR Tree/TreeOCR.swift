@@ -60,6 +60,8 @@ enum OCROperations: CustomStringConvertible {
     case O_Q
     case G_0
     case plus_e
+    case doubleQuotesCustom
+    case equalOrDashCustom
     case topCircleRight, botCircleLeft, topCircleLeft
     var action: Action {
         switch self {
@@ -185,6 +187,9 @@ enum OCROperations: CustomStringConvertible {
             }
 
         case .G_0: return .checkerWithFrame { $0.exist(yRange: 4...8 , of: 14, x: 0.95, with: $1, op: .someFalse) }
+            
+        case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
+        case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         }
         
     }
@@ -241,11 +246,57 @@ enum OCROperations: CustomStringConvertible {
         case .O_Q: return "O_Q"
         case .plus_e: return "plus_e"
         case .G_0: return "G_0"
+        case .doubleQuotesCustom: return "quotes"
+        case .equalOrDashCustom: return "equalOrDashCustom"
             
         }
     }
     
-
+    enum InsideType {
+        case undefined
+        case startOut
+        case inside
+        case endOut
+    }
+    
+    private var columnOrDot: Operation {
+        return { checker, frame in
+            return  checker.exist(yRange: 3...4, of: 10, x: 0.5, with: frame, op: .or) &&
+                checker.exist(yRange: 6...7, of: 10, x: 0.5, with: frame, op: .or)
+        }
+    }
+    //пока оставлю так
+    private var equalOrDashOperation: Operation {
+        return { checker, frame in
+            return  checker.exist(yRange: 3...4, of: 10, x: 0.5, with: frame, op: .or) &&
+                checker.exist(yRange: 6...7, of: 10, x: 0.5, with: frame, op: .or)
+        }
+    }
+    
+    private var doubleQuotesOperation: Operation {
+        return { checker, frame in
+            var insideType: InsideType = .undefined
+            let array: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+            for x in array {
+                let value = checker.exist(x: x, y: 0.3, in: frame)
+                switch insideType {
+                case .undefined:
+                    insideType = value ? .startOut : .undefined
+                case .startOut:
+                    insideType = value ? .startOut : .inside
+                case .inside:
+                    insideType = value ? .endOut : .inside
+                case .endOut: return true
+                }
+            }
+            
+            if case .endOut = insideType {
+                return true
+            }
+            return false
+        }
+    }
+    
     private var f_WOperation: Operation {
         return { checker, frame in
             var exist = true
@@ -262,7 +313,7 @@ enum OCROperations: CustomStringConvertible {
 
     private var equalOperation: Operation {
         return { checker, frame in
-            let distance = (frame.height * 2).uintRounded()
+            let distance = (frame.height * 3).uintRounded()
             let topFrame = frame.update(plus: distance, in: .offset(.top))
             let bottomFrame = frame.update(plus: distance, in: .offset(.bottom))
             

@@ -15,10 +15,10 @@ class TrackingCheckerTests: XCTestCase {
         let block = BlockTest.sc1.getBlock(self)
 
         for (lineIndex, line) in block.lines.enumerated() {
-            print("Bukaki lineIndex: \(lineIndex)\n")
+//            print("Bukaki lineIndex: \(lineIndex)\n")
             
             for (wordIndex, word) in line.words.enumerated() {
-               print("Bukaki wordIndex: \(wordIndex)")
+//               print("Bukaki wordIndex: \(wordIndex)")
                 let width: CGFloat = 7.125
                 
                 

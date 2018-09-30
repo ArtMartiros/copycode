@@ -35,12 +35,14 @@ extension LetterType {
         case .low: return lowOCRTree
         case .lowWithTail: return lowWithTailOCRTree
         case .dashOrHyphen: return dashOrHyphenOCRTree
-        case .dot: return .r(".")
+        case .dot: return colonOCRTree
         case .underscore: return .r("_")
         case .comma: return commaOCRTree
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
-        case .custom: return .r("~")
+        case .custom:
+            print("bukaki1")
+            return customOCRTree
         }
     }
 }
