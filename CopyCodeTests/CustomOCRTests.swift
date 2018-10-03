@@ -10,22 +10,45 @@ import XCTest
 
 class CustomOCRTests: XCTestCase {
     let textRecognizer = TextRecognizerManager()
-    let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "=", "1", ".", "2", "=", "-", "="]
+    
     
     func testScene1() {
-        let bitmap = Scene.sc1.image.bitmap
-        let letters = Scene.sc1.getCustomLetters(self)
-        print(bitmap.pixelSize)
+        let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "=", "1", ".", "2", "=", "-", "="]
+        let chars = getChars(from: .sc1)
+        for (index, char) in chars.enumerated() {
+            XCTAssertEqual(char, answers[index])
+        }
+    }
+    
+    func testScene2() {
+        let answers: [String] = ["=", "=", "=", "}", "-", ">", "=", "\"", "=", "\"", "=", "\"","=", "\"",
+                                 "}", "_", "-", ">", "=", "=", "}", "."]
+        let chars = getChars(from: .sc2)
+        for (index, char ) in chars.enumerated() {
+            print(index)
+            XCTAssertEqual(char, answers[index])
+        }
+    }
+    
+    private func getChars(from scene: Scene, number: Int? = nil) -> [String] {
+        let bitmap = scene.image.bitmap
+        let letters = scene.getCustomLetters(self)
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let wordFactor = WordFactor(rectangle: letters[0])
         let recognizer = LetterRecognizer(in: bitmap, backgroundWhiteColor: 1,
                                           letterColorFinder: colorFinder, wordFactor: wordFactor)
-        let chars = letters.map {
-            recognizer.recognize(from: $0)
+        var chars: [String] = []
+        if let number = number {
+           chars = [recognizer.recognize(from: letters[number])]
+        } else {
+            for (index, letter) in letters.enumerated() {
+                print("Letter index \(index)")
+                let char = recognizer.recognize(from: letter)
+                chars.append(char)
+            }
         }
-        
-        for (index, char ) in chars.enumerated() {
-            XCTAssertEqual(char, answers[index])
-        }
+
+        return chars
     }
+  
 }

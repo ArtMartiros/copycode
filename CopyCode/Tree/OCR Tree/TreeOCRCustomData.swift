@@ -11,15 +11,20 @@ import Foundation
 fileprivate let equalOrDash: TreeOCR = .n(.equalOrDashCustom, .r("="), .r("-"))
 let customOCRTree: TreeOCR = .n(.xy(x: 0.5, y: 0.55),
                                 .n(.xy(x: 0.1, y: 0.55),
-                                   .r("-"),
-                                   .r("}")),
+                                   equalOrDash,
+                                   .n(.bracketOrArrowCustom, .r("}"), .r(">"))),
                                 .n(.xy(x: 0.4, y: 0.8),
                                    .n(.xy(x: 0.65, y: 0.8),
                                       .n(.xy(x: 0.65, y: 0.2),
                                          .r("2"),
-                                         .r("1")),
+                                         .n(.xRange(x:1...8, y: 0.7, op: .or),
+                                            .r("1"),
+                                            .r("_"))),
                                       .r(".")),
-                                   .r("=")))
+                                   .n(.xRange(x: 6...8, y: 0.2, op: .or),
+                                      .r("\""),
+                                      .n(.xRange(x: 1...1, y: 0.8, op: .or), .r("}"), equalOrDash)
+                                    )))
 
 let customOCRTree2: TreeOCR = .n(.xy(x: 0.5, y: 0.5),
                                 .n(.xy(x: 0.1, y: 0.5),

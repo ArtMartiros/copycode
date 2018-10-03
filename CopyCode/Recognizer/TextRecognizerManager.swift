@@ -57,16 +57,16 @@ final class TextRecognizerManager {
 //                    return false
 //                }
 //                }[0]
-//            
+//
 //            let words = oneBlock.lines.map { line in
 //                line.words.filter {
 //                    $0.type == .same(type: .allCustom)
 //                }
 //            }.reduce([], +)
-//            
+//
 //            let letters = words.map { $0.letters }.reduce([], +)
 //            let value = CodableHelper.encode(letters)
-//            
+//
 //            print(value)
             let blocksWithTypes = blocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")

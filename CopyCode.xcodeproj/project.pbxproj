@@ -47,6 +47,7 @@
 		AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */; };
 		AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
 		AC2181412163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
+		AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2181432164C83700515FBD /* sc2_custom_letters.json */; };
 		AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC250A5E214EBC4500E6D596 /* TextTranscriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */; };
@@ -223,7 +224,6 @@
 		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
 		ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
 		ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
-		ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */; };
 		ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
 		ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
 		ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
@@ -330,6 +330,7 @@
 		AC199EAB211A9A5F00B53656 /* letter_type_classification.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification.json; sourceTree = "<group>"; };
 		AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPosInfoFinder.swift; sourceTree = "<group>"; };
 		AC21813F2163F89200515FBD /* TrackingFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinder.swift; sourceTree = "<group>"; };
+		AC2181432164C83700515FBD /* sc2_custom_letters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters.json; sourceTree = "<group>"; };
 		AC2405582114B19200017B6F /* TreeLetterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterType.swift; sourceTree = "<group>"; };
 		AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTranscriptor.swift; sourceTree = "<group>"; };
 		AC250A60214EC02A00E6D596 /* TypographicalGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographicalGrid.swift; sourceTree = "<group>"; };
@@ -430,7 +431,6 @@
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreatorTests.swift; sourceTree = "<group>"; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
 		ACF1AC502108BE0B00897732 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		ACF1AC532108F86C00897732 /* TextRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizerManager.swift; sourceTree = "<group>"; };
@@ -538,7 +538,6 @@
 				AC6344F0211AA86A00538673 /* Tools */,
 				AC199EAA211A98AA00B53656 /* Resources */,
 				AC06D85B20FF30D100770DBB /* Info.plist */,
-				ACDBF271210F17EC00678812 /* BlockCreatorTests.swift */,
 				AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */,
 				AC6B2E4B214BF25B000ACEDC /* DigitColumnDetectionTests.swift */,
 				ACF2569921202C0500B2F084 /* LetterOCRTests.swift */,
@@ -710,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				AC44191D2162722500248DCC /* sc1_custom_letters.json */,
+				AC2181432164C83700515FBD /* sc2_custom_letters.json */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1069,6 +1069,7 @@
 				AC790437215D1D4A001D1FB1 /* sc2_block_creator.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
+				AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
@@ -1443,7 +1444,6 @@
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
 				AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */,
-				ACDBF272210F17EC00678812 /* BlockCreatorTests.swift in Sources */,
 				AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,
 				AC790430215CBE13001D1FB1 /* TrackingData.swift in Sources */,

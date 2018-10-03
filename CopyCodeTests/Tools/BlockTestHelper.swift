@@ -39,8 +39,8 @@ enum TrackingInfoTest: String {
 }
 
 enum Scene: String {
-    case sc1 = "sc1_text_view_creator-1"
-
+    case sc1 = "sc1_text_view_creator"
+    case sc2 = "sc2_block_creator"
     var image: NSImage {
        return NSImage(named: .init(rawValue))!
     }
@@ -49,6 +49,8 @@ enum Scene: String {
         switch self {
         case .sc1:
             return "sc1_custom_letters"
+        case .sc2:
+            return "sc2_custom_letters"
         }
     }
     

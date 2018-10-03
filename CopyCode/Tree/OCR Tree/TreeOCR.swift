@@ -62,6 +62,7 @@ enum OCROperations: CustomStringConvertible {
     case plus_e
     case doubleQuotesCustom
     case equalOrDashCustom
+    case bracketOrArrowCustom
     case topCircleRight, botCircleLeft, topCircleLeft
     var action: Action {
         switch self {
@@ -190,6 +191,7 @@ enum OCROperations: CustomStringConvertible {
             
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
+        case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
         }
         
     }
@@ -248,6 +250,7 @@ enum OCROperations: CustomStringConvertible {
         case .G_0: return "G_0"
         case .doubleQuotesCustom: return "quotes"
         case .equalOrDashCustom: return "equalOrDashCustom"
+        case .bracketOrArrowCustom: return "bracketOrArrowCustom"
             
         }
     }
@@ -265,11 +268,29 @@ enum OCROperations: CustomStringConvertible {
                 checker.exist(yRange: 6...7, of: 10, x: 0.5, with: frame, op: .or)
         }
     }
+    
+    private var bracketOrArrowCustomOperation: Operation {
+        return { checker, frame in
+            return  checker.exist(xRange: 1...2, of: 10, y: 0.1, with: frame, op: .or) ||
+                checker.exist(xRange: 1...2, of: 10, y: 0.9, with: frame, op: .or)
+        }
+    }
     //пока оставлю так
     private var equalOrDashOperation: Operation {
         return { checker, frame in
-            return  checker.exist(yRange: 3...4, of: 10, x: 0.5, with: frame, op: .or) &&
-                checker.exist(yRange: 6...7, of: 10, x: 0.5, with: frame, op: .or)
+            let array: [CGFloat] = [0.3, 0.4, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8]
+            var exists: [CGFloat] = []
+            for y in array {
+                let value = checker.exist(x: 0.5, y: y, in: frame)
+                if value {
+                   exists.append(y)
+                }
+            }
+            guard let first = exists.first, let last = exists.last else { return false }
+            let difference = last - first
+            print("difference \(difference)")
+            print(exists)
+            return difference > 0.1
         }
     }
     

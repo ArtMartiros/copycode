@@ -100,7 +100,7 @@ struct WordInformation: TypeChecker {
     func lowWithTail(with frame: CGRect) -> Bool {
         print("first top \(frame), second top \(lowerYChar.bottomY) ")
         //FIXME поменял аккуратность с superHigh до high
-        let same = checker.isSame(first: frame.bottomY, with: lowerYChar.bottomY, height: frame.height, accuracy: .high)
+        let same = checker.isSame(first: frame.bottomY, with: lowerYChar.bottomY, height: frame.height, accuracy: 0.06)
         print("lowWithTail \(same)")
         return same
     }
