@@ -21,7 +21,7 @@ class TextTranscriptorTests: XCTestCase {
     func testExample() {
         let block =  CodableHelper.decode(self, path: "block_one_completed", structType: CompletedBlock.self, shouldPrint: false)
         let transcriptor = TextTranscriptor()
-        transcriptor.test(block: block!)
+        transcriptor.transcript(block: block!)
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

@@ -16,6 +16,13 @@ extension NSImage {
         return ciiImage
     }
     
+    var bitmap: NSBitmapImageRep {
+        self.lockFocus()
+        let bitmap = NSBitmapImageRep(data: self.tiffRepresentation!)!
+        self.unlockFocus()
+        return bitmap
+    }
+    
     var adjustColors: NSImage {
         let newImage = NSImage(size: size)
         let currentFilter = CIFilter(name: "CIColorControls")!
@@ -82,27 +89,27 @@ extension NSImage {
     }
     
     
-    func insertInsets(insetWidthDimension: CGFloat, insetHeightDimension: CGFloat)
-        -> NSImage {
-            
-            let color = [topLeft.color, topRight.color,
-                         bottomLeft.color, bottomRight.color].averageColor
-            let insets = NSEdgeInsets(top: insetHeightDimension,
-                                      left: insetWidthDimension,
-                                      bottom: insetHeightDimension,
-                                      right: insetWidthDimension)
-            let newSize = NSSize(width: size.width + insets.left + insets.right,
-                                 height: size.height + insets.top + insets.bottom)
-            
-            let initialPoint = CGPoint(x: insets.left, y: insets.bottom)
-            let targetFrame = NSRect(origin: .zero, size: size)
-            let newImage = NSImage(size: newSize)
-            newImage.lockFocus()
-            draw(at: initialPoint, from: targetFrame, operation: .sourceOver, fraction: 1)
-            newImage.unlockFocus()
-            
-            return newImage.tint(color: color)
-    }
+//    func insertInsets(insetWidthDimension: CGFloat, insetHeightDimension: CGFloat)
+//        -> NSImage {
+//
+//            let color = [topLeft.color, topRight.color,
+//                         bottomLeft.color, bottomRight.color].averageColor
+//            let insets = NSEdgeInsets(top: insetHeightDimension,
+//                                      left: insetWidthDimension,
+//                                      bottom: insetHeightDimension,
+//                                      right: insetWidthDimension)
+//            let newSize = NSSize(width: size.width + insets.left + insets.right,
+//                                 height: size.height + insets.top + insets.bottom)
+//
+//            let initialPoint = CGPoint(x: insets.left, y: insets.bottom)
+//            let targetFrame = NSRect(origin: .zero, size: size)
+//            let newImage = NSImage(size: newSize)
+//            newImage.lockFocus()
+//            draw(at: initialPoint, from: targetFrame, operation: .sourceOver, fraction: 1)
+//            newImage.unlockFocus()
+//
+//            return newImage.tint(color: color)
+//    }
     
     func tint(color: NSColor) -> NSImage {
         guard !self.isTemplate else { return self }
@@ -135,24 +142,24 @@ extension NSImage {
         return CGPoint(x: size.width - 1, y: 0)
     }
     
-    var topLeft: Corner {
-        let point = CGPoint(x: 0, y: size.height - 1)
-        return Corner(point: point, color: getPixelColor(at: point))
-    }
-    
-    var topRight: Corner {
-        let point = CGPoint(x: size.width - 1, y: size.height - 1)
-        return Corner(point: point, color: getPixelColor(at: point))
-    }
-    
-    var bottomLeft: Corner {
-        return Corner(point: .zero, color: getPixelColor(at: .zero))
-    }
-    
-    var bottomRight: Corner {
-        let point = CGPoint(x: size.width - 1, y: 0)
-        return Corner(point: point, color: getPixelColor(at: point))
-    }
+//    var topLeft: Corner {
+//        let point = CGPoint(x: 0, y: size.height - 1)
+//        return Corner(point: point, color: getPixelColor(at: point))
+//    }
+//
+//    var topRight: Corner {
+//        let point = CGPoint(x: size.width - 1, y: size.height - 1)
+//        return Corner(point: point, color: getPixelColor(at: point))
+//    }
+//
+//    var bottomLeft: Corner {
+//        return Corner(point: .zero, color: getPixelColor(at: .zero))
+//    }
+//
+//    var bottomRight: Corner {
+//        let point = CGPoint(x: size.width - 1, y: 0)
+//        return Corner(point: point, color: getPixelColor(at: point))
+//    }
     
     struct Corner {
         let point: CGPoint

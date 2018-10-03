@@ -9,7 +9,7 @@
 import Foundation
 
 struct TextTranscriptor {
-    func test(block: CompletedBlock) -> String {
+    func transcript(block: CompletedBlock) -> String {
         guard case .grid(let grid) = block.typography else { return "empty" }
         let arrayOfFrames = grid.getArrayOfFrames(from: block.frame)
         var lastLineIndex = 0
@@ -20,7 +20,7 @@ struct TextTranscriptor {
                 stringLines.append("\n")
                 continue
             }
-            if let result = test2(singleLine, with: lines, startIndex: lastLineIndex) {
+            if let result = transcript(singleLine, with: lines, startIndex: lastLineIndex) {
                 lastLineIndex = result.index
                 stringLines.append(result.value)
             }
@@ -28,7 +28,7 @@ struct TextTranscriptor {
         return stringLines.joined()
     }
     
-    func test2(_ singleLine: [CGRect], with lines: [CompletedLine], startIndex: Int) -> (index: Int, value: String)? {
+    func transcript(_ singleLine: [CGRect], with lines: [CompletedLine], startIndex: Int) -> (index: Int, value: String)? {
         
         let result = compare(singleLine, with: lines[startIndex])
         switch result {

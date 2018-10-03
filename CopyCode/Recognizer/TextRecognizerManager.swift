@@ -23,7 +23,7 @@ final class TextRecognizerManager {
     func testPerformReques(image: NSImage, completion: @escaping TestTextCompletion) {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
             guard let sself = self else { return }
-            let bitmap = sself.bitmap(from: image)
+            let bitmap = image.bitmap
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             completion(bitmap, wordsRectangles)
@@ -35,7 +35,8 @@ final class TextRecognizerManager {
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
             
-            let bitmap = sself.bitmap(from: image)
+            let bitmap = image.bitmap
+            print(bitmap.pixelSize)
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let blockCreator = BlockCreator(in: bitmap)
             let typeConverter = TypeConverter(in: bitmap)
@@ -49,6 +50,24 @@ final class TextRecognizerManager {
             let blocks = blockCreator.create(from: wordsRectangles)
             Timer.stop(text: "BlockCreator created")
             
+//            let oneBlock = blocks.filter {
+//                if case .grid = $0.typography {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//                }[0]
+//            
+//            let words = oneBlock.lines.map { line in
+//                line.words.filter {
+//                    $0.type == .same(type: .allCustom)
+//                }
+//            }.reduce([], +)
+//            
+//            let letters = words.map { $0.letters }.reduce([], +)
+//            let value = CodableHelper.encode(letters)
+//            
+//            print(value)
             let blocksWithTypes = blocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
@@ -56,12 +75,5 @@ final class TextRecognizerManager {
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)
         }
-    }
-    
-    private func bitmap(from image: NSImage) -> NSBitmapImageRep {
-        image.lockFocus()
-        let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!
-        image.unlockFocus()
-        return bitmap
     }
 }

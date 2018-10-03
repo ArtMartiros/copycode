@@ -37,26 +37,17 @@ class TrackingInfoFinderTests: XCTestCase {
     func testSc1() {
         let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
         check(.sc1, with: answer)
-        
-       let block = BlockTest.sc1.getBlock(self)
-        let line = block.lines[26]
-       let distanceFinder = TrackingDistanceFinder()
-       let startPointFinder =  TrackingStartPointFinder()
-        let result = distanceFinder.find(from: line.biggestWord())
-        switch result {
-        case .success(let range):
-           let trackings = startPointFinder.find(in: line.biggestWord(), with: range)
-           print("")
-        default: break
-            
-        }
+    }
+    
+    func testSc2() {
+        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
+        check(.sc2, with: answer)
     }
     
     private func check(_ blockTest: BlockTest, with answer: Answer) {
         let block = blockTest.getBlock(self)
         let results = finder.find(from: block)
-        let value = CodableHelper.encode(results)
-        print(value)
+
         let message0 = "Current results count \(results.count) not equal to \(answer.count)"
         XCTAssertTrue(results.count == answer.count, message0)
         let result = results[answer.currentIndex]

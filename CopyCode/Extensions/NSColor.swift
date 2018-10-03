@@ -9,6 +9,7 @@
 import AppKit
 
 extension NSColor {
+    ///white == 1, black == 0
     var grayScale: CGFloat {
         let grayScaleColor = usingColorSpace(NSColorSpace.deviceGray)
         var grayscale: CGFloat = 0

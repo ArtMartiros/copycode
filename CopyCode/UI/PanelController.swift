@@ -43,7 +43,7 @@ class PanelController: NSWindowController {
             if Settings.showTextView {
                 for block in blocks {
                     if case .grid(let grid) = block.typography {
-                        let text = transcriptor.test(block: block)
+                        let text = transcriptor.transcript(block: block)
                         let width = grid.trackingData.defaultTracking.width
                         let spacing = grid.leading.lineSpacing
                         self?.panel.addTextView(with: text, in: block.frame, letterWidth: width, spacing: spacing - 1)
@@ -62,41 +62,26 @@ class PanelController: NSWindowController {
 //            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
         
             //------------Lines--------------
-            let lineCreator = LineCreator<LetterRectangle>()
-//            let newLines = lineCreator.createCusome2(from: words)
-//            let lineLayers = newLines.map { $0.layer(.green, width: 2) }
-             let lines = blocks.reduce([Line]()) { $0 + $1.lines }
-           
+            let lines = blocks.reduce([Line]()) { $0 + $1.lines }
             let lineLayers = lines.layers(.red, width: 1)
-             lineLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-//
-            //------------Words--------------
-//            let wordsLayers = words.map { $0.layer(.blue, width: 0.5) }
-//            wordsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-//
-            //------------newWords--------------
-            let newWords = lines.reduce([Word]()) { $0 + $1.words }
-            let newWordsLayers = newWords.map { $0.layer(.blue, width: 1) }
-            newWordsLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            
-
-            
-
-//
-//            lineLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-            //------------chars--------------
-            if Settings.showChars {
-                
-            let chars = newWords.reduce([Letter]()) { $0 + $1.letters }
-            let charLayers = chars.map { $0.layer(.green, width: 1) }
-            charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
+            if Settings.showLines {
+                lineLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             }
-//            var charLayers: [CALayer] = []
-//            for word in words {
-//                charLayers.append(contentsOf: word.letters.map {  $0.layer(.red, width: 0.5) } )
-//            }
-//            charLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
+            //------------Words--------------
+            let words = lines.reduce([Word]()) { $0 + $1.words }
+            let wordsLayers = words.map { $0.layer(.blue, width: 1) }
+            if Settings.showWords {
+                wordsLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
+            }
 
+            //------------chars--------------
+            
+            let chars = words.reduce([Letter]()) { $0 + $1.letters }
+            let charLayers = chars.map { $0.layer(.green, width: 1) }
+            if Settings.showChars {
+                charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
+            }
             
             //------------Column--------------
 //            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }

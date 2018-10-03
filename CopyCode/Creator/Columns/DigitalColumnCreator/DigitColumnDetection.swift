@@ -66,7 +66,7 @@ final class DigitColumnDetection {
     }
     
     private func checkIsDigit(_ otherRectangles: [SimpleWord]) -> Bool {
-        var (chCount, nCount) = charsAndNumbers(otherRectangles)
+        let (chCount, nCount) = charsAndNumbers(otherRectangles)
         let concentration = nCount.of(chCount, >, percent: kDigitConcentrationRate)
         print(" CharsAndNumbers nCount: \(nCount), chCount: \(chCount), concentration: \(concentration)")
         return concentration

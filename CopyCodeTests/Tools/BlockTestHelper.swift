@@ -38,17 +38,26 @@ enum TrackingInfoTest: String {
     }
 }
 
-enum Scene {
-    case sc1
-    var imageName: String {
+enum Scene: String {
+    case sc1 = "sc1_text_view_creator-1"
+
+    var image: NSImage {
+       return NSImage(named: .init(rawValue))!
+    }
+    
+    var customLettersName: String {
         switch self {
-        case .sc1: return "sc1_text_view_creator"
+        case .sc1:
+            return "sc1_custom_letters"
         }
     }
     
-    var image: NSImage {
-       return NSImage(named: .init(imageName))!
+    func getCustomLetters(_ object: AnyObject) -> [LetterRectangle] {
+        return CodableHelper.decode(object, path: customLettersName, structType: [LetterRectangle].self, shouldPrint: false)!
     }
     
+    func getBlock(_ object: AnyObject) -> SimpleBlock {
+        return CodableHelper.decode(object, path: self.rawValue, structType: SimpleBlock.self, shouldPrint: false)!
+    }
     
 }

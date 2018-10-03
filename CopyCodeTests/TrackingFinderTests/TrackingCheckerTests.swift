@@ -12,7 +12,7 @@ class TrackingCheckerTests: XCTestCase {
 
     func testExample() {
         let checker = TrackingChecker()
-        let block = BlockTest.sc1.getBlock(self)
+        let block = Scene.sc1.getBlock(self)
 
         for (lineIndex, line) in block.lines.enumerated() {
 //            print("Bukaki lineIndex: \(lineIndex)\n")
