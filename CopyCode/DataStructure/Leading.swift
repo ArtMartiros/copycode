@@ -96,8 +96,8 @@ extension Leading {
         let checker = Checker()
         
         var startPoint = point
-        if point > frame.topY, !checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: 10) {
-            startPoint -= leading
+        if point > frame.topY, !checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: 40) {
+                startPoint -= leading
         }
         return startPoint
     }

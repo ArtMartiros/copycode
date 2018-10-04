@@ -50,7 +50,7 @@ struct TrackingChecker {
             .reduce(0, +)
         
         let average = miscalculation / CGFloat(gaps.count)
-        print("Bukaki sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4))")
+        print("sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4))")
         let result = average < kMiscalculationSuccessedRate
         return (result, average)
     }

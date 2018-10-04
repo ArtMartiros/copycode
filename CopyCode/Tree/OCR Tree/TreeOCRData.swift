@@ -41,7 +41,7 @@ extension LetterType {
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
         case .custom:
-            print("bukaki1")
+
             return customOCRTree
         }
     }
