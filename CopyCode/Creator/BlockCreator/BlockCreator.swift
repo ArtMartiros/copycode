@@ -28,10 +28,6 @@ final class BlockCreator: BlockCreatorProtocol {
     
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
         let blocks = blockPreparator.initialPrepare(from: rectangles)
-//        let block = blocks[0]
-//        let value = CodableHelper.encode(block)
-//        print(value)
-//        return blocks
         Timer.stop(text: "BlockCreator Initial Created")
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")

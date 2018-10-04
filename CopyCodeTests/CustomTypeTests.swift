@@ -22,7 +22,7 @@ class CustomTypeTests: XCTestCase {
             let newLine = typeConverter.convert(line, typography: block.typography)
             let letters = newLine.words.map { $0.letters.map { $0.type } }.reduce([], +)
             print("Letters coun: \(letters.count)")
-            let rightLetterTypes =  Scene.sc2.letterTypes(for: lineIndex)
+            let rightLetterTypes =  Scene.sc2.getLetterTypes(for: lineIndex)
             for (letterIndex, letter) in letters.enumerated() {
                 
                 let rightLetter = rightLetterTypes[letterIndex]

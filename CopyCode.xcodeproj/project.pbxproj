@@ -113,6 +113,9 @@
 		AC50A88A2135492300B196BE /* missing_quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A8892135492300B196BE /* missing_quotes.json */; };
 		AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A88B21354D1C00B196BE /* missing_equal.json */; };
 		AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */ = {isa = PBXBuildFile; fileRef = AC50A88D2135BA8100B196BE /* missing_underscore.json */; };
+		AC6493EE21663BBA003A4164 /* sc2_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6493ED21663BBA003A4164 /* sc2_letter.swift */; };
+		AC6493F121663E61003A4164 /* ScenesOCRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6493F021663E61003A4164 /* ScenesOCRTests.swift */; };
+		AC6493F3216646BC003A4164 /* sc2_block_creator_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */; };
 		AC675775212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
 		AC675776212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
 		AC675778212C57CF0051C34A /* GapsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675777212C57CF0051C34A /* GapsCreator.swift */; };
@@ -366,6 +369,9 @@
 		AC50A8892135492300B196BE /* missing_quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_quotes.json; sourceTree = "<group>"; };
 		AC50A88B21354D1C00B196BE /* missing_equal.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_equal.json; sourceTree = "<group>"; };
 		AC50A88D2135BA8100B196BE /* missing_underscore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = missing_underscore.json; sourceTree = "<group>"; };
+		AC6493ED21663BBA003A4164 /* sc2_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc2_letter.swift; sourceTree = "<group>"; };
+		AC6493F021663E61003A4164 /* ScenesOCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesOCRTests.swift; sourceTree = "<group>"; };
+		AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block_creator_grid_with_type.json; sourceTree = "<group>"; };
 		AC675774212C578B0051C34A /* ClosedRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedRange.swift; sourceTree = "<group>"; };
 		AC675777212C57CF0051C34A /* GapsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsCreator.swift; sourceTree = "<group>"; };
 		AC67577A212C5A470051C34A /* CustomColumnCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColumnCreator.swift; sourceTree = "<group>"; };
@@ -540,19 +546,18 @@
 		AC06D85820FF30D100770DBB /* CopyCodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				AC6493EF21663E45003A4164 /* OCRTests */,
 				AC95B4C4214151F30007B5C5 /* ExtensionsTests */,
 				AC6344F0211AA86A00538673 /* Tools */,
 				AC199EAA211A98AA00B53656 /* Resources */,
 				AC06D85B20FF30D100770DBB /* Info.plist */,
 				AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */,
 				AC6B2E4B214BF25B000ACEDC /* DigitColumnDetectionTests.swift */,
-				ACF2569921202C0500B2F084 /* LetterOCRTests.swift */,
 				AC50A8812133FBDD00B196BE /* LetterPixelFinderTests.swift */,
 				AC8C0AB2214AB06E00F0FD13 /* LeadingFinderTests */,
 				AC95B4B7214139E10007B5C5 /* TrackingFinderTests */,
 				AC250A6B214EE92900E6D596 /* LeadingTests.swift */,
 				AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */,
-				AC4419162162675100248DCC /* CustomOCRTests.swift */,
 				AC218148216507A500515FBD /* CustomTypeTests.swift */,
 			);
 			path = CopyCodeTests;
@@ -649,6 +654,7 @@
 		AC199EAA211A98AA00B53656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC6493EC21663B96003A4164 /* Letters */,
 				AC218145216505E600515FBD /* Type */,
 				AC441918216270BF00248DCC /* Custom */,
 				AC7734A3215C07CA009617F7 /* TrackingInfo */,
@@ -748,6 +754,24 @@
 				AC457DF22148198700D9E69F /* BlockTestHelper.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		AC6493EC21663B96003A4164 /* Letters */ = {
+			isa = PBXGroup;
+			children = (
+				AC6493ED21663BBA003A4164 /* sc2_letter.swift */,
+			);
+			path = Letters;
+			sourceTree = "<group>";
+		};
+		AC6493EF21663E45003A4164 /* OCRTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC4419162162675100248DCC /* CustomOCRTests.swift */,
+				ACF2569921202C0500B2F084 /* LetterOCRTests.swift */,
+				AC6493F021663E61003A4164 /* ScenesOCRTests.swift */,
+			);
+			path = OCRTests;
 			sourceTree = "<group>";
 		};
 		AC71FB652112EA5200EE41C6 /* Creator */ = {
@@ -935,6 +959,7 @@
 				ACF8D10B2156BF6E00DF4A38 /* sc1_text_view_creator.json */,
 				AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */,
 				AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */,
+				AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1116,6 +1141,7 @@
 				AC44191E2162722500248DCC /* sc1_custom_letters.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
+				AC6493F3216646BC003A4164 /* sc2_block_creator_grid_with_type.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1440,6 +1466,7 @@
 				AC4CA3FE21025DE30093D938 /* Tree.swift in Sources */,
 				ACF1AC64210B30A400897732 /* DigitColumnMerger.swift in Sources */,
 				AC250A5F214EBC4500E6D596 /* TextTranscriptor.swift in Sources */,
+				AC6493EE21663BBA003A4164 /* sc2_letter.swift in Sources */,
 				AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */,
 				AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */,
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
@@ -1481,6 +1508,7 @@
 				AC8C0AB4214AB14500F0FD13 /* LeadingDistanceFinderTests.swift in Sources */,
 				AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */,
+				AC6493F121663E61003A4164 /* ScenesOCRTests.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC790433215CBE37001D1FB1 /* TrackingPixelConverter.swift in Sources */,
 				AC218149216507A500515FBD /* CustomTypeTests.swift in Sources */,

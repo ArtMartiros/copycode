@@ -54,19 +54,34 @@ enum Scene: String {
         }
     }
     
+    
     var gridBlockName: String {
         return "sc2_block_creator_grid"
     }
     
-    func letterTypes(for lineIndex: Int) -> [LetterType] {
-        guard lineIndex < sc2_type.count else { return [] }
-        let newString = sc2_type[lineIndex]?.replacingOccurrences(of: " ", with: "")
+    var gridWithTypeBlockName: String {
+        return "sc2_block_creator_grid_with_type"
+    }
+    var letterTypeDictionary: [Int: String] {
+        return sc2_type
+    }
+    
+    var letterDictionary: [Int: String] {
+        return sc2_letter
+    }
+    
+    func getLetterTypes(for lineIndex: Int) -> [LetterType] {
+        guard lineIndex < letterTypeDictionary.count else { return [] }
+        let newString = letterTypeDictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
         let types = newString?.compactMap { LetterType(letter: String($0)) }
         return types ?? []
     }
     
-    var lineTypes: [Int: String] {
-        return sc2_type
+    func getLetters(for lineIndex: Int) -> [String] {
+        guard lineIndex < letterDictionary.count else { return [] }
+        let newString = letterDictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
+        let array = newString?.compactMap { String($0) }
+        return array ?? []
     }
     
     func getCustomLetters(_ object: AnyObject) -> [LetterRectangle] {
@@ -80,6 +95,12 @@ enum Scene: String {
     func getGridBlock(_ object: AnyObject) -> SimpleBlock {
         return CodableHelper.decode(object, path: self.gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
     }
+    
+    func getGridWithTypeBlock(_ object: AnyObject) -> SimpleBlock {
+        return CodableHelper.decode(object, path: self.gridWithTypeBlockName,
+                                    structType: SimpleBlock.self, shouldPrint: false)!
+    }
+    
     
 }
 
