@@ -24,8 +24,8 @@ struct Settings {
     static let showWords =  isDefault ? defaultShowWords : true
     static let showChars = isDefault ? defaultShowChars : true
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
-    static let showTextView =  isDefault ? defaultShowTextView : false
-    static let showText = isDefault ? defaultShowText : false
-    static let showGrid =  isDefault ? defaultShowGrid : true
+    static let showTextView =  isDefault ? defaultShowTextView : true
+    static let showText = isDefault ? defaultShowText : true
+    static let showGrid =  isDefault ? defaultShowGrid : false
 }
 
