@@ -14,19 +14,17 @@ protocol WordTypeClassificationProtocol {
 
 class WordTypeIdentifier: WordTypeClassificationProtocol {
     private let kWordTypeIdentifierAccuracy: CGFloat = 1.24
+    private let checker = Checker()
     //Этот вариант лучше но надо будет его прописать
     func isMix(wordMaxHeight: CGFloat, wordMinHeight: CGFloat) -> Bool {
         return true
     }
     func isMix(word: Word<LetterRectangle>) -> Bool {
         let maxLetterHeight = word.maxLetterHeight
-        let checker = Checker(height: maxLetterHeight)
-//        print("WordTypeIdentifier isMix start")
         let isMixed = word.letters.first { !checker.isSameHeight(first: maxLetterHeight,
                                                            with: $0.frame.height,
                                                            accuracy: kWordTypeIdentifierAccuracy)
             } != nil
-//        print("WordTypeIdentifier isMix stop \(isMixed)")
         return isMixed
     }
 }

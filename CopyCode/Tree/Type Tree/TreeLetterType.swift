@@ -34,7 +34,8 @@ enum LetterTypeOperations: CustomStringConvertible {
         
     }
     case squareForDot
-    case isLowWIthTail
+    case isLowWithTail
+    case isLowWithTailCustom
     case quotesOrColumn
     case bottomY
     case dashOrHyphen
@@ -44,7 +45,8 @@ enum LetterTypeOperations: CustomStringConvertible {
         switch self {
         case let .maxHRatio(operation, ratio): return .checkerWithFrame { operation($0.maxHeightRatio(with: $1), ratio) }
         case .bottomY: return .checkerWithFrame { $0.exist(in: .bottom, with: $1) }
-        case .isLowWIthTail:  return .checkerWithFrame { $0.lowWithTail(with: $1) }
+        case .isLowWithTail:  return .checkerWithFrame { $0.lowWithTail(with: $1) }
+        case .isLowWithTailCustom:  return .checkerWithFrame { $0.lowWithTailCustom(with: $1) }
         case .squareForDot: return .frame { (0.66...1.5).contains($0.ratio) }
         case .dashOrHyphen: return .recognizerWithFrame { $0.recognize(from: $1, with: dashOrHyphenOCRTree) == "-" }
         case .quotesOrColumn: return .checkerWithFrame { $0.quotesOrColumn(with: $1) }
@@ -55,7 +57,8 @@ enum LetterTypeOperations: CustomStringConvertible {
         switch self {
         case .squareForDot: return "squareForDot"
         case let .maxHRatio(_, ratio): return "maxHRatio: \(ratio)"
-        case .isLowWIthTail: return "isLowWithTail"
+        case .isLowWithTail: return "isLowWithTail"
+        case .isLowWithTailCustom: return "isLowWIthTailCustom"
         case .dashOrHyphen: return "dashOrHyphen"
         case .bottomY: return "bottomY"
         case .quotesOrColumn: return "quotesOrColumn"

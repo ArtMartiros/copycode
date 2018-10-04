@@ -48,6 +48,9 @@
 		AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
 		AC2181412163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
 		AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2181432164C83700515FBD /* sc2_custom_letters.json */; };
+		AC2181472165060500515FBD /* sc2_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2181462165060500515FBD /* sc2_type.swift */; };
+		AC218149216507A500515FBD /* CustomTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC218148216507A500515FBD /* CustomTypeTests.swift */; };
+		AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */; };
 		AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2405582114B19200017B6F /* TreeLetterType.swift */; };
 		AC250A5E214EBC4500E6D596 /* TextTranscriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */; };
@@ -331,6 +334,9 @@
 		AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPosInfoFinder.swift; sourceTree = "<group>"; };
 		AC21813F2163F89200515FBD /* TrackingFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinder.swift; sourceTree = "<group>"; };
 		AC2181432164C83700515FBD /* sc2_custom_letters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters.json; sourceTree = "<group>"; };
+		AC2181462165060500515FBD /* sc2_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc2_type.swift; sourceTree = "<group>"; };
+		AC218148216507A500515FBD /* CustomTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTypeTests.swift; sourceTree = "<group>"; };
+		AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block_creator_grid.json; sourceTree = "<group>"; };
 		AC2405582114B19200017B6F /* TreeLetterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterType.swift; sourceTree = "<group>"; };
 		AC250A5D214EBC4500E6D596 /* TextTranscriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTranscriptor.swift; sourceTree = "<group>"; };
 		AC250A60214EC02A00E6D596 /* TypographicalGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographicalGrid.swift; sourceTree = "<group>"; };
@@ -547,6 +553,7 @@
 				AC250A6B214EE92900E6D596 /* LeadingTests.swift */,
 				AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */,
 				AC4419162162675100248DCC /* CustomOCRTests.swift */,
+				AC218148216507A500515FBD /* CustomTypeTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -642,6 +649,7 @@
 		AC199EAA211A98AA00B53656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC218145216505E600515FBD /* Type */,
 				AC441918216270BF00248DCC /* Custom */,
 				AC7734A3215C07CA009617F7 /* TrackingInfo */,
 				ACF8D10A2156BF2F00DF4A38 /* Blocks */,
@@ -693,6 +701,14 @@
 				AC95B4C9214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift */,
 			);
 			path = TrackingFinder;
+			sourceTree = "<group>";
+		};
+		AC218145216505E600515FBD /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				AC2181462165060500515FBD /* sc2_type.swift */,
+			);
+			path = Type;
 			sourceTree = "<group>";
 		};
 		AC31C3C82114565600E09F91 /* Tree */ = {
@@ -778,10 +794,10 @@
 		AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */ = {
 			isa = PBXGroup;
 			children = (
-				AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */,
-				AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */,
-				AC8C0AA9214A605600F0FD13 /* LeadingChecker.swift */,
 				AC8C0AAC214A67CC00F0FD13 /* LeadingFinder.swift */,
+				AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */,
+				AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */,
+				AC8C0AA9214A605600F0FD13 /* LeadingChecker.swift */,
 			);
 			path = LeadingFinder;
 			sourceTree = "<group>";
@@ -918,6 +934,7 @@
 			children = (
 				ACF8D10B2156BF6E00DF4A38 /* sc1_text_view_creator.json */,
 				AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */,
+				AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1089,6 +1106,7 @@
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
+				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
@@ -1465,8 +1483,10 @@
 				ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC790433215CBE37001D1FB1 /* TrackingPixelConverter.swift in Sources */,
+				AC218149216507A500515FBD /* CustomTypeTests.swift in Sources */,
 				AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */,
 				AC71FB682112EAC400EE41C6 /* LineCreator.swift in Sources */,
+				AC2181472165060500515FBD /* sc2_type.swift in Sources */,
 				AC95B4C6214152120007B5C5 /* ClosedRangeTests.swift in Sources */,
 				AC4CA3FD21025DDF0093D938 /* VNRectangleObservation.swift in Sources */,
 				AC250A6C214EE92900E6D596 /* LeadingTests.swift in Sources */,

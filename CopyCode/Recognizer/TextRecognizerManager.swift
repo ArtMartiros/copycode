@@ -71,6 +71,13 @@ final class TextRecognizerManager {
             let blocksWithTypes = blocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
+//            for block in blocks {
+//                if case .grid(let grid) = block.typography {
+//                    let value = CodableHelper.encode(block)
+//                    
+//                    print(value)
+//                }
+//            }
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)

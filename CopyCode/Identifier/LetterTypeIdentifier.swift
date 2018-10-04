@@ -51,8 +51,13 @@ struct LetterTypeIdentifier {
         case .grid(let grid):
             let frame = grid.leading.createVirtualFrame(from: letters[0].frame)
             let newWordInformation = WordInformation(standartLetter: frame)
-            let types = letters.compactMap {
-                gridUndefineType.find($0, with: newWordInformation, recognizer: recognizer)
+            
+            var types: [LetterType] = []
+            for(index, letter) in letters.enumerated() {
+                print("\n LetterTypeIdentifier letterIndex \(index), height: \(letter.frame.height) ")
+                let type = gridUndefineType.find(letter, with: newWordInformation, recognizer: recognizer)
+                print("LetterType: \(type)")
+                types.append(type)
             }
             return types
         }
@@ -62,51 +67,61 @@ struct LetterTypeIdentifier {
 struct WordInformation: TypeChecker {
     private let _midDiffRate: CGFloat = 30
 
-    private let checker: Checker
+    private let checker = Checker()
     let maxHeightChar: CGRect
     let lowerYChar: CGRect
     let word: CGRect
     init(max: Rectangle, lowerY: Rectangle, word: Rectangle) {
         self.maxHeightChar = max.frame
         self.lowerYChar = lowerY.frame
-        self.checker = Checker(height: maxHeightChar.height)
+//        self.checker = Checker(height: maxHeightChar.height)
         self.word = word.frame
     }
     
     init(standartLetter: CGRect) {
         self.maxHeightChar = standartLetter
         self.lowerYChar = standartLetter
-        self.checker = Checker(height: standartLetter.height)
+//        self.checker = Checker(height: standartLetter.height)
         self.word = standartLetter
     }
     
     func exist(in position: Position, with frame: CGRect) -> Bool {
         switch position {
         case .top:
-            return checker.isSame(first: word.topY, with: frame.topY, height: frame.height, accuracy: .high)
+            return checker.isSame(word.topY, with: frame.topY, height: frame.height, accuracy: .high)
         case .mid:
             return positionOf(currentY: frame.bottomY, relativeTo: word) > _midDiffRate
         case .bottom:
-            return checker.isSame(first: frame.bottomY, with: word.bottomY, accuracy: .high)
+            return checker.isSame(frame.bottomY, with: word.bottomY,
+                                  height: maxHeightChar.height, accuracy: .high)
         }
     }
     
     func maxHeightRatio(with frame: CGRect) -> CGFloat {
         let ratio = frame.height / maxHeightChar.height
-        print("Ratio: \(ratio)")
+        print("Ratio: \(ratio) = \(frame.height) / \(maxHeightChar.height)")
         return ratio
     }
     
     func lowWithTail(with frame: CGRect) -> Bool {
         print("first top \(frame), second top \(lowerYChar.bottomY) ")
-        //FIXME поменял аккуратность с superHigh до high
-        let same = checker.isSame(first: frame.bottomY, with: lowerYChar.bottomY, height: frame.height, accuracy: 0.06)
+        let same = checker.isSame(frame.bottomY, with: lowerYChar.bottomY, height: frame.height, accuracy: .superHigh)
         print("lowWithTail \(same)")
         return same
     }
     
+    func lowWithTailCustom(with frame: CGRect) -> Bool {
+        let topDifferent =  word.topY - frame.topY
+        let bottomDifferent = frame.bottomY - lowerYChar.bottomY
+        let different = topDifferent - bottomDifferent
+        print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
+        let differenceRate = different / word.height * 100
+        print("differenceRate \(differenceRate )")
+        return differenceRate > 15
+    }
+    
     func quotesOrColumn(with frame: CGRect) -> Bool {
-        let same = checker.isSame(first: word.topY, with: frame.topY, height: frame.height, accuracy: .superLow)
+        let same = checker.isSame(word.topY, with: frame.topY, height: frame.height, accuracy: .superLow)
         let inTheMid = positionOf(currentY: frame.bottomY, relativeTo: word) > _midDiffRate
         return same && inTheMid
     }

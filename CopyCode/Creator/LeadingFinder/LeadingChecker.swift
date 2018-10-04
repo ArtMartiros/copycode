@@ -15,15 +15,26 @@ struct LeadingChecker {
         self.maxLineHeight = maxLineHeight
     }
     
-    func check(_ lines: [Line<LetterRectangle>], with distance: CGFloat, at point: CGFloat) -> Bool {
-        let allCorrespond = lines.first { !check($0, with: distance, at: point) } == nil
-        return allCorrespond
+    func check(_ lines: [Line<LetterRectangle>], with distance: CGFloat,
+               at point: CGFloat) -> SimpleSuccess<Leading.Rate> {
+        var errorRateSum: CGFloat = 0
+        var preciseRateSum: CGFloat = 0
+        
+        lineLoop: for line in lines {
+            let result = check(line, with: distance, at: point)
+            switch result {
+            case .failure: return .failure
+            case .success(let errorRate, let preciseRate):
+                errorRateSum += errorRate
+                preciseRateSum += preciseRate
+            }
+        }
+        return .success((errorRateSum, preciseRateSum))
     }
     
-    private func check(_ line: Line<LetterRectangle>, with distance: CGFloat, at point: CGFloat) -> Bool {
+    private func check(_ line: Line<LetterRectangle>, with distance: CGFloat, at point: CGFloat) -> SimpleSuccess<Leading.Rate> {
         let leading = Leading(fontSize: maxLineHeight, lineSpacing: distance - maxLineHeight, startPointTop: point)
-        let isInside = leading.checkIsFrameInsideLinePosition(frame: line.frame)
-        return isInside
+        return leading.checkIsFrameInsideLinePosition(frame: line.frame)
     }
 }
 

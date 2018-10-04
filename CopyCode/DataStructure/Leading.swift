@@ -26,18 +26,35 @@ extension Leading {
         return fontSize + lineSpacing
     }
 
-    func checkIsFrameInsideLinePosition(frame: CGRect) -> Bool {
+    typealias Rate = (errorRate: CGFloat, preciseRate: CGFloat)
+
+    func checkIsFrameInsideLinePosition(frame: CGRect) -> SimpleSuccess<Rate> {
         let point = findNearestPointTop(to: frame)
-        let errorRate: CGFloat = 1
-        guard !(point < frame.topY &&
-            !EqualityChecker.check(of: point, with: frame.topY, errorPercentRate: errorRate))
-            else { return false }
-        
+        let errorPercent: CGFloat = 10
         let lowerPoint = point - fontSize
-        if lowerPoint <= frame.bottomY {
-            return true
+        let topDiffOrError = abs(frame.topY - point)
+        let botDiffOrError = abs(frame.bottomY - lowerPoint)
+        let checker = Checker()
+        if point >= frame.topY {
+            if lowerPoint <= frame.bottomY {
+                return .success((0,topDiffOrError + botDiffOrError))
+            } else {
+                guard checker.isSame(lowerPoint, with: frame.bottomY, relativelyTo: fontSize, accuracy: errorPercent)
+                    else { return .failure }
+                
+                return .success((botDiffOrError, topDiffOrError))
+            }
         } else {
-            return EqualityChecker.check(of: lowerPoint, with: frame.bottomY, errorPercentRate: errorRate)
+            guard checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: errorPercent)
+                else { return .failure }
+            
+            if lowerPoint <= frame.bottomY {
+                return .success((topDiffOrError,botDiffOrError))
+            } else {
+                guard checker.isSame(lowerPoint, with: frame.bottomY, relativelyTo: fontSize, accuracy: errorPercent)
+                    else { return .failure }
+                return .success((botDiffOrError + topDiffOrError, 0))
+            }
         }
     }
     
@@ -76,8 +93,10 @@ extension Leading {
     ///topY
     func findStartPoint(inside frame: CGRect) -> CGFloat {
         let point = findNearestPointTop(to: frame)
+        let checker = Checker()
+        
         var startPoint = point
-        if point > frame.topY, !EqualityChecker.check(of: point, with: frame.topY, errorPercentRate: 10) {
+        if point > frame.topY, !checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: 10) {
             startPoint -= leading
         }
         return startPoint

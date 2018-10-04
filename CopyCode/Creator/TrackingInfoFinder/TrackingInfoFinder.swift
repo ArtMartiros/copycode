@@ -198,9 +198,11 @@ extension TrackingInfoFinder {
         return range.intesected(with: secondRange) != nil
     }
 }
-
+protocol ErrorRateProtocol {
+    var errorRate: CGFloat { get }
+}
 extension TrackingInfoFinder {
-    struct TrackingError {
+    struct TrackingError: ErrorRateProtocol {
         let tracking: Tracking
         let errorRate: CGFloat
     }

@@ -14,7 +14,7 @@ private let kUpperMaxRatio: CGFloat = 0.78
 private let kLowMaxRatio: CGFloat = 0.5//0.622
 private let kCommaMaxRatio: CGFloat = 0.37
 
-private let tailOrUpper: TreeLetterType = .n(.isLowWIthTail, .r(.lowWithTail), .r(.upper))
+private let tailOrUpper: TreeLetterType = .n(.isLowWithTail, .r(.lowWithTail), .r(.upper))
 private let quotesOrColumnTree: TreeLetterType = .n(.quotesOrColumn, .r(.quote), .r(.comma))
 private let dotsOrDash: TreeLetterType = .n(.squareForDot,
                                             .r(.dot),
@@ -28,15 +28,22 @@ let undefinedTypeTree: TreeLetterType = .n(.maxHRatio(>, kUpperMaxRatio),
                                                          quotesOrColumnTree,
                                                          dotsOrDash)))
 
-
+private let kGridOnlyUpperMaxRatio: CGFloat = 0.8
 private let kGridUpperMaxRatio: CGFloat = 0.6
 private let kGridLowMaxRatio: CGFloat = 0.45
-private let kGridCommaMaxRatio: CGFloat = 0.37
+private let kGridCommaMaxRatio: CGFloat = 0.28
 
-let gridUndefineType: TreeLetterType = .n(.maxHRatio(>, kGridUpperMaxRatio),
-                                          tailOrUpper,
-                                          .n(.maxHRatio(>, kGridLowMaxRatio),
-                                             .r(.low),
-                                             .n(.maxHRatio(>, kGridCommaMaxRatio),
-                                                quotesOrColumnTree,
-                                                dotsOrDash)))
+let quotesOrDots: TreeLetterType = .n(.maxHRatio(>, kGridCommaMaxRatio),
+                                      quotesOrColumnTree,
+                                      dotsOrDash)
+
+let gridTailOrUpper: TreeLetterType = .n(.isLowWithTailCustom, .r(.lowWithTail), .r(.upper))
+
+let gridUndefineType: TreeLetterType = .n(.maxHRatio(>, kGridOnlyUpperMaxRatio),
+                                          .r(.upper),
+                                          .n(.maxHRatio(>, kGridUpperMaxRatio),
+                                             gridTailOrUpper,
+                                             .n(.maxHRatio(>, kGridLowMaxRatio),
+                                                .r(.low),
+                                                quotesOrDots)))
+

@@ -21,8 +21,8 @@ struct LeadingFinder {
         let result = distanceFinder.find()
         switch result {
         case .success(let range):
-            let leadings = startPointFinder.find(in: range)
-            return leadings.last
+            let leading = startPointFinder.find(in: range)
+            return leading
         case .failure:  return nil
         }
     }

@@ -19,7 +19,7 @@ struct Settings {
     private static let defaultShowText = false
     private static let defaultShowGrid = false
 
-    static let showBlock =  isDefault ? defaultShowBlock : false
+    static let showBlock =  isDefault ? defaultShowBlock : true
     static let showLines =  isDefault ? defaultShowLines : true
     static let showWords =  isDefault ? defaultShowWords : true
     static let showChars = isDefault ? defaultShowChars : true
