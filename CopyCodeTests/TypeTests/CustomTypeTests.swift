@@ -24,7 +24,6 @@ class CustomTypeTests: XCTestCase {
             print("Letters coun: \(letters.count)")
             let rightLetterTypes =  Scene.sc2.getLetterTypes(for: lineIndex)
             for (letterIndex, letter) in letters.enumerated() {
-                
                 let rightLetter = rightLetterTypes[letterIndex]
                 XCTAssertEqual(letter, rightLetter, "Line: \(lineIndex), letter: \(letterIndex)")
             }

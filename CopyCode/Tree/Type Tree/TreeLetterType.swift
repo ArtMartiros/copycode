@@ -9,7 +9,8 @@
 import Foundation
 
 extension Tree where Node == LetterTypeOperations, Result == LetterType {
-    func find(_ rect: Rectangle, with information: WordInformation, recognizer: LetterRecognizer) -> LetterType {
+    func find(_ rect: LetterRectangle, with information: WordInformation, recognizer: LetterRecognizer) -> LetterType {
+        guard rect.type == .undefined else { return rect.type }
         switch self {
         case .empty: return .undefined
         case .r(let result): return result

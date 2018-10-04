@@ -33,7 +33,7 @@ extension Tracking {
     
     private var kErrorTrackingWidthPercent: CGFloat { return 30 }
     
-    //разбивает frame с помощью tracking
+    //разбивает frame с помощью tracking на мелкие фреймы
     func missingCharFrames(in frame: CGRect) -> [CGRect] {
         let updatedFrame = updateFrame(from: frame)
         var frames = updatedFrame.chunkToSmallRects(byWidth: width)

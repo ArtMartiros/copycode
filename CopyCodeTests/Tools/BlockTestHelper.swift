@@ -124,6 +124,8 @@ extension LetterType {
             self = .underscore
         } else if letter == "," {
             self = .comma
+        } else if letter == "\"" {
+            self = .doubleQuote
         } else {
             self = .undefined
         }

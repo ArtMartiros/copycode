@@ -25,9 +25,6 @@ extension TrackingDistanceFinder {
                     if gapItem.leftX != smallestGap.leftX {
                         if let newRange = getUpdatedRange(gapItem, smallestItem: smallestGap, distance: updatedRange) {
                             updatedRange = updatedRange.clamped(to: newRange)
-                            //                        print("updatedRange \(updatedRange)")
-                            //                        print("newRange \(newRange)")
-                            //                        print("*****************\n")
                         }
                     }
                 }

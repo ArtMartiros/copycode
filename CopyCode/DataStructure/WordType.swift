@@ -90,6 +90,7 @@ enum LetterType: String, Codable {
     case dashOrHyphen
     case comma
     case quote
+    case doubleQuote
     case custom
     case undefined
 }

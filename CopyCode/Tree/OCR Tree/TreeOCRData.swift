@@ -40,9 +40,9 @@ extension LetterType {
         case .comma: return commaOCRTree
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
-        case .custom:
-
-            return customOCRTree
+        case .custom: return customOCRTree
+        case .doubleQuote: return .r("\"")
+            
         }
     }
 }

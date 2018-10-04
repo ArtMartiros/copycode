@@ -34,6 +34,7 @@ final class TextRecognizerManager {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
+            let restorer = LetterRestorer()
             
             let bitmap = image.bitmap
             print(bitmap.pixelSize)
@@ -48,6 +49,7 @@ final class TextRecognizerManager {
             Timer.stop(text: "WordRectangles Converted")
             
             let blocks = blockCreator.create(from: wordsRectangles)
+            let restoredBlocks = blocks.map { restorer.restore($0) }
             Timer.stop(text: "BlockCreator created")
             
 //            let oneBlock = blocks.filter {
@@ -68,10 +70,10 @@ final class TextRecognizerManager {
 //            let value = CodableHelper.encode(letters)
 //
 //            print(value)
-            let blocksWithTypes = blocks.map { typeConverter.convert($0) }
+            let blocksWithTypes = restoredBlocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
-//            for block in blocks {
+//            for block in restoredBlocks {
 //                if case .grid(let grid) = block.typography {
 //                    let value = CodableHelper.encode(block)
 //                    

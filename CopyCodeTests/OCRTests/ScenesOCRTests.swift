@@ -13,7 +13,7 @@ class ScenesOCRTests: XCTestCase {
     func testExample() {
         let block = Scene.sc2.getGridWithTypeBlock(self)
         let bitmap = Scene.sc2.image.bitmap
-        for (lineIndex, line) in block.lines.enumerated() where lineIndex == 0 {
+        for (lineIndex, line) in block.lines.enumerated() {
             let rightLine = Array(Scene.sc2.getLetters(for: lineIndex))
             var index = 0
             

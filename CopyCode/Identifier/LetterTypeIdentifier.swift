@@ -74,14 +74,12 @@ struct WordInformation: TypeChecker {
     init(max: Rectangle, lowerY: Rectangle, word: Rectangle) {
         self.maxHeightChar = max.frame
         self.lowerYChar = lowerY.frame
-//        self.checker = Checker(height: maxHeightChar.height)
         self.word = word.frame
     }
     
     init(standartLetter: CGRect) {
         self.maxHeightChar = standartLetter
         self.lowerYChar = standartLetter
-//        self.checker = Checker(height: standartLetter.height)
         self.word = standartLetter
     }
     

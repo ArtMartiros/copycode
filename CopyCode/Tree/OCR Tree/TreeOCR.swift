@@ -407,12 +407,10 @@ extension CGRect {
         var updatedFrame = self
         
         for _ in 0..<4 {
-            print("+++")
             let newFrame = updatedFrame.update(plus: 1, in: initialStatus ? .offset(direction) : .inset(direction))
             let status = completion(newFrame)
             //если инсет то нужно принять изменения фрейма
             if status { updatedFrame = newFrame }
-            print("+++ \(updatedFrame)")
             if initialStatus != status { break }
             updatedFrame = newFrame
         }

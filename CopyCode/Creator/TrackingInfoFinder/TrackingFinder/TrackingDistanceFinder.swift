@@ -59,10 +59,9 @@ struct TrackingDistanceFinder {
             if rate > kLetterWidthRate { additionCount += 1 }
             else if rate > 2.8 { additionCount += 2 }
         }
-        var widths: [CGFloat] = []
+
         gaps.forEachPair {
             let width = abs($0.rightX - $1.leftX)
-            widths.append(width)
             if let number = additionalNumberIfStuck(width: width, preliminaryAverageSize: preliminaryAverageSize) {
                 additionCount += number
             }
