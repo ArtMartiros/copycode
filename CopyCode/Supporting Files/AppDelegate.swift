@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Mixpanel
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
+
         BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
         // Do some additional configuration if needed here
         //больше не должно требовать пароля
@@ -53,6 +56,7 @@ extension AppDelegate {
     
     @objc func screeenCapture() {
         Timer.start()
+        Mixpanel.mainInstance().time(event: Mixpanel.kImageRecognize)
         let image = shotCreator.capture()
         Timer.stop(text: "screen shot")
         panel.openPanel(with: image!)

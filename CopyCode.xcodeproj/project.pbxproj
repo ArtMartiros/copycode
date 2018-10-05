@@ -144,6 +144,8 @@
 		AC71FB7A2112F1BB00EE41C6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB782112F1BB00EE41C6 /* Block.swift */; };
 		AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
 		AC71FB7D2112F1F300EE41C6 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC71FB7B2112F1F300EE41C6 /* Column.swift */; };
+		AC7310C92167C38F00FB4D8B /* MixpanelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */; };
+		AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */; };
 		AC74061E21563AD6007AC07E /* BlockPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74061D21563AD6007AC07E /* BlockPreparator.swift */; };
 		AC74061F21563AD6007AC07E /* BlockPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74061D21563AD6007AC07E /* BlockPreparator.swift */; };
 		AC7734A1215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */; };
@@ -391,6 +393,7 @@
 		AC71FB752112F17E00EE41C6 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		AC71FB782112F1BB00EE41C6 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelConstants.swift; sourceTree = "<group>"; };
 		AC74061D21563AD6007AC07E /* BlockPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreparator.swift; sourceTree = "<group>"; };
 		AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoFormatter.swift; sourceTree = "<group>"; };
 		AC7734A4215C07EA009617F7 /* tracking_info_sc1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tracking_info_sc1.json; sourceTree = "<group>"; };
@@ -619,6 +622,7 @@
 				AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */,
 				AC8C0AA6214A568D00F0FD13 /* Slicer.swift */,
 				AC15F81B214CE102001DC55E /* SortedArray.swift */,
+				AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1226,6 +1230,7 @@
 				"${PODS_ROOT}/HockeySDK-Mac/HockeySDK-Mac/HockeySDK.framework",
 				"${PODS_ROOT}/HockeySDK-Mac/HockeySDK-Mac/HockeySDK.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/MASShortcut/MASShortcut.framework",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -1234,6 +1239,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HockeySDK.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/HockeySDK.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MASShortcut.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1340,6 +1346,7 @@
 				AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */,
 				ACDA6DBE215E724B00A7AA62 /* DrawTextView.swift in Sources */,
 				AC06D89720FF514700770DBB /* PanelController.swift in Sources */,
+				AC7310C92167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
 				ACAF237121381C95009D8409 /* Gap.swift in Sources */,
 				AC06D89A20FF51CF00770DBB /* TextDetection.swift in Sources */,
 				ACDA4A7B2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */,
@@ -1433,6 +1440,7 @@
 				AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
 				AC95B4B9214139FB0007B5C5 /* TrackingDistanceFinderTests.swift in Sources */,
 				AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */,
+				AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
 				AC8EB594213EBF72003D345B /* Collection.swift in Sources */,

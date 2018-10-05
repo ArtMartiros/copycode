@@ -9,6 +9,7 @@ target 'CopyCode' do
 
 pod 'MASShortcut'
 pod 'HockeySDK-Mac', '~> 5.1.0'
+pod 'Mixpanel-swift'
 
   target 'CopyCodeTests' do
     inherit! :search_paths

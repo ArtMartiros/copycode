@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Mixpanel
 
 class PanelController: NSWindowController {
     var observer: NSObjectProtocol?
@@ -87,7 +88,9 @@ class PanelController: NSWindowController {
 //            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }
 //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
 //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-//       
+//
+            Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
+            Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
     }
     

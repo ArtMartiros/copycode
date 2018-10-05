@@ -1,20 +1,26 @@
 PODS:
   - HockeySDK-Mac (5.1.0)
   - MASShortcut (2.3.6)
+  - Mixpanel-swift (2.4.4):
+    - Mixpanel-swift/Complete (= 2.4.4)
+  - Mixpanel-swift/Complete (2.4.4)
 
 DEPENDENCIES:
   - HockeySDK-Mac (~> 5.1.0)
   - MASShortcut
+  - Mixpanel-swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - HockeySDK-Mac
     - MASShortcut
+    - Mixpanel-swift
 
 SPEC CHECKSUMS:
   HockeySDK-Mac: b313b42665ee33546a861996ad60267f86bfd585
   MASShortcut: 9c215e8a8a78f3d01ce56da48e2730ab66b538fa
+  Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
 
-PODFILE CHECKSUM: 0ce7991ac7a370d0f872acdf1cc902f78b1ac619
+PODFILE CHECKSUM: fd384698397388bde835c915281f981c71ee18da
 
 COCOAPODS: 1.6.0.beta.1
