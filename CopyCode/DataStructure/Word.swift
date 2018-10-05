@@ -16,22 +16,31 @@ protocol Container: Rectangle {
 struct Word<Child:Rectangle>: Container, Gapable {
     
     var gaps: [Gap] {
+        let frames = letters.map { $0.frame }
+        return getGaps(from: frames)
+    }
+    
+    var pixelGaps: [Gap] {
+        let frames = letters.map { $0.pixelFrame }
+        return getGaps(from: frames)
+    }
+    
+    private func getGaps(from frames: [CGRect]) -> [Gap] {
         var gaps: [Gap] = []
-        letters.forEachPair {
+        frames.forEachPair {
             let gapFrame: CGRect
-            if $0.frame.rightX > $1.frame.leftX {
-                let width = $0.frame.rightX - $1.frame.leftX
-                let position = $1.frame.leftX + width / 2
+            if $0.rightX > $1.leftX {
+                let width = $0.rightX - $1.leftX
+                let position = $1.leftX + width / 2
                 gapFrame = CGRect(x: position, y: frame.bottomY, width: 0, height: frame.height)
             } else {
-                gapFrame = CGRect(left: $0.frame.rightX, right: $1.frame.leftX,
+                gapFrame = CGRect(left: $0.rightX, right: $1.leftX,
                                   top: frame.topY, bottom: frame.bottomY)
             }
-           gaps.append(Gap(frame: gapFrame))
+            gaps.append(Gap(frame: gapFrame))
         }
         return gaps
     }
-    
     
     let frame: CGRect
     let pixelFrame: CGRect

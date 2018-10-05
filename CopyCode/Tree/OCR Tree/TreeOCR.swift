@@ -201,8 +201,9 @@ enum OCROperations: CustomStringConvertible {
         case .expandFrame(let options): return .updateFrame {
             var newFrame = $1
             for direction in options.directions {
-                newFrame = newFrame.expandFrame(by: 1, times: 4, using: $0, in: direction, with: [1,5,9])
+                newFrame = newFrame.expandFrame(by: 1, times: 4, using: $0, in: direction, with: [0,1,5,9, 10])
             }
+            print("newFrame \(newFrame)")
             return newFrame
             }
         }
@@ -425,8 +426,9 @@ extension CGRect {
         var newFrame = self
         for _ in 0..<times {
             let temporaryFrame = newFrame.update(by: pixels, in: .offset(direction.optionSet))
-            
+            print("temporaryFrame \(temporaryFrame)")
             guard direction.completion(checker, points, temporaryFrame) else { break }
+            print("newFrame \(newFrame)")
             newFrame = temporaryFrame
         }
         return newFrame

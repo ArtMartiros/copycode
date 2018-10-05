@@ -113,7 +113,7 @@ class LetterTypeClassificationTests: XCTestCase {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
-        let recognizer = LetterRecognizer(bitmap, rectangle: word)
+        let recognizer = LetterRecognizer(bitmap, word: word)
         return LetterTypeIdentifier(information: information, recognizer: recognizer)
     }
 }

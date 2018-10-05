@@ -43,7 +43,7 @@ class TypeConverter {
         let information = WordInformation(max: word.letterWithMaxHeight!,
                                           lowerY: word.letterLowerY!,
                                           word: word)
-        let recognizer = LetterRecognizer(bitmap, rectangle: word)
+        let recognizer = LetterRecognizer(bitmap, word: word)
         let classification = LetterTypeIdentifier(information: information, recognizer: recognizer)
         let letters = getLetters(from: word.letters, using: classification, typography: typography)
         return Word(rect: word, type: .mix, letters: letters)

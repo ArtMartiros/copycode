@@ -49,6 +49,7 @@ final class TextRecognizerManager {
             Timer.stop(text: "WordRectangles Converted")
             
             let blocks = blockCreator.create(from: wordsRectangles)
+            Timer.stop(text: "LetterRestorer restored")
             let restoredBlocks = blocks.map { restorer.restore($0) }
             Timer.stop(text: "BlockCreator created")
             

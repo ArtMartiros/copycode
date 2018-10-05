@@ -11,15 +11,15 @@ import AppKit
 struct LetterRecognizer {
     
     private let bitmap: NSBitmapImageRep
-    private let backgroundWhiteColor: CGFloat
+    private let wordBackgroundWhiteColor: CGFloat
     private let letterColorFinder: LetterWhiteColorProtocol
     private let wordFactor: WordFactor
     init(in bitmap: NSBitmapImageRep,
-         backgroundWhiteColor: CGFloat,
+         wordBackgroundWhiteColor: CGFloat,
          letterColorFinder: LetterWhiteColorProtocol,
          wordFactor: WordFactor) {
         self.bitmap = bitmap
-        self.backgroundWhiteColor = backgroundWhiteColor
+        self.wordBackgroundWhiteColor = wordBackgroundWhiteColor
         self.letterColorFinder = letterColorFinder
         self.wordFactor = wordFactor
     }
@@ -36,28 +36,28 @@ struct LetterRecognizer {
     }
     
     func recognize(from letter: LetterRectangle) -> String {
-        print("Letter pf size \(letter.pixelFrame.size)")
+        print("Letter pf frame \(letter.pixelFrame)")
         return recognize(from: letter.pixelFrame, with: letter.type)
     }
     
     private func letterExistenceChecker(from frame: CGRect) -> LetterExistenceChecker {
-        let letterDefaultColor = letterColorFinder.findedLetterColor(frame, with: backgroundWhiteColor)
-        let pixelChecker = LetterPixelChecker(backgroundWhite: backgroundWhiteColor,
+        let letterDefaultColor = letterColorFinder.findedLetterColor(frame, with: wordBackgroundWhiteColor)
+        let pixelChecker = LetterPixelChecker(backgroundWhite: wordBackgroundWhiteColor,
                                               letterDefaultWhite: letterDefaultColor,
                                               whitePercent: wordFactor.whiteRate)
         
-        print("LetterDefaultColor \(letterDefaultColor), bg \(backgroundWhiteColor)")
+        print("LetterDefaultColor \(letterDefaultColor), bg \(wordBackgroundWhiteColor)")
         let checker = LetterExistenceChecker(bitmap, pixelChecker: pixelChecker)
         return checker
     }
 }
 
 extension LetterRecognizer {
-    init<T: Rectangle> (_ bitmap: NSBitmapImageRep, rectangle: Word<T> ) {
+    init<T: Rectangle> (_ bitmap: NSBitmapImageRep, word: Word<T> ) {
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
-        let bgColor = colorFinder.findedBackgroundColor(rectangle)
-        let wordFactor = WordFactor(rectangle: rectangle)
-        self.init(in: bitmap, backgroundWhiteColor: bgColor, letterColorFinder: colorFinder, wordFactor: wordFactor)
+        let bgColor = colorFinder.findBackgroundColor(word)
+        let wordFactor = WordFactor(rectangle: word)
+        self.init(in: bitmap, wordBackgroundWhiteColor: bgColor, letterColorFinder: colorFinder, wordFactor: wordFactor)
     }
 }
 

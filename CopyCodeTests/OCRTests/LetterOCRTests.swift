@@ -205,7 +205,7 @@ class LetterOCRTests: XCTestCase {
                                                 structType: [Answer].self) else { return }
         let textManager = TextRecognizerManager()
         textManager.testPerformReques(image: image) { (bitmap, words) in
-            let letterRecognizer = LetterRecognizer(bitmap, rectangle: words[0])
+            let letterRecognizer = LetterRecognizer(bitmap, word: words[0])
             let letters = words[0].letters
             print("LettersCount: \(letters.count)")
             for (index, letter) in letters.enumerated() {

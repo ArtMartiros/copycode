@@ -11,15 +11,15 @@ import XCTest
  //23 ошибки в letter
 class ScenesOCRTests: XCTestCase {
     
-    func testScene2OCR() {
+    func testOCRScene2() {
         let block = Scene.sc2.getGridWithTypeBlock(self)
         let bitmap = Scene.sc2.image.bitmap
         var allIndex = 0
-        for (lineIndex, line) in block.lines.enumerated() where lineIndex == 6 {
+        for (lineIndex, line) in block.lines.enumerated() {
             let rightLine = Array(Scene.sc2.getLetters(for: lineIndex))
 
-            for (wordIndex, word) in line.words.enumerated() where wordIndex == 2 {
-                let recognizer = LetterRecognizer(bitmap, rectangle: word)
+            for (wordIndex, word) in line.words.enumerated() {
+                let recognizer = LetterRecognizer(bitmap, word: word)
                 var startIndex = line.words[0..<wordIndex].map { $0.letters }.reduce([], +).count
                 
                 for (letterIndex, letter) in word.letters.enumerated() {

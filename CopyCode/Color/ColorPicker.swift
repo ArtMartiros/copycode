@@ -27,7 +27,7 @@ struct ColorPicker {
 protocol BackgroundWhiteColorProtocol {
     /// Нужен для того, чтобы определить какого цвета background
     /// Необходим, чтобы знать от какого цвета отталкиваться при поиске цвета буквы
-    func findedBackgroundColor<T: Rectangle> (_ wordRectangle: Word<T>) -> CGFloat 
+    func findBackgroundColor<T: Rectangle> (_ wordRectangle: Word<T>) -> CGFloat 
 }
 
 protocol LetterWhiteColorProtocol {
@@ -43,11 +43,34 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
         self.picker = picker
     }
     
-    func findedBackgroundColor<T: Rectangle> (_ wordRectangle: Word<T>) -> CGFloat {
-        let frame = wordRectangle.pixelFrame
-        let point = CGPoint(x: frame.xAs(rate: 0), y: frame.yAs(rate: 0))
-        let newPoint = CGPoint(x: point.x - 1, y: point.y + 1)
-        return picker.pickWhite(at: newPoint)
+    ///если есть гапы, то ищем значение фона внутри них
+    ///в противном слуучае в левом верзнем углу
+    func findBackgroundColor<T: Rectangle> (_ word: Word<T>) -> CGFloat {
+        let points = getPoints(from: word)
+        if points.isEmpty {
+            let frame = word.pixelFrame
+            let newPoint = CGPoint(x: frame.xAs(rate: 0) - 2, y: frame.yAs(rate: 0) + 2)
+            return picker.pickWhite(at: newPoint)
+        } else {
+           let whiteColors = points.map { picker.pickWhite(at: $0) }
+            let sortedWhites = whiteColors.sorted { $0 < $1 }
+            let zeroColors = whiteColors.map { abs(0 - $0) }.reduce(0, +)
+            let oneColors = whiteColors.map { abs(1 - $0) }.reduce(0, +)
+            if zeroColors < oneColors {
+                return sortedWhites.first!
+            } else {
+                return sortedWhites.last!
+            }
+        }
+    }
+    
+    private func getPoints<T: Rectangle>(from word: Word<T>) -> [CGPoint] {
+        let requiredNumber = 3
+        let gaps = word.pixelGaps.filter { $0.frame.width > 1 }.sorted { $0.frame.width > $1.frame.width }
+        let prefix = gaps.count < requiredNumber ? gaps.count : requiredNumber
+        let filteredGaps = gaps[0..<prefix]
+        let newPoints = filteredGaps.map { CGPoint(x: $0.frame.xAs(rate: 0.5), y: $0.frame.yAs(rate: 0.5)) }
+        return newPoints
     }
     
     private let defaultLetterColorDifference: CGFloat = 0.7

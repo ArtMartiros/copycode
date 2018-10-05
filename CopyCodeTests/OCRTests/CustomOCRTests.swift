@@ -35,7 +35,7 @@ class CustomOCRTests: XCTestCase {
         let letters = scene.getCustomLetters(self)
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let wordFactor = WordFactor(rectangle: letters[0])
-        let recognizer = LetterRecognizer(in: bitmap, backgroundWhiteColor: 1,
+        let recognizer = LetterRecognizer(in: bitmap, wordBackgroundWhiteColor: 1,
                                           letterColorFinder: colorFinder, wordFactor: wordFactor)
         var chars: [String] = []
         if let number = number {
