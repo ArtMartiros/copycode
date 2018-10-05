@@ -52,6 +52,7 @@ extension CGRect {
     }
 }
 
+
 extension CGRect {
     ///  0 == same, 1 == size of frame
     func expand(addingOfRatio value: CGFloat, in dimension: Direction) -> CGRect {
@@ -71,8 +72,8 @@ extension CGRect {
         }
     }
     
-    func update(plus value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
-        let direction: Direction
+    func update(by value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
+        let direction: DirectionOptions
         let newValue: CGFloat
         switch edgeDirection {
         case .inset(let d):
@@ -82,24 +83,29 @@ extension CGRect {
             newValue = CGFloat(value)
             direction = d
         }
-
-        switch direction {
-        case .bottom:
-            let newMinY = bottomY - newValue
-            return CGRect(x: origin.x, y: newMinY, width: width, height: height + newValue)
-        case .top:
-            return CGRect(x: origin.x, y: origin.y, width: width, height: height + newValue)
-        case .left:
-            let newMinX = leftX - newValue
-            return CGRect(x: newMinX, y: origin.y, width: width + newValue, height: height)
-        case .right:
-            return CGRect(x: origin.x, y: origin.y, width: width + newValue, height: height)
+        return update(by: newValue, in: direction)
+    }
+    
+   private func update(by pixels: CGFloat, in dimension: DirectionOptions) -> CGRect {
+        var newFrame = self
+        for direction in dimension.directions {
+            newFrame = update(by: pixels, in: direction)
+        }
+        return newFrame
+    }
+    
+    private func update(by pixels: CGFloat, in dimension: Direction) -> CGRect {
+        switch dimension {
+        case .left: return CGRect(left: leftX - pixels, right: rightX, top: topY, bottom: bottomY)
+        case .right: return CGRect(left: leftX, right: rightX + pixels, top: topY, bottom: bottomY)
+        case .top: return CGRect(left: leftX, right: rightX, top: topY + pixels, bottom: bottomY)
+        case .bottom: return CGRect(left: leftX, right: rightX, top: topY, bottom: bottomY - pixels)
         }
     }
     
     enum EdgeDirection {
-        case inset(Direction)
-        case offset(Direction)
+        case inset(DirectionOptions)
+        case offset(DirectionOptions)
     }
 }
 

@@ -36,6 +36,7 @@ struct LetterRecognizer {
     }
     
     func recognize(from letter: LetterRectangle) -> String {
+        print("Letter pf size \(letter.pixelFrame.size)")
         return recognize(from: letter.pixelFrame, with: letter.type)
     }
     

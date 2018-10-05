@@ -11,7 +11,7 @@ import XCTest
 class CustomOCRTests: XCTestCase {
     let textRecognizer = TextRecognizerManager()
     
-    
+    //1 @
     func testScene1() {
         let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "=", "1", ".", "2", "=", "-", "="]
         let chars = getChars(from: .sc1)

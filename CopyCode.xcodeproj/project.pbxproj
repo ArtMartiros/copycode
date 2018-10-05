@@ -118,6 +118,7 @@
 		AC6493F3216646BC003A4164 /* sc2_block_creator_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */; };
 		AC6493F52166914A003A4164 /* LetterRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6493F42166914A003A4164 /* LetterRestorer.swift */; };
 		AC6493F62166914A003A4164 /* LetterRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6493F42166914A003A4164 /* LetterRestorer.swift */; };
+		AC6493F9216753D3003A4164 /* CGRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6493F8216753D3003A4164 /* CGRectTests.swift */; };
 		AC675775212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
 		AC675776212C578B0051C34A /* ClosedRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675774212C578B0051C34A /* ClosedRange.swift */; };
 		AC675778212C57CF0051C34A /* GapsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675777212C57CF0051C34A /* GapsCreator.swift */; };
@@ -375,6 +376,7 @@
 		AC6493F021663E61003A4164 /* ScenesOCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesOCRTests.swift; sourceTree = "<group>"; };
 		AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block_creator_grid_with_type.json; sourceTree = "<group>"; };
 		AC6493F42166914A003A4164 /* LetterRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterRestorer.swift; sourceTree = "<group>"; };
+		AC6493F8216753D3003A4164 /* CGRectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectTests.swift; sourceTree = "<group>"; };
 		AC675774212C578B0051C34A /* ClosedRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedRange.swift; sourceTree = "<group>"; };
 		AC675777212C57CF0051C34A /* GapsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GapsCreator.swift; sourceTree = "<group>"; };
 		AC67577A212C5A470051C34A /* CustomColumnCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColumnCreator.swift; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 			children = (
 				ACAF237621393B44009D8409 /* ArrayTests.swift */,
 				AC95B4C5214152120007B5C5 /* ClosedRangeTests.swift */,
+				AC6493F8216753D3003A4164 /* CGRectTests.swift */,
 			);
 			path = ExtensionsTests;
 			sourceTree = "<group>";
@@ -1521,6 +1524,7 @@
 				AC8C0AB4214AB14500F0FD13 /* LeadingDistanceFinderTests.swift in Sources */,
 				AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */,
+				AC6493F9216753D3003A4164 /* CGRectTests.swift in Sources */,
 				AC6493F121663E61003A4164 /* ScenesOCRTests.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC790433215CBE37001D1FB1 /* TrackingPixelConverter.swift in Sources */,

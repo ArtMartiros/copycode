@@ -8,24 +8,30 @@
 
 import XCTest
 
+ //23 ошибки в letter
 class ScenesOCRTests: XCTestCase {
     
-    func testExample() {
+    func testScene2OCR() {
         let block = Scene.sc2.getGridWithTypeBlock(self)
         let bitmap = Scene.sc2.image.bitmap
-        for (lineIndex, line) in block.lines.enumerated() {
+        var allIndex = 0
+        for (lineIndex, line) in block.lines.enumerated() where lineIndex == 6 {
             let rightLine = Array(Scene.sc2.getLetters(for: lineIndex))
-            var index = 0
-            
-            for (wordIndex, word) in line.words.enumerated() {
+
+            for (wordIndex, word) in line.words.enumerated() where wordIndex == 2 {
                 let recognizer = LetterRecognizer(bitmap, rectangle: word)
+                var startIndex = line.words[0..<wordIndex].map { $0.letters }.reduce([], +).count
+                
                 for (letterIndex, letter) in word.letters.enumerated() {
                     let value = recognizer.recognize(from: letter)
-                    let answer = rightLine[index]
+                    let answer = rightLine[startIndex]
                     XCTAssertEqual(value, answer, "l: \(lineIndex), w: \(wordIndex), c: \(letterIndex)")
-                    index += 1
+                    startIndex += 1
+                    allIndex += 1
                 }
             }
         }
+        
+        print(allIndex)
     }
 }

@@ -21,6 +21,9 @@ extension Tree where Node == OCROperations, Result == String {
             switch operation.action {
             case .checkerWithFrame(let action): exist = action(colorChecker, frame)
             case .frameRatio(let action): exist = action(frame)
+            case .updateFrame(let action):
+                let newFrame = action(colorChecker, frame)
+                return left.find(colorChecker, with: newFrame)
             }
             return (exist ? left : right).find(colorChecker, with: frame)
         }
@@ -29,13 +32,16 @@ extension Tree where Node == OCROperations, Result == String {
 
 enum OCROperations: CustomStringConvertible {
     typealias Operation = (_ checker: LetterExistenceChecker, _ frame: CGRect) -> Bool
+    typealias FrameOperation = (_ checker: LetterExistenceChecker, _ frame: CGRect) -> CGRect
     
     enum Action {
+        case updateFrame ((LetterExistenceChecker, CGRect) -> CGRect)
         case checkerWithFrame ((LetterExistenceChecker, CGRect) -> Bool)
         case frameRatio ((CGRect) -> Bool)
         
     }
     
+    case expandFrame(DirectionOptions)
     case tL, tR, tC, bL, bR, bC, lC, rC
     case tLr, lCr, rCr, tCr
     ///height / width
@@ -142,7 +148,7 @@ enum OCROperations: CustomStringConvertible {
         case let .xRange(x, y, op): return .checkerWithFrame { $0.exist(xRange: x, of: 10, y: y, with: $1, op: op) }
         case let .yRange(x, y, op): return .checkerWithFrame { $0.exist(yRange: y, of: 10, x: x, with: $1, op: op) }
         case .question: return .checkerWithFrame {
-            let frame = $1.update(plus: ($1.height / 2.4).uintRounded(), in: .offset(.bottom))
+            let frame = $1.update(by: ($1.height / 2.4).uintRounded(), in: .offset(.bottom))
             return $0.exist(yRange: 8...10, of: 10, x: 0.4, with: frame, op: .or) ||
                 $0.exist(yRange: 8...10, of: 10, x: 0.5, with: frame, op: .or)
             }
@@ -156,14 +162,14 @@ enum OCROperations: CustomStringConvertible {
                 $0.exist(xRange: 4...6, of: 10, y: 0.4, with: $1, op: .or))
             }
         case .semicolon: return .checkerWithFrame {
-            let topFrame = $1.update(plus: ($1.height / 1.1).uintRounded(), in: .offset(.top))
+            let topFrame = $1.update(by: ($1.height / 1.1).uintRounded(), in: .offset(.top))
             return $0.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
             }
         case .colon: return .checkerWithFrame (equalOperation)
         case .s_star: return .checkerWithFrame  {
             var newFrame = $1
             for direction in [Direction.left, Direction.right] {
-                newFrame = $1.update(using: $0, in: direction, points: [1, 2, 3])
+                newFrame = $1.update(by: 1, using: $0, in: direction, points: [1, 2, 3])
             }
             return $0.exist(xRange: 7...10, of: 10, y: 0.95, with: newFrame, op: .or)
             }
@@ -175,7 +181,7 @@ enum OCROperations: CustomStringConvertible {
 
             
         case .O_Q: return .checkerWithFrame {
-            let newFrame = $1.update(using: $0, in: .bottom, points: [9, 10])
+            let newFrame = $1.update(by: 1, using: $0, in: .bottom, points: [9, 10])
             return $0.exist(x: 0.5, y: 1, in: newFrame)
             }
 
@@ -192,6 +198,13 @@ enum OCROperations: CustomStringConvertible {
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
+        case .expandFrame(let options): return .updateFrame {
+            var newFrame = $1
+            for direction in options.directions {
+                newFrame = newFrame.expandFrame(by: 1, times: 4, using: $0, in: direction, with: [1,5,9])
+            }
+            return newFrame
+            }
         }
         
     }
@@ -251,6 +264,7 @@ enum OCROperations: CustomStringConvertible {
         case .doubleQuotesCustom: return "quotes"
         case .equalOrDashCustom: return "equalOrDashCustom"
         case .bracketOrArrowCustom: return "bracketOrArrowCustom"
+        case .expandFrame(let options ): return "expandFrame in \(options.directions)"
             
         }
     }
@@ -261,7 +275,7 @@ enum OCROperations: CustomStringConvertible {
         case inside
         case endOut
     }
-    
+
     private var columnOrDot: Operation {
         return { checker, frame in
             return  checker.exist(yRange: 3...4, of: 10, x: 0.5, with: frame, op: .or) &&
@@ -275,6 +289,7 @@ enum OCROperations: CustomStringConvertible {
                 checker.exist(xRange: 1...2, of: 10, y: 0.9, with: frame, op: .or)
         }
     }
+    
     //пока оставлю так
     private var equalOrDashOperation: Operation {
         return { checker, frame in
@@ -334,9 +349,9 @@ enum OCROperations: CustomStringConvertible {
 
     private var equalOperation: Operation {
         return { checker, frame in
-            let distance = (frame.height * 3).uintRounded()
-            let topFrame = frame.update(plus: distance, in: .offset(.top))
-            let bottomFrame = frame.update(plus: distance, in: .offset(.bottom))
+            let distance = (frame.height * 2).uintRounded()
+            let topFrame = frame.update(by: distance, in: .offset(.top))
+            let bottomFrame = frame.update(by: distance, in: .offset(.bottom))
             
             return checker.exist(yRange: 0...3, of: 10, x: 0.5, with: topFrame, op: .or) ||
                 checker.exist(yRange: 7...10, of: 10, x: 0.5, with: bottomFrame, op: .or)
@@ -392,23 +407,40 @@ enum OCROperations: CustomStringConvertible {
     }
 }
 
-extension CGRect {
-  fileprivate  func update(using checker: LetterExistenceChecker, in direction: Direction, points: [Int]) -> CGRect {
-        let completion: (CGRect) -> Bool
-        switch direction {
-        case .top: completion = { checker.exist(xArray: points, of: 10, y: 0, with: $0, op: .or) }
-        case .left: completion = { checker.exist(yArray: points, of: 10, x: 0, with: $0, op: .or) }
-        case .right: completion = { checker.exist(yArray: points, of: 10, x: 1, with: $0, op: .or) }
-        case .bottom: completion = { checker.exist(xArray: points, of: 10, y: 1, with: $0, op: .or) }
+extension Direction {
+    fileprivate var completion: (LetterExistenceChecker, [Int], CGRect) -> Bool {
+        switch self {
+        case .top: return { $0.exist(xArray: $1, of: 10, y: 0, with: $2, op: .or) }
+        case .left: return { $0.exist(yArray: $1, of: 10, x: 0, with: $2, op: .or) }
+        case .right: return { $0.exist(yArray: $1, of: 10, x: 1, with: $2, op: .or) }
+        case .bottom: return { $0.exist(xArray: $1, of: 10, y: 1, with: $2, op: .or) }
         }
+    }
+}
+
+extension CGRect {
+    fileprivate func expandFrame(by pixels: UInt, times: Int, using checker: LetterExistenceChecker,
+                            in direction: Direction, with points: [Int]) -> CGRect {
         
-        let initialStatus = completion(self)
-        
+        var newFrame = self
+        for _ in 0..<times {
+            let temporaryFrame = newFrame.update(by: pixels, in: .offset(direction.optionSet))
+            
+            guard direction.completion(checker, points, temporaryFrame) else { break }
+            newFrame = temporaryFrame
+        }
+        return newFrame
+    }
+    
+    ///просто обновляет границы либо внуть либо снаружи, сам решает
+    fileprivate func update(by pixels: UInt, using checker: LetterExistenceChecker, in direction: Direction, points: [Int]) -> CGRect {
+        let initialStatus = direction.completion(checker, points, self)
         var updatedFrame = self
         
         for _ in 0..<4 {
-            let newFrame = updatedFrame.update(plus: 1, in: initialStatus ? .offset(direction) : .inset(direction))
-            let status = completion(newFrame)
+            let edge: EdgeDirection = initialStatus ? .offset(direction.optionSet) : .inset(direction.optionSet)
+            let newFrame = updatedFrame.update(by: pixels, in: edge)
+            let status = direction.completion(checker, points, newFrame)
             //если инсет то нужно принять изменения фрейма
             if status { updatedFrame = newFrame }
             if initialStatus != status { break }
