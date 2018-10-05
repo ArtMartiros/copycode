@@ -24,7 +24,7 @@ let sc2_letter = [
     12: "Timer.stop(text: \"BlockCreator Leading Created\")",
     13: "let restoredBlocks = leadingUpdatedBlocks.map { missingElementsRestorer.restore($0) }",
     14: "Timer.stop(text: \"BlockCreator Restored\")",
-    15: "return Settings.includeMissingChars ? restoredBlocks : leadingUpdatedBlocks",
+    15: "return restoredBlocks",
     16: "}",
     17: "private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {",
     18: "let newBlocks = blocks.map {",

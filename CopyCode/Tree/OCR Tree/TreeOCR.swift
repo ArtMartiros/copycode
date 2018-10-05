@@ -54,6 +54,7 @@ enum OCROperations: CustomStringConvertible {
     case O_G, I_Z, n4_f, not5, n7_W, G_6
     case n_u, r3, f_W, r6
     case left4
+    case m_a
     case hyphenOrDash
     case question
     case equalOrDash
@@ -198,6 +199,7 @@ enum OCROperations: CustomStringConvertible {
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
+        case .m_a: return .checkerWithFrame (m_aOperation)
         case .expandFrame(let options): return .updateFrame {
             var newFrame = $1
             for direction in options.directions {
@@ -266,7 +268,7 @@ enum OCROperations: CustomStringConvertible {
         case .equalOrDashCustom: return "equalOrDashCustom"
         case .bracketOrArrowCustom: return "bracketOrArrowCustom"
         case .expandFrame(let options ): return "expandFrame in \(options.directions)"
-            
+        case .m_a: return "m_a"
         }
     }
     
@@ -333,6 +335,23 @@ enum OCROperations: CustomStringConvertible {
             return false
         }
     }
+    
+    private var m_aOperation: Operation {
+        return { checker, frame in
+            let xArray: [CGFloat] = [0.4, 0.5, 0.6]
+            let yArray: [CGFloat] = [0.5, 0.3, 0.7]
+            
+            for x in xArray {
+                for (yIndex, y) in yArray.enumerated() {
+                    guard checker.exist(x: x, y: y, in: frame) else  { break }
+                    guard yArray.count - 1 == yIndex else { continue }
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    
     
     private var f_WOperation: Operation {
         return { checker, frame in

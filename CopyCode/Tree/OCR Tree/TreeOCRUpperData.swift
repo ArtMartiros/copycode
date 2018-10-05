@@ -84,7 +84,7 @@ private let nnnSubTree: TreeOCR = .n(.tL,
                                               .n(.botCircleLeft, G6Tree, .r("5"))),
                                            .n(.lC,
                                               .n(.bC, .r("C"), Q4AndTree),
-                                              .n(.n4_f, .r("4"), .r("f"))))))
+                                              .n(.n4_f, .r("4"), f_tTree))))) /////
 
 private let pppSubTree: TreeOCR = .n(.rC,
                                      .n(.tR, .r("]") , .r(")")),
@@ -98,7 +98,7 @@ private let npppSubTree: TreeOCR = .n(.bL,
                                       .n(.lC,
                                          .n(.tCr,
                                             .n(.topCircleRight, .r("B"), .r("E")),
-                                            .r("M")),
+                                            .n(.tLr,.r("M"), .r("d"))),
                                          .n(.I_Z, .r("I"), .r("Z"))),
                                       .n(.G_C,
                                          .n(.tCr,
@@ -169,11 +169,12 @@ private let nnpnSubTree: TreeOCR = .n(.bC,
                                                   .n(.xy(x:0.1, y: 1/5),
                                                      n83SDollarTree,
                                                      .n(.not5, n83Tree, .r("5")))),
-                                               .n(.f_t, .r("f"), .r("t"))))),
+                                               f_tTree))),
                                       n7fWDollarTree)
 
 //MARK: Helper
 
+private let f_tTree: TreeOCR = .n(.f_t, .r("f"), .r("t"))
 private let RKkTree: TreeOCR = .n(.R_K,
                                   .r("R"),
                                   .n(.K_k, .r("K"), .r("k")))
