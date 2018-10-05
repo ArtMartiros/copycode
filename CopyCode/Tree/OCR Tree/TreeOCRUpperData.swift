@@ -12,12 +12,7 @@ let upperOCRTree: TreeOCR = .n(.ratio(>, 2.63), pSubTree, nSubTree)
 
 
 //MARK:-------------------------1 LEVEL-----------------------------
-private let pSubTree: TreeOCR = .n(.rCr,
-                                   .n(.tR, .r("]") , .r(")")),
-                                   .n(.lCr,
-                                      .n(.tL, .r("["), .r("(")),
-                                      .n(.bL, .r("I"), .r("1"))))
-
+private let pSubTree: TreeOCR = .n(.ratio(>, 3.5), ppSubTree, pnSubTree)
 
 private let nSubTree: TreeOCR = .n(.bR, npSubTree, nnSubTree)
 
@@ -28,7 +23,13 @@ private let npSubTree: TreeOCR = .n(.bC, nppSubTree, npnSubTree)
 private let nnSubTree: TreeOCR = .n(.c, nnpSubTree, nnnSubTree )
 
 
+private let ppSubTree: TreeOCR = .n(.expandFrame(.horizontal), pnSubTree, .empty)
 
+private let pnSubTree: TreeOCR = .n(.rCr,
+                                    .n(.tR, .r("]") , .r(")")),
+                                    .n(.lCr,
+                                       .n(.tL, .r("["), .r("(")),
+                                       .n(.bL, .r("I"), .r("1"))))
 //MARK: -------------------------3 LEVEL-----------------------------
 
 private let nppSubTree: TreeOCR = .n(.tR, npppSubTree, nppnSubTree)
