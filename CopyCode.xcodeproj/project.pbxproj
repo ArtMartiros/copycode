@@ -147,11 +147,11 @@
 		AC7310C92167C38F00FB4D8B /* MixpanelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */; };
 		AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */; };
 		AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7310CB2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json */; };
+		AC7310D121692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310D021692A1B00FB4D8B /* TrackingInfoFormatter.swift */; };
+		AC7310D221692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7310D021692A1B00FB4D8B /* TrackingInfoFormatter.swift */; };
 		AC74061E21563AD6007AC07E /* BlockPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74061D21563AD6007AC07E /* BlockPreparator.swift */; };
 		AC74061F21563AD6007AC07E /* BlockPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74061D21563AD6007AC07E /* BlockPreparator.swift */; };
-		AC7734A1215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */; };
-		AC7734A2215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */; };
-		AC7734A5215C07EA009617F7 /* tracking_info_sc1.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7734A4215C07EA009617F7 /* tracking_info_sc1.json */; };
+		AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */; };
 		AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		AC79042C215CBE00001D1FB1 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */; };
 		AC79042D215CBE00001D1FB1 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */; };
@@ -396,9 +396,9 @@
 		AC71FB7B2112F1F300EE41C6 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixpanelConstants.swift; sourceTree = "<group>"; };
 		AC7310CB2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_text_view_creator_grid.json; sourceTree = "<group>"; };
+		AC7310D021692A1B00FB4D8B /* TrackingInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoFormatter.swift; sourceTree = "<group>"; };
 		AC74061D21563AD6007AC07E /* BlockPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreparator.swift; sourceTree = "<group>"; };
-		AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfoFormatter.swift; sourceTree = "<group>"; };
-		AC7734A4215C07EA009617F7 /* tracking_info_sc1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tracking_info_sc1.json; sourceTree = "<group>"; };
+		AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_tracking_info.json; sourceTree = "<group>"; };
 		AC785A62214D80D2002C918D /* TextViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCreator.swift; sourceTree = "<group>"; };
 		AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
 		AC79042E215CBE13001D1FB1 /* TrackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingData.swift; sourceTree = "<group>"; };
@@ -810,7 +810,7 @@
 		AC7734A3215C07CA009617F7 /* TrackingInfo */ = {
 			isa = PBXGroup;
 			children = (
-				AC7734A4215C07EA009617F7 /* tracking_info_sc1.json */,
+				AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */,
 			);
 			path = TrackingInfo;
 			sourceTree = "<group>";
@@ -872,8 +872,8 @@
 				AC2181422163FEC600515FBD /* TrackingFinder */,
 				AC95B4A421410B2F0007B5C5 /* TrackingInfoFinder.swift */,
 				AC95B4AE21412B1F0007B5C5 /* TrackingChecker.swift */,
-				AC7734A0215B9311009617F7 /* TrackingInfoFormatter.swift */,
 				AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */,
+				AC7310D021692A1B00FB4D8B /* TrackingInfoFormatter.swift */,
 			);
 			path = TrackingInfoFinder;
 			sourceTree = "<group>";
@@ -1147,7 +1147,7 @@
 				AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
-				AC7734A5215C07EA009617F7 /* tracking_info_sc1.json in Resources */,
+				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
 				AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */,
 				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
@@ -1372,7 +1372,6 @@
 				AC06D8AE21020B9800770DBB /* TypeConverter.swift in Sources */,
 				AC06D89420FF504900770DBB /* Panel.swift in Sources */,
 				AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */,
-				AC7734A1215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */,
 				AC06D88720FF4ED100770DBB /* Timer.swift in Sources */,
 				AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */,
 				AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */,
@@ -1415,6 +1414,7 @@
 				AC71FB7C2112F1F300EE41C6 /* Column.swift in Sources */,
 				AC95B4A521410B2F0007B5C5 /* TrackingInfoFinder.swift in Sources */,
 				AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */,
+				AC7310D121692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */,
 				AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */,
 				ACDA6DC1215E727700A7AA62 /* AttrStringCreator.swift in Sources */,
 				ACDA6DC5215E7F9300A7AA62 /* CustomButton.swift in Sources */,
@@ -1442,6 +1442,7 @@
 			files = (
 				ACDA6DC3215E73B600A7AA62 /* Panel.swift in Sources */,
 				AC8E89652126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
+				AC7310D221692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */,
 				AC95B4B9214139FB0007B5C5 /* TrackingDistanceFinderTests.swift in Sources */,
 				AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */,
 				AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
@@ -1453,7 +1454,6 @@
 				AC4419152162569C00248DCC /* TreeOCRCustomData.swift in Sources */,
 				AC2181412163F89200515FBD /* TrackingFinder.swift in Sources */,
 				AC95B4B021412B1F0007B5C5 /* TrackingChecker.swift in Sources */,
-				AC7734A2215B9311009617F7 /* TrackingInfoFormatter.swift in Sources */,
 				AC8C0AB6214AE76500F0FD13 /* LeadingFinderTests.swift in Sources */,
 				ACDA6DC7215E9E7500A7AA62 /* TextViewCreator.swift in Sources */,
 				AC250A6E214EF49400E6D596 /* TextTranscriptorTests.swift in Sources */,

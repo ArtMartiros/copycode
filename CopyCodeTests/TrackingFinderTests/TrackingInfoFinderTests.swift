@@ -47,7 +47,8 @@ class TrackingInfoFinderTests: XCTestCase {
     private func check(_ blockTest: BlockTest, with answer: Answer) {
         let block = blockTest.getBlock(self)
         let results = finder.find(from: block)
-
+        let value = CodableHelper.encode(results)
+        print(value)
         let message0 = "Current results count \(results.count) not equal to \(answer.count)"
         XCTAssertTrue(results.count == answer.count, message0)
         let result = results[answer.currentIndex]

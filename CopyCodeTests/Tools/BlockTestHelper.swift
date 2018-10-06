@@ -31,13 +31,6 @@ enum BlockTest: String {
     }
 }
 
-enum TrackingInfoTest: String {
-    case sc1 = "tracking_info_sc1"
-    func get(_ object: AnyObject) -> [TrackingInfo] {
-        return CodableHelper.decode(object, path: self.rawValue, structType: [TrackingInfo].self, shouldPrint: false)!
-    }
-}
-
 enum Scene: String {
     case sc1 = "sc1_text_view_creator"
     case sc2 = "sc2_block_creator"
@@ -54,6 +47,9 @@ enum Scene: String {
         }
     }
     
+    var trackingInfo: String {
+        return "sc1_tracking_info"
+    }
     
     var gridBlockName: String {
         switch self {
@@ -71,6 +67,10 @@ enum Scene: String {
     
     var letterDictionary: [Int: String] {
         return sc2_letter
+    }
+    
+    func getTrackingInfos(_ object: AnyObject) -> [TrackingInfo] {
+        return CodableHelper.decode(object, path: trackingInfo, structType: [TrackingInfo].self, shouldPrint: false)!
     }
     
     func getLetterTypes(for lineIndex: Int) -> [LetterType] {

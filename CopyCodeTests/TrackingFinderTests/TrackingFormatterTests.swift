@@ -15,14 +15,16 @@ class TrackingFormatterTests: XCTestCase {
         let end: Int
     }
    
-    let formatter = TrackingInfoFormatter()
+    let formatter = TrackingInfoFormatter3()
     
     func testSc1() {
         let answers = [Answer(start: 3, end: 4), Answer(start: 6, end: 8), Answer(start: 10, end: 15),
                        Answer(start: 16, end: 25), Answer(start: 26, end: 27) ]
-        let infos = TrackingInfoTest.sc1.get(self)
-        let block = BlockTest.sc1.getBlock(self)
-        let chunked = formatter.chunkTrackingInfo(infos, block: block)
+        let scene = Scene.sc1
+        let infos = scene.getTrackingInfos(self)
+        let block = scene.getBlock(self)
+        let chunked = formatter.chunk(infos, with: block)
+
         XCTAssertTrue(chunked.count > 2, "Chunked must be more than 2")
         let index = 1
         XCTAssertTrue(chunked[index].count == 5, "Chunk ust be == 5, not \(chunked[index].count)")

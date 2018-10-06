@@ -59,6 +59,14 @@ struct TrackingInfo: Codable {
         return lineIndexes
     }
     
+    func findWord(in range: TrackingRange, at lineIndex: Int, with block: SimpleBlock) -> [SimpleWord] {
+        let line = block.lines[lineIndex]
+        return line.words.filter {
+            let wordRange = $0.frame.leftX...$0.frame.rightX
+            return wordRange.intesected(with: range) != nil
+        }
+    }
+    
     ///Возвращает слова в линии которые соответствуют критериям TrackingInfo либо nil
     func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType) -> [SimpleWord]? {
         guard block.lines.count > lineIndex, startIndex <= lineIndex, endIndex >= lineIndex else { return nil }

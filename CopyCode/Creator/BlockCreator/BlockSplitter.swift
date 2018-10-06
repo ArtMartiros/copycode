@@ -11,11 +11,11 @@ import Foundation
 extension BlockCreator {
     ///Отвечает за то чтобы разделять Блоки на более мелкие смысловые части основываясь на TrackingInfo
     struct BlockSplitter {
-        private let formattter = TrackingInfoFormatter()
+        private let formatter = TrackingInfoFormatter()
         private let kErrorPercentRate: CGFloat = 2
         ///Splite blocks and update its tracking Information
         func splitAndUpdate(_ block: SimpleBlock, by infos: [TrackingInfo]) -> [SimpleBlock] {
-            let arrayOfInfos = formattter.chunkTrackingInfo(infos, block: block)
+            let arrayOfInfos = formatter.chunk(infos, with: block)
             let createdBlocks = splitToNewBlocks(from: block, using: arrayOfInfos)
             return createdBlocks
         }
