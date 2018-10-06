@@ -115,9 +115,10 @@ class TrackingDistanceFinderTests: XCTestCase {
         }
     }
     
+    
     func testExample() {
         let block = BlockTest.sc1.getBlock(self)
-        let line = block.lines[16]
+        let line = block.lines[2]
         let word = line.words[0]
         let result = finder.find(from: word)
         switch result {

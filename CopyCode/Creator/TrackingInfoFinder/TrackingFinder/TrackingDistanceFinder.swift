@@ -56,8 +56,11 @@ struct TrackingDistanceFinder {
         var additionCount = 0
         gaps.forEach {
             let rate = $0.width / preliminaryAverageSize
-            if rate > kLetterWidthRate { additionCount += 1 }
-            else if rate > 2.8 { additionCount += 2 }
+            if rate > 2 {
+                additionCount += 2
+            } else if rate > kLetterWidthRate {
+                 additionCount += 1
+            }
         }
 
         gaps.forEachPair {

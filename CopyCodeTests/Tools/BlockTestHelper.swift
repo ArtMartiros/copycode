@@ -56,7 +56,10 @@ enum Scene: String {
     
     
     var gridBlockName: String {
-        return "sc2_block_creator_grid"
+        switch self {
+        case .sc1: return "sc1_text_view_creator_grid"
+        case .sc2: return "sc2_block_creator_grid"
+        }
     }
     
     var gridWithTypeBlockName: String {

@@ -31,7 +31,8 @@ struct TrackingInfoFinder {
     private func completeFindTrackingInfo(in line: SimpleLine, with currentLineIndex: Int, lines: [SimpleLine]) -> TrackingInfo {
         
         
-        let posInfos = posFinder.find(from: line.words).sorted { $0.startX < $1.startX }
+        var posInfos = posFinder.find(from: line.words)
+        posInfos.sort { $0.startX < $1.startX }
         
         guard let posInfo = posInfos.first, !posInfo.trackings.isEmpty
             else { return TrackingInfo(startIndex: currentLineIndex, endIndex: currentLineIndex) }
