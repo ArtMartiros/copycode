@@ -52,7 +52,7 @@ enum OCROperations: CustomStringConvertible {
     case yRange(x: CGFloat, y: ClosedRange<Int>, op: LogicalOperator)
     case notH, c, p_d, Z_S, G_C, t_4, K_k, f_t
     case O_G, I_Z, n4_f, not5, n7_W, G_6
-    case n_u, r3, f_W, r6
+    case n_u, r3, r6
     case left4
     case m_a
     case hyphenOrDash
@@ -103,8 +103,6 @@ enum OCROperations: CustomStringConvertible {
         case .lCr: return .checkerWithFrame { $0.exist(yArray: [1], of: 2, x: 0.05, with: $1, op: .or) }
         case .rCr: return .checkerWithFrame { $0.exist(yArray: [1], of: 2, x: 0.90, with: $1, op: .or) }
         case .tLr: return .checkerWithFrame { $0.exist(yArray: [0], of: 1, x: 0.05, with: $1, op: .or) }
-        /// ищет левую точку соприкосновения у f
-        case .f_W: return .checkerWithFrame (f_WOperation)
         case .n7_W: return .checkerWithFrame { $0.exist(xArray: [2,3], of: 5, y: 0, with: $1, op: .and) }
         case .t_4: return .checkerWithFrame { $0.exist(yRange: 1...3, of: 8, x: 0, with: $1, op: .or) }
         case .botCircleLeft: return .checkerWithFrame {
@@ -219,7 +217,6 @@ enum OCROperations: CustomStringConvertible {
         case .bR: return "bottomRight"
         case .c: return "center"
         case .f_t: return "f_t"
-        case .f_W: return "f_W"
         case .G_6: return "G_6"
         case .G_C: return "G_C"
         case .notH: return "notH"
@@ -352,21 +349,6 @@ enum OCROperations: CustomStringConvertible {
         }
     }
     
-    
-    private var f_WOperation: Operation {
-        return { checker, frame in
-            var exist = true
-            var updatedFrame = frame
-            
-            while exist {
-                let newFrame = updatedFrame.expand(addingOfRatio: 0.05, in: .left)
-                exist = checker.exist(yArray: [0, 2, 4, 6], of: 6, x: 0, with: newFrame, op: .or)
-                updatedFrame = newFrame
-            }
-            return checker.exist(yRange: 4...7, of: 20, x: 0, with: updatedFrame, op: .or)
-        }
-    }
-
     private var equalOperation: Operation {
         return { checker, frame in
             let distance = (frame.height * 2).uintRounded()

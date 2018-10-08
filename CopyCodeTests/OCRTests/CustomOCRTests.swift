@@ -13,7 +13,7 @@ class CustomOCRTests: XCTestCase {
     
     //1 @
     func testScene1() {
-        let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "=", "1", ".", "2", "=", "-", "="]
+        let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "}", "=", "1", ".", "2", "=", "-", "="]
         let chars = getChars(from: .sc1)
         for (index, char) in chars.enumerated() {
             XCTAssertEqual(char, answers[index])

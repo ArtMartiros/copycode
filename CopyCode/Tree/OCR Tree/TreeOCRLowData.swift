@@ -8,7 +8,8 @@
 
 import Foundation
 
-private let s_rTree:TreeOCR = .n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
+private let s_rTree: TreeOCR = .n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
+private let z_rTree: TreeOCR = .n(.xy(x:0.8, y: 0.1), .r("z"), .r("i"))
 
 let lowOCRTree: TreeOCR = .n(.ratio(>, 5), .r("!"), nLowSubTree)
 
@@ -29,14 +30,20 @@ private let npLowSubTree:TreeOCR = .n(.lC,
                                             s_rTree,
                                             .n(.xRange(x: 5...9, y: 0.5, op: .allFalse),
                                                .r("c"),
-                                               .n(.xy(x: 0.5, y: 1), .r("e"), .r("w"))))),
+                                               .n(.xy(x: 0.5, y: 1),
+                                                  .n(.yRange(x: 0.05, y: 4...8, op: .and),
+                                                     .r("e"),
+                                                     .r("s")),
+                                                  .r("w"))))),
                                       .n(.tC,
                                          .n(.question,
                                             .r("?"),
                                             .n(.bC,
                                                .n(.xy(x:0.95, y:0),
-                                                  .n(.bR, .r("z"), s_rTree),
-                                                  .n(.yRange(x: 0.95, y: 6...7, op: .or),
+                                                  .n(.yRange(x: 1, y: 6...7, op: .or),
+                                                     s_rTree,
+                                                     .n(.bR, .r("z"), .r("r"))),
+                                                  .n(.yRange(x: 0.9, y: 6...7, op: .or),
                                                      .n(.yRange(x: 0.95, y: 4...6, op: .and), .r("a"), .r("s")),
                                                      .r("i"))),
                                                .r("w"))),
@@ -69,7 +76,9 @@ private let nnLowSubTree:TreeOCR = .n(.c,
                                          .n(.rC,
                                             .n(.yRange(x:0.5, y: 4...6, op: .or), .r("a"), .r("o")),
                                             .n(.bL,
-                                               .r("r"),
+                                               .n(.yRange(x:0.95, y: 0...2, op: .or),
+                                                  .r("r"),
+                                                  .r("i")),
                                                .n(.xy(x:0.5, y: 0.4),
                                                   .r("e"),
                                                   .n(.xy(x:0.3, y: 0), .r("c"), .r("<")))))))

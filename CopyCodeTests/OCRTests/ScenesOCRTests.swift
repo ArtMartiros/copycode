@@ -8,15 +8,42 @@
 
 import XCTest
 
- //23 ошибки в letter
+ //22 ошибки в letter
 class ScenesOCRTests: XCTestCase {
     
+    func testOCRScene1() {
+        let exludedIndex: Set<Int> = [0, 1, 2, 15, 16, 17]
+        let scene = Scene.sc1
+        let block = scene.getGridWithTypeBlock(self)
+        let bitmap = scene.image.bitmap
+        var allIndex = 0
+        for (lineIndex, line) in block.lines.enumerated() where !exludedIndex.contains(lineIndex) {
+            let rightLine = Array(scene.getLetters(for: lineIndex))
+            
+            for (wordIndex, word) in line.words.enumerated() {
+                let recognizer = LetterRecognizer(bitmap, word: word)
+                var startIndex = line.words[0..<wordIndex].map { $0.letters }.reduce([], +).count
+                
+                for (letterIndex, letter) in word.letters.enumerated() {
+                    let value = recognizer.recognize(from: letter)
+                    let answer = rightLine[startIndex]
+                    XCTAssertEqual(value, answer, "l: \(lineIndex), w: \(wordIndex), c: \(letterIndex)")
+                    startIndex += 1
+                    allIndex += 1
+                }
+            }
+        }
+        
+        print(allIndex)
+    }
+    
     func testOCRScene2() {
-        let block = Scene.sc2.getGridWithTypeBlock(self)
-        let bitmap = Scene.sc2.image.bitmap
+        let scene = Scene.sc2
+        let block = scene.getGridWithTypeBlock(self)
+        let bitmap = scene.image.bitmap
         var allIndex = 0
         for (lineIndex, line) in block.lines.enumerated() {
-            let rightLine = Array(Scene.sc2.getLetters(for: lineIndex))
+            let rightLine = Array(scene.getLetters(for: lineIndex))
 
             for (wordIndex, word) in line.words.enumerated() {
                 let recognizer = LetterRecognizer(bitmap, word: word)

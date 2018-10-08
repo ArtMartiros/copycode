@@ -76,7 +76,10 @@ enum Scene: String {
     }
     
     var letterDictionary: [Int: String] {
-        return sc2_letter
+        switch self {
+        case .sc1: return sc1_letter
+        case .sc2: return sc2_letter
+        }
     }
     
     func getTrackingInfos(_ object: AnyObject) -> [TrackingInfo] {

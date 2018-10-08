@@ -197,8 +197,8 @@ private let PF75Tree: TreeOCR = .n(.topCircleRight,
                                    .n(.xRange(x:8...10, y: 0.8, op: .or), .r("5"), .r("F")))
 
 private let n7fWDollarTree: TreeOCR = .n(.n7_W, .r("7"),
-                                   .n(.f_W,
-                                      .r("f"),
+                                   .n(.ratio(>, 1.4),
+                                      .n(.yRange(x: 0.95, y: 7...9, op: .or), .r("$"), .r("f")),
                                       .n(.xRange(x:7...10, y: 0.3, op: .or), .r("W"), .r("$")) ))
 private let n59Tree: TreeOCR = .n(.topCircleRight, .r("9"), .r("5"))
 
