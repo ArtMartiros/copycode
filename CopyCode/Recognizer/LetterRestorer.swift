@@ -8,6 +8,7 @@
 
 import Foundation
 
+///слепляет кавычки в одну
 struct LetterRestorer {
     func restore(_ block: SimpleBlock) -> SimpleBlock {
         guard case .grid(let grid) = block.typography else { return block }

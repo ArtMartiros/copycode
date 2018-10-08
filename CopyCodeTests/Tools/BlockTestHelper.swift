@@ -59,10 +59,20 @@ enum Scene: String {
     }
     
     var gridWithTypeBlockName: String {
-        return "sc2_block_creator_grid_with_type"
+        switch self {
+        case .sc1:
+            return "sc1_block_text_view_creator_grid_with_type"
+        case .sc2:
+            return "sc2_block_creator_grid_with_type"
+        }
+        
     }
+    
     var letterTypeDictionary: [Int: String] {
-        return sc2_type
+        switch self {
+        case .sc1: return sc1_type
+        case .sc2: return sc2_type
+        }
     }
     
     var letterDictionary: [Int: String] {

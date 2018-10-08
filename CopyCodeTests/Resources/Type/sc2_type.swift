@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 let sc2_type = [
     0: "tllllul ulu ulllulltululullull c ulllulltululullulluu",
     1: "tllllul ulu uulluulltlllull. uulluulltlllull",

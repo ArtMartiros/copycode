@@ -77,7 +77,7 @@ final class TextRecognizerManager {
 //            for block in restoredBlocks {
 //                if case .grid(let grid) = block.typography {
 //                    let value = CodableHelper.encode(block)
-//                    
+//
 //                    print(value)
 //                }
 //            }

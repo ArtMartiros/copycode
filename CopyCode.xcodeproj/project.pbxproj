@@ -64,6 +64,8 @@
 		AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */ = {isa = PBXBuildFile; fileRef = AC250A69214EE59800E6D596 /* block_one_completed.json */; };
 		AC250A6C214EE92900E6D596 /* LeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A6B214EE92900E6D596 /* LeadingTests.swift */; };
 		AC250A6E214EF49400E6D596 /* TextTranscriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */; };
+		AC28F2D8216A1A9C007C7550 /* sc1_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28F2D7216A1A9C007C7550 /* sc1_type.swift */; };
+		AC28F2DA216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = AC28F2D9216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json */; };
 		AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */; };
@@ -354,6 +356,8 @@
 		AC250A69214EE59800E6D596 /* block_one_completed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = block_one_completed.json; sourceTree = "<group>"; };
 		AC250A6B214EE92900E6D596 /* LeadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingTests.swift; sourceTree = "<group>"; };
 		AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTranscriptorTests.swift; sourceTree = "<group>"; };
+		AC28F2D7216A1A9C007C7550 /* sc1_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc1_type.swift; sourceTree = "<group>"; };
+		AC28F2D9216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_block_text_view_creator_grid_with_type.json; sourceTree = "<group>"; };
 		AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterExistenceChecker.swift; sourceTree = "<group>"; };
 		AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeClassificationTests.swift; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -722,6 +726,7 @@
 		AC218145216505E600515FBD /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				AC28F2D7216A1A9C007C7550 /* sc1_type.swift */,
 				AC2181462165060500515FBD /* sc2_type.swift */,
 			);
 			path = Type;
@@ -979,6 +984,7 @@
 			children = (
 				ACF8D10B2156BF6E00DF4A38 /* sc1_text_view_creator.json */,
 				AC7310CB2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json */,
+				AC28F2D9216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json */,
 				AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */,
 				AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */,
 				AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */,
@@ -1160,6 +1166,7 @@
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
+				AC28F2DA216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
 				AC44191E2162722500248DCC /* sc1_custom_letters.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
@@ -1517,6 +1524,7 @@
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
 				AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */,
+				AC28F2D8216A1A9C007C7550 /* sc1_type.swift in Sources */,
 				AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,
 				AC790430215CBE13001D1FB1 /* TrackingData.swift in Sources */,

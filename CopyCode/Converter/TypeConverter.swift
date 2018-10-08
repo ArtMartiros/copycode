@@ -32,7 +32,7 @@ class TypeConverter {
     func convert(_ rectangles: [SimpleWord], typography: Typography) -> [SimpleWord] {
         var words: [SimpleWord] = []
         for (index, word) in rectangles.enumerated() {
-            print("TypeConverter wordIndex \(index)")
+            print("***************************************TypeConverter wordIndex \(index)***************************************")
             words.append(getWord(from: word, typography: typography))
         }
         return words

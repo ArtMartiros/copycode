@@ -118,6 +118,31 @@ struct WordInformation: TypeChecker {
         return differenceRate > 15
     }
     
+    func lowWithTailCustom2(with frame: CGRect) -> Bool {
+        let topDifferent =  word.topY - frame.topY
+        let bottomDifferent = frame.bottomY - lowerYChar.bottomY
+        let different = topDifferent - bottomDifferent
+        print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
+        
+        let topDifferenceRate = topDifferent / word.height * 100
+        let botDifferenceRate = bottomDifferent / word.height * 100
+        let differenceRate = different / word.height * 100
+        print("topDifferenceRate \(topDifferenceRate )")
+        print("botDifferenceRate \(botDifferenceRate )")
+        print("differenceRate \(differenceRate )")
+        return botDifferenceRate < 14
+    }
+    
+    func lowWithTailCustom3(with frame: CGRect) -> Bool {
+        let topDifferent =  word.topY - frame.topY
+        let bottomDifferent = frame.bottomY - lowerYChar.bottomY
+        let different = topDifferent - bottomDifferent
+        print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
+        let differenceRate = topDifferent / word.height * 100
+        print("differenceRate \(differenceRate )")
+        return differenceRate > 24
+    }
+    
     func quotesOrColumn(with frame: CGRect) -> Bool {
         let same = checker.isSame(word.topY, with: frame.topY, height: frame.height, accuracy: .superLow)
         let inTheMid = positionOf(currentY: frame.bottomY, relativeTo: word) > _midDiffRate

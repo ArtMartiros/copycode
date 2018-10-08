@@ -15,7 +15,7 @@ class TrackingFormatterTests: XCTestCase {
         let end: Int
     }
    
-    let formatter = TrackingInfoFormatter3()
+    let formatter = TrackingInfoFormatter()
     
     func testSc1() {
         let answers = [Answer(start: 3, end: 4), Answer(start: 6, end: 8), Answer(start: 10, end: 15),
