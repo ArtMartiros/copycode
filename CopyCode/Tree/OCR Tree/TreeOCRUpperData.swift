@@ -10,7 +10,6 @@ import Foundation
 
 let upperOCRTree: TreeOCR = .n(.ratio(>, 2.63), pSubTree, nSubTree)
 
-
 //MARK:-------------------------1 LEVEL-----------------------------
 private let pSubTree: TreeOCR = .n(.ratio(>, 3.5), ppSubTree, pnSubTree)
 
@@ -103,7 +102,7 @@ private let npppSubTree: TreeOCR = .n(.bL,
                                       .n(.G_C,
                                          .n(.tCr,
                                             .n(.yRange(x:0.95, y: 4...6, op: .someFalse),
-                                               .n(.botCircleLeft, .r("G"), .r("S")),
+                                               .n(.botCircleLeft, G_8Tree, .r("S")),
                                                .n(.O_Q, .r("O"), .r("Q"))),
                                             .r("d")),
                                          .n(.ratio(>, 2), .r("{"), .r("C"))))
@@ -186,6 +185,7 @@ private let Q4AndTree: TreeOCR = .n(.yRange(x:0, y: 2...6, op: .and ),
 
 private let G_0Tree: TreeOCR = .n(.G_0, .r("G"), .r("0"))
 private let G6Tree: TreeOCR = .n(.G_6, .r("G"), .r("6"))
+private let G_8Tree: TreeOCR = .n(.G_8, .r("G"), .r("8"))
 
 private let BbPF75Tree: TreeOCR = .n(.tCr,
                                     .n(.yRange(x:0.05, y: 6...7, op: .someFalse), .r("5"),

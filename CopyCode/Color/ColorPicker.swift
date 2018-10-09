@@ -52,7 +52,7 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
             let newPoint = CGPoint(x: frame.xAs(rate: 0) - 2, y: frame.yAs(rate: 0) + 2)
             return picker.pickWhite(at: newPoint)
         } else {
-           let whiteColors = points.map { picker.pickWhite(at: $0) }
+            let whiteColors = points.map { picker.pickWhite(at: $0) }
             let sortedWhites = whiteColors.sorted { $0 < $1 }
             let zeroColors = whiteColors.map { abs(0 - $0) }.reduce(0, +)
             let oneColors = whiteColors.map { abs(1 - $0) }.reduce(0, +)

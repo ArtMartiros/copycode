@@ -66,6 +66,7 @@ enum OCROperations: CustomStringConvertible {
     case R_K
     case O_Q
     case G_0
+    case G_8
     case plus_e
     case doubleQuotesCustom
     case equalOrDashCustom
@@ -193,7 +194,11 @@ enum OCROperations: CustomStringConvertible {
             }
 
         case .G_0: return .checkerWithFrame { $0.exist(yRange: 4...8 , of: 14, x: 0.95, with: $1, op: .someFalse) }
-            
+        case .G_8: return .checkerWithFrame {
+           !($0.exist(xRange: 2...6 , of: 10, y: 0.6, with: $1, op: .and) ||
+            $0.exist(xRange: 2...6 , of: 10, y: 0.5, with: $1, op: .and) ||
+            $0.exist(xRange: 2...6 , of: 10, y: 0.4, with: $1, op: .and))
+            }
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
@@ -261,6 +266,7 @@ enum OCROperations: CustomStringConvertible {
         case .O_Q: return "O_Q"
         case .plus_e: return "plus_e"
         case .G_0: return "G_0"
+        case .G_8: return "G_8"
         case .doubleQuotesCustom: return "quotes"
         case .equalOrDashCustom: return "equalOrDashCustom"
         case .bracketOrArrowCustom: return "bracketOrArrowCustom"

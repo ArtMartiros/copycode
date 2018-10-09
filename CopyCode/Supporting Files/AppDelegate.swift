@@ -19,12 +19,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
-
-        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
-        // Do some additional configuration if needed here
-        //больше не должно требовать пароля
-        BITHockeyManager.shared()?.isMetricsManagerDisabled = false
-        BITHockeyManager.shared().start()
+        
+        Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release])
+//        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
+//        // Do some additional configuration if needed here
+//        //больше не должно требовать пароля
+//        BITHockeyManager.shared()?.isMetricsManagerDisabled = false
+//        BITHockeyManager.shared().start()
         
 
         createStatusBar()

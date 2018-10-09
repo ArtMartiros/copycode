@@ -36,8 +36,17 @@ enum Scene: String {
     case sc2 = "sc2_block_creator"
     case sc3_p1 = "sc3_p1_firebase_chat"
     case sc3_p2 = "sc3_p2_user_main_view_controller"
+    
+    var imageName: String {
+        switch self {
+        case .sc1: return "sc1_text_view_creator"
+        case .sc2: return "sc2_block_creator"
+        case .sc3_p1, .sc3_p2: return "sc3_firebase_chat"
+        }
+    }
+    
     var image: NSImage {
-        return NSImage(named: .init(rawValue))!
+        return NSImage(named: .init(imageName))!
     }
     
     var customLettersName: String {
@@ -56,7 +65,8 @@ enum Scene: String {
         switch self {
         case .sc1: return "sc1_text_view_creator_grid"
         case .sc2: return "sc2_block_creator_grid"
-        default: return ""
+        case .sc3_p1: return "sc3_p1_firebase_chat_grid"
+        case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
         }
     }
     
@@ -64,6 +74,7 @@ enum Scene: String {
         switch self {
         case .sc1: return "sc1_block_text_view_creator_grid_with_type"
         case .sc2: return "sc2_block_creator_grid_with_type"
+        case .sc3_p1: return "sc3_p1_firebase_chat_grid_with_type"
         default: return ""
         }
         
@@ -73,7 +84,8 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_type
         case .sc2: return sc2_type
-        default: return [:]
+        case .sc3_p1: return sc3_p1_type
+        case .sc3_p2: return sc3_p2_type
         }
     }
     
@@ -81,6 +93,7 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_letter
         case .sc2: return sc2_letter
+        case .sc3_p1: return sc3_p1_letter
         default: return [:]
         }
     }
@@ -112,7 +125,7 @@ enum Scene: String {
     }
     
     func getGridBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: self.gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
+        return CodableHelper.decode(object, path: gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
     }
     
     func getGridWithTypeBlock(_ object: AnyObject) -> SimpleBlock {

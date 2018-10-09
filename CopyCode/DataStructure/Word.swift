@@ -17,25 +17,25 @@ struct Word<Child:Rectangle>: Container, Gapable {
     
     var gaps: [Gap] {
         let frames = letters.map { $0.frame }
-        return getGaps(from: frames)
+        return getGaps(from: frames, wordFrame: frame)
     }
     
     var pixelGaps: [Gap] {
         let frames = letters.map { $0.pixelFrame }
-        return getGaps(from: frames)
+        return getGaps(from: frames, wordFrame: pixelFrame)
     }
     
-    private func getGaps(from frames: [CGRect]) -> [Gap] {
+    private func getGaps(from frames: [CGRect], wordFrame: CGRect ) -> [Gap] {
         var gaps: [Gap] = []
         frames.forEachPair {
             let gapFrame: CGRect
             if $0.rightX > $1.leftX {
                 let width = $0.rightX - $1.leftX
                 let position = $1.leftX + width / 2
-                gapFrame = CGRect(x: position, y: frame.bottomY, width: 0, height: frame.height)
+                gapFrame = CGRect(x: position, y: wordFrame.bottomY, width: 0, height: frame.height)
             } else {
                 gapFrame = CGRect(left: $0.rightX, right: $1.leftX,
-                                  top: frame.topY, bottom: frame.bottomY)
+                                  top: wordFrame.topY, bottom: wordFrame.bottomY)
             }
             gaps.append(Gap(frame: gapFrame))
         }
