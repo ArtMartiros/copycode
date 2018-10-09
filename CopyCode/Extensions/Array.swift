@@ -67,12 +67,34 @@ extension Array {
         }
     }
     
+    func enumeratedMap<T>(_ transform: (_ current: Element, _ index: Int) throws -> T) rethrows -> [T] {
+        var newArray: [T] = []
+        for (index, item) in self.enumerated() {
+            let nextIndex = index + 1
+            guard nextIndex < count else { break }
+            let element = try transform(item, index)
+            newArray.append(element)
+        }
+        return newArray
+    }
+    
     func mapPair<T>(_ transform: (_ current: Element, _ next: Element) throws -> T) rethrows -> [T] {
         var newArray: [T] = []
         for (index, item) in self.enumerated() {
             let nextIndex = index + 1
             guard nextIndex < count else { break }
             let element = try transform(item, self[nextIndex])
+            newArray.append(element)
+        }
+        return newArray
+    }
+    
+    func enumeratedMapPair<T>(_ transform: (_ current: Element, _ next: Element, _ index: Int) throws -> T) rethrows -> [T] {
+        var newArray: [T] = []
+        for (index, item) in self.enumerated() {
+            let nextIndex = index + 1
+            guard nextIndex < count else { break }
+            let element = try transform(item, self[nextIndex], index)
             newArray.append(element)
         }
         return newArray

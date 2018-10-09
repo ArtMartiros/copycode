@@ -53,37 +53,40 @@ final class TextRecognizerManager {
             let restoredBlocks = blocks.map { restorer.restore($0) }
             Timer.stop(text: "BlockCreator created")
             
-            let oneBlock = blocks.filter {
-                if case .grid = $0.typography {
-                    return true
-                } else {
-                    return false
-                }
-                }[0]
-
-            let words = oneBlock.lines.map { line in
-                line.words.filter {
-                    $0.type == .same(type: .allCustom)
-                }
-            }.reduce([], +)
-
-            let letters = words.map { $0.letters }.reduce([], +)
-            let value = CodableHelper.encode(letters)
-
-            print(value)
             let blocksWithTypes = restoredBlocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
-//            for block in restoredBlocks {
-//                if case .grid(let grid) = block.typography {
-//                    let value = CodableHelper.encode(block)
-//
-//                    print(value)
-//                }
-//            }
+            for block in restoredBlocks {
+                if case .grid(let grid) = block.typography {
+                    let value = CodableHelper.encode(block)
+
+                    print(value)
+                }
+            }
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)
         }
+    }
+    
+    private func printAllCustomLetters(from blocks: [SimpleBlock]) {
+        let oneBlock = blocks.filter {
+            if case .grid = $0.typography {
+                return true
+            } else {
+                return false
+            }
+            }[0]
+        
+        let words = oneBlock.lines.map { line in
+            line.words.filter {
+                $0.type == .same(type: .allCustom)
+            }
+            }.reduce([], +)
+        
+        let letters = words.map { $0.letters }.reduce([], +)
+        let value = CodableHelper.encode(letters)
+        
+        print(value)
     }
 }

@@ -43,13 +43,13 @@ struct TrackingInfoFinder {
         }
         
         let trackings = posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
-        let trackingInfo = findTrackingInfo2(in: lines, startIndex: currentLineIndex,
+        let trackingInfo = findTrackingInfo(in: lines, startIndex: currentLineIndex,
                                             forbiddens: forbiddens, trackings: trackings)
         
         return trackingInfo
     }
     
-    private func findTrackingInfo2(in lines: [SimpleLine], startIndex: Int,
+    private func findTrackingInfo(in lines: [SimpleLine], startIndex: Int,
                                    forbiddens: Forbidden, trackings: [TrackingError]) -> TrackingInfo {
         var lineTrackings = trackings
         var lastIndex = startIndex

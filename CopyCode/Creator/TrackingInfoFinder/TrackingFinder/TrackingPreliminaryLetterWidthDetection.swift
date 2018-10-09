@@ -12,21 +12,26 @@ extension TrackingDistanceFinder {
     struct TrackingPreliminaryLetterWidthDetection {
         
         func detect(gaps: [CGRect]) -> CGFloat {
-            let sortedGaps = gaps.sorted { $0.leftX < $1.leftX  }
-            let smallestGap = sortedGaps[0]
+            
+            
+           let smallestWidthPairWithIndex = gaps
+            .enumeratedMapPair { (width: $0.width + $1.width, index: $2) }
+            .sorted { $0.width < $1.width }[0]
+    
+            let sortedGaps = gaps.sorted { $0.width < $1.width  }
+            let smallestGap = gaps[smallestWidthPairWithIndex.index]
+            
             let chunckedArrayOfDictionaries = sortedGaps.chunkForSorted { $0.width == $1.width }
             var updatedRange = rangeOfNearest(from: gaps, smallestGap: smallestGap)
-            
             for array in chunckedArrayOfDictionaries {
                 //находит ближайшие элементы к образцовому элементу
                 let sortedArray = array
                     .sorted { findClosestDistance($0, second: smallestGap) < findClosestDistance($1, second: smallestGap) }
                 for gapItem in sortedArray {
-                    if gapItem.leftX != smallestGap.leftX {
-                        if let newRange = getUpdatedRange(gapItem, smallestItem: smallestGap, distance: updatedRange) {
-                            updatedRange = updatedRange.clamped(to: newRange)
-                        }
-                    }
+                    guard gapItem.leftX != smallestGap.leftX,
+                        let newRange = getUpdatedRange(gapItem, smallestItem: smallestGap, distance: updatedRange)
+                        else { continue }
+                    updatedRange = updatedRange.clamped(to: newRange)
                 }
             }
             
@@ -53,7 +58,8 @@ extension TrackingDistanceFinder {
             let two = abs(first.rightX - second.leftX)
             let three = abs(first.leftX - second.rightX)
             let four = abs(first.rightX - second.rightX)
-            return min(min(one, two), min(three, four))
+            let result = min(min(one, two), min(three, four))
+            return result
         }
         
         

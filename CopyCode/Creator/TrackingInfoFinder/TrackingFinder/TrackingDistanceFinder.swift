@@ -54,12 +54,13 @@ struct TrackingDistanceFinder {
     
     private func getCount(_ gaps: [CGRect], with preliminaryAverageSize: CGFloat) -> Int {
         var additionCount = 0
-        gaps.forEach {
-            let rate = $0.width / preliminaryAverageSize
-            if rate > 2 {
+        for (index, gap) in gaps.enumerated() where index > 0 && index + 1 < gaps.count {
+            print(gap)
+            let rate = gap.width / preliminaryAverageSize
+            if rate > 1.9 {
                 additionCount += 2
             } else if rate > kLetterWidthRate {
-                 additionCount += 1
+                additionCount += 1
             }
         }
 

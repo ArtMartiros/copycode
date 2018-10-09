@@ -27,6 +27,7 @@ struct TrackingPosInfoFinder {
         let sortedWords = otherWords.sortedFromLeftToRight()
         for (index, word) in sortedWords.enumerated() {
             let wordGaps = word.fixedGapsWithOutside
+            print("****************************W: \(index)*************************")
             let newTrackings = filteredTrackings.filter {
                 guard let gaps = Gap.updatedOutside(wordGaps, with: $0.width) else { return false }
                 return  checker.check(gaps, with: $0).result
@@ -46,7 +47,8 @@ struct TrackingPosInfoFinder {
                 filteredTrackings = newTrackings
                 if index == sortedWords.count - 1 {
                     let startX = min(sortedWords[0].frame.leftX, biggestWord.frame.leftX )
-                    let posInfo = TrackingPosInfo(startX: startX, lastKnowX: word.frame.rightX, trackings: filteredTrackings)
+                    let lastX = max(word.frame.rightX, biggestWord.frame.rightX)
+                    let posInfo = TrackingPosInfo(startX: startX, lastKnowX: lastX, trackings: filteredTrackings)
                     posInfos.append(posInfo)
                 }
                 

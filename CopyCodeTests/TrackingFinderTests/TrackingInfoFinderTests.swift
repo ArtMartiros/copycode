@@ -44,6 +44,26 @@ class TrackingInfoFinderTests: XCTestCase {
         check(.sc2, with: answer)
     }
     
+    
+    func testSc3_p1() {
+        let answer = Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 47)
+        check1(.sc3_p1, with: answer)
+    }
+    
+    private func check1(_ scene: Scene, with answer: Answer) {
+        let block = scene.getBlock(self)
+        let results = finder.find(from: block)
+        let value = CodableHelper.encode(results)
+        print(value)
+        let message0 = "Current results count \(results.count) not equal to \(answer.count)"
+        XCTAssertTrue(results.count == answer.count, message0)
+        let result = results[answer.currentIndex]
+        let message1 = "Current startIndex \(result.startIndex) not equal to \(answer.startIndex)"
+        let message2 = "Current endIndex \(result.endIndex) not equal to \(answer.endIndex)"
+        XCTAssertTrue(result.startIndex == answer.startIndex, message1)
+        XCTAssertTrue(result.endIndex == answer.endIndex, message2)
+    }
+    
     private func check(_ blockTest: BlockTest, with answer: Answer) {
         let block = blockTest.getBlock(self)
         let results = finder.find(from: block)

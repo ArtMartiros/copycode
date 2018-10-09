@@ -239,6 +239,10 @@
 		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
 		ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
 		ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
+		ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */; };
+		ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */; };
+		ACEBB275216C767D0094336F /* TrackingFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB274216C767D0094336F /* TrackingFinderTests.swift */; };
+		ACEBB277216C77F40094336F /* TrackingPosInfoFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB276216C77F40094336F /* TrackingPosInfoFinderTests.swift */; };
 		ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
 		ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
 		ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
@@ -459,6 +463,10 @@
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p1_firebase_chat.json; sourceTree = "<group>"; };
+		ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_user_main_view_controller.json; sourceTree = "<group>"; };
+		ACEBB274216C767D0094336F /* TrackingFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinderTests.swift; sourceTree = "<group>"; };
+		ACEBB276216C77F40094336F /* TrackingPosInfoFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPosInfoFinderTests.swift; sourceTree = "<group>"; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
 		ACF1AC502108BE0B00897732 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		ACF1AC532108F86C00897732 /* TextRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizerManager.swift; sourceTree = "<group>"; };
@@ -894,6 +902,8 @@
 				AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */,
 				AC790434215CDA44001D1FB1 /* TrackingFormatterTests.swift */,
 				ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */,
+				ACEBB274216C767D0094336F /* TrackingFinderTests.swift */,
+				ACEBB276216C77F40094336F /* TrackingPosInfoFinderTests.swift */,
 			);
 			path = TrackingFinderTests;
 			sourceTree = "<group>";
@@ -991,6 +1001,8 @@
 				AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */,
 				AC21814A2165145C00515FBD /* sc2_block_creator_grid.json */,
 				AC6493F2216646BC003A4164 /* sc2_block_creator_grid_with_type.json */,
+				ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */,
+				ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1141,6 +1153,7 @@
 			files = (
 				AC790437215D1D4A001D1FB1 /* sc2_block_creator.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
+				ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */,
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
@@ -1157,6 +1170,7 @@
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
 				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
+				ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
 				AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */,
 				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
@@ -1482,6 +1496,7 @@
 				AC95B4CB214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
 				ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */,
+				ACEBB277216C77F40094336F /* TrackingPosInfoFinderTests.swift in Sources */,
 				ACFC8123212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
 				AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
 				AC31C3C72114330000E09F91 /* Checker.swift in Sources */,
@@ -1524,6 +1539,7 @@
 				ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */,
 				AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */,
 				AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */,
+				ACEBB275216C767D0094336F /* TrackingFinderTests.swift in Sources */,
 				AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,

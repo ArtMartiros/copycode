@@ -16,7 +16,7 @@ struct Gap: StandartRectangle {
 }
 
 extension Gap {
-    
+    private static var errorRate: CGFloat = 7
     static func updatedOutside(_ gaps: [CGRect], with letterWidth: CGFloat) -> [CGRect]? {
         guard gaps.count > 1 else { return gaps }
         var gaps = gaps
@@ -52,7 +52,10 @@ extension Gap {
             return outer
         } else {
             let difference = width - letterWidth
-            guard difference <= outer.width else { return nil }
+            guard difference <= outer.width ||
+                EqualityChecker.check(of: difference, with: outer.width, errorPercentRate: errorRate)
+                else { return nil }
+            
             let divider = outer.divided(atDistance: difference, from: edge)
             return divider.remainder
         }

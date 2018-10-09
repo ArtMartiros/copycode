@@ -12,7 +12,7 @@ struct BlockTestHelper {
     private static let blockNames = ["block_one", "block_two"]
     
     static func getBlocks(_ object: AnyObject) -> [Block<LetterRectangle>] {
-      return blockNames.compactMap {
+        return blockNames.compactMap {
             CodableHelper.decode(object, path: $0, structType: Block<LetterRectangle>.self, shouldPrint: false)
         }
     }
@@ -34,16 +34,17 @@ enum BlockTest: String {
 enum Scene: String {
     case sc1 = "sc1_text_view_creator"
     case sc2 = "sc2_block_creator"
+    case sc3_p1 = "sc3_p1_firebase_chat"
+    case sc3_p2 = "sc3_p2_user_main_view_controller"
     var image: NSImage {
-       return NSImage(named: .init(rawValue))!
+        return NSImage(named: .init(rawValue))!
     }
     
     var customLettersName: String {
         switch self {
-        case .sc1:
-            return "sc1_custom_letters"
-        case .sc2:
-            return "sc2_custom_letters"
+        case .sc1: return "sc1_custom_letters"
+        case .sc2: return "sc2_custom_letters"
+        default: return ""
         }
     }
     
@@ -55,15 +56,15 @@ enum Scene: String {
         switch self {
         case .sc1: return "sc1_text_view_creator_grid"
         case .sc2: return "sc2_block_creator_grid"
+        default: return ""
         }
     }
     
     var gridWithTypeBlockName: String {
         switch self {
-        case .sc1:
-            return "sc1_block_text_view_creator_grid_with_type"
-        case .sc2:
-            return "sc2_block_creator_grid_with_type"
+        case .sc1: return "sc1_block_text_view_creator_grid_with_type"
+        case .sc2: return "sc2_block_creator_grid_with_type"
+        default: return ""
         }
         
     }
@@ -72,6 +73,7 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_type
         case .sc2: return sc2_type
+        default: return [:]
         }
     }
     
@@ -79,6 +81,7 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_letter
         case .sc2: return sc2_letter
+        default: return [:]
         }
     }
     
@@ -121,7 +124,7 @@ enum Scene: String {
 }
 
 extension LetterType {
-   fileprivate init(letter: String ) {
+    fileprivate init(letter: String ) {
         if letter == "u" {
             self = .upper
         } else if letter == "l" {

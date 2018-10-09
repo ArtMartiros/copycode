@@ -9,7 +9,7 @@
 import Foundation
 
 struct Settings {
-    private static let isDefault = false
+    private static let isDefault = true
     private static let defaultShowBlock = false
     private static let defaultShowLines = false
     private static let defaultShowWords = false
