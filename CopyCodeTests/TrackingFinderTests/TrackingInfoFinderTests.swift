@@ -9,77 +9,109 @@
 import XCTest
 
 private struct Answer {
-    let currentIndex: Int
-    let count: Int
-    let startIndex: Int
-    let endIndex: Int
+    let start: Int
+    let end: Int
 }
 
 class TrackingInfoFinderTests: XCTestCase {
     
     let finder = TrackingInfoFinder()
+    let formatter = TrackingInfoFormatter()
+    
+    fileprivate let test = [Answer(start: 2, end: 4), Answer(start: 6, end: 8),
+                            Answer(start: 10, end: 16), Answer(start: 17, end: 18),
+                            Answer(start: 19, end: 27)]
     
     func testBlockOne() {
-        let answer = Answer(currentIndex: 1, count: 2, startIndex: 2, endIndex: 36)
-        check(.one, with: answer)
+        let answers = [Answer(start: 2, end: 36)]
+        let index = 1
+        let chunked = getChucked(.one)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
     
     func testBlockTwo() {
-        let answer = Answer(currentIndex:2, count: 3, startIndex: 3, endIndex: 34)
-        check(.two, with: answer)
+        let answers = [Answer(start: 3, end: 34)]
+        let index = 2
+        let chunked = getChucked(.two)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
-    
+
     func testBlockWithComments() {
-        let answer = Answer(currentIndex: 4, count: 5, startIndex: 4, endIndex: 34)
-        check(.comments, with: answer)
+        let answers = [Answer(start: 4, end: 13), Answer(start: 14, end: 24), Answer(start: 25, end: 34)]
+        let index = 4
+        let chunked = getChucked(.comments)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
 
     func testSc1() {
-        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
-        check(.sc1, with: answer)
+        let answers = [Answer(start: 2, end: 4), Answer(start: 6, end: 8),
+                       Answer(start: 10, end: 16), Answer(start: 17, end: 18),
+                       Answer(start: 19, end: 27)]
+        let index = 1
+        let chunked = getChucked(.sc1)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
     
     func testSc2() {
-        let answer = Answer(currentIndex: 2, count: 3, startIndex: 4, endIndex: 34)
-        check(.sc2, with: answer)
+        let answers = [Answer(start: 2, end: 22)]
+        let index = 2
+        let chunked = getChucked(.sc2)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
-    
-    
+
+
     func testSc3_p1() {
-        let answer = Answer(currentIndex: 1, count: 3, startIndex: 3, endIndex: 47)
-        check1(.sc3_p1, with: answer)
+        let answers = [Answer(start: 3, end: 47)]
+        let index = 1
+        let chunked = getChucked(.sc3_p1)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
+    }
+
+    func testSc4() {
+        let answers = [Answer(start: 3, end: 22)]
+        let index = 1
+        let chunked = getChucked(.sc4)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
     }
     
-    private func check1(_ scene: Scene, with answer: Answer) {
+    private func getChucked(_ scene: Scene) -> [[TrackingInfo]] {
         let block = scene.getBlock(self)
-        let results = finder.find(from: block)
-        let value = CodableHelper.encode(results)
-        print(value)
-        let message0 = "Current results count \(results.count) not equal to \(answer.count)"
-        XCTAssertTrue(results.count == answer.count, message0)
-        let result = results[answer.currentIndex]
-        let message1 = "Current startIndex \(result.startIndex) not equal to \(answer.startIndex)"
-        let message2 = "Current endIndex \(result.endIndex) not equal to \(answer.endIndex)"
-        XCTAssertTrue(result.startIndex == answer.startIndex, message1)
-        XCTAssertTrue(result.endIndex == answer.endIndex, message2)
+        let infos = finder.find(from: block)
+        let chunked = formatter.chunk(infos, with: block)
+        return chunked
+
     }
-    
-    private func check(_ blockTest: BlockTest, with answer: Answer) {
-        let block = blockTest.getBlock(self)
-        let results = finder.find(from: block)
-        let value = CodableHelper.encode(results)
-        print(value)
-        let message0 = "Current results count \(results.count) not equal to \(answer.count)"
-        XCTAssertTrue(results.count == answer.count, message0)
-        let result = results[answer.currentIndex]
-        let message1 = "Current startIndex \(result.startIndex) not equal to \(answer.startIndex)"
-        let message2 = "Current endIndex \(result.endIndex) not equal to \(answer.endIndex)"
-        XCTAssertTrue(result.startIndex == answer.startIndex, message1)
-        XCTAssertTrue(result.endIndex == answer.endIndex, message2)
-    }
-    
+
     func testPerformanceExample() {
-        let block = BlockTest.one.getBlock(self)
+        let block = Scene.sc1.getBlock(self)
         self.measure {
             let _ = finder.find(from: block)
         }

@@ -83,7 +83,7 @@
 		AC4419152162569C00248DCC /* TreeOCRCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */; };
 		AC4419172162675100248DCC /* CustomOCRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4419162162675100248DCC /* CustomOCRTests.swift */; };
 		AC44191E2162722500248DCC /* sc1_custom_letters.json in Resources */ = {isa = PBXBuildFile; fileRef = AC44191D2162722500248DCC /* sc1_custom_letters.json */; };
-		AC457DF32148198700D9E69F /* BlockTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC457DF22148198700D9E69F /* BlockTestHelper.swift */; };
+		AC457DF32148198700D9E69F /* Scenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC457DF22148198700D9E69F /* Scenes.swift */; };
 		AC4CA3F221025DCA0093D938 /* WordTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AB21020A9D00770DBB /* WordTypeIdentifier.swift */; };
 		AC4CA3F321025DDA0093D938 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D88620FF4ED100770DBB /* Timer.swift */; };
 		AC4CA3F521025DDF0093D938 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D87520FF4D1E00770DBB /* Double.swift */; };
@@ -250,6 +250,8 @@
 		ACEBB284216CE4E50094336F /* sc3_p2_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB283216CE4E50094336F /* sc3_p2_type.swift */; };
 		ACEBB286216CEACE0094336F /* sc3_p2_user_main_view_controller_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB285216CEACE0094336F /* sc3_p2_user_main_view_controller_grid_with_type.json */; };
 		ACEBB289216CF1960094336F /* sc3_p1_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB288216CF1960094336F /* sc3_p1_letter.swift */; };
+		ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB28A216D19250094336F /* sc4_leading_finder.json */; };
+		ACEBB28D216D1C7C0094336F /* sc5_tree_letter_type.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */; };
 		ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4CA409210462510093D938 /* BlockCreator.swift */; };
 		ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
 		ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC502108BE0B00897732 /* Dictionary.swift */; };
@@ -380,7 +382,7 @@
 		AC42D3F1212D502E0086A728 /* WordSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSplitter.swift; sourceTree = "<group>"; };
 		AC4419162162675100248DCC /* CustomOCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOCRTests.swift; sourceTree = "<group>"; };
 		AC44191D2162722500248DCC /* sc1_custom_letters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_custom_letters.json; sourceTree = "<group>"; };
-		AC457DF22148198700D9E69F /* BlockTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTestHelper.swift; sourceTree = "<group>"; };
+		AC457DF22148198700D9E69F /* Scenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scenes.swift; sourceTree = "<group>"; };
 		AC4CA409210462510093D938 /* BlockCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCreator.swift; sourceTree = "<group>"; };
 		AC50A874212F2D7700B196BE /* PixelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelConverter.swift; sourceTree = "<group>"; };
 		AC50A8782133ECD900B196BE /* MissingElementsFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingElementsFinder.swift; sourceTree = "<group>"; };
@@ -481,6 +483,8 @@
 		ACEBB283216CE4E50094336F /* sc3_p2_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc3_p2_type.swift; sourceTree = "<group>"; };
 		ACEBB285216CEACE0094336F /* sc3_p2_user_main_view_controller_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_user_main_view_controller_grid_with_type.json; sourceTree = "<group>"; };
 		ACEBB288216CF1960094336F /* sc3_p1_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc3_p1_letter.swift; sourceTree = "<group>"; };
+		ACEBB28A216D19250094336F /* sc4_leading_finder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc4_leading_finder.json; sourceTree = "<group>"; };
+		ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc5_tree_letter_type.json; sourceTree = "<group>"; };
 		ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CopyCode-Bridging-Header.h"; sourceTree = "<group>"; };
 		ACF1AC502108BE0B00897732 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		ACF1AC532108F86C00897732 /* TextRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizerManager.swift; sourceTree = "<group>"; };
@@ -792,7 +796,7 @@
 			isa = PBXGroup;
 			children = (
 				AC9EF09721232861004ED89D /* OCRPicture.swift */,
-				AC457DF22148198700D9E69F /* BlockTestHelper.swift */,
+				AC457DF22148198700D9E69F /* Scenes.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1056,6 +1060,8 @@
 				ACEBB27F216CCF310094336F /* sc2 */,
 				ACEBB282216CCF820094336F /* sc3_p1 */,
 				ACEBB287216CEB6E0094336F /* sc3_p2 */,
+				ACEBB28A216D19250094336F /* sc4_leading_finder.json */,
+				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1236,12 +1242,14 @@
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
+				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
 				AC28F2DA216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
+				ACEBB28D216D1C7C0094336F /* sc5_tree_letter_type.json in Resources */,
 				AC44191E2162722500248DCC /* sc1_custom_letters.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
@@ -1638,7 +1646,7 @@
 				AC15F820214D0ADD001DC55E /* BlockSplitter.swift in Sources */,
 				AC4CA3FA21025DDF0093D938 /* NSBitmapImageRep.swift in Sources */,
 				AC6493F62166914A003A4164 /* LetterRestorer.swift in Sources */,
-				AC457DF32148198700D9E69F /* BlockTestHelper.swift in Sources */,
+				AC457DF32148198700D9E69F /* Scenes.swift in Sources */,
 				AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */,
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,
 				ACDA6DC2215E727700A7AA62 /* AttrStringCreator.swift in Sources */,

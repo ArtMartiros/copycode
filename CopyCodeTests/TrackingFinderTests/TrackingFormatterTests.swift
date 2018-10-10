@@ -37,12 +37,5 @@ class TrackingFormatterTests: XCTestCase {
                           "endIndex: \(current.endIndex) != answer.end: \(answer.end)")
         }
     }
-    
-    func testSc2() {
-        let finder = TrackingInfoFinder()
-        
-      let block = BlockTest.sc2.getBlock(self)
-      let result = finder.find(from: block)
-        print("dd")
-    }
+
 }

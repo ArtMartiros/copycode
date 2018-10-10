@@ -12,9 +12,9 @@ class TrackingPosInfoFinderTests: XCTestCase {
 
     let posFinder = TrackingPosInfoFinder()
     
-    func testSc3_p1() {
-        let block = Scene.sc3_p1.getBlock(self)
-        let line = block.lines[38]
+    func testSc1() {
+        let block = Scene.sc1.getBlock(self)
+        let line = block.lines[2]
         let result = posFinder.find(from: line.words)
         print(result)
     }

@@ -33,6 +33,7 @@ final class BlockCreator: BlockCreatorProtocol {
 //                let value = CodableHelper.encode(block)
 //                print(value)
 //        }
+//        return blocks
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)

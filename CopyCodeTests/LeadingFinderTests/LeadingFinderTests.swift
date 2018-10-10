@@ -11,7 +11,7 @@ import XCTest
 class LeadingFinderTests: XCTestCase {
 //    let finder = LeadingFinder()
 //    func testFindLeadings() {
-//        let blocks = BlockTestHelper.getCodeBlocks(self)
+//        let blocks = SceneHelper.getCodeBlocks(self)
 //        for block in blocks {
 //           let leading = finder.find(block)
 //            print("ddd")

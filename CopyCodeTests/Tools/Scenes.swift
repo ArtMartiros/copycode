@@ -1,5 +1,5 @@
 //
-//  BlockTestHelper.swift
+//  Scenes.swift
 //  CopyCodeTests
 //
 //  Created by Артем on 11/09/2018.
@@ -8,40 +8,24 @@
 
 import AppKit
 
-struct BlockTestHelper {
-    private static let blockNames = ["block_one", "block_two"]
-    
-    static func getBlocks(_ object: AnyObject) -> [Block<LetterRectangle>] {
-        return blockNames.compactMap {
-            CodableHelper.decode(object, path: $0, structType: Block<LetterRectangle>.self, shouldPrint: false)
-        }
-    }
-}
-
-enum BlockTest: String {
-    case comments = "block_with_comments"
-    case one = "block_one"
-    case oneCode = "block_one_code"
-    case two = "block_two"
-    case sc1 = "sc1_text_view_creator"
-    case sc2 = "sc2_block_creator"
-    
-    func getBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: self.rawValue, structType: SimpleBlock.self, shouldPrint: false)!
-    }
-}
-
 enum Scene: String {
     case sc1 = "sc1_text_view_creator"
     case sc2 = "sc2_block_creator"
     case sc3_p1 = "sc3_p1_firebase_chat"
     case sc3_p2 = "sc3_p2_user_main_view_controller"
+    case sc4 = "sc4_leading_finder"
+    case sc5 = "sc5_tree_letter_type"
+    case comments = "block_with_comments"
+    case one = "block_one"
+    case oneCode = "block_one_code"
+    case two = "block_two"
     
     var imageName: String {
         switch self {
         case .sc1: return "sc1_text_view_creator"
         case .sc2: return "sc2_block_creator"
         case .sc3_p1, .sc3_p2: return "sc3_firebase_chat"
+        default: return ""
         }
     }
     
@@ -67,6 +51,7 @@ enum Scene: String {
         case .sc2: return "sc2_block_creator_grid"
         case .sc3_p1: return "sc3_p1_firebase_chat_grid"
         case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
+        default: return ""
         }
     }
     
@@ -86,6 +71,7 @@ enum Scene: String {
         case .sc2: return sc2_type
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
+        default: return [:]
         }
     }
     

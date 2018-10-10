@@ -13,7 +13,8 @@ struct TrackingInfoFinder {
     private let trackingFinder = TrackingFinder()
     private let posFinder = TrackingPosInfoFinder()
     private let checker = TrackingChecker()
-
+    private let preliminaryChecker = PreliminaryTrackingChecker()
+    
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
         
@@ -98,7 +99,10 @@ struct TrackingInfoFinder {
         var updatedTrackings: [TrackingError] = []
         let wordGaps = word.fixedGapsWithOutside
         for trackingError in trackingErrors  {
-            guard let gaps = Gap.updatedOutside(wordGaps, with: trackingError.tracking.width) else { continue }
+            let trackingWidth = trackingError.tracking.width
+            guard preliminaryChecker.check(word, trackingWidth: trackingWidth),
+                let gaps = Gap.updatedOutside(wordGaps, with: trackingWidth) else { continue }
+            
             let result = checker.check(gaps, with: trackingError.tracking)
             if result.result {
                 let newRate = trackingError.errorRate + result.errorRate
@@ -152,31 +156,46 @@ extension TrackingInfoFinder {
         let word = line.words[wordIndex]
         let trackingErrors = updateFilteredTrackingErrors(word, with: trackings)
         
-        guard trackingErrors.isEmpty else { return .sum(updatedTrackings: trackingErrors) }
+        guard trackingErrors.isEmpty else {
+            let lastIndex = lineIndex + 1
+//            if wordIndex == 0 && lastIndex == lines.count, word.letters.count <= 2 {
+//                return .split
+//            }
+//            //ошибка при которой слово из двух символово подходит и разрушает все, хотя не должна подходить
+//            if wordIndex == 0 && word.letters.count <= 2 {
+//                var action: TrackingAction?
+//                if getNextWordInSameLine(in: line, currentWordIndex: wordIndex) != nil {
+//                    action = checkType(lines, lineIndex: lineIndex, wordIndex: 1, with: trackingErrors)
+//                } else if getNextLineWord(in: lines, currentLineIndex: lineIndex) != nil {
+//                    action = checkType(lines, lineIndex: lineIndex + 1, wordIndex: 0, with: trackingErrors)
+//                }
+//                
+//                guard let result = action else { return .split }
+//                switch result {
+//                case .split: return .split
+//                case .forbidden: return .split
+//                case .sum: return .sum(updatedTrackings: trackingErrors)
+//                }
+//            }
+            return .sum(updatedTrackings: trackingErrors)
+        }
         
-        let firstWord = wordIndex == 0
+        // Если нет результатов
         let previousTrackingWidth = trackings[0].tracking.width
         
-        if firstWord {
-            let passBy = !intersected(frame: word.frame, with: lines[lineIndex - 1].frame)
+        if wordIndex == 0 {
+            guard !intersected(frame: word.frame, with: lines[lineIndex - 1].frame),
+                let tracking = trackingFinder.findTrackings(from: word).first,
+                !EqualityChecker.check(of: tracking.width, with: previousTrackingWidth, errorPercentRate: 3)
+                else { return .split }
             
-            guard passBy,
-                let tracking = trackingFinder.findTrackings(from: word).first else { return .split }
-            
-            let anotherTracking = !EqualityChecker.check(of: tracking.width,
-                                                         with: previousTrackingWidth, errorPercentRate: 3)
-            
-            guard anotherTracking,
-                let nextWord = getNextLineWord(in: lines, lineIndex: lineIndex) else { return .split }
-            
-            let nextTrackingErrors = updateFilteredTrackingErrors(nextWord, with: trackings)
-            return nextTrackingErrors.isEmpty ? .split : .forbidden(x: word.frame.leftX)
-            
+            let allOk = checkNextLine(in: lines, currentLineIndex: lineIndex, errors: trackings)
+            return allOk ? .forbidden(x: word.frame.leftX) : .split
             
         } else {
-            guard let tracking = trackingFinder.findTrackings(from: word).first else {
-                return .forbidden(x: word.frame.leftX)
-            }
+            guard let tracking = trackingFinder.findTrackings(from: word).first
+                else { return .forbidden(x: word.frame.leftX) }
+            
             let similarTracking = EqualityChecker.check(of: tracking.width, with:
                 previousTrackingWidth, errorPercentRate: 3)
             return similarTracking ? .split : .forbidden(x: word.frame.leftX)
@@ -185,12 +204,23 @@ extension TrackingInfoFinder {
     
     }
     
-    private func getNextLineWord(in lines: [SimpleLine], lineIndex: Int) -> SimpleWord? {
-        let nextLineIndex = lineIndex + 1
-        if nextLineIndex < lines.count {
-            return lines[nextLineIndex].words[0]
+    ///проверяет след линию на совпадение TrackingError но исключая слова с двумя и меньше символами
+    func checkNextLine(in lines: [SimpleLine], currentLineIndex: Int, errors: [TrackingError]) -> Bool {
+        let nextLineIndex = currentLineIndex + 1
+        guard nextLineIndex != lines.count else { return false }
+
+        let line = lines[nextLineIndex]
+        for word in line.words {
+            guard word.letters.count > 2 else { continue }
+            return !updateFilteredTrackingErrors(word, with: errors).isEmpty
         }
-        return nil
+        return false
+    }
+
+    private func getNextWordInSameLine(in line: SimpleLine, currentWordIndex: Int) -> SimpleWord? {
+        let nextWordIndex = currentWordIndex + 1
+        guard line.words.count > nextWordIndex else { return nil }
+        return line.words[currentWordIndex]
     }
     
     private func intersected(frame: CGRect, with secondFrame: CGRect) -> Bool {
@@ -212,5 +242,29 @@ extension TrackingInfoFinder {
         case sum(updatedTrackings: [TrackingError])
         case split
         case forbidden(x: CGFloat)
+    }
+}
+
+struct PreliminaryTrackingChecker {
+    
+    private let maxRateHight: CGFloat = 1.8
+    //чтобы исключить всякую хрень как логотипы
+    func check(_ word: SimpleWord, trackingWidth: CGFloat) -> Bool {
+        guard word.frame.height / trackingWidth < maxRateHight else { return false }
+        
+        for letter in word.letters {
+            let width = letter.frame.width
+            
+            if width < trackingWidth ||
+                EqualityChecker.check(of: width, with: trackingWidth, errorPercentRate: 10) {
+                continue
+            } else {
+                let newWidth = (trackingWidth * 2)
+                guard EqualityChecker.check(of: newWidth, with: width, errorPercentRate: 4) else {
+                    return false
+                }
+            }
+        }
+        return true
     }
 }
