@@ -30,10 +30,36 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         return (sum / CGFloat(lines.count)).rounded()
     }
     
-    /// исключая аномальные результаты дает самую высокую линию
-    func maxLineHeight() -> CGFloat {
+    ///старый вариант пока не использую
+    func maxLineHeight2() -> CGFloat {
         let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }
         return heights[0]
+    }
+    
+    /// исключая аномальный результат буквы, место где ты печатаешь там палочка,
+    /// она считается тоже буквой и дает аномальную высоту, ее надо исключить из поиска
+    /// если будет хуево работать можно просто сделать новую линию убрав эту буквы и потом еще раз поискать
+    ///пока итак норм
+    func maxLineHeight() -> CGFloat {
+        let sortedLines = lines.sorted { $0.frame.height > $1.frame.height }
+        lineLoop: for line in sortedLines {
+            let lineHeight = line.frame.height
+            let words = line.words.sorted { $0.frame.height > $1.frame.height }
+            for word in words {
+                let filteredLetters = word.letters.filter { lineHeight == $0.frame.height }
+                if filteredLetters.count == 1 {
+                  let letter = filteredLetters[0]
+                    if letter.frame.ratio > 7 {
+                        continue lineLoop
+                    } else {
+                      return line.frame.height
+                    }
+                } else {
+                    return line.frame.height
+                }
+            }
+        }
+        return sortedLines[0].frame.height
     }
     
     init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType, typography: Typography) {
