@@ -15,6 +15,7 @@ enum Scene: String {
     case sc3_p2 = "sc3_p2_user_main_view_controller"
     case sc4 = "sc4_leading_finder"
     case sc5 = "sc5_tree_letter_type"
+    case sc6 = ""
     case comments = "block_with_comments"
     case one = "block_one"
     case oneCode = "block_one_code"
@@ -25,8 +26,31 @@ enum Scene: String {
         case .sc1: return "sc1_text_view_creator"
         case .sc2: return "sc2_block_creator"
         case .sc3_p1, .sc3_p2: return "sc3_firebase_chat"
+        case .sc6: return "sc6_tree_letter_type"
         default: return ""
         }
+    }
+    
+    var preDigitColumnWordsName: String {
+        switch self {
+        case .sc6: return "sc6_pre_digit_column_words"
+        default: return ""
+        }
+    }
+    
+    var wordsName: String {
+        switch self {
+        case .sc6: return "sc6_words"
+        default: return ""
+        }
+    }
+    
+    func gePreDigitColumnWords(_ object: AnyObject) -> [SimpleWord] {
+        return CodableHelper.decode(object, path: preDigitColumnWordsName, structType: [SimpleWord].self, shouldPrint: false)!
+    }
+    
+    func getWords(_ object: AnyObject) -> [SimpleWord] {
+       return CodableHelper.decode(object, path: wordsName, structType: [SimpleWord].self, shouldPrint: false)!
     }
     
     var image: NSImage {

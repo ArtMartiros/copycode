@@ -38,6 +38,7 @@
 		AC06D8AC21020A9D00770DBB /* WordTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AB21020A9D00770DBB /* WordTypeIdentifier.swift */; };
 		AC06D8AE21020B9800770DBB /* TypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AD21020B9800770DBB /* TypeConverter.swift */; };
 		AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D8AF21020D3000770DBB /* WordFactor.swift */; };
+		AC0EBFED216E28400021B38C /* sc6_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0EBFEC216E28400021B38C /* sc6_words.json */; };
 		AC15F81C214CE102001DC55E /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81B214CE102001DC55E /* SortedArray.swift */; };
 		AC15F81D214CE102001DC55E /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81B214CE102001DC55E /* SortedArray.swift */; };
 		AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */; };
@@ -77,6 +78,7 @@
 		AC31C3CF2114573100E09F91 /* TreeOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CD2114573100E09F91 /* TreeOCR.swift */; };
 		AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
+		AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */; };
 		AC3A11CD2158EE300098F707 /* TrackingCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */; };
 		AC42D3F2212D502E0086A728 /* WordSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC42D3F1212D502E0086A728 /* WordSplitter.swift */; };
 		AC42D3F3212D502E0086A728 /* WordSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC42D3F1212D502E0086A728 /* WordSplitter.swift */; };
@@ -353,6 +355,7 @@
 		AC06D8AB21020A9D00770DBB /* WordTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTypeIdentifier.swift; sourceTree = "<group>"; };
 		AC06D8AD21020B9800770DBB /* TypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeConverter.swift; sourceTree = "<group>"; };
 		AC06D8AF21020D3000770DBB /* WordFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordFactor.swift; sourceTree = "<group>"; };
+		AC0EBFEC216E28400021B38C /* sc6_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc6_words.json; sourceTree = "<group>"; };
 		AC15F81B214CE102001DC55E /* SortedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSplitter.swift; sourceTree = "<group>"; };
 		AC199EAB211A9A5F00B53656 /* letter_type_classification.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification.json; sourceTree = "<group>"; };
@@ -378,6 +381,7 @@
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
 		AC31C3CD2114573100E09F91 /* TreeOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCR.swift; sourceTree = "<group>"; };
 		AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnSplitter.swift; sourceTree = "<group>"; };
+		AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc6_pre_digit_column_words.json; sourceTree = "<group>"; };
 		AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCheckerTests.swift; sourceTree = "<group>"; };
 		AC42D3F1212D502E0086A728 /* WordSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSplitter.swift; sourceTree = "<group>"; };
 		AC4419162162675100248DCC /* CustomOCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOCRTests.swift; sourceTree = "<group>"; };
@@ -696,37 +700,12 @@
 		AC199EAA211A98AA00B53656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC380661216E2A35004EA7A2 /* Other */,
 				AC6493EC21663B96003A4164 /* Letters */,
 				AC218145216505E600515FBD /* Type */,
 				AC441918216270BF00248DCC /* Custom */,
 				AC7734A3215C07CA009617F7 /* TrackingInfo */,
 				ACF8D10A2156BF2F00DF4A38 /* Blocks */,
-				AC199EAB211A9A5F00B53656 /* letter_type_classification.json */,
-				ACF2569B2120894800B2F084 /* letter_type_classification_black.json */,
-				AC9EF09F21232A8E004ED89D /* ocr_xcode_dark_12.json */,
-				AC9EF0A121232C00004ED89D /* ocr_xcode_dark_14.json */,
-				AC9EF0A321232D11004ED89D /* ocr_xcode_dark_18.json */,
-				AC9EF09D21232A12004ED89D /* ocr_xcode_light_12.json */,
-				AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */,
-				AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */,
-				AC9EF0A921232EC7004ED89D /* ocr_sublime_dark_14.json */,
-				AC9EF0A721232E24004ED89D /* ocr_sublime_dark_18.json */,
-				AC9EF0A521232D78004ED89D /* ocr_sublime_dark_20.json */,
-				AC9EF0B12123324A004ED89D /* ocr_visual_12.json */,
-				AC9EF0AF21233191004ED89D /* ocr_visual_14.json */,
-				AC9EF0AD21233090004ED89D /* ocr_visual_18.json */,
-				AC9EF0AB21232FE4004ED89D /* ocr_visual_20.json */,
-				AC50A8892135492300B196BE /* missing_quotes.json */,
-				AC50A8832134003000B196BE /* missing_dot.json */,
-				AC50A88B21354D1C00B196BE /* missing_equal.json */,
-				AC50A88D2135BA8100B196BE /* missing_underscore.json */,
-				AC50A8872135461B00B196BE /* missing_dash.json */,
-				AC03DCE1213D600800730DCD /* block_one.json */,
-				AC03DCF8213D61AF00730DCD /* block_two.json */,
-				AC8C0AAF214AB01400F0FD13 /* block_one_code.json */,
-				AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */,
-				AC6B2E49214BF220000ACEDC /* column_detection_words.json */,
-				AC250A69214EE59800E6D596 /* block_one_completed.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -770,6 +749,39 @@
 				AC06D88A20FF4F0C00770DBB /* Tree.swift */,
 			);
 			path = Tree;
+			sourceTree = "<group>";
+		};
+		AC380661216E2A35004EA7A2 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				AC199EAB211A9A5F00B53656 /* letter_type_classification.json */,
+				ACF2569B2120894800B2F084 /* letter_type_classification_black.json */,
+				AC9EF09F21232A8E004ED89D /* ocr_xcode_dark_12.json */,
+				AC9EF0A121232C00004ED89D /* ocr_xcode_dark_14.json */,
+				AC9EF0A321232D11004ED89D /* ocr_xcode_dark_18.json */,
+				AC9EF09D21232A12004ED89D /* ocr_xcode_light_12.json */,
+				AC9EF09B212328F2004ED89D /* ocr_xcode_light_14.json */,
+				AC9EF099212328B8004ED89D /* ocr_xcode_light_18.json */,
+				AC9EF0A921232EC7004ED89D /* ocr_sublime_dark_14.json */,
+				AC9EF0A721232E24004ED89D /* ocr_sublime_dark_18.json */,
+				AC9EF0A521232D78004ED89D /* ocr_sublime_dark_20.json */,
+				AC9EF0B12123324A004ED89D /* ocr_visual_12.json */,
+				AC9EF0AF21233191004ED89D /* ocr_visual_14.json */,
+				AC9EF0AD21233090004ED89D /* ocr_visual_18.json */,
+				AC9EF0AB21232FE4004ED89D /* ocr_visual_20.json */,
+				AC50A8892135492300B196BE /* missing_quotes.json */,
+				AC50A8832134003000B196BE /* missing_dot.json */,
+				AC50A88B21354D1C00B196BE /* missing_equal.json */,
+				AC50A88D2135BA8100B196BE /* missing_underscore.json */,
+				AC50A8872135461B00B196BE /* missing_dash.json */,
+				AC03DCE1213D600800730DCD /* block_one.json */,
+				AC03DCF8213D61AF00730DCD /* block_two.json */,
+				AC8C0AAF214AB01400F0FD13 /* block_one_code.json */,
+				AC6B2E47214BBAB3000ACEDC /* block_with_comments.json */,
+				AC6B2E49214BF220000ACEDC /* column_detection_words.json */,
+				AC250A69214EE59800E6D596 /* block_one_completed.json */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		AC441918216270BF00248DCC /* Custom */ = {
@@ -1062,6 +1074,8 @@
 				ACEBB287216CEB6E0094336F /* sc3_p2 */,
 				ACEBB28A216D19250094336F /* sc4_leading_finder.json */,
 				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
+				AC0EBFEC216E28400021B38C /* sc6_words.json */,
+				AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1228,6 +1242,7 @@
 				AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
+				AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */,
 				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
 				ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
@@ -1241,6 +1256,7 @@
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,
+				AC0EBFED216E28400021B38C /* sc6_words.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,

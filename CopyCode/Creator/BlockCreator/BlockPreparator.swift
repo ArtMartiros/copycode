@@ -6,7 +6,7 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 extension BlockCreator {
     
@@ -20,6 +20,10 @@ extension BlockCreator {
         
         init(digitalColumnSplitter: DigitColumnSplitter) {
             self.digitalColumnSplitter = digitalColumnSplitter
+        }
+        
+        init(in bitmap: NSBitmapImageRep) {
+            self.digitalColumnSplitter = DigitColumnSplitter(in: bitmap)
         }
         
         func initialPrepare(from words: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {

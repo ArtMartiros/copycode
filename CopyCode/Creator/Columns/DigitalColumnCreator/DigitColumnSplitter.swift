@@ -6,14 +6,14 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 protocol DigitColumnCreatorProtocol {
     associatedtype ColumnWithBlockWords
-    func spltted(from rectangles: [Word<LetterRectangle>]) -> ColumnWithBlockWords
+    func spltted(from rectangles: [SimpleWord]) -> ColumnWithBlockWords
 }
 
-struct DigitColumnSplitter: DigitColumnCreatorProtocol {
+class DigitColumnSplitter: DigitColumnCreatorProtocol {
     private let kMinimumColumnWordsCount = 4
     private let columnDetection: DigitColumnDetection
     private let columnMerger: DigitColumnMerger
@@ -24,14 +24,20 @@ struct DigitColumnSplitter: DigitColumnCreatorProtocol {
         self.columnMerger = columnMerger
     }
     
+    convenience init(in bitmap: NSBitmapImageRep) {
+        let recognizer = WordRecognizer(in: bitmap)
+        let detection = DigitColumnDetection(recognizer: recognizer)
+        let merger = DigitColumnMerger()
+        self.init(columnDetection: detection, columnMerger: merger)
+    }
+    
     func spltted(from rectangles: [SimpleWord]) -> ColumnWithBlockWords {
         let dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
 //        let values = dictionaryWordsByOriginX.sorted { $0.key < $1.key}
-//        for item in values {
-//          print(item.key)
-//            item.value.forEach {
-//                print($0.pixelFrame)
-//            }
+//        for item in values where item.key == 313 {
+//          let value = CodableHelper.encode(item.value)
+//            print(value)
+//
 //        }
         var pre = createPreliminaryWord(from: dictionaryWordsByOriginX)
         pre = updateByNearestXkey(pre)

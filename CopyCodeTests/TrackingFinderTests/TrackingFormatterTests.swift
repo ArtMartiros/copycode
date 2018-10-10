@@ -18,8 +18,10 @@ class TrackingFormatterTests: XCTestCase {
     let formatter = TrackingInfoFormatter()
     
     func testSc1() {
-        let answers = [Answer(start: 3, end: 4), Answer(start: 6, end: 8), Answer(start: 10, end: 15),
-                       Answer(start: 16, end: 25), Answer(start: 26, end: 27) ]
+        let answers = [Answer(start: 2, end: 4), Answer(start: 6, end: 8),
+                       Answer(start: 10, end: 16), Answer(start: 17, end: 18),
+                       Answer(start: 19, end: 27)]
+        
         let scene = Scene.sc1
         let infos = scene.getTrackingInfos(self)
         let block = scene.getBlock(self)

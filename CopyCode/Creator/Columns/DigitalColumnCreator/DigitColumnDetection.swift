@@ -6,7 +6,7 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 final class DigitColumnDetection {
     typealias SplittedWords = (digitColumnWords: [SimpleWord], shitWords: [SimpleWord])
@@ -17,6 +17,11 @@ final class DigitColumnDetection {
     
     init(recognizer: WordRecognizer) {
         self.recognizer = recognizer
+    }
+    
+    convenience init(in bitmap: NSBitmapImageRep) {
+        let recognizer = WordRecognizer(in: bitmap)
+        self.init(recognizer: recognizer)
     }
     
     ///Обнаруживает если массив слов это digit column
@@ -95,7 +100,7 @@ final class DigitColumnDetection {
 
 enum SymbolsCount: Int {
     static let oneSymbolRatio: CGFloat = 1.2
-    static let twoSymbolRatio: CGFloat = 0.65
+    static let twoSymbolRatio: CGFloat = 0.62
     static let threeSymbolRatio: CGFloat = 0.45
     
     case one = 1, two = 2, three = 3, many = 4
