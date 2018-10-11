@@ -9,23 +9,16 @@
 import Cocoa
 import Mixpanel
 
-class PanelController: NSWindowController {
-    var observer: NSObjectProtocol?
-    private var panel: Panel {
-        return window as! Panel
-    }
+final class PanelController: NSWindowController {
+    private var panel: Panel { return window as! Panel }
     
     convenience init() {
         self.init(window: nil)
         Bundle.main.loadNibNamed(NSNib.Name("Panel"), owner: self, topLevelObjects: nil)
-    }
-    
-    func closePanel() {
-        panel.closePanel()
+        panel.panelDelegate = self
     }
 
     func openPanel(with image: CGImage) {
-        addNotification()
         guard let screenRect = NSScreen.screens.first?.frame else { return }
         panel.initialSetupe(with: screenRect)
         let image = NSImage(cgImage: image, size: screenRect.size)
@@ -34,7 +27,11 @@ class PanelController: NSWindowController {
         
     }
     
-    let textDetection = TextRecognizerManager()
+    func closePanel() {
+        panel.closePanel()
+    }
+    
+   private let textDetection = TextRecognizerManager()
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
@@ -47,7 +44,7 @@ class PanelController: NSWindowController {
                         let text = transcriptor.transcript(block: block)
                         let width = grid.trackingData.defaultTracking.width
                         let spacing = grid.leading.lineSpacing
-                        self?.panel.addTextView(with: text, in: block.frame, letterWidth: width, spacing: spacing - 1)
+                        self?.panel.addTextFrame(with: text, in: block.frame, letterWidth: width, spacing: spacing - 1)
                     }
                 }
             }
@@ -93,48 +90,18 @@ class PanelController: NSWindowController {
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
     }
-    
-    private func addNotification() {
-        NotificationCenter.default.addObserver(forName: TapCloseButton, object: nil, queue: nil) { (notification) in
-            self.closePanel()
-        }
-    }
-    
-    deinit {
-        if let observer = observer {
-            NotificationCenter.default.removeObserver(observer)
-        }
-        
-    }
+
 }
 
-//extension PanelController {
-//    /// Updates the UI with the results of the classification.
-//    /// - Tag: ProcessClassifications
-//    func processClassifications(for request: VNRequest, error: Error?) {
-//        DispatchQueue.main.async {
-//            guard let results = request.results else {
-//                print("Unable to classify image.\n\(error!.localizedDescription)")
-//                return
-//            }
-//            // The `results` will always be `VNClassificationObservation`s, as specified by the Core ML model in this project.
-//            let classifications = results as! [VNClassificationObservation]
-//
-//            if classifications.isEmpty {
-//                print("Nothing recognized.")
-//            } else {
-//                // Display top classifications ranked by confidence in the UI.
-//                let topClassifications = classifications.prefix(2)
-//                let descriptions = topClassifications.map { classification in
-//                    // Formats the classification for display; e.g. "(0.37) cliff, drop, drop-off".
-//                    return String(format: "  (%.2f) %@", classification.confidence, classification.identifier)
-//                }
-//                Timer.stop(text: "classification")
-//                print("Classification:\n" + descriptions.joined(separator: "\n"))
-//            }
-//        }
-//    }
-//
-//
-//}
-
+extension PanelController: PanelDelegate {
+    func tapCloseButton(panel: Panel) {
+        closePanel()
+    }
+    
+    func tapCopyButton(panel: Panel, text: String?) {
+        guard let string = text else { return }
+        let pasterboard = NSPasteboard.general
+        pasterboard.setString(string, forType: .string)
+        closePanel()
+    }
+}

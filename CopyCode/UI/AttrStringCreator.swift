@@ -19,7 +19,7 @@ class AttrStringCreator {
         return fontSize
     }
     
-    func create(with text: String, letterWidth width: CGFloat, spacing: CGFloat) -> NSAttributedString {
+    func createForTextView(with text: String, letterWidth width: CGFloat, spacing: CGFloat) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = spacing
         let fontSize = detectFontSize(from: width)
@@ -31,4 +31,13 @@ class AttrStringCreator {
         let myAttrString = NSAttributedString(string: text, attributes: myAttribute )
         return myAttrString
     }
+    
+    func create(with text: String, size: CGFloat, color: NSColor) -> NSAttributedString {
+        let font = NSFont.systemFont(ofSize: size)
+        let myAttribute: [NSAttributedString.Key : Any] = [.font: font,
+                                                           .foregroundColor: color]
+        let myAttrString = NSAttributedString(string: text, attributes: myAttribute )
+        return myAttrString
+    }
+    
 }

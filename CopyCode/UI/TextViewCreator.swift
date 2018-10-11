@@ -10,13 +10,14 @@ import AppKit
 
 class TextViewCreator {
 
-    func create(with frame: NSRect, with attrString: NSAttributedString) -> DrawTextView {
-        let textView = DrawTextView(frame: frame)
+    func create(with frame: NSRect, with attrString: NSAttributedString) -> CopyTextView {
+        let textView = CopyTextView(frame: frame)
         textView.isEditable = false
         textView.isSelectable = true
         textView.backgroundColor = NSColor.textViewBackgroundColor
         textView.selectedTextAttributes = [ .backgroundColor : NSColor.blue.withAlphaComponent(0.4)]
         textView.textStorage?.append(attrString)
+        textView.setButton()
         return textView
     }
 }
