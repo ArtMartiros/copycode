@@ -243,6 +243,9 @@
 		ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */; };
 		ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
 		ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */; };
+		ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */; };
+		ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */; };
+		ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */; };
 		ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */; };
 		ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */; };
 		ACEBB275216C767D0094336F /* TrackingFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB274216C767D0094336F /* TrackingFinderTests.swift */; };
@@ -479,6 +482,9 @@
 		ACDA6DC4215E7F9300A7AA62 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		ACDA6DC8215EB26300A7AA62 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc7_panel_pre_digit_column_words.json; sourceTree = "<group>"; };
+		ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc8_panel_controller_pre_digit_column_words_3.json; sourceTree = "<group>"; };
+		ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc8_panel_controller_pre_digit_column_words_2.json; sourceTree = "<group>"; };
 		ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p1_firebase_chat.json; sourceTree = "<group>"; };
 		ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_user_main_view_controller.json; sourceTree = "<group>"; };
 		ACEBB274216C767D0094336F /* TrackingFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinderTests.swift; sourceTree = "<group>"; };
@@ -1080,6 +1086,9 @@
 				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
 				AC0EBFEC216E28400021B38C /* sc6_words.json */,
 				AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */,
+				ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */,
+				ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */,
+				ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1229,6 +1238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC790437215D1D4A001D1FB1 /* sc2_block_creator.json in Resources */,
+				ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */,
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
@@ -1240,6 +1250,7 @@
 				AC8C0AB1214AB01400F0FD13 /* block_one_code.json in Resources */,
 				ACF8D10C2156BF6E00DF4A38 /* sc1_text_view_creator.json in Resources */,
 				AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */,
+				ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
 				AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */,
 				ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */,
@@ -1263,6 +1274,7 @@
 				AC0EBFED216E28400021B38C /* sc6_words.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
+				ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,

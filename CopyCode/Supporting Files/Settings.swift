@@ -11,6 +11,7 @@ import Foundation
 struct Settings {
     static let release = true
     private static let isDefault = true
+    private static let defaultShowInitialBlock = false
     private static let defaultShowBlock = false
     private static let defaultShowLines = false
     private static let defaultShowWords = false
@@ -19,14 +20,17 @@ struct Settings {
     private static let defaultShowTextView = true
     private static let defaultShowText = false
     private static let defaultShowGrid = false
+    private static let defaultShowAlert = true
 
-    static let showBlock =  isDefault ? defaultShowBlock : true
-    static let showLines =  isDefault ? defaultShowLines : true
-    static let showWords =  isDefault ? defaultShowWords : true
+    static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
+    static let showBlock = isDefault ? defaultShowBlock : true
+    static let showLines = isDefault ? defaultShowLines : true
+    static let showWords = isDefault ? defaultShowWords : true
     static let showChars = isDefault ? defaultShowChars : true
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
-    static let showTextView =  isDefault ? defaultShowTextView : true
+    static let showTextView = isDefault ? defaultShowTextView : true
     static let showText = isDefault ? defaultShowText : true
-    static let showGrid =  isDefault ? defaultShowGrid : false
+    static let showGrid = isDefault ? defaultShowGrid : false
+    static let showAlert = isDefault ? defaultShowAlert : false
 }
 

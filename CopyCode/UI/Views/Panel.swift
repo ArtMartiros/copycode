@@ -16,7 +16,7 @@ protocol PanelDelegate: class {
 }
 
 class Panel: NSPanel {
-    private var alertView: NSImageView!
+    private var alertView: NSImageView?
     
 	@IBOutlet weak var imageView: NSImageView!
 	@IBAction func tapClose(_ sender: NSButtonCell) {
@@ -30,7 +30,8 @@ class Panel: NSPanel {
     
     func addTextFrame(with text: String, in frame: NSRect, letterWidth: CGFloat, spacing: CGFloat) {
         let attrString = stringCreator.createForTextView(with: text, letterWidth: letterWidth, spacing: spacing)
-        let textView = textViewCreator.create(with: frame, with: attrString)
+        let updatedFrame = frame.update(by: 10, in: .offset(.right))
+        let textView = textViewCreator.create(with: updatedFrame, with: attrString)
         textView.copyDelegate = self
         textView.delegate = self
         self.contentView?.addSubview(textView)
@@ -43,24 +44,23 @@ class Panel: NSPanel {
         let x = (frame.width / 2) - (width / 2)
         let y = frame.height * (1/3) - (height / 2)
         alertView = NSImageView(image: NSImage(named: .init("picSuccessCopy")!)!)
-        alertView.frame = CGRect(x: x, y: y, width: width, height: height)
-        alertView.alphaValue = 0
+        alertView?.frame = CGRect(x: x, y: y, width: width, height: height)
+        alertView?.alphaValue = 0
         // Tell the view to create a backing layer.
-        alertView.wantsLayer = true
-        alertView.layerContentsRedrawPolicy = .onSetNeedsDisplay
-        self.contentView?.addSubview(alertView)
+        alertView?.wantsLayer = true
+        alertView?.layerContentsRedrawPolicy = .onSetNeedsDisplay
+        self.contentView?.addSubview(alertView!)
     }
     
     private func showAlert(completion: @escaping () -> Void) {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
-            alertView.animator().alphaValue = 1
-            print("2 \(Thread.isMainThread)")
+            alertView?.animator().alphaValue = 1
         }, completionHandler: {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 NSAnimationContext.runAnimationGroup({ [weak self] (context) in
                     context.duration = 0.5
-                    self?.alertView.animator().alphaValue = 0
+                    self?.alertView?.animator().alphaValue = 0
                 }, completionHandler: completion)
             })
         })
@@ -75,9 +75,11 @@ class Panel: NSPanel {
         makeKeyAndOrderFront(nil)
         //две линии отвечаают за прозрачность
         isOpaque = false
-        backgroundColor = NSColor(red: 1, green: 0.5, blue: 0.5, alpha: 0)
+        backgroundColor = NSColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.5)
         setFrame(frame, display: true)
-        alertInitialSetup()
+        if Settings.showAlert {
+            alertInitialSetup()
+        }
     }
     
     func removeTextViews() {

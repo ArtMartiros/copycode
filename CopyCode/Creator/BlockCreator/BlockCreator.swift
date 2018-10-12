@@ -27,6 +27,7 @@ final class BlockCreator: BlockCreatorProtocol {
     }
     
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
+        
         let blocks = blockPreparator.initialPrepare(from: rectangles)
         
         Timer.stop(text: "BlockCreator Initial Created")
@@ -34,7 +35,8 @@ final class BlockCreator: BlockCreatorProtocol {
 //                let value = CodableHelper.encode(block)
 //                print(value)
 //        }
-//        return blocks
+        if Settings.showInitialBlock { return blocks }
+        
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)

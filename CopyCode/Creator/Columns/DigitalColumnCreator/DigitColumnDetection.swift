@@ -26,25 +26,47 @@ final class DigitColumnDetection {
     
     ///Обнаруживает если массив слов это digit column
     ///бывает так, что он сцеплен с другими словами, поэтому нужно отделить одни от другого
-    func detect( _ wordRectangles: [SimpleWord]) -> SplittedWords? {
-        let sortedWordRectangles = wordRectangles.sortedFromTopToBottom()
-        let (types, manyRectangles, otherRectangles) = getTypesWithSplitedArrays(sortedWordRectangles)
-        
+    func detect( _ words: [SimpleWord]) -> SplittedWords? {
+        let dictionary = getWordsByType(from: words)
+        let types = Array(dictionary.keys)
         switch types.count {
-        case let x where x == 1:
-            let isMany = types[0] == .many
-            let allWordsMixed = wordRectangles.allWordsMixed
-            let concentration = checkIsDigit(otherRectangles)
-            guard !isMany, !allWordsMixed, concentration else { return nil }
-            return (otherRectangles, [])
+        case 1:
+            let type = types[0]
+            guard let words = dictionary[type] , type != .many,
+                words.allWordsSame, checkIsDigit(words)  else { return nil }
+            return (words, [])
             
-        case let x where x == 2:
-            guard !manyRectangles.isEmpty else { return nil }
-            let splitted = WordSplitter.split(manyRectangles, after: x)
-            let columnRectangles = otherRectangles + splitted.words
-            guard !otherRectangles.allWordsMixed, checkIsDigit(columnRectangles)
-                else { return nil }
-            return (columnRectangles, splitted.shitWords)
+        case 2:
+            if let manyWords = dictionary[.many] {
+                let (type, words) = dictionary.filter { $0.key != .many }[0]
+                let splitted = WordSplitter.split(manyWords, after: type.rawValue )
+                let columnWords = words + splitted.words
+                guard columnWords.allWordsSame, checkIsDigit(columnWords) else { return nil }
+                return (columnWords, splitted.shitWords)
+            } else {
+                //может потом отличаться поэтому пока оставлю
+                let sortedElements = dictionary.sorted { $0.value.count > $1.value.count }
+                let mainType = sortedElements[0]
+                let subType = sortedElements[1]
+                let splitted = WordSplitter.split(subType.value, after: mainType.key.rawValue )
+                let columnWords = mainType.value + splitted.words
+                guard columnWords.allWordsSame, checkIsDigit(columnWords) else { return nil }
+                return (columnWords, splitted.shitWords)
+            }
+            
+        case 3:
+            guard let manyWords = dictionary[.many] else { return nil }
+            let sortedElements = dictionary
+                .filter { $0.key != .many }
+                .sorted { $0.value.count > $1.value.count }
+            let mainType = sortedElements[0]
+            let subType = sortedElements[1]
+            let subSplitted = WordSplitter.split(subType.value, after: mainType.key.rawValue)
+            let manySplitted = WordSplitter.split(manyWords, after: mainType.key.rawValue)
+            let columnWords = mainType.value + subSplitted.words + manySplitted.words
+            guard columnWords.allWordsSame, checkIsDigit(columnWords) else { return nil }
+            return (columnWords, subSplitted.shitWords + manySplitted.shitWords)
+            
         default: return nil
         }
     }
@@ -68,6 +90,18 @@ final class DigitColumnDetection {
                 type == .many ? manyRectangles.append(rect) : otherRectangles.append(rect)
             }
             return (Array(Set(types)), manyRectangles, otherRectangles)
+    }
+    
+    
+    
+    private func getWordsByType(from words: [SimpleWord]) -> [SymbolsCount: [SimpleWord]] {
+        var dictionary: [SymbolsCount: [SimpleWord]] = [:]
+        words.forEach {
+            print("ratio \($0.frame.ratio)")
+            let type = SymbolsCount.symbols(withRatio: $0.frame.ratio)
+            dictionary.append(element: $0, toKey: type)
+        }
+        return dictionary
     }
     
     private func checkIsDigit(_ otherRectangles: [SimpleWord]) -> Bool {

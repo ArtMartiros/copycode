@@ -89,7 +89,7 @@ extension CGRect {
    private func update(by pixels: CGFloat, in dimension: DirectionOptions) -> CGRect {
         var newFrame = self
         for direction in dimension.directions {
-            newFrame = update(by: pixels, in: direction)
+            newFrame = newFrame.update(by: pixels, in: direction)
         }
         return newFrame
     }

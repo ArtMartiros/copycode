@@ -30,6 +30,9 @@ extension Array where Element == Word<LetterRectangle> {
         let classification = WordTypeIdentifier()
         return first { !classification.isMix(word: $0) } == nil
     }
+    var allWordsSame: Bool {
+        return !allWordsMixed
+    }
 }
 extension Array where Element == CGRect {
     var compoundFrame: CGRect {

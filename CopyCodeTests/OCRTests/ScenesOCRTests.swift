@@ -62,6 +62,7 @@ class ScenesOCRTests: XCTestCase {
         print(allIndex)
     }
     
+    //3 ошибки кастом
     func testOCRScene3_p1() {
         let scene = Scene.sc3_p1
         let exludedIndex: Set<Int> = [0, 1, 2, 3, 4, 5, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]

@@ -11,13 +11,26 @@ import XCTest
 class DigitColumnDetectionTests: XCTestCase {
 
     func testSc6() {
-        let scene = Scene.sc6
+        execute(scene: .sc6)
+    }
+    
+    func testSc7() {
+        execute(scene: .sc7)
+    }
+    
+    func testSc8() {
+        execute(scene: .sc8)
+    }
+    
+    private func execute(scene: Scene) {
         let bitmap = scene.image.bitmap
-        
         let detection = DigitColumnDetection(in: bitmap)
         PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
-        let words = scene.gePreDigitColumnWords(self)
-        let result = detection.detect(words)
-        XCTAssertNotNil(result)
+        let wordsArray = scene.gePreDigitColumnWords(self)
+        for words in wordsArray {
+            let result = detection.detect(words)
+            XCTAssertNotNil(result)
+        }
     }
+    
 }

@@ -25,7 +25,9 @@ private let nnSubTree: TreeOCR = .n(.c, nnpSubTree, nnnSubTree )
 private let ppSubTree: TreeOCR = .n(.expandFrame(.horizontal), pppSubTree, .empty)
 
 private let pnSubTree: TreeOCR = .n(.rCr,
-                                    .n(.tR, .r("]") , .r(")")),
+                                    .n(.tR,
+                                       .n(.xy(x: 0.05, y: 1), .r("]"), .r("1")),
+                                       .r(")")),
                                     .n(.lCr,
                                        .n(.tL, .r("["), .r("(")),
                                        .n(.bL, .r("I"), .r("1"))))

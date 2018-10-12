@@ -9,14 +9,12 @@
 import XCTest
 
 class CGRectTests: XCTestCase {
-
-    func testExpand() {
-//        let frame = CGRect(x: 10, y: 10, width: 2, height: 10)
-//       let newFrame = frame.expand(addingOfRatio: 0.1, in: .left)
-//        let newFramePixels = frame.expand(by: 2, in: .left)
-//        print(newFrame)
+    
+    func testUpdateFrame() {
+        let frame = CGRect(x: 100, y: 100, width: 50, height: 50)
+        let answerFrame = CGRect(x: 90, y: 90, width: 70, height: 70)
+        let updatedFrame = frame.update(by: 10, in: .offset(.all))
+        XCTAssertEqual(answerFrame, updatedFrame)
     }
-
-
 
 }

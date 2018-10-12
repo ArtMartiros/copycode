@@ -15,7 +15,9 @@ enum Scene: String {
     case sc3_p2 = "sc3_p2_user_main_view_controller"
     case sc4 = "sc4_leading_finder"
     case sc5 = "sc5_tree_letter_type"
-    case sc6 = ""
+    case sc6 = "sc6"
+    case sc7 = "sc7"
+    case sc8 = "sc8"
     case comments = "block_with_comments"
     case one = "block_one"
     case oneCode = "block_one_code"
@@ -27,14 +29,19 @@ enum Scene: String {
         case .sc2: return "sc2_block_creator"
         case .sc3_p1, .sc3_p2: return "sc3_firebase_chat"
         case .sc6: return "sc6_tree_letter_type"
+        case .sc7: return "sc7_panel"
+        case .sc8: return "sc8_panel_controller"
         default: return ""
         }
     }
     
-    var preDigitColumnWordsName: String {
+    var preDigitColumnWordsNames: [String] {
         switch self {
-        case .sc6: return "sc6_pre_digit_column_words"
-        default: return ""
+        case .sc6: return ["sc6_pre_digit_column_words"]
+        case .sc7: return ["sc7_panel_pre_digit_column_words"]
+        case .sc8: return ["sc8_panel_controller_pre_digit_column_words_2",
+                           "sc8_panel_controller_pre_digit_column_words_3"]
+        default: return []
         }
     }
     
@@ -45,8 +52,10 @@ enum Scene: String {
         }
     }
     
-    func gePreDigitColumnWords(_ object: AnyObject) -> [SimpleWord] {
-        return CodableHelper.decode(object, path: preDigitColumnWordsName, structType: [SimpleWord].self, shouldPrint: false)!
+    func gePreDigitColumnWords(_ object: AnyObject) -> [[SimpleWord]] {
+        return preDigitColumnWordsNames.map {
+            CodableHelper.decode(object, path: $0, structType: [SimpleWord].self, shouldPrint: false)!
+        }
     }
     
     func getWords(_ object: AnyObject) -> [SimpleWord] {
