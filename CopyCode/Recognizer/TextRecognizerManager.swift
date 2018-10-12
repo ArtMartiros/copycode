@@ -56,13 +56,14 @@ final class TextRecognizerManager {
             let blocksWithTypes = restoredBlocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
-//            for block in restoredBlocks {
+//            for block in blocksWithTypes {
 //                if case .grid(let grid) = block.typography {
 //                    let value = CodableHelper.encode(block)
 //
 //                    print(value)
 //                }
 //            }
+//            sself.printAllCustomLetters(from: blocksWithTypes)
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)
@@ -78,15 +79,53 @@ final class TextRecognizerManager {
             }
             }[0]
         
-        let words = oneBlock.lines.map { line in
-            line.words.filter {
-                $0.type == .same(type: .allCustom)
-            }
-            }.reduce([], +)
         
-        let letters = words.map { $0.letters }.reduce([], +)
+        
+        var letters: [LetterWithPosition<LetterRectangle>] = []
+        for (lineIndex, line) in oneBlock.lines.enumerated() {
+            var index = 0
+            for (wordIndex, word) in line.words.enumerated() {
+                for (letterIndex, letter) in word.letters.enumerated() {
+                    if letter.type == .custom {
+                        let position = LetterWithPosition(l: lineIndex, w: wordIndex,
+                                                          c: letterIndex, lineCharCount: index, letter: letter)
+                        letters.append(position)
+                    }
+                    index += 1
+ 
+                }
+            }
+        }
+//        let words = oneBlock.lines.map { line in
+//            line.words.filter {
+//                $0.type == .same(type: .allCustom)
+//            }
+//            }.reduce([], +)
+//
+//        let letters = words.map { $0.letters }.reduce([], +)
         let value = CodableHelper.encode(letters)
         
         print(value)
+    }
+}
+
+struct LetterWithPosition<T: Rectangle>: Codable {
+    let l: Int
+    let w: Int
+    let c: Int
+    let lineCharCount: Int
+    let letter: T
+    
+    init(l: Int, w: Int, c: Int, lineCharCount: Int, letter: T) {
+        self.l = l
+        self.w = w
+        self.c = c
+        self.lineCharCount = lineCharCount
+        self.letter = letter
+    }
+    
+    init(position: SimpleLetterPosition, letter: T) {
+        self.init(l: position.l, w: position.w, c: position.c,
+                  lineCharCount: position.lineCharCount, letter: letter)
     }
 }

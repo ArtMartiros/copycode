@@ -18,10 +18,12 @@ enum Scene: String {
     case sc6 = "sc6"
     case sc7 = "sc7"
     case sc8 = "sc8"
+    case sc9 = "sc9"
     case comments = "block_with_comments"
     case one = "block_one"
     case oneCode = "block_one_code"
     case two = "block_two"
+    
     
     var imageName: String {
         switch self {
@@ -31,6 +33,7 @@ enum Scene: String {
         case .sc6: return "sc6_tree_letter_type"
         case .sc7: return "sc7_panel"
         case .sc8: return "sc8_panel_controller"
+        case .sc9: return "sc9_playground"
         default: return ""
         }
     }
@@ -74,6 +77,13 @@ enum Scene: String {
         }
     }
     
+    var customLettersPositionName: String {
+        switch self {
+        case .sc9: return "sc9_custom_letters_position"
+        default: return ""
+        }
+    }
+    
     var trackingInfo: String {
         return "sc1_tracking_info"
     }
@@ -84,6 +94,7 @@ enum Scene: String {
         case .sc2: return "sc2_block_creator_grid"
         case .sc3_p1: return "sc3_p1_firebase_chat_grid"
         case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
+        case .sc9: return "sc9_playground_grid"
         default: return ""
         }
     }
@@ -93,6 +104,7 @@ enum Scene: String {
         case .sc1: return "sc1_block_text_view_creator_grid_with_type"
         case .sc2: return "sc2_block_creator_grid_with_type"
         case .sc3_p1: return "sc3_p1_firebase_chat_grid_with_type"
+        case .sc9: return "sc9_playground_grid_with_type"
         default: return ""
         }
         
@@ -104,6 +116,7 @@ enum Scene: String {
         case .sc2: return sc2_type
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
+        case .sc9: return sc9_type
         default: return [:]
         }
     }
@@ -113,6 +126,7 @@ enum Scene: String {
         case .sc1: return sc1_letter
         case .sc2: return sc2_letter
         case .sc3_p1: return sc3_p1_letter
+        case .sc9: return sc9_letter
         default: return [:]
         }
     }
@@ -138,6 +152,12 @@ enum Scene: String {
     func getCustomLetters(_ object: AnyObject) -> [LetterRectangle] {
         return CodableHelper.decode(object, path: customLettersName, structType: [LetterRectangle].self, shouldPrint: false)!
     }
+    
+    func getCustomLettersPosition(_ object: AnyObject) -> [SimpleLetterPosition] {
+        return CodableHelper.decode(object, path: customLettersPositionName,
+                                    structType: [SimpleLetterPosition].self, shouldPrint: false)!
+    }
+    
     
     func getBlock(_ object: AnyObject) -> SimpleBlock {
         return CodableHelper.decode(object, path: self.rawValue, structType: SimpleBlock.self, shouldPrint: false)!

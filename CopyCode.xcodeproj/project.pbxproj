@@ -246,6 +246,11 @@
 		ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */; };
 		ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */; };
 		ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */ = {isa = PBXBuildFile; fileRef = ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */; };
+		ACE0E2252170BD1000E28E28 /* sc9_playground_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE0E2242170BD1000E28E28 /* sc9_playground_grid.json */; };
+		ACE0E22A2170C17D00E28E28 /* sc9_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE0E2292170C17D00E28E28 /* sc9_type.swift */; };
+		ACE0E22C2170CA0E00E28E28 /* sc9_playground_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE0E22B2170CA0E00E28E28 /* sc9_playground_grid_with_type.json */; };
+		ACE0E2302170CD4700E28E28 /* sc9_custom_letters_position.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE0E22F2170CD4700E28E28 /* sc9_custom_letters_position.json */; };
+		ACE0E2322170D4C000E28E28 /* sc9_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE0E2312170D4C000E28E28 /* sc9_letter.swift */; };
 		ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */; };
 		ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */ = {isa = PBXBuildFile; fileRef = ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */; };
 		ACEBB275216C767D0094336F /* TrackingFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEBB274216C767D0094336F /* TrackingFinderTests.swift */; };
@@ -485,6 +490,11 @@
 		ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc7_panel_pre_digit_column_words.json; sourceTree = "<group>"; };
 		ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc8_panel_controller_pre_digit_column_words_3.json; sourceTree = "<group>"; };
 		ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc8_panel_controller_pre_digit_column_words_2.json; sourceTree = "<group>"; };
+		ACE0E2242170BD1000E28E28 /* sc9_playground_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc9_playground_grid.json; sourceTree = "<group>"; };
+		ACE0E2292170C17D00E28E28 /* sc9_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc9_type.swift; sourceTree = "<group>"; };
+		ACE0E22B2170CA0E00E28E28 /* sc9_playground_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc9_playground_grid_with_type.json; sourceTree = "<group>"; };
+		ACE0E22F2170CD4700E28E28 /* sc9_custom_letters_position.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc9_custom_letters_position.json; sourceTree = "<group>"; };
+		ACE0E2312170D4C000E28E28 /* sc9_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc9_letter.swift; sourceTree = "<group>"; };
 		ACEBB270216BEAA40094336F /* sc3_p1_firebase_chat.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p1_firebase_chat.json; sourceTree = "<group>"; };
 		ACEBB272216BEAD60094336F /* sc3_p2_user_main_view_controller.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_user_main_view_controller.json; sourceTree = "<group>"; };
 		ACEBB274216C767D0094336F /* TrackingFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinderTests.swift; sourceTree = "<group>"; };
@@ -746,6 +756,7 @@
 				AC2181462165060500515FBD /* sc2_type.swift */,
 				ACEBB27C216CBC8C0094336F /* sc3_p1_type.swift */,
 				ACEBB283216CE4E50094336F /* sc3_p2_type.swift */,
+				ACE0E2292170C17D00E28E28 /* sc9_type.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -796,6 +807,7 @@
 		AC441918216270BF00248DCC /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				ACE0E22E2170CD1D00E28E28 /* LetterPosition */,
 				AC44191D2162722500248DCC /* sc1_custom_letters.json */,
 				AC2181432164C83700515FBD /* sc2_custom_letters.json */,
 			);
@@ -828,6 +840,7 @@
 				AC6493ED21663BBA003A4164 /* sc2_letter.swift */,
 				ACA305B8216BCD1700DFB809 /* sc1_letter.swift */,
 				ACEBB288216CF1960094336F /* sc3_p1_letter.swift */,
+				ACE0E2312170D4C000E28E28 /* sc9_letter.swift */,
 			);
 			path = Letters;
 			sourceTree = "<group>";
@@ -983,6 +996,41 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		ACE0E2262170BD2000E28E28 /* sc6 */ = {
+			isa = PBXGroup;
+			children = (
+				AC0EBFEC216E28400021B38C /* sc6_words.json */,
+				AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */,
+			);
+			path = sc6;
+			sourceTree = "<group>";
+		};
+		ACE0E2282170BD4200E28E28 /* sc8 */ = {
+			isa = PBXGroup;
+			children = (
+				ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */,
+				ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */,
+			);
+			path = sc8;
+			sourceTree = "<group>";
+		};
+		ACE0E22D2170CA6D00E28E28 /* sc9 */ = {
+			isa = PBXGroup;
+			children = (
+				ACE0E2242170BD1000E28E28 /* sc9_playground_grid.json */,
+				ACE0E22B2170CA0E00E28E28 /* sc9_playground_grid_with_type.json */,
+			);
+			path = sc9;
+			sourceTree = "<group>";
+		};
+		ACE0E22E2170CD1D00E28E28 /* LetterPosition */ = {
+			isa = PBXGroup;
+			children = (
+				ACE0E22F2170CD4700E28E28 /* sc9_custom_letters_position.json */,
+			);
+			path = LetterPosition;
+			sourceTree = "<group>";
+		};
 		ACEBB27E216CCF180094336F /* sc1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1084,11 +1132,10 @@
 				ACEBB287216CEB6E0094336F /* sc3_p2 */,
 				ACEBB28A216D19250094336F /* sc4_leading_finder.json */,
 				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
-				AC0EBFEC216E28400021B38C /* sc6_words.json */,
-				AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */,
+				ACE0E2262170BD2000E28E28 /* sc6 */,
 				ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */,
-				ACDF9D052170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json */,
-				ACDF9D072170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json */,
+				ACE0E2282170BD4200E28E28 /* sc8 */,
+				ACE0E22D2170CA6D00E28E28 /* sc9 */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1243,6 +1290,7 @@
 				ACEBB273216BEAD60094336F /* sc3_p2_user_main_view_controller.json in Resources */,
 				AC9EF09A212328B8004ED89D /* ocr_xcode_light_18.json in Resources */,
 				AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */,
+				ACE0E2252170BD1000E28E28 /* sc9_playground_grid.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
@@ -1262,6 +1310,7 @@
 				ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
 				ACEBB279216CB0A30094336F /* sc3_p1_firebase_chat_grid.json in Resources */,
+				ACE0E2302170CD4700E28E28 /* sc9_custom_letters_position.json in Resources */,
 				AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */,
 				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
 				ACEBB281216CCF5E0094336F /* sc3_p1_firebase_chat_grid_with_type.json in Resources */,
@@ -1278,6 +1327,7 @@
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
+				ACE0E22C2170CA0E00E28E28 /* sc9_playground_grid_with_type.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
 				AC28F2DA216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
@@ -1592,6 +1642,7 @@
 				AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
+				ACE0E2322170D4C000E28E28 /* sc9_letter.swift in Sources */,
 				ACEBB289216CF1960094336F /* sc3_p1_letter.swift in Sources */,
 				AC95B4CB214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
@@ -1685,6 +1736,7 @@
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,
 				ACDA6DC2215E727700A7AA62 /* AttrStringCreator.swift in Sources */,
 				AC4CA3F521025DDF0093D938 /* Double.swift in Sources */,
+				ACE0E22A2170C17D00E28E28 /* sc9_type.swift in Sources */,
 				AC03DD01213DC2F200730DCD /* CodableHelper.swift in Sources */,
 				ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 			);

@@ -88,4 +88,30 @@ class ScenesOCRTests: XCTestCase {
         
         print(allIndex)
     }
+    
+    func testOCRScene9() {
+        let scene = Scene.sc9
+        let exludedIndex: Set<Int> = [ 1, 2]
+        let block = scene.getGridWithTypeBlock(self)
+        let bitmap = scene.image.bitmap
+        var allIndex = 0
+        for (lineIndex, line) in block.lines.enumerated() where !exludedIndex.contains(lineIndex) {
+            let rightLine = Array(scene.getLetters(for: lineIndex))
+            
+            for (wordIndex, word) in line.words.enumerated() {
+                let recognizer = LetterRecognizer(bitmap, word: word)
+                var startIndex = line.words[0..<wordIndex].map { $0.letters }.reduce([], +).count
+                
+                for (letterIndex, letter) in word.letters.enumerated() {
+                    let value = recognizer.recognize(from: letter)
+                    let answer = rightLine[startIndex]
+                    XCTAssertEqual(value, answer, "l: \(lineIndex), w: \(wordIndex), c: \(letterIndex)")
+                    startIndex += 1
+                    allIndex += 1
+                }
+            }
+        }
+        
+        print(allIndex)
+    }
 }
