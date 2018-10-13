@@ -9,7 +9,7 @@
 import Foundation
 
 struct Settings {
-    static let release = false
+    static let release = true
     private static let isDefault = true
     private static let defaultShowInitialBlock = false
     private static let defaultShowBlock = false

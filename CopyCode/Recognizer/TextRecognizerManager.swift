@@ -63,7 +63,7 @@ final class TextRecognizerManager {
 //                    print(value)
 //                }
 //            }
-            sself.printAllCustomLetters(from: blocksWithTypes)
+//            sself.printAllCustomLetters(from: blocksWithTypes)
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)

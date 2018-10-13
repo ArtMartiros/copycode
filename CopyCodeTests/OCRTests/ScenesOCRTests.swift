@@ -7,34 +7,35 @@
 //
 
 import XCTest
-
- //22 ошибки в letter
+//3 Custom
+//22 ошибки в letter
+//7 тут
 class ScenesOCRTests: XCTestCase {
     
     func testOCRScene1() {
         let exludedIndex: Set<Int> = [0, 1, 2, 15, 16, 17]
         executeCheck(scene: .sc1, exlude: exludedIndex) { (answer, position) in
-            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
+            XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
     func testOCRScene2() {
         executeCheck(scene: .sc2, exlude: []) { (answer, position) in
-            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
+            XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
-    //3 ошибки кастом
+    //1 ошибки кастом
     func testOCRScene3_p1() {
         let exludedIndex: Set<Int> = [0, 1, 2, 3, 4, 5, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
         executeCheck(scene: .sc3_p1, exlude: exludedIndex) { (answer, position) in
-            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
+            XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
     func testOCRScene9() {
         executeCheck(scene: .sc9, exlude: [1, 2]) { (answer, position) in
-                XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
+            XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     

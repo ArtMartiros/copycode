@@ -6,14 +6,15 @@
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
-import Foundation
+import AppKit
+
 protocol PictureNameProtocol {
     var imageName: String { get }
 }
 
 enum OCRPicture: PictureNameProtocol {
-//    case sublimeDark12
-//    case sublimeDark14
+    //    case sublimeDark12
+    //    case sublimeDark14
     case sublimeDark18
     case sublimeDark20
     case xcodeDark12
@@ -26,12 +27,14 @@ enum OCRPicture: PictureNameProtocol {
     case visual14
     case visual18
     case visual20
+    
+    
     var imageName: String {
         switch self {
-//        case .typeWhite: return "picLetterTypeClassificationWhite"
-//        case .typeBlack: return "picLetterTypeClassificationBlack3"
-//        case .sublimeDark12: return "picOCRSublimeDark12"
-//        case .sublimeDark14: return "picOCRSublimeDark14"
+            //        case .typeWhite: return "picLetterTypeClassificationWhite"
+            //        case .typeBlack: return "picLetterTypeClassificationBlack3"
+            //        case .sublimeDark12: return "picOCRSublimeDark12"
+        //        case .sublimeDark14: return "picOCRSublimeDark14"
         case .sublimeDark18: return "picOCRSublimeDark18"
         case .sublimeDark20: return "picOCRSublimeDark20"
         case .xcodeDark12: return "picOCRXcodeDark12"
@@ -47,13 +50,35 @@ enum OCRPicture: PictureNameProtocol {
         }
     }
     
-    var json: String {
+    
+    var image: NSImage {
+        return NSImage(named: .init(imageName))!
+    }
+    
+    var lettersName: String {
         switch self {
-//        case .sublimeDark12: return "ocr_sublime_dark_12"
-//        case .sublimeDark14: return "ocr_sublime_dark_14"
-          //%# + ^
+        case .sublimeDark18: return "ocr_sublime_dark_18_words"
+        case .sublimeDark20: return "ocr_sublime_dark_20_words"
+        case .xcodeDark12: return "ocr_xcode_dark_12_words"
+        case .xcodeDark14: return "ocr_xcode_dark_14_words"
+        case .xcodeDark18: return "ocr_xcode_dark_18_words"
+        case .xcodeLight12: return "ocr_xcode_light_12_words"
+        case .xcodeLight14: return "ocr_xcode_light_14_words"
+        case .xcodeLight18: return "ocr_xcode_light_18_words"
+        case .visual12: return "ocr_visual_12_words"
+        case .visual14: return "ocr_visual_14_words"
+        case .visual18: return "ocr_visual_18_words"
+        case .visual20: return "ocr_visual_20_words"
+        }
+    }
+    
+    var answersName: String {
+        switch self {
+            //        case .sublimeDark12: return "ocr_sublime_dark_12"
+            //        case .sublimeDark14: return "ocr_sublime_dark_14"
+        //%# + ^
         case .sublimeDark18: return "ocr_sublime_dark_18"
-         //%# &@ + ^
+        //%# &@ + ^
         case .sublimeDark20: return "ocr_sublime_dark_20"
         //%# VW + ^
         case .xcodeDark12: return "ocr_xcode_dark_12"
@@ -66,9 +91,9 @@ enum OCRPicture: PictureNameProtocol {
         //% #, + ^ VW
         case .xcodeLight14: return "ocr_xcode_light_14"
         case .xcodeLight18: return "ocr_xcode_light_18"
-             //%# &@  + ^
+        //%# &@  + ^
         case .visual12: return "ocr_visual_12"
-            //%# &@ VW  + ^
+        //%# &@ VW  + ^
         case .visual14: return "ocr_visual_14"
         //VW, %# (ошибочка) + ^,
         case .visual18: return "ocr_visual_18"
@@ -76,7 +101,25 @@ enum OCRPicture: PictureNameProtocol {
         case .visual20: return "ocr_visual_20"
         }
     }
+    
+    func getWord(_ object: AnyObject) -> SimpleWord {
+        return CodableHelper.decode(object, path: lettersName, structType: [SimpleWord].self, shouldPrint: false)![0]
+    }
+    
+    func getAnswers(_ object: AnyObject) -> [Answer] {
+        return  CodableHelper.decode(object,
+                                     path: answersName,
+                                     structType: [Answer].self)!
+    }
+    
+    struct Answer: Codable {
+        let letter: String
+        let type: LetterType
+    }
+    
 }
+
+
 
 enum LetterPixelFinderPicture: PictureNameProtocol {
     case dot, dash, quotes, equal, underscore

@@ -55,6 +55,7 @@ enum OCROperations: CustomStringConvertible {
     case n_u, r3, r6
     case left4
     case m_a
+    case S_5
     case hyphenOrDash
     case question
     case equalOrDash
@@ -63,6 +64,7 @@ enum OCROperations: CustomStringConvertible {
     case semicolon
     case colon
     case s_star
+    case l_1
     case R_K
     case O_Q
     case G_0
@@ -75,6 +77,7 @@ enum OCROperations: CustomStringConvertible {
     var action: Action {
         switch self {
         case let .ratio(operation, ratio): return .frameRatio {
+            guard $0.width > 0 else { return operation(20, ratio) }
             print("ratio \($0.ratio)")
             return operation($0.ratio, ratio)
             }
@@ -131,8 +134,9 @@ enum OCROperations: CustomStringConvertible {
                 $0.exist(xRange: 8...9, of: 10, y: 3/7, with: $1, op: .or)
             }
         case .I_Z: return .checkerWithFrame {
-            $0.exist(xRange: 7...10, of: 10, y: 0.3, with: $1, op: .allFalse)
-            
+            $0.exist(yArray: [3, 5, 7], of: 10, x: 0.5, with: $1, op: .and) 
+//            $0.exist(yArray: [3, 5, 7], of: 10, x: 0.6, with: $1, op: .and) ||
+//            $0.exist(yArray: [3, 5, 7], of: 10, x: 0.4, with: $1, op: .and)
             }
         case .G_6: return .checkerWithFrame(G_6Operation)
         case .not5: return .checkerWithFrame {
@@ -165,7 +169,7 @@ enum OCROperations: CustomStringConvertible {
             let topFrame = $1.update(by: ($1.height / 1.1).uintRounded(), in: .offset(.top))
             return $0.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
             }
-        case .colon: return .checkerWithFrame (equalOperation)
+        case .colon: return .checkerWithFrame (colonOperation)
         case .s_star: return .checkerWithFrame  {
             var newFrame = $1
             for direction in [Direction.left, Direction.right] {
@@ -199,6 +203,8 @@ enum OCROperations: CustomStringConvertible {
             $0.exist(xRange: 2...6 , of: 10, y: 0.5, with: $1, op: .and) ||
             $0.exist(xRange: 2...6 , of: 10, y: 0.4, with: $1, op: .and))
             }
+        case .l_1: return .checkerWithFrame (l_1Operation)
+        case .S_5: return .checkerWithFrame (S_5Operation)
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
@@ -267,6 +273,8 @@ enum OCROperations: CustomStringConvertible {
         case .plus_e: return "plus_e"
         case .G_0: return "G_0"
         case .G_8: return "G_8"
+        case .l_1: return "l_1"
+        case .S_5: return "S_5"
         case .doubleQuotesCustom: return "quotes"
         case .equalOrDashCustom: return "equalOrDashCustom"
         case .bracketOrArrowCustom: return "bracketOrArrowCustom"
@@ -299,19 +307,69 @@ enum OCROperations: CustomStringConvertible {
     //пока оставлю так
     private var equalOrDashOperation: Operation {
         return { checker, frame in
-            let array: [CGFloat] = [0.3, 0.4, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8]
-            var exists: [CGFloat] = []
-            for y in array {
-                let value = checker.exist(x: 0.5, y: y, in: frame)
-                if value {
-                   exists.append(y)
+            return checker.exist(yArray: [6, 7, 8], of: 20, x: 0.5, with: frame, op: .or) &&
+            checker.exist(yArray: [11, 12, 13, 14], of: 20, x: 0.5, with: frame, op: .or)
+ 
+        }
+    }
+    
+    private var l_1Operation: Operation {
+        return { checker, frame in
+           let newFrame = frame.expandFrame(by: 1, times: 4, using: checker, in: .top, with: [4, 5, 6])
+           return 
+            checker.exist(xRange: 0...0, of: 10, y: 0, with: newFrame, op: .or)
+        }
+    }
+    
+    private var m_aOperation: Operation {
+        return { checker, frame in
+            let xArray: [CGFloat] = [0.4, 0.5, 0.6]
+            let yArray: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7]
+            var existedX: CGFloat?
+            
+            for x in xArray {
+                if checker.exist(x: x, y: 0.5, in: frame) {
+                    existedX = x
                 }
             }
-            guard let first = exists.first, let last = exists.last else { return false }
-            let difference = last - first
-            print("difference \(difference)")
-            print(exists)
-            return difference > 0.1
+            guard let x = existedX else { return false }
+            
+            for y in yArray {
+                if !checker.exist(x: x, y: y, in: frame) {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    ///проверка скгибается ли верхняя линия
+    private var S_5Operation: Operation {
+        return { checker, frame in
+            let yArray: [CGFloat] = [0.1, 0.15, 0.2, 0.25, 0.3]
+            let xArray: [CGFloat] = [0.5, 0.6, 0.7, 0.8, 0.9]
+            var findExist = false
+            var emptyY: CGFloat?
+            for y in yArray {
+                if findExist {
+                    if !checker.exist(x: 0.4, y: y, in: frame) {
+                       emptyY = y
+                    }
+                }
+                if checker.exist(x: 0.4, y: y, in: frame) {
+                    findExist = true
+                }
+            }
+            
+            guard let y = emptyY else { return true }
+            
+            for x in xArray {
+                if checker.exist(x: x, y: y, in: frame) {
+                    return true
+                }
+            }
+            
+            return false
         }
     }
     
@@ -339,23 +397,8 @@ enum OCROperations: CustomStringConvertible {
         }
     }
     
-    private var m_aOperation: Operation {
-        return { checker, frame in
-            let xArray: [CGFloat] = [0.4, 0.5, 0.6]
-            let yArray: [CGFloat] = [0.5, 0.3, 0.7]
-            
-            for x in xArray {
-                for (yIndex, y) in yArray.enumerated() {
-                    guard checker.exist(x: x, y: y, in: frame) else  { break }
-                    guard yArray.count - 1 == yIndex else { continue }
-                    return true
-                }
-            }
-            return false
-        }
-    }
-    
-    private var equalOperation: Operation {
+
+    private var colonOperation: Operation {
         return { checker, frame in
             let distance = (frame.height * 2).uintRounded()
             let topFrame = frame.update(by: distance, in: .offset(.top))
@@ -363,6 +406,17 @@ enum OCROperations: CustomStringConvertible {
             
             return checker.exist(yRange: 0...3, of: 10, x: 0.5, with: topFrame, op: .or) ||
                 checker.exist(yRange: 7...10, of: 10, x: 0.5, with: bottomFrame, op: .or)
+        }
+    }
+    
+    private var equalOperation: Operation {
+        return { checker, frame in
+            let distance = (frame.height * 3).uintRounded()
+            let topFrame = frame.update(by: distance, in: .offset(.top))
+            let bottomFrame = frame.update(by: distance, in: .offset(.bottom))
+            
+            return checker.exist(yRange: 0...5, of: 10, x: 0.5, with: topFrame, op: .or) ||
+                checker.exist(yRange: 5...10, of: 10, x: 0.5, with: bottomFrame, op: .or)
         }
     }
     
@@ -435,8 +489,8 @@ extension CGRect {
             let temporaryFrame = newFrame.update(by: pixels, in: .offset(direction.optionSet))
             print("temporaryFrame \(temporaryFrame)")
             guard direction.completion(checker, points, temporaryFrame) else { break }
-            print("newFrame \(newFrame)")
             newFrame = temporaryFrame
+            print("newFrame \(newFrame)")
         }
         return newFrame
     }
