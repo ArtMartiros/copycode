@@ -17,13 +17,13 @@ fileprivate let nCustomTree: TreeOCR = .n(.xRange(x: 4...6, y: 0.8, op: .or),
                                              .r("_"),
                                              .n(.xRange(x: 8...9, y: 0.5, op: .or),
                                                 .r("m"),
-                                                .n(.yRange(x: 5, y: 3...5, op: .or),
+                                                .n(.yRange(x: 0.5, y: 3...5, op: .or),
                                                    .r(":"),
                                                    .r(".")))),
                                           .n(.yRange(x: 0.5, y: 2...4, op: .or),
                                              .n(.equalOrDashCustom,
                                                 .n(.yRange(x: 0.1, y: 1...2, op: .or), .r(">"), .r("=")),
-                                                .r("-")),
+                                                .n(.xRange(x: 6...8, y: 0.8, op: .or), .r("n"), .r("-"))),
                                              .n(.yRange(x: 0.3, y: 8...10, op: .or),
                                                 .r("_"), .r("-"))))
 
@@ -45,5 +45,6 @@ fileprivate let pCustomTree: TreeOCR = .n(.xRange(x: 7...9, y: 0.5, op: .or),
                                              .r("1"),
                                              .n(.yRange(x: 0.2, y: 7...9, op: .or),
                                                 .r("}"),
-                                                .r("\""))))))
+                                                questionOrDash)))))
 
+private let questionOrDash: TreeOCR = .n(.xRange(x: 5...8, y: 0.5, op: .or), .r("?"), .r("\""))
