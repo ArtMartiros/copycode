@@ -79,6 +79,8 @@ enum Scene: String {
     
     var customLettersPositionName: String {
         switch self {
+        case .sc1: return "sc1_custom_letters_position"
+        case .sc2: return "sc2_custom_letters_position"
         case .sc9: return "sc9_custom_letters_position"
         default: return ""
         }

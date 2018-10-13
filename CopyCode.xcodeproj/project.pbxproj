@@ -44,6 +44,8 @@
 		AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */; };
 		AC15F820214D0ADD001DC55E /* BlockSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */; };
 		AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */ = {isa = PBXBuildFile; fileRef = AC199EAB211A9A5F00B53656 /* letter_type_classification.json */; };
+		AC1FABB221713850003DFD5C /* sc1_custom_letters_position.json in Resources */ = {isa = PBXBuildFile; fileRef = AC1FABB121713850003DFD5C /* sc1_custom_letters_position.json */; };
+		AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */ = {isa = PBXBuildFile; fileRef = AC1FABB3217138BA003DFD5C /* sc2_custom_letters_position.json */; };
 		AC21813D21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */; };
 		AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */; };
 		AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
@@ -369,6 +371,8 @@
 		AC15F81B214CE102001DC55E /* SortedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		AC15F81E214D0ADD001DC55E /* BlockSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSplitter.swift; sourceTree = "<group>"; };
 		AC199EAB211A9A5F00B53656 /* letter_type_classification.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification.json; sourceTree = "<group>"; };
+		AC1FABB121713850003DFD5C /* sc1_custom_letters_position.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_custom_letters_position.json; sourceTree = "<group>"; };
+		AC1FABB3217138BA003DFD5C /* sc2_custom_letters_position.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters_position.json; sourceTree = "<group>"; };
 		AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPosInfoFinder.swift; sourceTree = "<group>"; };
 		AC21813F2163F89200515FBD /* TrackingFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinder.swift; sourceTree = "<group>"; };
 		AC2181432164C83700515FBD /* sc2_custom_letters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters.json; sourceTree = "<group>"; };
@@ -1027,6 +1031,8 @@
 			isa = PBXGroup;
 			children = (
 				ACE0E22F2170CD4700E28E28 /* sc9_custom_letters_position.json */,
+				AC1FABB121713850003DFD5C /* sc1_custom_letters_position.json */,
+				AC1FABB3217138BA003DFD5C /* sc2_custom_letters_position.json */,
 			);
 			path = LetterPosition;
 			sourceTree = "<group>";
@@ -1292,6 +1298,7 @@
 				AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */,
 				ACE0E2252170BD1000E28E28 /* sc9_playground_grid.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
+				AC1FABB221713850003DFD5C /* sc1_custom_letters_position.json in Resources */,
 				ACDA6DD5215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
 				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
@@ -1317,6 +1324,7 @@
 				ACEBB27B216CB0E20094336F /* sc3_p2_user_main_view_controller_grid.json in Resources */,
 				ACEBB286216CEACE0094336F /* sc3_p2_user_main_view_controller_grid_with_type.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
+				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,

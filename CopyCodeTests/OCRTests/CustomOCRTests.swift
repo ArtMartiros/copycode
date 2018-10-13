@@ -13,20 +13,14 @@ class CustomOCRTests: XCTestCase {
     
     //1 @
     func testScene1() {
-        let answers: [String] = ["@", "=", "-", "=", "=", "=", "=", "}", "}", "=", "1", ".", "2", "=", "-", "="]
-        let chars = getChars(from: .sc1)
-        for (index, char) in chars.enumerated() {
-            XCTAssertEqual(answers[index], char)
+        checkLetter(from: .sc1) { (answer, position) in
+            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
     func testScene2() {
-        let answers: [String] = ["=", "=", "=", "}", "-", ">", "=", "\"", "=", "\"", "=", "\"","=", "\"",
-                                 "}", "_", "-", ">", "=", "=", "}", "."]
-        let chars = getChars(from: .sc2)
-        for (index, char ) in chars.enumerated() {
-            print(index)
-            XCTAssertEqual(answers[index], char)
+        checkLetter(from: .sc2) { (answer, position) in
+            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
@@ -63,25 +57,4 @@ class CustomOCRTests: XCTestCase {
         return recognizer
     }
     
-    private func getChars(from scene: Scene, number: Int? = nil) -> [String] {
-        let bitmap = scene.image.bitmap
-        let letters = scene.getCustomLetters(self)
-        let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
-        let wordFactor = WordFactor(rectangle: letters[0])
-        let recognizer = LetterRecognizer(in: bitmap, wordBackgroundWhiteColor: 1,
-                                          letterColorFinder: colorFinder, wordFactor: wordFactor)
-        var chars: [String] = []
-        if let number = number {
-           chars = [recognizer.recognize(from: letters[number])]
-        } else {
-            for (index, letter) in letters.enumerated() {
-                print("Letter index \(index)")
-                let char = recognizer.recognize(from: letter)
-                chars.append(char)
-            }
-        }
-
-        return chars
-    }
-  
 }
