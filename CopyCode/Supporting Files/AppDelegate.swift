@@ -8,6 +8,8 @@
 
 import Cocoa
 import Mixpanel
+import FirebaseCore
+import FirebaseAuth
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -27,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        BITHockeyManager.shared()?.isMetricsManagerDisabled = false
 //        BITHockeyManager.shared().start()
         
-
+        firebaseSetup()
         createStatusBar()
         createMenu()
         listenGlobalKey()
@@ -73,5 +75,12 @@ extension AppDelegate {
         MASShortcutMonitor.shared()?.register(shortcut, withAction: { [weak self] in
             self?.screeenCapture()
         })
+    }
+}
+
+extension AppDelegate {
+    func firebaseSetup() {
+        FirebaseApp.configure()
+        Auth.auth().signInAnonymously(completion: nil)
     }
 }

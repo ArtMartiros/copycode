@@ -188,6 +188,7 @@
 		AC7CAC8F215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC90215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */; };
+		AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8539D2217348B10093469B /* GoogleService-Info.plist */; };
 		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9E214A4DEA00F0FD13 /* Leading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */; };
@@ -241,6 +242,10 @@
 		AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0AF21233191004ED89D /* ocr_visual_14.json */; };
 		AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0B12123324A004ED89D /* ocr_visual_12.json */; };
 		ACA305B9216BCD1700DFB809 /* sc1_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA305B8216BCD1700DFB809 /* sc1_letter.swift */; };
+		ACAE190F21735689007E88C3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE190E21735689007E88C3 /* Date.swift */; };
+		ACAE191021735689007E88C3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE190E21735689007E88C3 /* Date.swift */; };
+		ACAE191221735755007E88C3 /* GlobalValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE191121735755007E88C3 /* GlobalValues.swift */; };
+		ACAE191321735755007E88C3 /* GlobalValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE191121735755007E88C3 /* GlobalValues.swift */; };
 		ACAF236E2136C798009D8409 /* FrameRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF236D2136C798009D8409 /* FrameRate.swift */; };
 		ACAF236F2136C798009D8409 /* FrameRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF236D2136C798009D8409 /* FrameRate.swift */; };
 		ACAF237121381C95009D8409 /* Gap.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237021381C95009D8409 /* Gap.swift */; };
@@ -476,6 +481,7 @@
 		AC790436215D1D4A001D1FB1 /* sc2_block_creator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block_creator.json; sourceTree = "<group>"; };
 		AC7CAC8E215F7919004458D1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRCustomData.swift; sourceTree = "<group>"; };
+		AC8539D2217348B10093469B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
 		AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingDistanceFinder.swift; sourceTree = "<group>"; };
@@ -513,6 +519,8 @@
 		AC9EF0AF21233191004ED89D /* ocr_visual_14.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_14.json; sourceTree = "<group>"; };
 		AC9EF0B12123324A004ED89D /* ocr_visual_12.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_12.json; sourceTree = "<group>"; };
 		ACA305B8216BCD1700DFB809 /* sc1_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc1_letter.swift; sourceTree = "<group>"; };
+		ACAE190E21735689007E88C3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		ACAE191121735755007E88C3 /* GlobalValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalValues.swift; sourceTree = "<group>"; };
 		ACAF236D2136C798009D8409 /* FrameRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameRate.swift; sourceTree = "<group>"; };
 		ACAF237021381C95009D8409 /* Gap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
 		ACAF237621393B44009D8409 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
@@ -678,6 +686,7 @@
 				ACDA6DD3215F6DBF00A7AA62 /* Assets.xcassets */,
 				AC06D84620FF30D000770DBB /* AppDelegate.swift */,
 				AC06D84F20FF30D100770DBB /* Info.plist */,
+				AC8539D2217348B10093469B /* GoogleService-Info.plist */,
 				AC06D85020FF30D100770DBB /* CopyCode.entitlements */,
 				ACEC1A28215E270F00A2B767 /* CopyCode-Bridging-Header.h */,
 				AC7CAC8E215F7919004458D1 /* Settings.swift */,
@@ -702,6 +711,7 @@
 				ACAF237821398BD3009D8409 /* CGRectEdge.swift */,
 				AC8EB592213EBF72003D345B /* Collection.swift */,
 				AC250A66214EDF7D00E6D596 /* String.swift */,
+				ACAE190E21735689007E88C3 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -716,6 +726,7 @@
 				AC8C0AA6214A568D00F0FD13 /* Slicer.swift */,
 				AC15F81B214CE102001DC55E /* SortedArray.swift */,
 				AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */,
+				ACAE191121735755007E88C3 /* GlobalValues.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1337,6 +1348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
+				AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */,
 				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
 			);
@@ -1481,19 +1493,25 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CopyCode/Pods-CopyCode-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/HockeySDK-Mac/HockeySDK-Mac/HockeySDK.framework",
 				"${PODS_ROOT}/HockeySDK-Mac/HockeySDK-Mac/HockeySDK.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/MASShortcut/MASShortcut.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-swift/Mixpanel.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HockeySDK.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/HockeySDK.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MASShortcut.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1624,6 +1642,7 @@
 				AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */,
 				AC06D88720FF4ED100770DBB /* Timer.swift in Sources */,
 				AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */,
+				ACAE190F21735689007E88C3 /* Date.swift in Sources */,
 				AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */,
 				AC06D87E20FF4DA100770DBB /* CGRect.swift in Sources */,
 				AC21813D21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */,
@@ -1657,6 +1676,7 @@
 				AC95B4CA214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */,
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
+				ACAE191221735755007E88C3 /* GlobalValues.swift in Sources */,
 				AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
 				AC7CAC8F215F7919004458D1 /* Settings.swift in Sources */,
 				AC95B4AC2141286A0007B5C5 /* TrackingStartPointFinder.swift in Sources */,
@@ -1715,6 +1735,7 @@
 				ACEBB284216CE4E50094336F /* sc3_p2_type.swift in Sources */,
 				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */,
+				ACAE191321735755007E88C3 /* GlobalValues.swift in Sources */,
 				AC6B2E4C214BF25B000ACEDC /* DigitColumnDetectionTests.swift in Sources */,
 				AC50A876212F2D7700B196BE /* PixelConverter.swift in Sources */,
 				AC250A62214EC02A00E6D596 /* TypographicalGrid.swift in Sources */,
@@ -1752,6 +1773,7 @@
 				ACF1AC64210B30A400897732 /* DigitColumnMerger.swift in Sources */,
 				AC250A5F214EBC4500E6D596 /* TextTranscriptor.swift in Sources */,
 				AC6493EE21663BBA003A4164 /* sc2_letter.swift in Sources */,
+				ACAE191021735689007E88C3 /* Date.swift in Sources */,
 				AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */,
 				AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */,
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,

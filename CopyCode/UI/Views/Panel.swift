@@ -13,6 +13,7 @@ let TapCloseButton: Notification.Name  = .init("TapClose")
 protocol PanelDelegate: class {
     func tapCloseButton(panel: Panel)
     func tapCopyButton(panel: Panel, text: String?)
+    func tapSendScreenButton(panel: Panel)
 }
 
 class Panel: NSPanel {
@@ -22,6 +23,10 @@ class Panel: NSPanel {
 	@IBAction func tapClose(_ sender: NSButtonCell) {
 		panelDelegate?.tapCloseButton(panel: self)
 	}
+    
+    @IBAction func tapSend(_ sender: NSButton) {
+        panelDelegate?.tapSendScreenButton(panel: self)
+    }
     
     private let stringCreator = AttrStringCreator()
     private let textViewCreator = TextViewCreator()
@@ -37,20 +42,7 @@ class Panel: NSPanel {
         self.contentView?.addSubview(textView)
     }
 
-    private func alertInitialSetup() {
-        let frame = contentView!.frame
-        let width: CGFloat = 200
-        let height: CGFloat = 184
-        let x = (frame.width / 2) - (width / 2)
-        let y = frame.height * (1/3) - (height / 2)
-        alertView = NSImageView(image: NSImage(named: .init("picSuccessCopy")!)!)
-        alertView?.frame = CGRect(x: x, y: y, width: width, height: height)
-        alertView?.alphaValue = 0
-        // Tell the view to create a backing layer.
-        alertView?.wantsLayer = true
-        alertView?.layerContentsRedrawPolicy = .onSetNeedsDisplay
-        self.contentView?.addSubview(alertView!)
-    }
+   
     
     private func showAlert(completion: @escaping () -> Void) {
         NSAnimationContext.runAnimationGroup({ context in
@@ -106,3 +98,19 @@ extension Panel: CopyTextViewDelegate, NSTextViewDelegate  {
     }
 }
 
+extension Panel {
+    fileprivate func alertInitialSetup() {
+        let frame = contentView!.frame
+        let width: CGFloat = 200
+        let height: CGFloat = 184
+        let x = (frame.width / 2) - (width / 2)
+        let y = frame.height * (1/3) - (height / 2)
+        alertView = NSImageView(image: NSImage(named: .init("picSuccessCopy")!)!)
+        alertView?.frame = CGRect(x: x, y: y, width: width, height: height)
+        alertView?.alphaValue = 0
+        // Tell the view to create a backing layer.
+        alertView?.wantsLayer = true
+        alertView?.layerContentsRedrawPolicy = .onSetNeedsDisplay
+        self.contentView?.addSubview(alertView!)
+    }
+}

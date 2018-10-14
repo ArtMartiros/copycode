@@ -42,12 +42,24 @@
                             </connections>
                         </buttonCell>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWd-mF-CbC">
+                        <rect key="frame" x="-6" y="72" width="172" height="32"/>
+                        <buttonCell key="cell" type="push" title="Send screen to check" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rFB-UE-fYg">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="tapSend:" target="rSZ-Bx-uQH" id="4PT-bN-tTf"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="we3-lz-mf6" firstAttribute="leading" secondItem="qYX-r8-tiw" secondAttribute="leading" id="3UM-iN-7tO"/>
+                    <constraint firstItem="KWd-mF-CbC" firstAttribute="leading" secondItem="qYX-r8-tiw" secondAttribute="leading" id="53x-hd-Zes"/>
                     <constraint firstItem="aNU-J6-n8y" firstAttribute="leading" secondItem="qYX-r8-tiw" secondAttribute="leading" id="6VX-fH-szf"/>
                     <constraint firstAttribute="trailing" secondItem="we3-lz-mf6" secondAttribute="trailing" id="8gs-C1-e21"/>
                     <constraint firstAttribute="bottom" secondItem="we3-lz-mf6" secondAttribute="bottom" id="CMh-LS-EIx"/>
+                    <constraint firstItem="KWd-mF-CbC" firstAttribute="top" secondItem="aNU-J6-n8y" secondAttribute="bottom" constant="2" id="EkR-H9-QMU"/>
                     <constraint firstItem="aNU-J6-n8y" firstAttribute="top" secondItem="qYX-r8-tiw" secondAttribute="top" constant="30" id="gnw-ip-yoV"/>
                     <constraint firstItem="we3-lz-mf6" firstAttribute="top" secondItem="qYX-r8-tiw" secondAttribute="top" id="vnx-h5-31e"/>
                 </constraints>

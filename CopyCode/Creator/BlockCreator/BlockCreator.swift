@@ -27,7 +27,9 @@ final class BlockCreator: BlockCreatorProtocol {
     }
     
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
-        
+        if Settings.enableFirebase {
+           GlobalValues.shared.wordRectangles = rectangles
+        }
         let blocks = blockPreparator.initialPrepare(from: rectangles)
         
         Timer.stop(text: "BlockCreator Initial Created")

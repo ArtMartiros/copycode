@@ -8,6 +8,9 @@
 
 import Cocoa
 import Mixpanel
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
 
 final class PanelController: NSWindowController {
     private var panel: Panel { return window as! Panel }
@@ -17,21 +20,24 @@ final class PanelController: NSWindowController {
         Bundle.main.loadNibNamed(NSNib.Name("Panel"), owner: self, topLevelObjects: nil)
         panel.panelDelegate = self
     }
-
+    
     func openPanel(with image: CGImage) {
         guard let screenRect = NSScreen.screens.first?.frame else { return }
         panel.initialSetupe(with: screenRect)
         let image = NSImage(cgImage: image, size: screenRect.size)
         panel.imageView.image = image
-        showWords(image: image, size:  screenRect.size)
-        
+        if Settings.enableFirebase {
+            GlobalValues.shared.screenImage = image
+        }
+        showWords(image: image, size: screenRect.size)
     }
     
     func closePanel() {
+        GlobalValues.shared.clear()
         panel.closePanel()
     }
     
-   private let textDetection = TextRecognizerManager()
+    private let textDetection = TextRecognizerManager()
     //отсчет пикселей с левого верхнего угла
     func showWords(image: NSImage, size: CGSize) {
         Timer.stop(text: "showWords")
@@ -56,9 +62,9 @@ final class PanelController: NSWindowController {
             }
             
             //------------Columns--------------
-//            let columnsLayers = columns.map { $0.layer(.green, width: 2) }
-//            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-        
+            //            let columnsLayers = columns.map { $0.layer(.green, width: 2) }
+            //            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            
             //------------Lines--------------
             let lines = blocks.reduce([Line]()) { $0 + $1.lines }
             let lineLayers = lines.layers(.red, width: 1)
@@ -72,7 +78,7 @@ final class PanelController: NSWindowController {
             if Settings.showWords {
                 wordsLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
             }
-
+            
             //------------chars--------------
             
             let chars = words.reduce([Letter]()) { $0 + $1.letters }
@@ -82,15 +88,15 @@ final class PanelController: NSWindowController {
             }
             
             //------------Column--------------
-//            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }
-//            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
-//            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-//
+            //            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }
+            //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
+            //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
+            //
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
     }
-
+    
 }
 
 extension PanelController: PanelDelegate {
@@ -98,10 +104,47 @@ extension PanelController: PanelDelegate {
         closePanel()
     }
     
+    func tapSendScreenButton(panel: Panel) {
+        sendToFirebase()
+    }
+    
     func tapCopyButton(panel: Panel, text: String?) {
         guard let string = text else { return }
         let pasterboard = NSPasteboard.general
         pasterboard.setString(string, forType: .string)
         closePanel()
+    }
+}
+
+extension PanelController {
+    private var screenRef: DatabaseReference { return Database.database().reference().child("screens") }
+    private var storageRef: StorageReference { return Storage.storage().reference() }
+    
+    func sendToFirebase() {
+        guard let user = Auth.auth().currentUser,
+            let imageData = GlobalValues.shared.screenImage?.tiffRepresentation,
+            let rectangles = GlobalValues.shared.wordRectangles
+            else { return }
+        
+        let wordsData = CodableHelper.toData(rectangles)
+        let stringDate = Date().toString
+        let screenStorageRef = storageRef.child(user.uid).child("screens").child(stringDate + ".png")
+        let jsonStorageRef = storageRef.child(user.uid).child("json").child(stringDate + ".json")
+        
+        screenStorageRef.putData(imageData, metadata: nil) { (_, _) in
+            screenStorageRef.downloadURL(completion: { [weak self] (screenURL, _) in
+                guard let screenURL = screenURL else { return }
+                jsonStorageRef.putData(wordsData, metadata: nil, completion: { (_, _) in
+                    jsonStorageRef.downloadURL(completion: { (jsonURL, _) in
+                        guard let jsonURL = jsonURL else { return }
+                        self?.screenRef.child(user.uid).child(stringDate).setValue(["screenURL": screenURL.absoluteString,
+                                                                                    "uploadTime": ServerValue.timestamp(),
+                                                                                    "date": stringDate,
+                                                                                    "jsonURL": jsonURL.absoluteString])
+                        GlobalValues.shared.clear()
+                    })
+                })
+            })
+        }
     }
 }

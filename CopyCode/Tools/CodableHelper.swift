@@ -31,9 +31,13 @@ class CodableHelper {
     }
     
     static func encode<T: Encodable>(_ value: T) -> String {
-        let data = try! encoder.encode(value)
+        let data = toData(value)
         let descr = String(data: data, encoding: .utf8)
         return descr ?? ""
+    }
+    
+    static func toData<T: Encodable>(_ value: T) -> Data {
+        return try! encoder.encode(value)
     }
     
 }
