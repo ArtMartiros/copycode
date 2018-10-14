@@ -56,7 +56,8 @@ struct LetterTypeIdentifier {
             for(index, letter) in letters.enumerated() {
                 print("\n LetterTypeIdentifier letterIndex \(index), height: \(letter.frame.height) ")
                 let type = gridUndefineType.find(letter, with: newWordInformation, recognizer: recognizer)
-                print("LetterType: \(type)")
+                let ratio = newWordInformation.maxHeightRatio(with: letter.frame)
+                print("LetterTypeB: \(type), ratio \(ratio)")
                 types.append(type)
             }
             return types

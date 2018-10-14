@@ -56,13 +56,13 @@ final class TextRecognizerManager {
             let blocksWithTypes = restoredBlocks.map { typeConverter.convert($0) }
             Timer.stop(text: "TypeConverter Updated Type ")
             
-//            for block in blocksWithTypes {
-//                if case .grid(let grid) = block.typography {
-//                    let value = CodableHelper.encode(block)
-//
-//                    print(value)
-//                }
-//            }
+            for block in restoredBlocks {
+                if case .grid(let grid) = block.typography {
+                    let value = CodableHelper.encode(block)
+
+                    print(value)
+                }
+            }
 //            sself.printAllCustomLetters(from: blocksWithTypes)
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")

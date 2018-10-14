@@ -97,8 +97,9 @@ final class DigitColumnDetection {
     private func getWordsByType(from words: [SimpleWord]) -> [SymbolsCount: [SimpleWord]] {
         var dictionary: [SymbolsCount: [SimpleWord]] = [:]
         words.forEach {
-            print("ratio \($0.frame.ratio)")
+            
             let type = SymbolsCount.symbols(withRatio: $0.frame.ratio)
+            print("ratio \($0.frame.ratio) type: \(type), y: \($0.frame.minY)")
             dictionary.append(element: $0, toKey: type)
         }
         return dictionary

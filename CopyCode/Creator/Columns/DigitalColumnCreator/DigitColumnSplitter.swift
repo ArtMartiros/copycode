@@ -33,12 +33,12 @@ class DigitColumnSplitter: DigitColumnCreatorProtocol {
     
     func spltted(from rectangles: [SimpleWord]) -> ColumnWithBlockWords {
         let dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
-//        let values = dictionaryWordsByOriginX.sorted { $0.key < $1.key }
-//        for item in values where item.key == 313  || item.key == 307 {
-//          let value = CodableHelper.encode(item.value)
-//            print(value)
-//
-//        }
+        let values = dictionaryWordsByOriginX.sorted { $0.key < $1.key }
+        for item in values where item.key == 461 || item.key == 377 {
+          let value = CodableHelper.encode(item.value)
+            print(value)
+
+        }
         var pre = createPreliminaryWord(from: dictionaryWordsByOriginX)
         pre = updateByNearestXkey(pre)
         pre.dictionaryWordsByOriginX.values.forEach { pre.blockWords.append(contentsOf: $0) }

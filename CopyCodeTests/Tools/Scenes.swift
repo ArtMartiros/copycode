@@ -19,6 +19,8 @@ enum Scene: String {
     case sc7 = "sc7"
     case sc8 = "sc8"
     case sc9 = "sc9"
+    case sc10 = "sc10"
+    case sc11 = "sc11"
     case comments = "block_with_comments"
     case one = "block_one"
     case oneCode = "block_one_code"
@@ -34,6 +36,8 @@ enum Scene: String {
         case .sc7: return "sc7_panel"
         case .sc8: return "sc8_panel_controller"
         case .sc9: return "sc9_playground"
+        case .sc10: return "sc10_nscolor"
+        case .sc11: return "sc11_video"
         default: return ""
         }
     }
@@ -44,6 +48,7 @@ enum Scene: String {
         case .sc7: return ["sc7_panel_pre_digit_column_words"]
         case .sc8: return ["sc8_panel_controller_pre_digit_column_words_2",
                            "sc8_panel_controller_pre_digit_column_words_3"]
+        case .sc10: return ["sc10_nscolor_pre_digit_column_words", "sc10_nscolor_pre_digit_column_words_f"]
         default: return []
         }
     }
@@ -97,6 +102,7 @@ enum Scene: String {
         case .sc3_p1: return "sc3_p1_firebase_chat_grid"
         case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
         case .sc9: return "sc9_playground_grid"
+        case .sc11: return "sc11_video_grid"
         default: return ""
         }
     }
@@ -119,6 +125,7 @@ enum Scene: String {
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
         case .sc9: return sc9_type
+        case .sc11: return sc11_type
         default: return [:]
         }
     }

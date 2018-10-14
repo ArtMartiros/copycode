@@ -90,6 +90,10 @@
 		AC3588572171DDBB0023F311 /* ocr_visual_18_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC3588562171DDBB0023F311 /* ocr_visual_18_words.json */; };
 		AC3588592171DDC70023F311 /* ocr_visual_14_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC3588582171DDC70023F311 /* ocr_visual_14_words.json */; };
 		AC35885B2171DDD20023F311 /* ocr_visual_12_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35885A2171DDD20023F311 /* ocr_visual_12_words.json */; };
+		AC35885D217250510023F311 /* sc10_nscolor_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35885C217250510023F311 /* sc10_nscolor_pre_digit_column_words.json */; };
+		AC35885F217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */; };
+		AC35886121725C560023F311 /* sc11_video_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35886021725C560023F311 /* sc11_video_grid.json */; };
+		AC35886321725D2F0023F311 /* sc11_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35886221725D2F0023F311 /* sc11_type.swift */; };
 		AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */; };
@@ -418,6 +422,10 @@
 		AC3588562171DDBB0023F311 /* ocr_visual_18_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_18_words.json; sourceTree = "<group>"; };
 		AC3588582171DDC70023F311 /* ocr_visual_14_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_14_words.json; sourceTree = "<group>"; };
 		AC35885A2171DDD20023F311 /* ocr_visual_12_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_12_words.json; sourceTree = "<group>"; };
+		AC35885C217250510023F311 /* sc10_nscolor_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc10_nscolor_pre_digit_column_words.json; sourceTree = "<group>"; };
+		AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc10_nscolor_pre_digit_column_words_f.json; sourceTree = "<group>"; };
+		AC35886021725C560023F311 /* sc11_video_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_grid.json; sourceTree = "<group>"; };
+		AC35886221725D2F0023F311 /* sc11_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc11_type.swift; sourceTree = "<group>"; };
 		AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnSplitter.swift; sourceTree = "<group>"; };
 		AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc6_pre_digit_column_words.json; sourceTree = "<group>"; };
 		AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCheckerTests.swift; sourceTree = "<group>"; };
@@ -785,6 +793,7 @@
 				ACEBB27C216CBC8C0094336F /* sc3_p1_type.swift */,
 				ACEBB283216CE4E50094336F /* sc3_p2_type.swift */,
 				ACE0E2292170C17D00E28E28 /* sc9_type.swift */,
+				AC35886221725D2F0023F311 /* sc11_type.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -1186,6 +1195,9 @@
 				ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */,
 				ACE0E2282170BD4200E28E28 /* sc8 */,
 				ACE0E22D2170CA6D00E28E28 /* sc9 */,
+				AC35885C217250510023F311 /* sc10_nscolor_pre_digit_column_words.json */,
+				AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */,
+				AC35886021725C560023F311 /* sc11_video_grid.json */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1363,12 +1375,14 @@
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
 				AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */,
 				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
+				AC35885D217250510023F311 /* sc10_nscolor_pre_digit_column_words.json in Resources */,
 				AC3588532171DD7E0023F311 /* ocr_xcode_light_12_words.json in Resources */,
 				ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */,
 				AC35885B2171DDD20023F311 /* ocr_visual_12_words.json in Resources */,
 				AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */,
 				ACEBB279216CB0A30094336F /* sc3_p1_firebase_chat_grid.json in Resources */,
 				ACE0E2302170CD4700E28E28 /* sc9_custom_letters_position.json in Resources */,
+				AC35886121725C560023F311 /* sc11_video_grid.json in Resources */,
 				AC9EF09E21232A12004ED89D /* ocr_xcode_light_12.json in Resources */,
 				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
 				ACEBB281216CCF5E0094336F /* sc3_p1_firebase_chat_grid_with_type.json in Resources */,
@@ -1399,6 +1413,7 @@
 				AC44191E2162722500248DCC /* sc1_custom_letters.json in Resources */,
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
+				AC35885F217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json in Resources */,
 				AC6493F3216646BC003A4164 /* sc2_block_creator_grid_with_type.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1743,6 +1758,7 @@
 				ACDA6DC6215E7F9300A7AA62 /* CustomButton.swift in Sources */,
 				AC4CA40121025DE30093D938 /* TextDetection.swift in Sources */,
 				ACAF237A21398BD4009D8409 /* CGRectEdge.swift in Sources */,
+				AC35886321725D2F0023F311 /* sc11_type.swift in Sources */,
 				ACAF237221381C95009D8409 /* Gap.swift in Sources */,
 				AC8C0AAB214A605600F0FD13 /* LeadingChecker.swift in Sources */,
 				AC95B4A621410B2F0007B5C5 /* TrackingInfoFinder.swift in Sources */,

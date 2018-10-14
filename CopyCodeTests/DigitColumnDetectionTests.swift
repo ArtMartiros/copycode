@@ -11,25 +11,34 @@ import XCTest
 class DigitColumnDetectionTests: XCTestCase {
 
     func testSc6() {
-        execute(scene: .sc6)
+        execute(scene: .sc6, answers: [true])
     }
     
     func testSc7() {
-        execute(scene: .sc7)
+        execute(scene: .sc7, answers: [true])
     }
     
     func testSc8() {
-        execute(scene: .sc8)
+        execute(scene: .sc8, answers: [true, true])
     }
     
-    private func execute(scene: Scene) {
+    func testSc10() {
+        execute(scene: .sc10, answers: [true, false])
+    }
+    
+    private func execute(scene: Scene, answers: [Bool]) {
         let bitmap = scene.image.bitmap
         let detection = DigitColumnDetection(in: bitmap)
         PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
         let wordsArray = scene.gePreDigitColumnWords(self)
-        for words in wordsArray {
+        for (index, words) in wordsArray.enumerated() {
             let result = detection.detect(words)
-            XCTAssertNotNil(result)
+            if answers[index] {
+                XCTAssert(result != nil)
+            } else {
+                XCTAssert(result == nil)
+            }
+            
         }
     }
     
