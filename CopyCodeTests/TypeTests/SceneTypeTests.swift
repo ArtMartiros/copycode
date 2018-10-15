@@ -41,7 +41,7 @@ class CustomTypeTests: XCTestCase {
             XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
-    
+   //18
     func testSc11() {
         executeCheck(scene: .sc11, exluded: [9, 10, 11]) { (type, position) in
             XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
