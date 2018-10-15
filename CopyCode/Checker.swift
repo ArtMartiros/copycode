@@ -27,6 +27,7 @@ class Checker {
         return isSame(first, with: second, relativelyTo: height, accuracy: accuracy.rawValue)
     }
     
+    ///accuracy in percent
     func isSame(_ first: CGFloat, with second: CGFloat, relativelyTo: CGFloat, accuracy: CGFloat) -> Bool {
         let diff = abs(first - second)
         let different = (diff / relativelyTo) * 100 > accuracy

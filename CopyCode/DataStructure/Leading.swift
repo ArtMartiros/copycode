@@ -25,9 +25,9 @@ extension Leading {
     var leading: CGFloat {
         return fontSize + lineSpacing
     }
-
+    
     typealias Rate = (errorRate: CGFloat, preciseRate: CGFloat)
-
+    
     func checkIsFrameInsideLinePosition(frame: CGRect) -> SimpleSuccess<Rate> {
         let point = findNearestPointTop(to: frame)
         let errorPercent: CGFloat = 10
@@ -58,6 +58,7 @@ extension Leading {
         }
     }
     
+    ///делает фрейм возможного размера учитывая лидинг, поэтому может быть обрезан
     func missingLinesFrame(in frame: CGRect) -> [CGRect] {
         guard frame.height > leading else { return [] }
         let startPoint = findStartPoint(inside: frame)
@@ -78,6 +79,39 @@ extension Leading {
         return frames
     }
     
+    ///делает фрем сандартного размера с помощью лидинга
+    func missingLinesWithStandartFrame(in frame: CGRect) -> [CGRect] {
+        guard frame.height > leading else { return [] }
+        let startPoint = findStartPoint(inside: frame)
+        let difference = frame.topY - startPoint
+        let height = startPoint - frame.bottomY
+        let lineCount = ((height - fontSize - difference) / leading).rounded()
+        
+        var currentFrame = frame
+        var frames: [CGRect] = []
+        
+        for i in 0...Int(lineCount) {
+            let afterDistance = i == 0 ? difference : lineSpacing
+            let divided = currentFrame.divided(atDistance: fontSize,
+                                               afterDistance: afterDistance, from: .maxYEdge)
+            
+            let temporaryFrame = divided.slice
+            //проблема с течм что крайние обрезаются
+            if temporaryFrame.height < fontSize {
+                let diff = fontSize - temporaryFrame.height
+                let newFrame = temporaryFrame.update(byValue: diff, in: .offset(i == 0 ? .top : .bottom))
+                frames.append(newFrame)
+            } else {
+                frames.append(temporaryFrame)
+            }
+            
+            currentFrame = divided.remainder
+            
+        }
+        return frames
+    }
+    
+    
     private func findNearestPointTop(to frame: CGRect) -> CGFloat {
         let distance = abs(frame.topY - startPointTop)
         let value = (distance / leading).rounded()
@@ -97,7 +131,7 @@ extension Leading {
         
         var startPoint = point
         if point > frame.topY, !checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: 40) {
-                startPoint -= leading
+            startPoint -= leading
         }
         return startPoint
     }

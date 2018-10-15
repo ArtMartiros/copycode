@@ -9,20 +9,23 @@
 import Foundation
 
 struct LeadingFinder {
-
+    
+    private let mostAccurateFinder = LeadingMostAccurateFinder()
+    
     func find(_ block: Block<LetterRectangle>) -> Leading? {
-        let lines = block.lines
-        let gaps = block.gaps.map { $0.frame }
-        let maxLineHeight = block.maxLineHeight()
-        
-        let startPointFinder = LeadingStartPointFinder(lines: lines, gaps: gaps, maxLineHeight: maxLineHeight)
-        let distanceFinder = LeadingDistanceFinder(lines: lines, gaps: gaps, maxLineHeight: maxLineHeight)
+        let distanceFinder = LeadingDistanceFinder(block: block)
+        let startPointGenerator = LeadingStartPointGenerator()
+        let spaceFinder = LeadingSpaceFinder(block: block)
         
         let result = distanceFinder.find()
         switch result {
         case .success(let range):
-            let leading = startPointFinder.find(in: range)
-            return leading
+            let point = block.lineWithMaxHeight().frame.topY
+            let leadingErrors = startPointGenerator.generate(from: point)
+                .map { spaceFinder.find(in: range, startPoint: $0)}
+                .reduce([], +)
+            
+            return mostAccurateFinder.find(from: leadingErrors)
         case .failure:  return nil
         }
     }

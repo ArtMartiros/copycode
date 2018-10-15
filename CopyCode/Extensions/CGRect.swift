@@ -54,33 +54,19 @@ extension CGRect {
 
 
 extension CGRect {
-    ///  0 == same, 1 == size of frame
-    func expand(addingOfRatio value: CGFloat, in dimension: Direction) -> CGRect {
-        switch dimension {
-            
-        case .left:
-            let newX = xAs(rate: -value)
-            let addedWidth = abs(leftX - newX)
-            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
-            
-        case .right:
-            let newX = xAs(rate: 1 + value)
-            let addedWidth = abs(leftX - newX)
-            return CGRect(x: newX, y: origin.y, width: width + addedWidth, height: height)
-            
-        default: return .zero
-        }
+    func update(by value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
+       return update(byValue: CGFloat(value), in: edgeDirection)
     }
     
-    func update(by value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
+    func update(byValue value: CGFloat, in edgeDirection: EdgeDirection) -> CGRect {
         let direction: DirectionOptions
         let newValue: CGFloat
         switch edgeDirection {
         case .inset(let d):
-            newValue = -CGFloat(value)
+            newValue = -value
             direction = d
         case .offset(let d):
-            newValue = CGFloat(value)
+            newValue = value
             direction = d
         }
         return update(by: newValue, in: direction)

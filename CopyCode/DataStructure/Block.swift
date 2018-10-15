@@ -13,7 +13,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     let frame: CGRect
     let lines: [Line<WordChild>]
     let column: ColumnType
-    let typography: Typography
+    var typography: Typography
     
     var gaps: [Gap] {
         var gaps: [Gap] = []
@@ -31,7 +31,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     }
     
     ///старый вариант пока не использую
-    func maxLineHeight2() -> CGFloat {
+   private func maxLineHeight2() -> CGFloat {
         let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }
         return heights[0]
     }
@@ -41,6 +41,10 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     /// если будет хуево работать можно просто сделать новую линию убрав эту буквы и потом еще раз поискать
     ///пока итак норм
     func maxLineHeight() -> CGFloat {
+        return lineWithMaxHeight().frame.height
+    }
+    
+    func lineWithMaxHeight() -> Line<WordChild> {
         let sortedLines = lines.sorted { $0.frame.height > $1.frame.height }
         lineLoop: for line in sortedLines {
             let lineHeight = line.frame.height
@@ -48,24 +52,28 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
             for word in words {
                 let filteredLetters = word.letters.filter { lineHeight == $0.frame.height }
                 if filteredLetters.count == 1 {
-                  let letter = filteredLetters[0]
+                    let letter = filteredLetters[0]
                     if letter.frame.ratio > 7 {
                         continue lineLoop
                     } else {
-                      return line.frame.height
+                        return line
                     }
                 } else {
-                    return line.frame.height
+                    return line
                 }
             }
         }
-        return sortedLines[0].frame.height
+        return sortedLines[0]
     }
     
     init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType, typography: Typography) {
         self.lines = lines
         self.frame = frame
         self.column = column
+        self.typography = typography
+    }
+    
+    mutating func update(_ typography: Typography) {
         self.typography = typography
     }
     

@@ -10,18 +10,23 @@ import Foundation
 
 struct TypographicalGrid: Codable {
     let trackingData: TrackingData
-    let leading: Leading
+    private (set) var leading: Leading
     
     init(data: TrackingData, leading: Leading) {
         self.trackingData = data
         self.leading = leading
     }
+    
+    mutating func update(_ leading: Leading) {
+        self.leading = leading
+    }
+    
 }
 
 extension TypographicalGrid {
     ///breaks the frame into parts using leading and tracking
     func getArrayOfFrames(from frame: CGRect) -> [[CGRect]] {
-        let lineFrames = leading.missingLinesFrame(in: frame)
+        let lineFrames = leading.missingLinesWithStandartFrame(in: frame)
         let arrayOfFrames: [[CGRect]] = lineFrames.map {
             let tracking = trackingData[$0.topY]
             return tracking.missingCharFrames(in: $0)

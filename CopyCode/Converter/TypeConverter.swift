@@ -8,51 +8,51 @@
 
 import AppKit
 
+enum ActionForLetterType {
+    case all
+    case onlyLow
+    case withOutLow
+}
+
 ///Класс конвертирует слова из неизвестного типа в конкретный тип
 class TypeConverter {
-    private var mixedWordRectangle: SimpleWord!
-    private let wordClassification = WordTypeIdentifier()
+
+    private let typeAction: ActionForLetterType
+    private let bitmap: NSBitmapImageRep
+    private let grid: TypographicalGrid
     
-    let bitmap: NSBitmapImageRep
-    init(in bitmap: NSBitmapImageRep) {
+    init(in bitmap: NSBitmapImageRep, grid: TypographicalGrid, type: ActionForLetterType) {
         self.bitmap = bitmap
+        self.grid = grid
+        self.typeAction = type
     }
     
     func convert(_ block: SimpleBlock) -> SimpleBlock {
-        let lines: [SimpleLine] = block.lines.map { convert($0, typography: block.typography) }
+        let lines: [SimpleLine] = block.lines.map { convert($0) }
         let newBlock = Block(lines: lines, frame: block.frame, column: block.column, typography: block.typography)
         return newBlock
     }
     
-    func convert(_ line: SimpleLine, typography: Typography) -> SimpleLine {
-        return  Line(words: convert(line.words, typography: typography))
-    }
-    
-    ///Конвертирует в слово с типом
-    func convert(_ rectangles: [SimpleWord], typography: Typography) -> [SimpleWord] {
+    func convert(_ line: SimpleLine) -> SimpleLine {
         var words: [SimpleWord] = []
-        for (index, word) in rectangles.enumerated() {
+        for (index, word) in line.words.enumerated() {
             print("***************************************TypeConverter wordIndex \(index)***************************************")
-            words.append(getWord(from: word, typography: typography))
+            words.append(convert(word))
         }
-        return words
+        return Line(words: words)
     }
-    
-    private func getWord(from word: SimpleWord, typography: Typography) -> SimpleWord {
+
+    private func convert(_ word: SimpleWord) -> SimpleWord {
         guard word.type != .same(type: .allCustom) else { return word }
-        let information = WordInformation(max: word.letterWithMaxHeight!,
-                                          lowerY: word.letterLowerY!,
-                                          word: word)
+        let information = getInformation(from: word)
         let recognizer = LetterRecognizer(bitmap, word: word)
-        let classification = LetterTypeIdentifier(information: information, recognizer: recognizer)
-        let letters = getLetters(from: word.letters, using: classification, typography: typography)
-        return Word(rect: word, type: .mix, letters: letters)
+        let classification = LetterTypeIdentifier(information, recognizer: recognizer)
+        let convertedLetters = convert(word.letters, using: classification)
+        return Word(rect: word, type: .mix, letters: convertedLetters)
     }
-    
-    private func getLetters(from letters: [LetterRectangle],
-                               using classification: LetterTypeIdentifier,
-                               typography: Typography ) -> [LetterRectangle] {
-        let types = classification.detectType(for: letters, typography: typography)
+
+    private func convert(_ letters: [LetterRectangle], using classification: LetterTypeIdentifier) -> [LetterRectangle] {
+        let types = classification.detectType(for: letters, grid: grid, actionType: typeAction)
         var newLetters: [LetterRectangle] = []
         for (index, item) in letters.enumerated() {
             newLetters.append(LetterRectangle(rect: item, type: types[index]))
@@ -60,6 +60,10 @@ class TypeConverter {
         return newLetters
     }
     
+    private func getInformation(from word: SimpleWord) -> WordInformation {
 
-    
+        let information = WordInformation(leading: grid.leading, letterFrame: word.letters[0].frame)
+        return information
+    }
+
 }

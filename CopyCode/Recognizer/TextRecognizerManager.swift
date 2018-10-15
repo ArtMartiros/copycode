@@ -39,44 +39,80 @@ final class TextRecognizerManager {
             let bitmap = image.bitmap
             print(bitmap.pixelSize)
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
-            let blockCreator = BlockCreator(in: bitmap)
-            let typeConverter = TypeConverter(in: bitmap)
             let wordRecognizer = WordRecognizer(in: bitmap)
-            
+            let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
             
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "WordRectangles Converted")
             
             let blocks = blockCreator.create(from: wordsRectangles)
+            
+            let gridBlocks = sself.filterGrids(blocks)
+            
             Timer.stop(text: "LetterRestorer restored")
-            let restoredBlocks = blocks.map { restorer.restore($0) }
+            let restoredBlocks = gridBlocks.map { restorer.restore($0) }
             Timer.stop(text: "BlockCreator created")
             
-            let blocksWithTypes = restoredBlocks.map { typeConverter.convert($0) }
+            let blocksWithTypes = restoredBlocks.compactMap { [weak self] in
+                self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0)
+                }.reduce([], +)
+            
             Timer.stop(text: "TypeConverter Updated Type ")
             
-            for block in restoredBlocks {
-                if case .grid(let grid) = block.typography {
-                    let value = CodableHelper.encode(block)
-
-                    print(value)
-                }
-            }
+//            for block in restoredBlocks {
+//                if case .grid(let grid) = block.typography {
+//                    let value = CodableHelper.encode(block)
+//
+//                    print(value)
+//                }
+//            }
 //            sself.printAllCustomLetters(from: blocksWithTypes)
             let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
             completion(bitmap, completedBlocks, error)
         }
     }
-    
-    private func printAllCustomLetters(from blocks: [SimpleBlock]) {
-        let oneBlock = blocks.filter {
-            if case .grid = $0.typography {
-                return true
-            } else {
-                return false
+
+    private func filterGrids(_ blocks: [SimpleBlock]) -> [SimpleBlock] {
+       return blocks.filter {
+            switch $0.typography {
+            case .grid: return true
+            default: return false
             }
+        }
+    }
+    
+    
+    private func detectTypeWithUpdatedLeading(in bitmap: NSBitmapImageRep, from block: SimpleBlock) -> [SimpleBlock] {
+        switch block.typography {
+            
+        case .grid(let grid):
+            var typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
+            let blockWithLow = typeConverter.convert(block)
+            let updater = LeadingAndBlockUpdater(grid: grid)
+            let splittedBlocks = updater.update(block: blockWithLow)
+            
+            return splittedBlocks.compactMap {
+                if case .grid(let grid) = $0.typography {
+                    typeConverter = TypeConverter(in: bitmap, grid: grid, type: .all)
+                    return typeConverter.convert($0)
+                }
+                return nil
+            }
+            
+        default: return []
+            
+        }
+    }
+}
+
+
+extension TextRecognizerManager {
+    fileprivate func printAllCustomLetters(from blocks: [SimpleBlock]) {
+        let oneBlock = blocks.filter {
+            if case .grid = $0.typography { return true }
+            else { return false }
             }[0]
         
         
@@ -92,40 +128,19 @@ final class TextRecognizerManager {
                         letters.append(position)
                     }
                     index += 1
- 
+                    
                 }
             }
         }
-//        let words = oneBlock.lines.map { line in
-//            line.words.filter {
-//                $0.type == .same(type: .allCustom)
-//            }
-//            }.reduce([], +)
-//
-//        let letters = words.map { $0.letters }.reduce([], +)
+        //        let words = oneBlock.lines.map { line in
+        //            line.words.filter {
+        //                $0.type == .same(type: .allCustom)
+        //            }
+        //            }.reduce([], +)
+        //
+        //        let letters = words.map { $0.letters }.reduce([], +)
         let value = CodableHelper.encode(letters)
         
         print(value)
-    }
-}
-
-struct LetterWithPosition<T: Rectangle>: Codable {
-    let l: Int
-    let w: Int
-    let c: Int
-    let lineCharCount: Int
-    let letter: T
-    
-    init(l: Int, w: Int, c: Int, lineCharCount: Int, letter: T) {
-        self.l = l
-        self.w = w
-        self.c = c
-        self.lineCharCount = lineCharCount
-        self.letter = letter
-    }
-    
-    init(position: SimpleLetterPosition, letter: T) {
-        self.init(l: position.l, w: position.w, c: position.c,
-                  lineCharCount: position.lineCharCount, letter: letter)
     }
 }

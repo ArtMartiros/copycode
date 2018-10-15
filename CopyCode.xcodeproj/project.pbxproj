@@ -72,6 +72,16 @@
 		AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */; };
 		AC2EC56621161E120085F4DE /* LetterTypeClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */; };
+		AC302DC3217660D10073A569 /* LeadingAndBlockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC2217660D10073A569 /* LeadingAndBlockUpdater.swift */; };
+		AC302DC4217660D10073A569 /* LeadingAndBlockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC2217660D10073A569 /* LeadingAndBlockUpdater.swift */; };
+		AC302DC621773B3C0073A569 /* LeadingStartPointGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC521773B3C0073A569 /* LeadingStartPointGenerator.swift */; };
+		AC302DC721773B3C0073A569 /* LeadingStartPointGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC521773B3C0073A569 /* LeadingStartPointGenerator.swift */; };
+		AC302DC92177544D0073A569 /* LeadingMostAccurateFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC82177544D0073A569 /* LeadingMostAccurateFinder.swift */; };
+		AC302DCA2177544D0073A569 /* LeadingMostAccurateFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DC82177544D0073A569 /* LeadingMostAccurateFinder.swift */; };
+		AC302DCC2177546C0073A569 /* LeadigError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DCB2177546C0073A569 /* LeadigError.swift */; };
+		AC302DCD2177546C0073A569 /* LeadigError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DCB2177546C0073A569 /* LeadigError.swift */; };
+		AC302DCF217754820073A569 /* LeadingSpaceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */; };
+		AC302DD0217754820073A569 /* LeadingSpaceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */; };
 		AC31C3C62114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3C72114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3CB2114570F00E09F91 /* TreeOCRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */; };
@@ -94,6 +104,8 @@
 		AC35885F217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */; };
 		AC35886121725C560023F311 /* sc11_video_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC35886021725C560023F311 /* sc11_video_grid.json */; };
 		AC35886321725D2F0023F311 /* sc11_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35886221725D2F0023F311 /* sc11_type.swift */; };
+		AC35FF4C2174900E005E09E9 /* LetterWithPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35FF4B2174900E005E09E9 /* LetterWithPosition.swift */; };
+		AC35FF4D2174900E005E09E9 /* LetterWithPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35FF4B2174900E005E09E9 /* LetterWithPosition.swift */; };
 		AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC365FC62110AF7B00764834 /* DigitColumnSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */; };
 		AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */; };
@@ -195,8 +207,6 @@
 		AC8C0A9F214A4DEA00F0FD13 /* Leading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */; };
 		AC8C0AA1214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */; };
 		AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */; };
-		AC8C0AA4214A4ECB00F0FD13 /* LeadingStartPointFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */; };
-		AC8C0AA5214A4ECB00F0FD13 /* LeadingStartPointFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */; };
 		AC8C0AA7214A568D00F0FD13 /* Slicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA6214A568D00F0FD13 /* Slicer.swift */; };
 		AC8C0AA8214A568D00F0FD13 /* Slicer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA6214A568D00F0FD13 /* Slicer.swift */; };
 		AC8C0AAA214A605600F0FD13 /* LeadingChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0AA9214A605600F0FD13 /* LeadingChecker.swift */; };
@@ -241,6 +251,8 @@
 		AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0AD21233090004ED89D /* ocr_visual_18.json */; };
 		AC9EF0B021233191004ED89D /* ocr_visual_14.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0AF21233191004ED89D /* ocr_visual_14.json */; };
 		AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */ = {isa = PBXBuildFile; fileRef = AC9EF0B12123324A004ED89D /* ocr_visual_12.json */; };
+		ACA305B6216B5D1B00DFB809 /* WordInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA305B5216B5D1B00DFB809 /* WordInformation.swift */; };
+		ACA305B7216B5D1B00DFB809 /* WordInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA305B5216B5D1B00DFB809 /* WordInformation.swift */; };
 		ACA305B9216BCD1700DFB809 /* sc1_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA305B8216BCD1700DFB809 /* sc1_letter.swift */; };
 		ACAE190F21735689007E88C3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE190E21735689007E88C3 /* Date.swift */; };
 		ACAE191021735689007E88C3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE190E21735689007E88C3 /* Date.swift */; };
@@ -412,6 +424,11 @@
 		AC28F2D9216A1DBE007C7550 /* sc1_block_text_view_creator_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_block_text_view_creator_grid_with_type.json; sourceTree = "<group>"; };
 		AC2B700F210CF6B7008743C9 /* LetterExistenceChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterExistenceChecker.swift; sourceTree = "<group>"; };
 		AC2EC56521161E120085F4DE /* LetterTypeClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeClassificationTests.swift; sourceTree = "<group>"; };
+		AC302DC2217660D10073A569 /* LeadingAndBlockUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingAndBlockUpdater.swift; sourceTree = "<group>"; };
+		AC302DC521773B3C0073A569 /* LeadingStartPointGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingStartPointGenerator.swift; sourceTree = "<group>"; };
+		AC302DC82177544D0073A569 /* LeadingMostAccurateFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingMostAccurateFinder.swift; sourceTree = "<group>"; };
+		AC302DCB2177546C0073A569 /* LeadigError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadigError.swift; sourceTree = "<group>"; };
+		AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingSpaceFinder.swift; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
 		AC31C3CD2114573100E09F91 /* TreeOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCR.swift; sourceTree = "<group>"; };
@@ -431,6 +448,7 @@
 		AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc10_nscolor_pre_digit_column_words_f.json; sourceTree = "<group>"; };
 		AC35886021725C560023F311 /* sc11_video_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_grid.json; sourceTree = "<group>"; };
 		AC35886221725D2F0023F311 /* sc11_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc11_type.swift; sourceTree = "<group>"; };
+		AC35FF4B2174900E005E09E9 /* LetterWithPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterWithPosition.swift; sourceTree = "<group>"; };
 		AC365FC42110AF7B00764834 /* DigitColumnSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitColumnSplitter.swift; sourceTree = "<group>"; };
 		AC380664216E34F2004EA7A2 /* sc6_pre_digit_column_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc6_pre_digit_column_words.json; sourceTree = "<group>"; };
 		AC3A11CC2158EE300098F707 /* TrackingCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCheckerTests.swift; sourceTree = "<group>"; };
@@ -485,7 +503,6 @@
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
 		AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingDistanceFinder.swift; sourceTree = "<group>"; };
-		AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingStartPointFinder.swift; sourceTree = "<group>"; };
 		AC8C0AA6214A568D00F0FD13 /* Slicer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slicer.swift; sourceTree = "<group>"; };
 		AC8C0AA9214A605600F0FD13 /* LeadingChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingChecker.swift; sourceTree = "<group>"; };
 		AC8C0AAC214A67CC00F0FD13 /* LeadingFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingFinder.swift; sourceTree = "<group>"; };
@@ -518,6 +535,7 @@
 		AC9EF0AD21233090004ED89D /* ocr_visual_18.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_18.json; sourceTree = "<group>"; };
 		AC9EF0AF21233191004ED89D /* ocr_visual_14.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_14.json; sourceTree = "<group>"; };
 		AC9EF0B12123324A004ED89D /* ocr_visual_12.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ocr_visual_12.json; sourceTree = "<group>"; };
+		ACA305B5216B5D1B00DFB809 /* WordInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInformation.swift; sourceTree = "<group>"; };
 		ACA305B8216BCD1700DFB809 /* sc1_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc1_letter.swift; sourceTree = "<group>"; };
 		ACAE190E21735689007E88C3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		ACAE191121735755007E88C3 /* GlobalValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalValues.swift; sourceTree = "<group>"; };
@@ -727,6 +745,7 @@
 				AC15F81B214CE102001DC55E /* SortedArray.swift */,
 				AC7310C82167C38F00FB4D8B /* MixpanelConstants.swift */,
 				ACAE191121735755007E88C3 /* GlobalValues.swift */,
+				AC35FF4B2174900E005E09E9 /* LetterWithPosition.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -749,6 +768,7 @@
 			children = (
 				AC06D8AB21020A9D00770DBB /* WordTypeIdentifier.swift */,
 				ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */,
+				ACA305B5216B5D1B00DFB809 /* WordInformation.swift */,
 			);
 			path = Identifier;
 			sourceTree = "<group>";
@@ -976,10 +996,14 @@
 		AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */ = {
 			isa = PBXGroup;
 			children = (
+				AC302DC2217660D10073A569 /* LeadingAndBlockUpdater.swift */,
 				AC8C0AAC214A67CC00F0FD13 /* LeadingFinder.swift */,
-				AC8C0AA3214A4ECB00F0FD13 /* LeadingStartPointFinder.swift */,
 				AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */,
 				AC8C0AA9214A605600F0FD13 /* LeadingChecker.swift */,
+				AC302DC82177544D0073A569 /* LeadingMostAccurateFinder.swift */,
+				AC302DCB2177546C0073A569 /* LeadigError.swift */,
+				AC302DC521773B3C0073A569 /* LeadingStartPointGenerator.swift */,
+				AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */,
 			);
 			path = LeadingFinder;
 			sourceTree = "<group>";
@@ -1605,6 +1629,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC302DC92177544D0073A569 /* LeadingMostAccurateFinder.swift in Sources */,
 				AC71FB632112E79500EE41C6 /* Protocol.swift in Sources */,
 				AC67577B212C5A470051C34A /* CustomColumnCreator.swift in Sources */,
 				AC250A67214EDF7D00E6D596 /* String.swift in Sources */,
@@ -1616,6 +1641,7 @@
 				AC675775212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC06D89E20FF538300770DBB /* LetterRecognizer.swift in Sources */,
 				AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */,
+				AC35FF4C2174900E005E09E9 /* LetterWithPosition.swift in Sources */,
 				ACDA6DBE215E724B00A7AA62 /* DrawTextView.swift in Sources */,
 				AC06D89720FF514700770DBB /* PanelController.swift in Sources */,
 				AC7310C92167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
@@ -1650,6 +1676,7 @@
 				AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */,
 				AC6493F52166914A003A4164 /* LetterRestorer.swift in Sources */,
 				AC250A5E214EBC4500E6D596 /* TextTranscriptor.swift in Sources */,
+				AC302DC621773B3C0073A569 /* LeadingStartPointGenerator.swift in Sources */,
 				ACF1AC63210B30A400897732 /* DigitColumnMerger.swift in Sources */,
 				AC365FC52110AF7B00764834 /* DigitColumnSplitter.swift in Sources */,
 				ACFC8125212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
@@ -1663,7 +1690,6 @@
 				AC95B4B2214130C60007B5C5 /* Tracking.swift in Sources */,
 				AC15F81C214CE102001DC55E /* SortedArray.swift in Sources */,
 				ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
-				AC8C0AA4214A4ECB00F0FD13 /* LeadingStartPointFinder.swift in Sources */,
 				ACF1AC60210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
 				AC50A87C2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC06D8A7210207FF00770DBB /* WordType.swift in Sources */,
@@ -1675,6 +1701,7 @@
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC95B4CA214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */,
+				ACA305B6216B5D1B00DFB809 /* WordInformation.swift in Sources */,
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
 				ACAE191221735755007E88C3 /* GlobalValues.swift in Sources */,
 				AC8E89642126C89800B97163 /* TreeOCRUpperData.swift in Sources */,
@@ -1686,12 +1713,15 @@
 				AC71FB672112EAC400EE41C6 /* LineCreator.swift in Sources */,
 				AC7310D121692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */,
 				AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */,
+				AC302DCC2177546C0073A569 /* LeadigError.swift in Sources */,
 				ACDA6DC1215E727700A7AA62 /* AttrStringCreator.swift in Sources */,
 				ACDA6DC5215E7F9300A7AA62 /* CustomButton.swift in Sources */,
 				AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */,
 				AC50A8792133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				AC8EB593213EBF72003D345B /* Collection.swift in Sources */,
+				AC302DCF217754820073A569 /* LeadingSpaceFinder.swift in Sources */,
 				ACF1AC512108BE0B00897732 /* Dictionary.swift in Sources */,
+				AC302DC3217660D10073A569 /* LeadingAndBlockUpdater.swift in Sources */,
 				AC42D3F2212D502E0086A728 /* WordSplitter.swift in Sources */,
 				ACF1AC58210B140200897732 /* WordRecognizer.swift in Sources */,
 				ACFC8122212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
@@ -1731,6 +1761,7 @@
 				AC3A11CD2158EE300098F707 /* TrackingCheckerTests.swift in Sources */,
 				AC50A87D2133F2F000B196BE /* LetterPixelFinder.swift in Sources */,
 				AC4CA40521025DE30093D938 /* TypeConverter.swift in Sources */,
+				AC302DCD2177546C0073A569 /* LeadigError.swift in Sources */,
 				AC15F81D214CE102001DC55E /* SortedArray.swift in Sources */,
 				ACEBB284216CE4E50094336F /* sc3_p2_type.swift in Sources */,
 				AC71FB6B2112EBCE00EE41C6 /* Letter.swift in Sources */,
@@ -1746,6 +1777,7 @@
 				ACEBB289216CF1960094336F /* sc3_p1_letter.swift in Sources */,
 				AC95B4CB214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
+				AC302DCA2177544D0073A569 /* LeadingMostAccurateFinder.swift in Sources */,
 				ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */,
 				ACEBB277216C77F40094336F /* TrackingPosInfoFinderTests.swift in Sources */,
 				ACFC8123212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
@@ -1759,6 +1791,7 @@
 				AC790435215CDA44001D1FB1 /* TrackingFormatterTests.swift in Sources */,
 				AC675776212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */,
+				AC302DC4217660D10073A569 /* LeadingAndBlockUpdater.swift in Sources */,
 				AC8C0AA8214A568D00F0FD13 /* Slicer.swift in Sources */,
 				AC71FB712112EE8B00EE41C6 /* GlobalMethods.swift in Sources */,
 				AC42D3F3212D502E0086A728 /* WordSplitter.swift in Sources */,
@@ -1777,6 +1810,7 @@
 				AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */,
 				AC24055A2114B19200017B6F /* TreeLetterType.swift in Sources */,
 				ACF1AC61210B2D1100897732 /* DigitColumnDetection.swift in Sources */,
+				AC302DC721773B3C0073A569 /* LeadingStartPointGenerator.swift in Sources */,
 				ACDA6DC6215E7F9300A7AA62 /* CustomButton.swift in Sources */,
 				AC4CA40121025DE30093D938 /* TextDetection.swift in Sources */,
 				ACAF237A21398BD4009D8409 /* CGRectEdge.swift in Sources */,
@@ -1784,7 +1818,6 @@
 				ACAF237221381C95009D8409 /* Gap.swift in Sources */,
 				AC8C0AAB214A605600F0FD13 /* LeadingChecker.swift in Sources */,
 				AC95B4A621410B2F0007B5C5 /* TrackingInfoFinder.swift in Sources */,
-				AC8C0AA5214A4ECB00F0FD13 /* LeadingStartPointFinder.swift in Sources */,
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
 				AC79042D215CBE00001D1FB1 /* TrackingInfo.swift in Sources */,
 				AC250A68214EDF7D00E6D596 /* String.swift in Sources */,
@@ -1799,6 +1832,7 @@
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
 				AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */,
 				AC28F2D8216A1A9C007C7550 /* sc1_type.swift in Sources */,
+				AC35FF4D2174900E005E09E9 /* LetterWithPosition.swift in Sources */,
 				AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */,
 				AC4CA40421025DE30093D938 /* WordType.swift in Sources */,
 				AC790430215CBE13001D1FB1 /* TrackingData.swift in Sources */,
@@ -1820,6 +1854,7 @@
 				ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */,
 				AC6493F9216753D3003A4164 /* CGRectTests.swift in Sources */,
 				AC6493F121663E61003A4164 /* ScenesOCRTests.swift in Sources */,
+				AC302DD0217754820073A569 /* LeadingSpaceFinder.swift in Sources */,
 				ACF1AC5E210B180700897732 /* RectangleConverter.swift in Sources */,
 				AC790433215CBE37001D1FB1 /* TrackingPixelConverter.swift in Sources */,
 				AC218149216507A500515FBD /* SceneTypeTests.swift in Sources */,
@@ -1836,6 +1871,7 @@
 				AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */,
 				AC5A2F43216F28F2005C2B20 /* ButtonCreator.swift in Sources */,
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,
+				ACA305B7216B5D1B00DFB809 /* WordInformation.swift in Sources */,
 				ACDA6DC2215E727700A7AA62 /* AttrStringCreator.swift in Sources */,
 				AC4CA3F521025DDF0093D938 /* Double.swift in Sources */,
 				ACE0E22A2170C17D00E28E28 /* sc9_type.swift in Sources */,

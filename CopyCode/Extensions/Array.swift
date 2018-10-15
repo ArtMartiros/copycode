@@ -102,6 +102,24 @@ extension Array {
         }
         return newArray
     }
+    
+    typealias PastCurrentFuture = (past: Element?, present: Element, future: Element?)
+    
+    func pastCurrentFuture() -> [PastCurrentFuture] {
+        var array: [PastCurrentFuture] = []
+        for (index, item) in self.enumerated() {
+            let past = index == 0 ? nil : self[index - 1]
+            let element: PastCurrentFuture = (past, item, self.optional(atIndex: index + 1))
+            array.append(element)
+        }
+        
+        return array
+    }
+    
+    func optional(atIndex index: Int) -> Element? {
+        guard index >= 0 && index < count else { return nil }
+        return self[index]
+    }
 }
 
 extension Array where Element: StandartRectangle {

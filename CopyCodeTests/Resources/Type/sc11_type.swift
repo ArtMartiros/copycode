@@ -12,7 +12,7 @@ let sc11_type = [
     0: "lulll ullultlulll.",
     1: "ulu cctlucculluu, ullullll, llllu.",
     2: "llul lltulluut_tlu llullu. ccc",
-    3: "ulu ccllucculluuc lllullll_ llullu.",
+    3: "ulu ccllucculluuc lllullll, llullu.",
     4: "llllu llull l- cc clll-lltlulll llull lltlullu",
     5: "lltllluut_llu llullu.ccc",
     6: "ulu cculululcculluu, ullullllu.",
