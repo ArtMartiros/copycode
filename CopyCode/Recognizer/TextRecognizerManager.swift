@@ -60,7 +60,7 @@ final class TextRecognizerManager {
             
             Timer.stop(text: "TypeConverter Updated Type ")
             
-//            for block in restoredBlocks {
+//            for block in blocksWithTypes {
 //                if case .grid(let grid) = block.typography {
 //                    let value = CodableHelper.encode(block)
 //

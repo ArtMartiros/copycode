@@ -50,11 +50,17 @@ enum OCROperations: CustomStringConvertible {
     case xy(x: CGFloat, y: CGFloat)
     case xRange(x: ClosedRange<Int>, y: CGFloat, op: LogicalOperator)
     case yRange(x: CGFloat, y: ClosedRange<Int>, op: LogicalOperator)
-    case notH, c, p_d, Z_S, G_C, t_4, K_k, f_t
+    case vLine(l: ClosedRange<Int>, x: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator)
+    case hLine(l: ClosedRange<Int>, y: ClosedRange<Int>, op: LogicalOperator,  mainOp: LogicalOperator)
+    case H_N, c, p_d, Z_S, G_C, t_4, K_k, f_t
     case O_G, I_Z, n4_f, not5, n7_W, G_6
     case n_u, r3, r6
     case left4
+    case notH
+    case f_t_low
     case m_a
+    case e_a
+    case f_2
     case S_5
     case hyphenOrDash
     case question
@@ -62,13 +68,17 @@ enum OCROperations: CustomStringConvertible {
     case asterix
     case S_Dollar
     case semicolon
+    case braceOrRoundL
+    case braceOrRoundR
     case colon
     case s_star
     case l_1
     case R_K
     case O_Q
     case G_0
+    case v_u
     case G_8
+    case i_1
     case plus_e
     case doubleQuotesCustom
     case equalOrDashCustom
@@ -81,6 +91,8 @@ enum OCROperations: CustomStringConvertible {
             print("ratio \($0.ratio)")
             return operation($0.ratio, ratio)
             }
+        case .braceOrRoundL: return .checkerWithFrame (braceOrRoundLOperation)
+        case .braceOrRoundR: return .checkerWithFrame (braceOrRoundROperation)
         case .tL: return .checkerWithFrame { $0.exist(at: $1.tL) }
         case .tR: return .checkerWithFrame { $0.exist(yArray:[0,5], of: 100, x: 0.95, with: $1, op: .or) }
         case .tC: return .checkerWithFrame { $0.exist(at: $1.tC) }
@@ -97,6 +109,8 @@ enum OCROperations: CustomStringConvertible {
             !($0.exist(xRange: 2...5, of: 7, y: 0.5, with: $1, op: .and) ||
                 $0.exist(xRange: 2...5, of: 7, y: 0.4, with: $1, op: .and))
             }
+        case .v_u: return .checkerWithFrame (v_uOperation)
+        case .H_N: return .checkerWithFrame (H_NOperation)
         case .p_d: return .checkerWithFrame { $0.exist(yArray: [3,5], of: 7, x: 0.5, with: $1, op: .or) }
         case .Z_S: return .checkerWithFrame { $0.exist(yRange: 6...7, of: 10, x: 0.95, with: $1, op: .allFalse) }
         case let .xy(x,y): return .checkerWithFrame { $0.exist(x: x, y: y, in: $1) }
@@ -109,6 +123,10 @@ enum OCROperations: CustomStringConvertible {
         case .tLr: return .checkerWithFrame { $0.exist(yArray: [0], of: 1, x: 0.05, with: $1, op: .or) }
         case .n7_W: return .checkerWithFrame { $0.exist(xArray: [2,3], of: 5, y: 0, with: $1, op: .and) }
         case .t_4: return .checkerWithFrame { $0.exist(yRange: 1...3, of: 8, x: 0, with: $1, op: .or) }
+        case .f_2: return .checkerWithFrame {
+            $0.exist(yRange: 3...7, of: 8, x: 0.4, with: $1, op: .and) ||
+            $0.exist(yRange: 3...7, of: 8, x: 0.3, with: $1, op: .and)
+            }
         case .botCircleLeft: return .checkerWithFrame {
             !($0.exist(xRange: 0...3, of: 8, y: 0.7, with: $1, op: .allFalse) ||
                 $0.exist(xRange: 0...3, of: 8, y: 0.6, with: $1, op: .allFalse))
@@ -128,6 +146,14 @@ enum OCROperations: CustomStringConvertible {
         case .f_t: return .checkerWithFrame {
             $0.exist(xRange: 7...8, of: 8, y: 0, with: $1, op: .or) ||
                 $0.exist(xRange: 7...8, of: 8, y: 0.05, with: $1, op: .or)
+            }
+        case .f_t_low: return .checkerWithFrame {
+            if $0.exist(xRange: 9...10, of: 10, y: 0.9, with: $1, op: .or, percent: 80) {
+                return $0.exist(xRange: 0...1, of: 10, y: 0.9, with: $1, op: .or, percent: 80)
+            } else {
+                return true
+            }
+            
             }
         case .O_G: return .checkerWithFrame {
             $0.exist(xRange: 8...9, of: 10, y: 2/7, with: $1, op: .or) &&
@@ -182,8 +208,7 @@ enum OCROperations: CustomStringConvertible {
             $0.exist(xRange: 3...5 , of: 8, y: 0, with: $1, op: .and) ||
                 $0.exist(xRange: 3...5 , of: 8, y: 0.05, with: $1, op: .and)
             }
-
-            
+        
         case .O_Q: return .checkerWithFrame {
             let newFrame = $1.update(by: 1, using: $0, in: .bottom, points: [9, 10])
             return $0.exist(x: 0.5, y: 1, in: newFrame)
@@ -204,11 +229,20 @@ enum OCROperations: CustomStringConvertible {
             $0.exist(xRange: 2...6 , of: 10, y: 0.4, with: $1, op: .and))
             }
         case .l_1: return .checkerWithFrame (l_1Operation)
+        case .i_1: return .checkerWithFrame {
+            $0.exist(yRange: 3...6 , of: 20, x: 0.5, with: $1, op: .someFalse, percent: 80)
+            }
         case .S_5: return .checkerWithFrame (S_5Operation)
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
         case .m_a: return .checkerWithFrame (m_aOperation)
+        case .e_a: return .checkerWithFrame {
+            $0.exist(xRange: 6...9, of: 10, y: 0.9, with: $1, op: .allFalse, percent:70) ||
+                $0.exist(xRange: 6...9, of: 10, y: 0.8, with: $1, op: .allFalse, percent: 70) ||
+                $0.exist(xRange: 6...9, of: 10, y: 0.7, with: $1, op: .allFalse, percent: 70) ||
+                $0.exist(xRange: 6...9, of: 10, y: 0.6, with: $1, op: .allFalse, percent: 70)
+            }
         case .expandFrame(let options): return .updateFrame {
             var newFrame = $1
             for direction in options.directions {
@@ -217,12 +251,21 @@ enum OCROperations: CustomStringConvertible {
             print("newFrame \(newFrame)")
             return newFrame
             }
+        case let .vLine(l, x, op, mainOp): return .checkerWithFrame {
+            $0.exist(vLine: l, xRange: x, with: $1, op: op, mainOp: mainOp)
+            }
+        case let .hLine(l, y, op, mainOp): return .checkerWithFrame {
+            $0.exist(hLine: l, yRange: y, with: $1, op: op, mainOp: mainOp)
+            }
+            
         }
         
     }
     
     var description: String {
         switch self {
+        case .braceOrRoundL: return "braceOrRoundL"
+        case .braceOrRoundR: return "braceOrRoundR"
         case .bC: return "bottomCenter"
         case .bL: return "bottomLeft"
         case .bR: return "bottomRight"
@@ -230,9 +273,10 @@ enum OCROperations: CustomStringConvertible {
         case .f_t: return "f_t"
         case .G_6: return "G_6"
         case .G_C: return "G_C"
-        case .notH: return "notH"
+        case .H_N: return "H_N"
         case .I_Z: return "I_Z"
         case .K_k: return "K_k"
+        case .i_1: return "i_1"
         case .lC: return "leftCenter"
         case .lCr: return "lcr"
         case .n4_f: return "n4_f"
@@ -280,6 +324,15 @@ enum OCROperations: CustomStringConvertible {
         case .bracketOrArrowCustom: return "bracketOrArrowCustom"
         case .expandFrame(let options ): return "expandFrame in \(options.directions)"
         case .m_a: return "m_a"
+        case .e_a: return "e_a"
+        case .f_2: return "f_2"
+        case .f_t_low: return "f_t_low"
+        case .v_u: return "v_u"
+        case .notH: return "notH"
+        case let .vLine(l, op, x, mainOp):
+            return "vLine: \(l), lineOp: \(op), x: \(x), mainOp: \(mainOp)"
+        case let .hLine(l, op, y, mainOp):
+            return "hLine: \(l), lineOp: \(op), y: \(y), mainOp: \(mainOp)"
         }
     }
     
@@ -321,6 +374,61 @@ enum OCROperations: CustomStringConvertible {
         }
     }
     
+    private var braceOrRoundLOperation: Operation {
+        return { checker, frame in
+            let xArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+            let yArray: [CGFloat] = [0.5, 0.4, 0.6]
+            for x in xArray {
+                for y in yArray {
+                    guard checker.exist(x: x, y: y, in: frame) else { continue }
+                    print("testOperation x: \(x), y: \(y)")
+                    if checker.exist(yArray: [7, 13], of: 20, x: x + 0.05, with: frame, op: .and) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }
+            
+            return true
+        }
+    }
+    
+    private var braceOrRoundROperation: Operation {
+        return { checker, frame in
+            let xArray: [CGFloat] = [1, 0.9, 0.8, 0.7]
+            let yArray: [CGFloat] = [0.5, 0.4, 0.6]
+            for x in xArray {
+                for y in yArray {
+                    guard checker.exist(x: x, y: y, in: frame) else { continue }
+                    print("testOperation x: \(x), y: \(y)")
+                    if checker.exist(yArray: [7, 13], of: 20, x: x - 0.05, with: frame, op: .and) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }
+            
+            return true
+        }
+    }
+    private var v_uOperation: Operation {
+        return { checker, frame in
+            
+            func isU(xArray: [CGFloat]) -> Bool {
+                for x in xArray {
+                    guard checker.exist(x: x, y: 0.2, in: frame) && checker.exist(x: x, y: 0.8, in: frame)
+                        else { continue }
+                    return true
+                }
+                return false
+            }
+            let leftXArray: [CGFloat] = [0, 0.1, 0.2]
+            let rightXArray: [CGFloat] = [1, 0.9, 0.8]
+            return !(isU(xArray: leftXArray) && isU(xArray: rightXArray))
+        }
+    }
     private var m_aOperation: Operation {
         return { checker, frame in
             let xArray: [CGFloat] = [0.4, 0.5, 0.6]
@@ -328,18 +436,40 @@ enum OCROperations: CustomStringConvertible {
             var existedX: CGFloat?
             
             for x in xArray {
-                if checker.exist(x: x, y: 0.5, in: frame) {
+                if checker.exist(x: x, y: 0.5, in: frame, percent:80) {
                     existedX = x
                 }
             }
             guard let x = existedX else { return false }
             
             for y in yArray {
-                if !checker.exist(x: x, y: y, in: frame) {
+                if !checker.exist(x: x, y: y, in: frame, percent:80) {
                     return false
                 }
             }
             return true
+        }
+    }
+    
+    private var H_NOperation: Operation {
+        return { checker, frame in
+            let leftX: CGFloat = 0.35
+            let rightX: CGFloat = 0.65
+            let yArray: [CGFloat] = [0.3, 0.4, 0.6, 0.7]
+            
+            for y in yArray {
+                if checker.exist(x: leftX, y: y, in: frame) != checker.exist(x: rightX, y: y, in: frame) {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    private var vLineOperation: Operation {
+        return { checker, frame in
+            return  checker.exist(xRange: 1...2, of: 10, y: 0.1, with: frame, op: .or) ||
+                checker.exist(xRange: 1...2, of: 10, y: 0.9, with: frame, op: .or)
         }
     }
     

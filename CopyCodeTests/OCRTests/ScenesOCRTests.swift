@@ -19,6 +19,7 @@ class ScenesOCRTests: XCTestCase {
         }
     }
     
+
     func testOCRScene2() {
         executeCheck(scene: .sc2, exlude: []) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
@@ -32,9 +33,16 @@ class ScenesOCRTests: XCTestCase {
             XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
-    
+    //2
     func testOCRScene9() {
         executeCheck(scene: .sc9, exlude: [1, 2]) { (answer, position) in
+            XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
+        }
+    }
+    
+    //6
+    func testOCRScene11() {
+        executeCheck(scene: .sc11, exlude: []) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
@@ -57,12 +65,17 @@ class ScenesOCRTests: XCTestCase {
                     let newLetter = Letter(rectangle: letter, value: value)
                     let position = LetterWithPosition(l: lineIndex, w: wordIndex, c: letterIndex,
                                                       lineCharCount: startIndex, letter: newLetter)
+                    print("T: \(letter.type)")
                     completion(answer, position)
                     startIndex += 1
                     
                 }
             }
         }
+        
+        let lettersCount = block.lines.map { $0.words.map { $0.letters } }.reduce([], +).reduce([], +).count
+        print("letters count \(lettersCount)")
+        
         
     }
  

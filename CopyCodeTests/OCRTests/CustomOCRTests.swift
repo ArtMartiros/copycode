@@ -18,12 +18,14 @@ class CustomOCRTests: XCTestCase {
         }
     }
     
+    //1
     func testScene2() {
         checkLetter(from: .sc2) { (answer, position) in
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
+    //1
     func testScene9() {
         checkLetter(from: .sc9) { (answer, position) in
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")

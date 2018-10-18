@@ -26,7 +26,7 @@ let sc9_letter = [
     14: "if rightIndex == rightSorted.count || leftIndex != leftSorted.count & leftSorted[leftIndex] <=",
     15: "rightSorted[rightIndex] {",
     16: "result.append(leftSorted[leftIndex])",
-    17: "laftIndex += 1",
+    17: "leftIndex += 1",
     18: "} else {",
     19: "result.append(rightSorted[rightIndex])",
     20: "rightIndex += 1",

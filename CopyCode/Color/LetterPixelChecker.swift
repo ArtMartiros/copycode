@@ -9,7 +9,7 @@
 import Foundation
 
 protocol LetterPixelExistenceProtocol {
-    func exist(currentValue value: CGFloat) -> Bool
+    func exist(currentValue value: CGFloat, accuracyPercenRate: CGFloat) -> Bool
 }
 
 struct LetterPixelChecker: LetterPixelExistenceProtocol {
@@ -25,15 +25,16 @@ struct LetterPixelChecker: LetterPixelExistenceProtocol {
         self.whitePercent = whitePercent
     }
     
-    func exist(currentValue value: CGFloat) -> Bool {
+    func exist(currentValue value: CGFloat, accuracyPercenRate: CGFloat = 100) -> Bool {
         let allowedInterval = abs(letterDefaultWhite - backgroundWhite) / 100 * CGFloat(whitePercent)
+        let updatedAllowedInterval = allowedInterval  * accuracyPercenRate / 100
         if letterDefaultWhite >= backgroundWhite{
-            let startPoint = letterDefaultWhite - allowedInterval
+            let startPoint = letterDefaultWhite - updatedAllowedInterval
             let range = startPoint.rounded(toPlaces: 3) ... 1
             print("Range \(range)")
             return range ~= value
         } else {
-            let endPoint = letterDefaultWhite + allowedInterval
+            let endPoint = letterDefaultWhite + updatedAllowedInterval
             let range =  0...endPoint.rounded(toPlaces: 3)
             print("Range \(range)")
             return range ~= value
