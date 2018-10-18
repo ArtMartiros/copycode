@@ -26,5 +26,12 @@ class TextTranscriptorTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    func testSc11Stuck() {
+        let block = Scene.sc11.getCompletedWIthStuck(self)
+        let transcriptor = TextTranscriptor()
+        let thing = transcriptor.transcript(block: block)
+        print(thing)
+    }
 
 }

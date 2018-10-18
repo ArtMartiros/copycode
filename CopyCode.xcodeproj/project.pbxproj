@@ -84,6 +84,7 @@
 		AC302DD0217754820073A569 /* LeadingSpaceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */; };
 		AC302DD2217794FC0073A569 /* sc11_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DD1217794FC0073A569 /* sc11_letter.swift */; };
 		AC302DD4217796BD0073A569 /* sc11_video_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */; };
+		AC302DD82178D28F0073A569 /* sc11_video_stuck_completed.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DD72178D28F0073A569 /* sc11_video_stuck_completed.json */; };
 		AC31C3C62114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3C72114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3CB2114570F00E09F91 /* TreeOCRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */; };
@@ -433,6 +434,7 @@
 		AC302DCE217754820073A569 /* LeadingSpaceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingSpaceFinder.swift; sourceTree = "<group>"; };
 		AC302DD1217794FC0073A569 /* sc11_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc11_letter.swift; sourceTree = "<group>"; };
 		AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_grid_with_type.json; sourceTree = "<group>"; };
+		AC302DD72178D28F0073A569 /* sc11_video_stuck_completed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_stuck_completed.json; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
 		AC31C3CD2114573100E09F91 /* TreeOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCR.swift; sourceTree = "<group>"; };
@@ -831,6 +833,25 @@
 				AC35886221725D2F0023F311 /* sc11_type.swift */,
 			);
 			path = Type;
+			sourceTree = "<group>";
+		};
+		AC302DD52178D2330073A569 /* sc11 */ = {
+			isa = PBXGroup;
+			children = (
+				AC35886021725C560023F311 /* sc11_video_grid.json */,
+				AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */,
+				AC302DD72178D28F0073A569 /* sc11_video_stuck_completed.json */,
+			);
+			path = sc11;
+			sourceTree = "<group>";
+		};
+		AC302DD62178D2400073A569 /* sc10 */ = {
+			isa = PBXGroup;
+			children = (
+				AC35885C217250510023F311 /* sc10_nscolor_pre_digit_column_words.json */,
+				AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */,
+			);
+			path = sc10;
 			sourceTree = "<group>";
 		};
 		AC31C3C82114565600E09F91 /* Tree */ = {
@@ -1235,10 +1256,8 @@
 				ACDF9D03217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json */,
 				ACE0E2282170BD4200E28E28 /* sc8 */,
 				ACE0E22D2170CA6D00E28E28 /* sc9 */,
-				AC35885C217250510023F311 /* sc10_nscolor_pre_digit_column_words.json */,
-				AC35885E217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json */,
-				AC35886021725C560023F311 /* sc11_video_grid.json */,
-				AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */,
+				AC302DD62178D2400073A569 /* sc10 */,
+				AC302DD52178D2330073A569 /* sc11 */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1437,6 +1456,7 @@
 				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC3588592171DDC70023F311 /* ocr_visual_14_words.json in Resources */,
+				AC302DD82178D28F0073A569 /* sc11_video_stuck_completed.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,
 				AC0EBFED216E28400021B38C /* sc6_words.json in Resources */,

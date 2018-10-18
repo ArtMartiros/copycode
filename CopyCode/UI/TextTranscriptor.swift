@@ -33,41 +33,18 @@ struct TextTranscriptor {
     
 
     func getLineString(_ singleLine: [CGRect], with line: CompletedLine) -> String {
+        
         let letters = line.words.map { $0.letters }.reduce([], +)
-        var lastIndex: Int = 0
+        let lineCorrelation = gridCorrelator.correlate(letters, frames: singleLine)
         var word = ""
-        for frame in singleLine {
-            guard lastIndex < letters.count else {
-                word.append(" ")
-                continue
-            }
-            let result = compareLetter(frame, with: letters[lastIndex])
-            switch result {
-            case .inside:
-                word.append(letters[lastIndex].value)
-                lastIndex += 1
-            case .lefter:
+        for (_, value) in lineCorrelation {
+            if let letterIndex = value {
+                word.append(letters[letterIndex].value)
+            } else {
                 word.append(" ")
             }
         }
-        
         return word.trimWhiteSpacesAtTheEnd() + "\n"
-    }
-
-    func compareLetter(_ letterFrame: CGRect, with letter: Letter) -> CompareX {
-        let range: TrackingRange = letterFrame.leftX...letterFrame.rightX
-        let range2: TrackingRange = letter.frame.leftX...letter.frame.rightX
-        let newRangeOptional = range.intesected(with: range2)
-        guard let newRange = newRangeOptional else { return .lefter }
-        guard EqualityChecker.check(of: newRange.distance, with: range2.distance, errorPercentRate: 20)
-            else { return .lefter }
-        
-        return .inside
-    }
-    
-    enum CompareX {
-        case inside
-        case lefter
     }
 
 }
@@ -93,6 +70,46 @@ class GridLineCorrelator {
             gridArray.append(value)
         }
         return gridArray
+    }
+    
+    func correlate(_ letters: [Letter], frames: [CGRect]) -> [GridCorrelatorIndex] {
+        var gridArray: [GridCorrelatorIndex] = []
+        var currentLetterIndex = 0
+        for (index, frame) in frames.enumerated() {
+            guard currentLetterIndex < letters.count else { continue }
+            letterLoop: for (letterIndex, letter) in letters.enumerated() where currentLetterIndex <= letterIndex {
+                let result = compare(frame, with: letter)
+                switch result {
+                case .inside:
+                    currentLetterIndex += 1
+                    gridArray.append((index, letterIndex))
+                    break letterLoop
+                case .toTheLeft:
+                    continue letterLoop
+                case .toTheRight:
+                    gridArray.append((index, nil))
+                    break letterLoop
+                }
+            }
+        }
+        return gridArray
+    }
+    
+    enum CompareX {
+        case inside
+        case toTheLeft
+        case toTheRight
+    }
+    
+    func compare(_ standartFrame: CGRect, with letter: Letter) -> CompareX {
+        let range: TrackingRange = standartFrame.leftX...standartFrame.rightX
+        let range2: TrackingRange = letter.frame.leftX...letter.frame.rightX
+        let newRangeOptional = range.intesected(with: range2)
+        guard let newRange = newRangeOptional,
+        EqualityChecker.check(of: newRange.distance, with: range2.distance, errorPercentRate: 20)
+        else { return standartFrame.leftX < letter.frame.leftX ? .toTheRight : .toTheLeft }
+
+        return .inside
     }
     
     func compare<T: Rectangle>(_ singleLine: [CGRect], with lineFrame: Line<T>) -> CompareY {

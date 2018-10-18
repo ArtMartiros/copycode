@@ -119,6 +119,15 @@ enum Scene: String {
         
     }
     
+    var completedWithStuckName: String {
+        switch self {
+        case .sc11:
+            return "sc11_video_stuck_completed"
+        default:
+            return ""
+        }
+    }
+    
     var letterTypeDictionary: [Int: String] {
         switch self {
         case .sc1: return sc1_type
@@ -176,6 +185,10 @@ enum Scene: String {
     
     func getGridBlock(_ object: AnyObject) -> SimpleBlock {
         return CodableHelper.decode(object, path: gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
+    }
+    
+    func getCompletedWIthStuck(_ object: AnyObject) -> CompletedBlock {
+        return CodableHelper.decode(object, path: completedWithStuckName, structType: CompletedBlock.self, shouldPrint: false)!
     }
     
     func getGridWithTypeBlock(_ object: AnyObject) -> SimpleBlock {
