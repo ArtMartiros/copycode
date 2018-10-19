@@ -9,7 +9,11 @@
 import XCTest
 
 class DigitColumnDetectionTests: XCTestCase {
-
+    
+    func testSc3_p2() {
+        execute(scene: .sc3_p2, answers: [false])
+    }
+    
     func testSc6() {
         execute(scene: .sc6, answers: [true])
     }

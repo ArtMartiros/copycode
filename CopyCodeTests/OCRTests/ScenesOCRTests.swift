@@ -40,7 +40,7 @@ class ScenesOCRTests: XCTestCase {
         }
     }
     
-    //6
+    //5
     func testOCRScene11() {
         executeCheck(scene: .sc11, exlude: []) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")

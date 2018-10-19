@@ -34,9 +34,10 @@ final class TextRecognizerManager {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
-            let restorer = LetterRestorer()
+            
             
             let bitmap = image.bitmap
+            let restorer = LetterRestorer(bitmap: bitmap)
             print(bitmap.pixelSize)
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordRecognizer = WordRecognizer(in: bitmap)
@@ -49,33 +50,32 @@ final class TextRecognizerManager {
             let blocks = blockCreator.create(from: wordsRectangles)
             
             let gridBlocks = sself.filterGrids(blocks)
-            
-            Timer.stop(text: "LetterRestorer restored")
-            let restoredBlocks = gridBlocks.map { restorer.restore($0) }
             Timer.stop(text: "BlockCreator created")
             
-            let blocksWithTypes = restoredBlocks.compactMap { [weak self] in
+            let blocksWithTypes = gridBlocks.compactMap { [weak self] in
                 self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0)
                 }.reduce([], +)
-            
             Timer.stop(text: "TypeConverter Updated Type ")
             
-
-//            sself.printAllCustomLetters(from: blocksWithTypes)
-            let completedBlocks = blocksWithTypes.map { wordRecognizer.recognize($0) }
+            let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
+            Timer.stop(text: "LetterRestorer restored")
+            
+            let completedBlocks = restoredBlocks.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
-            for block in completedBlocks {
-                if case .grid(let grid) = block.typography {
-                    let value = CodableHelper.encode(block)
-                    
-                    print(value)
-                }
-            }
+//                        for block in restoredBlocks {
+//                            if case .grid(let grid) = block.typography {
+//                                let value = CodableHelper.encode(block)
+//            
+//                                print(value)
+//                            }
+//                        }
+            //            sself.printAllCustomLetters(from: blocksWithTypes)
             completion(bitmap, completedBlocks, error)
         }
     }
 
     private func filterGrids(_ blocks: [SimpleBlock]) -> [SimpleBlock] {
+        guard Settings.filterBlock else { return blocks }
        return blocks.filter {
             switch $0.typography {
             case .grid: return true
@@ -86,6 +86,8 @@ final class TextRecognizerManager {
     
     
     private func detectTypeWithUpdatedLeading(in bitmap: NSBitmapImageRep, from block: SimpleBlock) -> [SimpleBlock] {
+        
+        guard Settings.filterBlock else { return [block] }
         switch block.typography {
             
         case .grid(let grid):
@@ -96,6 +98,7 @@ final class TextRecognizerManager {
             
             return splittedBlocks.compactMap {
                 if case .grid(let grid) = $0.typography {
+                    if Settings.showGrid { return grid.getTestBlock(from: $0) }
                     typeConverter = TypeConverter(in: bitmap, grid: grid, type: .all)
                     return typeConverter.convert($0)
                 }

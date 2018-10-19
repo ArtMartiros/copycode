@@ -73,7 +73,7 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
         return newPoints
     }
     
-    private let defaultLetterColorDifference: CGFloat = 0.7
+    private let defaultLetterColorDifference: CGFloat = 0.6
     
     func findedLetterColor(_ frame: CGRect, with backgroundColor: CGFloat) -> CGFloat {
 //        let y = frame.yAs(rate: 0.5)

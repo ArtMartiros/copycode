@@ -24,6 +24,14 @@ struct TypographicalGrid: Codable {
 }
 
 extension TypographicalGrid {
+    
+    func getUpdatedFrame(from blockFrame: CGRect) -> CGRect {
+        let frames = getArrayOfFrames(from: blockFrame)
+        guard let first = frames.first?.first,
+            let last = frames.last?.last else { return blockFrame }
+        return CGRect(left: first.leftX, right: last.rightX, top: first.topY, bottom: last.bottomY)
+    }
+    
     ///breaks the frame into parts using leading and tracking
     func getArrayOfFrames(from frame: CGRect) -> [[CGRect]] {
         let lineFrames = leading.missingLinesWithStandartFrame(in: frame)

@@ -48,4 +48,5 @@ class PixelConverter {
     func toFrame(from point: CGPoint) -> CGPoint {
         return CGPoint(x: point.x * ratio, y: point.y * ratio)
     }
+
 }

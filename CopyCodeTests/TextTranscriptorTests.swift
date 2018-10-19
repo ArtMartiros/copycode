@@ -28,10 +28,18 @@ class TextTranscriptorTests: XCTestCase {
     }
     
     func testSc11Stuck() {
-        let block = Scene.sc11.getCompletedWIthStuck(self)
+        let block = Scene.sc11.getCompletedWithStuck(self)
         let transcriptor = TextTranscriptor()
         let thing = transcriptor.transcript(block: block)
         print(thing)
     }
-
+    
+//    func test() {
+//        let block = Scene.sc11.getGridBlock(self)
+//        guard case .grid(let grid) = block.typography else { return }
+//        let letter = block.lines[2].words[0].letters[3]
+//        let restorer = LetterRestorer(bitmap: <#NSBitmapImageRep#>)
+//        let letters = restorer.unstuckLetter(from: letter, tracking: grid.trackingData[letter.frame.bottomY])
+//        print("sdd")
+//    }
 }

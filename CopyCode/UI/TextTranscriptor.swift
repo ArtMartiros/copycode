@@ -28,7 +28,7 @@ struct TextTranscriptor {
                 stringLines.append("\n")
             }
         }
-        return stringLines.joined()
+        return stringLines.joined().trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
 
@@ -57,7 +57,10 @@ class GridLineCorrelator {
         
         var lastLineIndex = 0
         for (index, singleLine) in arrayOfFrames.enumerated() {
-            guard lastLineIndex < lines.count else { continue }
+            guard lastLineIndex < lines.count else {
+                gridArray.append((index, nil))
+                continue
+            }
             var lineIndex: Int?
             
             let result = compare(singleLine, with: lines[lastLineIndex])
@@ -72,11 +75,14 @@ class GridLineCorrelator {
         return gridArray
     }
     
-    func correlate(_ letters: [Letter], frames: [CGRect]) -> [GridCorrelatorIndex] {
+    func correlate<T: Rectangle>(_ letters: [T], frames: [CGRect]) -> [GridCorrelatorIndex] {
         var gridArray: [GridCorrelatorIndex] = []
         var currentLetterIndex = 0
         for (index, frame) in frames.enumerated() {
-            guard currentLetterIndex < letters.count else { continue }
+            guard currentLetterIndex < letters.count else {
+                gridArray.append((index, nil))
+                continue
+            }
             letterLoop: for (letterIndex, letter) in letters.enumerated() where currentLetterIndex <= letterIndex {
                 let result = compare(frame, with: letter)
                 switch result {
@@ -101,7 +107,7 @@ class GridLineCorrelator {
         case toTheRight
     }
     
-    func compare(_ standartFrame: CGRect, with letter: Letter) -> CompareX {
+    func compare<T: Rectangle>(_ standartFrame: CGRect, with letter: T) -> CompareX {
         let range: TrackingRange = standartFrame.leftX...standartFrame.rightX
         let range2: TrackingRange = letter.frame.leftX...letter.frame.rightX
         let newRangeOptional = range.intesected(with: range2)

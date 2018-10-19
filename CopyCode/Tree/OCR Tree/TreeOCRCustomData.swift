@@ -14,10 +14,11 @@ let customOCRTree: TreeOCR = .n(.xRange(x: 4...6, y: 0.2, op: .or),
 
 let braceOrRoundLTree: TreeOCR = .n(.braceOrRoundL, .r("{"), .r("("))
 let braceOrRoundRTree: TreeOCR = .n(.braceOrRoundR, .r("}"), .r(")"))
+let underscoreOnComma: TreeOCR = .n(.xRange(x: 3...8, y: 0.9, op: .and), .r("_"), .r(","))
 //@=-}1>.mn:_
 fileprivate let nCustomTree: TreeOCR = .n(.xRange(x: 4...6, y: 0.8, op: .or),
                                           .n(.xy(x: 0.3, y: 0.9),
-                                             .r("_"),
+                                             underscoreOnComma,
                                              .n(.xRange(x: 8...9, y: 0.5, op: .or),
                                                 .r("m"),
                                                 .n(.yRange(x: 0.5, y: 3...5, op: .or),
@@ -33,7 +34,7 @@ fileprivate let nCustomTree: TreeOCR = .n(.xRange(x: 4...6, y: 0.8, op: .or),
                                                 .r("_"),
                                                 .n(.xRange(x: 4...6, y: 0.7, op: .or),
                                                    .r("."),
-                                                   .r("-")))))
+                                                   .n(.yRange(x: 0.5, y: 8...10, op: .or), .r("_"), .r("-"))))))
 
 fileprivate let pCustomTree: TreeOCR = .n(.xRange(x: 7...9, y: 0.5, op: .or),
                                           .n(.xRange(x: 1...3, y: 0.5, op: .or),

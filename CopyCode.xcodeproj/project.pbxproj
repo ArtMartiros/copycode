@@ -85,6 +85,13 @@
 		AC302DD2217794FC0073A569 /* sc11_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DD1217794FC0073A569 /* sc11_letter.swift */; };
 		AC302DD4217796BD0073A569 /* sc11_video_grid_with_type.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */; };
 		AC302DD82178D28F0073A569 /* sc11_video_stuck_completed.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DD72178D28F0073A569 /* sc11_video_stuck_completed.json */; };
+		AC302DDD2179B9850073A569 /* StuckRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DDC2179B9850073A569 /* StuckRestorer.swift */; };
+		AC302DDE2179B9850073A569 /* StuckRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DDC2179B9850073A569 /* StuckRestorer.swift */; };
+		AC302DE12179BA880073A569 /* UnstuckRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DE02179BA880073A569 /* UnstuckRestorer.swift */; };
+		AC302DE22179BA880073A569 /* UnstuckRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC302DE02179BA880073A569 /* UnstuckRestorer.swift */; };
+		AC302DE5217A0CED0073A569 /* sc3_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DE4217A0CED0073A569 /* sc3_words.json */; };
+		AC302DE6217A0CED0073A569 /* sc3_words.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DE4217A0CED0073A569 /* sc3_words.json */; };
+		AC302DEA217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json in Resources */ = {isa = PBXBuildFile; fileRef = AC302DE9217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json */; };
 		AC31C3C62114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3C72114330000E09F91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3C52114330000E09F91 /* Checker.swift */; };
 		AC31C3CB2114570F00E09F91 /* TreeOCRData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */; };
@@ -435,6 +442,10 @@
 		AC302DD1217794FC0073A569 /* sc11_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc11_letter.swift; sourceTree = "<group>"; };
 		AC302DD3217796BD0073A569 /* sc11_video_grid_with_type.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_grid_with_type.json; sourceTree = "<group>"; };
 		AC302DD72178D28F0073A569 /* sc11_video_stuck_completed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_video_stuck_completed.json; sourceTree = "<group>"; };
+		AC302DDC2179B9850073A569 /* StuckRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckRestorer.swift; sourceTree = "<group>"; };
+		AC302DE02179BA880073A569 /* UnstuckRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnstuckRestorer.swift; sourceTree = "<group>"; };
+		AC302DE4217A0CED0073A569 /* sc3_words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_words.json; sourceTree = "<group>"; };
+		AC302DE9217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_pre_digit_column_words_f.json; sourceTree = "<group>"; };
 		AC31C3C52114330000E09F91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		AC31C3CA2114570F00E09F91 /* TreeOCRData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRData.swift; sourceTree = "<group>"; };
 		AC31C3CD2114573100E09F91 /* TreeOCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCR.swift; sourceTree = "<group>"; };
@@ -854,6 +865,28 @@
 			path = sc10;
 			sourceTree = "<group>";
 		};
+		AC302DDF2179BA670073A569 /* Restorer */ = {
+			isa = PBXGroup;
+			children = (
+				AC50A8772133ECBA00B196BE /* MissingElements */,
+				AC6493F42166914A003A4164 /* LetterRestorer.swift */,
+				AC302DDC2179B9850073A569 /* StuckRestorer.swift */,
+				AC302DE02179BA880073A569 /* UnstuckRestorer.swift */,
+			);
+			path = Restorer;
+			sourceTree = "<group>";
+		};
+		AC302DE3217A0CAD0073A569 /* sc3 */ = {
+			isa = PBXGroup;
+			children = (
+				ACEBB282216CCF820094336F /* sc3_p1 */,
+				ACEBB287216CEB6E0094336F /* sc3_p2 */,
+				AC302DE4217A0CED0073A569 /* sc3_words.json */,
+				AC302DE9217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json */,
+			);
+			path = sc3;
+			sourceTree = "<group>";
+		};
 		AC31C3C82114565600E09F91 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,7 +1014,7 @@
 		AC71FB652112EA5200EE41C6 /* Creator */ = {
 			isa = PBXGroup;
 			children = (
-				AC50A8772133ECBA00B196BE /* MissingElements */,
+				AC302DDF2179BA670073A569 /* Restorer */,
 				AC15F821214D1D21001DC55E /* BlockCreator */,
 				AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */,
 				AC95B4A721410F9D0007B5C5 /* TrackingInfoFinder */,
@@ -1214,7 +1247,6 @@
 		ACF1AC5A210B174600897732 /* Recognizer */ = {
 			isa = PBXGroup;
 			children = (
-				AC6493F42166914A003A4164 /* LetterRestorer.swift */,
 				ACF1AC532108F86C00897732 /* TextRecognizerManager.swift */,
 				ACF1AC57210B140200897732 /* WordRecognizer.swift */,
 				AC06D89D20FF538300770DBB /* LetterRecognizer.swift */,
@@ -1246,10 +1278,9 @@
 		ACF8D10A2156BF2F00DF4A38 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				AC302DE3217A0CAD0073A569 /* sc3 */,
 				ACEBB27E216CCF180094336F /* sc1 */,
 				ACEBB27F216CCF310094336F /* sc2 */,
-				ACEBB282216CCF820094336F /* sc3_p1 */,
-				ACEBB287216CEB6E0094336F /* sc3_p2 */,
 				ACEBB28A216D19250094336F /* sc4_leading_finder.json */,
 				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
 				ACE0E2262170BD2000E28E28 /* sc6 */,
@@ -1396,6 +1427,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC302DE5217A0CED0073A569 /* sc3_words.json in Resources */,
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
 				AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */,
 				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
@@ -1431,6 +1463,7 @@
 				AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */,
 				ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */,
 				AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */,
+				AC302DEA217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json in Resources */,
 				AC3588492171DD270023F311 /* ocr_xcode_dark_18_words.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
@@ -1460,6 +1493,7 @@
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC21814B2165145D00515FBD /* sc2_block_creator_grid.json in Resources */,
 				AC0EBFED216E28400021B38C /* sc6_words.json in Resources */,
+				AC302DE6217A0CED0073A569 /* sc3_words.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
 				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
 				ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */,
@@ -1663,6 +1697,7 @@
 				AC06D8AC21020A9D00770DBB /* WordTypeIdentifier.swift in Sources */,
 				AC4CA40A210462510093D938 /* BlockCreator.swift in Sources */,
 				ACF1AC5D210B180700897732 /* RectangleConverter.swift in Sources */,
+				AC302DE12179BA880073A569 /* UnstuckRestorer.swift in Sources */,
 				AC06D89120FF500200770DBB /* ScreenShot.swift in Sources */,
 				AC71FB6A2112EBCE00EE41C6 /* Letter.swift in Sources */,
 				AC675775212C578B0051C34A /* ClosedRange.swift in Sources */,
@@ -1714,6 +1749,7 @@
 				AC250A64214ECA9100E6D596 /* Typography.swift in Sources */,
 				ACAF236E2136C798009D8409 /* FrameRate.swift in Sources */,
 				AC31C3CB2114570F00E09F91 /* TreeOCRData.swift in Sources */,
+				AC302DDD2179B9850073A569 /* StuckRestorer.swift in Sources */,
 				AC95B4B2214130C60007B5C5 /* Tracking.swift in Sources */,
 				AC15F81C214CE102001DC55E /* SortedArray.swift in Sources */,
 				ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */,
@@ -1809,6 +1845,7 @@
 				ACEBB277216C77F40094336F /* TrackingPosInfoFinderTests.swift in Sources */,
 				ACFC8123212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */,
 				AC2B7011210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
+				AC302DDE2179B9850073A569 /* StuckRestorer.swift in Sources */,
 				AC31C3C72114330000E09F91 /* Checker.swift in Sources */,
 				AC4419172162675100248DCC /* CustomOCRTests.swift in Sources */,
 				ACF2569A21202C0500B2F084 /* LetterOCRTests.swift in Sources */,
@@ -1826,6 +1863,7 @@
 				ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */,
 				AC8C0AAE214A67CC00F0FD13 /* LeadingFinder.swift in Sources */,
 				ACDA6DBF215E724B00A7AA62 /* DrawTextView.swift in Sources */,
+				AC302DE22179BA880073A569 /* UnstuckRestorer.swift in Sources */,
 				ACA305B9216BCD1700DFB809 /* sc1_letter.swift in Sources */,
 				AC95B4C3214142760007B5C5 /* TrackingInfoFinderTests.swift in Sources */,
 				AC4CA3F221025DCA0093D938 /* WordTypeIdentifier.swift in Sources */,

@@ -12,7 +12,7 @@ final class DigitColumnDetection {
     typealias SplittedWords = (digitColumnWords: [SimpleWord], shitWords: [SimpleWord])
     ///Отвечает за то какой процент из распознанных слов являются цифрами
     ///Чем лучше будет распознавание тем больше следует делать процент
-    private let kDigitConcentrationRate = 25
+    private let kDigitConcentrationRate = 40
     private let recognizer: WordRecognizer
     
     init(recognizer: WordRecognizer) {

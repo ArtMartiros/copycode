@@ -12,11 +12,10 @@ import Foundation
 struct FrameRate: Hashable {
     let x: CGFloat
     let y: CGFloat
-    
-    static func ratesFrom(xArray: [CGFloat], yArray: [CGFloat], in frame: CGRect, edge: CGRectEdge) -> [FrameRate] {
-        let newXArray = xArray.map { abs(edge.rate - $0) }
+
+    static func ratesFrom(xArray: [CGFloat], yArray: [CGFloat], in frame: CGRect) -> [FrameRate] {
         var rates: [FrameRate] = []
-        for x in newXArray {
+        for x in xArray {
             for y in yArray {
                 let rate = FrameRate(x: x, y: y)
                 rates.append(rate)

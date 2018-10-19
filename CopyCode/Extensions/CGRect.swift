@@ -161,6 +161,23 @@ extension CGRect {
         return (left, right )
     }
     
+    func divided(byPercent percent: CGFloat) -> (left: CGRect, right: CGRect) {
+        let distance = width * percent / 100
+        let (left, right) = divided(atDistance: distance, from: .minXEdge)
+        return (left, right)
+    }
+    
+    func divided(byPercent percent: CGFloat, afterPercent value: CGFloat) -> (left: CGRect, right: CGRect) {
+        let mainPercent = percent + value
+        let distance = width * mainPercent / 100
+        let newPercent = value / mainPercent * 100
+        
+        let firstDivided = divided(atDistance: distance, from: .minXEdge)
+        let newWidth = firstDivided.slice.width * newPercent / 100
+        let secondDivided = firstDivided.slice.divided(atDistance: newWidth, from: .minXEdge)
+        return (secondDivided.remainder, firstDivided.remainder)
+    }
+    
 }
 
 extension CGRect {

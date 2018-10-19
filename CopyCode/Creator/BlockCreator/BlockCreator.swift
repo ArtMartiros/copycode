@@ -15,15 +15,13 @@ protocol BlockCreatorProtocol {
 
 final class BlockCreator: BlockCreatorProtocol {
     
-    private let missingElementsRestorer: MissingElementsRestorer
     private let leadingFinder = LeadingFinder()
     private let blockSplitter = BlockSplitter()
     private let trackingInfoFinder = TrackingInfoFinder()
     private let blockPreparator: BlockPreparator
     
-    init(digitalColumnCreator: DigitColumnSplitter, elementsRestorer: MissingElementsRestorer) {
+    init(digitalColumnCreator: DigitColumnSplitter) {
         self.blockPreparator = BlockPreparator(digitalColumnSplitter: digitalColumnCreator)
-        self.missingElementsRestorer = elementsRestorer
     }
     
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
@@ -33,19 +31,17 @@ final class BlockCreator: BlockCreatorProtocol {
         let blocks = blockPreparator.initialPrepare(from: rectangles)
         
         Timer.stop(text: "BlockCreator Initial Created")
-//        for block in blocks {
-//                let value = CodableHelper.encode(block)
+   
+//                let value = CodableHelper.encode(rectangles)
 //                print(value)
-//        }
+//        
         if Settings.showInitialBlock { return blocks }
         
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)
         Timer.stop(text: "BlockCreator Leading Created")
-        let restoredBlocks = leadingUpdatedBlocks.map { missingElementsRestorer.restore($0) }
-        Timer.stop(text: "BlockCreator Restored")
-        return Settings.includeMissingChars ? restoredBlocks : leadingUpdatedBlocks
+        return leadingUpdatedBlocks
     }
     
     private func blocksUpdatedAfterTracking(_ blocks: [Block<LetterRectangle>]) -> [Block<LetterRectangle>] {
@@ -74,7 +70,6 @@ extension BlockCreator {
         let columnDetection = DigitColumnDetection(recognizer: recognizer)
         let columnMerger = DigitColumnMerger()
         let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
-        let restorer = MissingElementsRestorer(bitmap: bitmap)
-        self.init(digitalColumnCreator: columnCreator, elementsRestorer: restorer)
+        self.init(digitalColumnCreator: columnCreator)
     }
 }

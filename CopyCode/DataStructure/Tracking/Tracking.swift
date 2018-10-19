@@ -18,17 +18,10 @@ struct Tracking: Codable {
 }
 
 extension Tracking {
-    func nearestPoint(to frame: CGRect) -> CGFloat {
+    func nearestPointToLeftX(from frame: CGRect) -> CGFloat {
         let distance = abs(frame.leftX - startPoint)
-        let value = (distance / width).rounded()
-        
-        if frame.leftX < startPoint {
-            let point = startPoint - value * width
-            return point
-        } else {
-            let point = startPoint + value * width
-            return point
-        }
+        let result = startPoint + (frame.leftX < startPoint ? -distance : distance)
+        return result
     }
     
     private var kErrorTrackingWidthPercent: CGFloat { return 30 }
@@ -46,7 +39,7 @@ extension Tracking {
     
     //нужен обновленный фрейм исходя из стартовой позиции tracking иногда надо немного расщирить иногда сузить
     private func updateFrame(from frame: CGRect) -> CGRect {
-        let nearestPoint = self.nearestPoint(to: frame)
+        let nearestPoint = self.nearestPointToLeftX(from: frame)
         var newFrame: CGRect?
         var difference = nearestPoint - frame.leftX
         

@@ -50,7 +50,8 @@ final class PanelController: NSWindowController {
                         let text = transcriptor.transcript(block: block)
                         let width = grid.trackingData.defaultTracking.width
                         let spacing = grid.leading.lineSpacing
-                        self?.panel.addTextFrame(with: text, in: block.frame, letterWidth: width, spacing: spacing - 1)
+                        let updatedFrame = grid.getUpdatedFrame(from: block.frame)
+                        self?.panel.addTextFrame(with: text, in: updatedFrame, letterWidth: width, spacing: spacing - 1)
                     }
                 }
             }

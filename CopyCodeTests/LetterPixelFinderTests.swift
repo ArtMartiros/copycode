@@ -24,7 +24,7 @@ class LetterPixelFinderTests: XCTestCase {
         let (bitmap, frames) = getBitmapWithFrames(from: .dot)
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
-            let result = letterPixelFinder.find(in: frame, with: .minXEdge)
+            let result = letterPixelFinder.find(in: frame)
             XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
@@ -33,7 +33,7 @@ class LetterPixelFinderTests: XCTestCase {
         let (bitmap, frames) = getBitmapWithFrames(from: .dash)
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
-            let result = letterPixelFinder.find(in: frame, with: .minXEdge)
+            let result = letterPixelFinder.find(in: frame)
             XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
@@ -42,7 +42,7 @@ class LetterPixelFinderTests: XCTestCase {
         let (bitmap, frames) = getBitmapWithFrames(from: .equal)
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
-            let result = letterPixelFinder.find(in: frame, with: .minXEdge)
+            let result = letterPixelFinder.find(in: frame)
             XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
@@ -51,7 +51,7 @@ class LetterPixelFinderTests: XCTestCase {
         let (bitmap, frames) = getBitmapWithFrames(from: .quotes)
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
-            let result = letterPixelFinder.find(in: frame, with: .minXEdge)
+            let result = letterPixelFinder.find(in: frame)
             XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }
@@ -60,7 +60,7 @@ class LetterPixelFinderTests: XCTestCase {
         let (bitmap, frames) = getBitmapWithFrames(from: .underscore)
         let letterPixelFinder = getLetterPixelFinder(from: bitmap)
         for (index, frame) in frames.enumerated() {
-            let result = letterPixelFinder.find(in: frame, with: .minXEdge)
+            let result = letterPixelFinder.find(in: frame)
             XCTAssertTrue(result, "dot not find at index: \(index)")
         }
     }

@@ -48,6 +48,7 @@ enum Scene: String {
         case .sc7: return ["sc7_panel_pre_digit_column_words"]
         case .sc8: return ["sc8_panel_controller_pre_digit_column_words_2",
                            "sc8_panel_controller_pre_digit_column_words_3"]
+        case .sc3_p2: return ["sc3_p2_pre_digit_column_words_f"]
         case .sc10: return ["sc10_nscolor_pre_digit_column_words", "sc10_nscolor_pre_digit_column_words_f"]
         default: return []
         }
@@ -55,6 +56,8 @@ enum Scene: String {
     
     var wordsName: String {
         switch self {
+        case .sc3_p1: return "sc3_words"
+        case .sc3_p2: return "sc3_words"
         case .sc6: return "sc6_words"
         default: return ""
         }
@@ -187,7 +190,7 @@ enum Scene: String {
         return CodableHelper.decode(object, path: gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
     }
     
-    func getCompletedWIthStuck(_ object: AnyObject) -> CompletedBlock {
+    func getCompletedWithStuck(_ object: AnyObject) -> CompletedBlock {
         return CodableHelper.decode(object, path: completedWithStuckName, structType: CompletedBlock.self, shouldPrint: false)!
     }
     

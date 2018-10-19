@@ -30,6 +30,7 @@ protocol StandartRectangle: Codable {
     var frame: CGRect { get }
     func intersectByX(with rectangle: StandartRectangle) -> Bool
     func intersectByY(with rectangle: StandartRectangle) -> Bool
+    func inside(in rectangle: StandartRectangle) -> Bool
 }
 
 extension StandartRectangle {
@@ -39,6 +40,10 @@ extension StandartRectangle {
     
     func intersectByY(with rectangle: StandartRectangle) -> Bool {
         return intersectValue(with: rectangle) { ($0.frame.topY.rounded(), $0.frame.bottomY.rounded()) }
+    }
+    
+    func inside(in rectangle: StandartRectangle) -> Bool {
+      return rectangle.frame.leftX < frame.leftX  &&  frame.rightX < rectangle.frame.rightX
     }
     
     private func intersectValue(with rectangle: StandartRectangle, op: (StandartRectangle) -> (CGFloat, CGFloat)) -> Bool {

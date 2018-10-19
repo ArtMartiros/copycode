@@ -35,8 +35,8 @@ class Panel: NSPanel {
     
     func addTextFrame(with text: String, in frame: NSRect, letterWidth: CGFloat, spacing: CGFloat) {
         let attrString = stringCreator.createForTextView(with: text, letterWidth: letterWidth, spacing: spacing)
-        let updatedFrame = frame.update(by: 10, in: .offset(.right))
-        let textView = textViewCreator.create(with: updatedFrame, with: attrString)
+//        let updatedFrame = frame.update(by: 20, in: .offset(.right))
+        let textView = textViewCreator.create(with: frame, with: attrString)
         textView.copyDelegate = self
         textView.delegate = self
         self.contentView?.addSubview(textView)
