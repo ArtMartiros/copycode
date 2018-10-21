@@ -9,7 +9,7 @@
 import Foundation
 
 ///Ищет потерянные линии и буквы
-class MissingElementsFinder {
+final class MissingElementsFinder {
     ///Количество символов подряд с пустотой, необходимой для прекращения поиска
     private let kInRawTimes = 5
     private let letterPixelFinder: LetterPixelFinder
@@ -30,16 +30,16 @@ class MissingElementsFinder {
             inRaw = 0
         }
         guard !letters.isEmpty else { return nil }
-        
+
         let orderedLetters = edge == .fromLeftToRight ? letters : letters.reversed()
         let word = Word.from(orderedLetters, type: .same(type: .allCustom))
         return word
     }
-    
+
     func findLetter(in frame: CGRect) -> LetterRectangle? {
         let pixelFrame = PixelConverter.shared.toPixel(from: frame)
-        guard letterPixelFinder.find(in: pixelFrame) else  { return nil }
+        guard letterPixelFinder.find(in: pixelFrame) else { return nil }
         return LetterRectangle(frame: frame, pixelFrame: pixelFrame, type: .custom)
     }
-   
+
 }

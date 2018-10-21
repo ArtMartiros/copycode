@@ -9,8 +9,6 @@
 import Foundation
 import Mixpanel
 
-
-
 extension Mixpanel {
     static let kImageRecognize = "Image recognize"
     static let kCountRecognize = "Recognize count"

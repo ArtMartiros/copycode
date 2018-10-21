@@ -13,7 +13,7 @@ struct LeadingSpaceFinder {
     private let fontSize: CGFloat
     private let checker = LeadingChecker()
     private let lines: [SimpleLine]
-    
+
     func find(in range: LeadingRange, startPoint: CGFloat) -> [LeadigError] {
         let width = range.upperBound - range.lowerBound
         let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
@@ -27,7 +27,7 @@ struct LeadingSpaceFinder {
         }
         return leadingErrors
     }
-    
+
     init(block: Block<LetterRectangle>) {
         self.fontSize = block.maxLineHeight()
         self.lines = block.lines

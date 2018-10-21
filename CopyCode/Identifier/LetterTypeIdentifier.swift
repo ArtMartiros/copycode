@@ -11,12 +11,12 @@ import Foundation
 struct LetterTypeIdentifier {
     let information: WordInformation
     let recognizer: LetterRecognizer
-    
+
     init(_ information: WordInformation, recognizer: LetterRecognizer) {
         self.information = information
         self.recognizer = recognizer
     }
-    
+
     func detectType(for letters: [LetterRectangle], grid: TypographicalGrid,
                     actionType: ActionForLetterType) -> [LetterType] {
             var types: [LetterType] = []
@@ -29,7 +29,7 @@ struct LetterTypeIdentifier {
             }
             return types
         }
-    
+
     private func getTree(from type: ActionForLetterType) -> TreeLetterType {
         switch type {
         case .all:
@@ -42,7 +42,6 @@ struct LetterTypeIdentifier {
         }
     }
 }
-
 
 //очень опасный метод он нужен только для теста, он слишком трудозатратный
 //    func testDetectType(for letter: LetterRectangle, in letters: [LetterRectangle]) -> LetterType {

@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func trimWhiteSpacesAtTheEnd()  -> String {
+    func trimWhiteSpacesAtTheEnd() -> String {
        return self.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression)
     }
 }

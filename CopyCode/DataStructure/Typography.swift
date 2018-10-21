@@ -15,7 +15,7 @@ enum Typography {
 }
 
 extension Typography: Codable {
-    
+
     private enum CodingKeys: CodingKey {
         case base
         case trackingData
@@ -24,7 +24,7 @@ extension Typography: Codable {
     private enum Base: String, Codable {
         case empty, tracking, grid
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
@@ -38,7 +38,7 @@ extension Typography: Codable {
             try container.encode(Base.empty, forKey: .base)
         }
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let base = try container.decode(Base.self, forKey: .base)

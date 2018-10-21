@@ -12,7 +12,7 @@ extension NSBitmapImageRep {
     var pixelSize: CGSize {
         return CGSize(width: pixelsWide, height: pixelsHigh)
     }
-    
+
     func convertToPixelCoordinate(point: CGPoint) -> (x: Int, y: Int) {
         let newPoint = point.rounded
         let x = Int(newPoint.x)

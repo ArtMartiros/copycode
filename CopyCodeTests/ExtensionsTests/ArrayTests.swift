@@ -18,5 +18,4 @@ class ArrayChunkTests: XCTestCase {
         XCTAssertTrue(allValues.count == array.count, "elements count \(allValues.count) not equal to \(array.count)")
     }
 
-
 }

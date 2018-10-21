@@ -86,7 +86,6 @@ class TrackingDistanceFinderTests: XCTestCase {
         }
     }
     
-    
     func testScene3_p1() {
         let block = Scene.sc3_p1.getBlock(self)
         let line = block.lines[3]

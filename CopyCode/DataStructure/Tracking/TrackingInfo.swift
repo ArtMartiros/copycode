@@ -21,15 +21,15 @@ struct TrackingInfo: Codable {
         self.endIndex = endIndex
         self.forbiddens = forbiddens
     }
-    
+
     func leftX(at block: SimpleBlock) -> CGFloat? {
         return xRange(at: block, type: .allowed)?.lowerBound
     }
-    
+
     func rightX(at block: SimpleBlock) -> CGFloat? {
         return xRange(at: block, type: .allowed)?.upperBound
     }
-    
+
     func xRange(at block: SimpleBlock, type: WordsFinderType) -> TrackingRange? {
         var maxX: CGFloat?
         var minX: CGFloat?
@@ -38,7 +38,7 @@ struct TrackingInfo: Codable {
             if let last = words?.last {
                 maxX = max(last.frame.rightX, maxX ?? last.frame.rightX)
             }
-            
+
             if let first = words?.first {
                 minX = min(first.frame.leftX, maxX ?? first.frame.leftX)
             }
@@ -46,7 +46,7 @@ struct TrackingInfo: Codable {
         guard let leftX = minX, let rightX = maxX else { return nil }
         return leftX...rightX
     }
-    
+
     func findLineIndexes(from block: SimpleBlock, in range: TrackingRange) -> [Int] {
         var lineIndexes: [Int] = []
         for (lineIndex, line) in block.lines.enumerated() where lineIndex >= startIndex && lineIndex <= endIndex {
@@ -58,7 +58,7 @@ struct TrackingInfo: Codable {
         }
         return lineIndexes
     }
-    
+
     func findWord(in range: TrackingRange, at lineIndex: Int, with block: SimpleBlock) -> [SimpleWord] {
         let line = block.lines[lineIndex]
         return line.words.filter {
@@ -66,7 +66,7 @@ struct TrackingInfo: Codable {
             return wordRange.intesected(with: range) != nil
         }
     }
-    
+
     ///Возвращает слова в линии которые соответствуют критериям TrackingInfo либо nil
     func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType) -> [SimpleWord]? {
         guard block.lines.count > lineIndex, startIndex <= lineIndex, endIndex >= lineIndex else { return nil }
@@ -82,13 +82,13 @@ struct TrackingInfo: Codable {
         }
 
     }
-    
+
     func findArrayOfWords(in block: SimpleBlock, type: WordsFinderType) -> [[SimpleWord]?] {
         let indexes = Array(startIndex...endIndex)
         let arrayOfWords = indexes.map { findWords(in: block, lineIndex: $0, type: type) }
         return arrayOfWords
     }
-    
+
     enum WordsFinderType {
         case allowed
         case disallowed

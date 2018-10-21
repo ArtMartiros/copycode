@@ -79,7 +79,6 @@ class TrackingInfoFinderTests: XCTestCase {
         }
     }
 
-
     func testSc3_p1() {
         let answers = [Answer(start: 3, end: 47)]
         let index = 1
@@ -113,7 +112,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testPerformanceExample() {
         let block = Scene.sc1.getBlock(self)
         self.measure {
-            let _ = finder.find(from: block)
+            _ = finder.find(from: block)
         }
     }
 }

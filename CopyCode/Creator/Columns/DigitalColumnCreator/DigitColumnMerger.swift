@@ -18,10 +18,10 @@ final class DigitColumnMerger {
         let mergedRightColumns = merge(mergedLeftColumns, fault: 1, valueToCheck: { $0.frame.rightX })
         return mergedRightColumns
     }
-    
-    func merge<T: Rectangle>(_ columns: [DigitColumn<T>], fault: CGFloat, valueToCheck:(StandartRectangle) -> CGFloat) -> [DigitColumn<T>]  {
+
+    func merge<T: Rectangle>(_ columns: [DigitColumn<T>], fault: CGFloat, valueToCheck: (StandartRectangle) -> CGFloat) -> [DigitColumn<T>] {
         var value: CGFloat = 0
-        var arrayOfRectangles:  [[Word<T>]] = []
+        var arrayOfRectangles: [[Word<T>]] = []
         var newRectangles: [Word<T>] = []
         for rect in columns {
             let newValue = valueToCheck(rect)
@@ -40,4 +40,3 @@ final class DigitColumnMerger {
         return arrayOfRectangles.map { DigitColumn.from($0) }
     }
 }
-

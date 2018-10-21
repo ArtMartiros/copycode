@@ -9,12 +9,12 @@
 import XCTest
 import AppKit
 
-fileprivate struct Answer: Codable {
+private struct Answer: Codable {
     let letter: String
     let type: LetterType
 }
 
-class LetterTypeClassificationTests: XCTestCase {
+final class LetterTypeClassificationTests: XCTestCase {
 //    private let textManager = TextRecognizerManager()
 //    private var bitmap: NSBitmapImageRep!
 //    private let numberOfIterations = 30
@@ -117,5 +117,3 @@ class LetterTypeClassificationTests: XCTestCase {
 //        return LetterTypeIdentifier(information: information, recognizer: recognizer)
 //    }
 }
-
-

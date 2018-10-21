@@ -16,7 +16,7 @@ extension Collection {
         for (index, item) in self.enumerated() {
             //первоначальная установка
             if index == 0 { itemForCompare = item }
-            
+
             //сама логика
             if compare(itemForCompare, item) {
                 chunk.append(item)
@@ -27,14 +27,14 @@ extension Collection {
                 itemForCompare = item
                 chunk = [item]
             }
-            
+
             //если последний элемент то надо записать все, что в буфере
             let isLastElement = index + 1 == self.count
-            guard !isLastElement else  {
+            guard !isLastElement else {
                 chunks.append(chunk)
                 continue
             }
-            
+
         }
         return chunks
     }

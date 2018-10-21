@@ -32,7 +32,7 @@ enum LetterTypeOperations: CustomStringConvertible {
         case frame((CGRect) -> Bool)
         case checkerWithFrame((WordInformation, CGRect) -> Bool)
         case recognizerWithFrame((LetterRecognizer, CGRect) -> Bool)
-        
+
     }
     case squareForDot
     case isLowWithTail
@@ -42,7 +42,7 @@ enum LetterTypeOperations: CustomStringConvertible {
     case dashOrComma
     case dashOrHyphen
     ///Height ratio between current letter and highest letter the word
-    case maxHRatio(((CGFloat,CGFloat) -> Bool), CGFloat)
+    case maxHRatio(((CGFloat, CGFloat) -> Bool), CGFloat)
     var action: Action {
         switch self {
         case let .maxHRatio(operation, ratio): return .checkerWithFrame { operation($0.maxHeightRatio(with: $1), ratio) }
@@ -50,13 +50,13 @@ enum LetterTypeOperations: CustomStringConvertible {
         case .dashOrComma: return .frame { 0.6 > $0.ratio }
         case .isLowWithTail:  return .checkerWithFrame { $0.lowWithTail(with: $1) }
         case .isLowWithTailCustom:  return .checkerWithFrame { $0.lowWithTailCustom(with: $1) }
-            
+
         case .squareForDot: return .frame { (0.66...1.5).contains($0.ratio) }
         case .dashOrHyphen: return .recognizerWithFrame { $0.recognize(from: $1, with: dashOrHyphenOCRTree) == "-" }
         case .quotesOrColumn: return .checkerWithFrame { $0.quotesOrColumn(with: $1) }
         }
     }
-    
+
     var description: String {
         switch self {
         case .squareForDot: return "squareForDot"

@@ -21,7 +21,6 @@ class TrackingCheckerTests: XCTestCase {
 //               print("Bukaki wordIndex: \(wordIndex)")
                 let width: CGFloat = 7.125
                 
-                
                 if let gaps = word.fixedGapsWthCutedOutside(letterWidth: width) {
                     checker.check(gaps, withDistance: width, startPoint: 1239)
                 }
@@ -30,6 +29,5 @@ class TrackingCheckerTests: XCTestCase {
             print("\n\n")
         }
     }
-
 
 }

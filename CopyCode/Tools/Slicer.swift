@@ -15,7 +15,7 @@ struct Slicer {
         let array = (0...Int(lastNumber)).map { CGFloat($0) * singleWidth }
         return array
     }
-    
+
     ///sliceToArray(width: 10, byStep: 3) return [0, 3, 6, 9, 1]
     static func sliceToArray(width: CGFloat, byStep step: CGFloat) -> [CGFloat] {
         guard step != 0 else { return [] }

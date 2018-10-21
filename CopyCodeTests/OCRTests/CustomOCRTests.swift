@@ -48,7 +48,6 @@ class CustomOCRTests: XCTestCase {
         }
     }
     
-    
     private func getRecognizer(from bitmap: NSBitmapImageRep, frame: Rectangle) -> LetterRecognizer {
         
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))

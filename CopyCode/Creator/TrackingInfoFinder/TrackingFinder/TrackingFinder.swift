@@ -11,7 +11,7 @@ import Foundation
 struct TrackingFinder {
     private let startPointFinder = TrackingStartPointFinder()
     private let distanceFinder = TrackingDistanceFinder()
-    
+
     func findTrackings(from word: SimpleWord) -> [Tracking] {
         let result = distanceFinder.find(from: word)
         switch result {

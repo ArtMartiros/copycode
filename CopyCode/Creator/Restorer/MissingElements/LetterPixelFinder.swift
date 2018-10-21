@@ -8,14 +8,14 @@
 
 import Foundation
 
-class LetterPixelFinder {
+final class LetterPixelFinder {
 
     private let kDifferenceRate: CGFloat = 0.2
     private let colorPicker: ColorPicker
     init(colorPicker: ColorPicker) {
         self.colorPicker = colorPicker
     }
-    
+
     /// определяет есть ли буква во фрейме
     func find(in frame: CGRect) -> Bool {
         let points = ratesFrom2(frame)
@@ -34,13 +34,11 @@ class LetterPixelFinder {
         }
         return false
     }
-    
-  
+
     private func existDifferent(compareWhite: CGFloat, currentWhite: CGFloat) -> Bool {
         let difference = abs(compareWhite - currentWhite)
         return difference > kDifferenceRate
     }
-
 
     private func ratesFrom2(_ frame: CGRect) -> [FrameRate] {
         let ratios1 = FrameRate.ratesFrom(xArray: [0.2, 0.4, 0.6, 0.8], yArray: [0.2, 0.4, 0.6, 0.8], in: frame)
@@ -49,7 +47,5 @@ class LetterPixelFinder {
         let ratios = ratios1 + ratios2 + ratios3
         return ratios
     }
-    
+
 }
-
-

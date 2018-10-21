@@ -68,12 +68,12 @@ extension Direction {
 
 struct DirectionOptions: OptionSet {
     let rawValue: Int
-    
+
     static let left = DirectionOptions(rawValue: 1 << Direction.left.rawValue)
     static let right = DirectionOptions(rawValue: 1 << Direction.right.rawValue)
     static let top = DirectionOptions(rawValue: 1 << Direction.top.rawValue)
     static let bottom = DirectionOptions(rawValue: 1 << Direction.bottom.rawValue)
-    
+
     static let horizontal: DirectionOptions = [.left, .right]
     static let vertical: DirectionOptions = [.top, .bottom]
     static let all: DirectionOptions = [.vertical, .horizontal]
@@ -82,19 +82,19 @@ struct DirectionOptions: OptionSet {
 extension DirectionOptions {
     var directions: [Direction] {
         var values: [Direction] = []
-        
+
         if self.contains(.left) {
             values.append(.left)
         }
-        
+
         if self.contains(.right) {
             values.append(.right)
         }
-        
+
         if self.contains(.top) {
             values.append(.top)
         }
-        
+
         if self.contains(.bottom) {
             values.append(.bottom)
         }

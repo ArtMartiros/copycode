@@ -17,21 +17,20 @@ private let n_wSubTree: TreeOCR =  .n(.xRange(x: 2...7, y: 0.1, op: .and), .r("n
 
 let lowOCRTree: TreeOCR = .n(.ratio(>, 2.8), .r("!"), nLowSubTree)
 
-//MARK:-------------------------1 LEVEL-----------------------------
+// MARK: - ------------------------1 LEVEL-----------------------------
 private let nLowSubTree: TreeOCR = .n(.xy(x:0, y:0.05), npLowSubTree, nnLowSubTree)
 
-
-//MARK:-------------------------2 LEVEL-----------------------------
+// MARK: - ------------------------2 LEVEL-----------------------------
 private let npLowSubTree: TreeOCR = .n(.lC, nppLowSubTree, npnLowSubTree)
 
-private let nnLowSubTree:TreeOCR = .n(.c,
+private let nnLowSubTree: TreeOCR = .n(.c,
                                       .n(.lC,
                                          .n(.yRange(x: 1, y: 7...9, op: .and),
                                             .r("a"),
                                             .n(.plus_e,
                                                .r("+"),
                                                .n(.xy(x: 0.5, y: 0.9),
-                                              
+
                                                 e_aTree,
                                                 .r("<")))),
                                          .n(.xy(x:0.1, y: 0.25),
@@ -59,8 +58,7 @@ private let nnLowSubTree:TreeOCR = .n(.c,
                                                      .r("c"),
                                                      .n(.xRange(x: 0...3, y: 0.1, op: .or), .r("v"), .r("<"))))))))
 
-
-//MARK:-------------------------3 LEVEL-----------------------------
+// MARK: - ------------------------3 LEVEL-----------------------------
 
 private let nppLowSubTree: TreeOCR = .n(.rC,
                                         .n(.n_u,
@@ -122,7 +120,3 @@ private let npnLowSubTree: TreeOCR = .n(.tC,
                                            .n(.xRange(x: 4...6, y: 0.95, op: .someFalse),
                                               .r("w"),
                                               .n(.v_u, .r("v"), .r("u")))))
-
-
-
-

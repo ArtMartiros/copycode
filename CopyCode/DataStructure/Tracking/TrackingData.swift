@@ -10,7 +10,7 @@ import Foundation
 
 struct TrackingData: Codable {
     let range: TrackingRange
-    
+
     init(range: TrackingRange, defaultTracking: Tracking) {
         self.range = range
         self.defaultTracking = defaultTracking
@@ -18,18 +18,18 @@ struct TrackingData: Codable {
         dictionary[yPosition] = defaultTracking
         array.insert(yPosition)
     }
-    
+
     fileprivate (set) var defaultTracking: Tracking
     fileprivate (set) var array = SortedArray<CGFloat>()
-    fileprivate var dictionary: [CGFloat:Tracking] = [:]
-    
+    fileprivate var dictionary: [CGFloat: Tracking] = [:]
+
     subscript(yPosition: CGFloat) -> Tracking {
         get {
             let nearestNextIndex = array.index(for: yPosition)
             guard range.contains(yPosition),
                 !array.isEmpty,
                 nearestNextIndex < array.count else { return defaultTracking }
-            
+
             let element = array[nearestNextIndex]
             return dictionary[element] ?? defaultTracking
         }
@@ -38,7 +38,7 @@ struct TrackingData: Codable {
             array.insert(yPosition)
         }
     }
-    
+
     mutating func insert(toTopY newElement: Tracking) {
         let yPosition = range.upperBound
         dictionary[yPosition] = newElement

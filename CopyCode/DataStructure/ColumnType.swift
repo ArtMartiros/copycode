@@ -16,13 +16,13 @@ enum ColumnType: ColumnProtocol {
         case .standart(let column): return column.frame
         }
     }
-    
+
     case digit(column: DigitColumn<LetterRectangle>)
     case standart(column: CustomColumn)
 }
 
 extension ColumnType: Codable {
-    
+
    private enum CodingKeys: CodingKey {
         case digit
         case standart
@@ -37,7 +37,7 @@ extension ColumnType: Codable {
             try container.encode(value, forKey: .standart)
         }
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         do {

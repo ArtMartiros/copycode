@@ -13,18 +13,18 @@ protocol Container: Rectangle {
     var letters: [Content] { get }
 }
 
-struct Word<Child:Rectangle>: Container, Gapable {
-    
+struct Word<Child: Rectangle>: Container, Gapable {
+
     var gaps: [Gap] {
         let frames = letters.map { $0.frame }
         return getGaps(from: frames, wordFrame: frame)
     }
-    
+
     var pixelGaps: [Gap] {
         let frames = letters.map { $0.pixelFrame }
         return getGaps(from: frames, wordFrame: pixelFrame)
     }
-    
+
     private func getGaps(from frames: [CGRect], wordFrame: CGRect ) -> [Gap] {
         var gaps: [Gap] = []
         frames.forEachPair {
@@ -41,12 +41,12 @@ struct Word<Child:Rectangle>: Container, Gapable {
         }
         return gaps
     }
-    
+
     let frame: CGRect
     let pixelFrame: CGRect
     let letters: [Child]
     let type: WordType
-    
+
     init(frame: CGRect, pixelFrame: CGRect, type: WordType = .undefined, letters: [Child]) {
         self.frame = frame
         self.pixelFrame = pixelFrame
@@ -60,7 +60,6 @@ struct Word<Child:Rectangle>: Container, Gapable {
         return Word(frame: frame, pixelFrame: pixelFrame, type: type, letters: letters)
     }
 }
-
 
 extension Word where Word.Content == Letter {
     var value: String { return letters.map { $0.value }.joined() }
@@ -89,11 +88,11 @@ extension Word {
         }
         return newGaps.map { $0.frame }
     }
-    
+
     func fixedGapsWthCutedOutside(letterWidth: CGFloat) -> [CGRect]? {
         return Gap.updatedOutside(fixedGapsWithOutside, with: letterWidth)
     }
-    
+
     /// Gapы с внешними гапами, так как ширина их неизвестна, то ставим равной высоты
     /// Просто, чтоб чему-то было равно
     var fixedGapsWithOutside: [CGRect] {
@@ -105,10 +104,10 @@ extension Word {
         let lastLetterFrame = letters.last ?? firstLetter
         let rightFrame = CGRect(left: lastLetterFrame.frame.rightX, right: lastLetterFrame.frame.rightX + width,
                                 top: frame.topY, bottom: frame.bottomY)
-        
+
         fixedGaps.insert(leftFrame, at: 0)
         fixedGaps.append(rightFrame)
         return fixedGaps
     }
-    
+
 }

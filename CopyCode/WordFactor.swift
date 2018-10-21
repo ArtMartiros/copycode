@@ -14,7 +14,7 @@ struct WordFactor {
     private var baseRatio: CGFloat { return frame.height / kRatioValue }
     private var xyOffset: CGFloat { return round(baseRatio) }
     private var sizeOffset: CGFloat { return xyOffset * 2 }
-    
+
     var whiteRate: UInt {
         print("baseRatio \(baseRatio)")
         switch baseRatio {
@@ -26,22 +26,18 @@ struct WordFactor {
         default: return 25
         }
     }
-    
 
-    
     init(frame: CGRect) {
         self.frame = frame
     }
-    
+
     init(rectangle: PixelRectangle) {
         self.frame = rectangle.pixelFrame
     }
-    
+
     func frameCrop() -> CGRect {
         let point = CGPoint(x: frame.minX + xyOffset, y: frame.minY + xyOffset)
         let size = CGSize(width: frame.width - sizeOffset, height: frame.height - sizeOffset)
         return CGRect(origin: point.rounded, size: size.rounded)
     }
 }
-
-

@@ -51,7 +51,7 @@ let sc3_p1_letter = [
     39: "opponentKey).dictionary",
     40: "//",
     41: "//        let opponentDialogs = \"/\\(Const.usersDialogs)/\\",
-    42:  "(opponentKey)",
+    42: "(opponentKey)",
     43: "//        let opponentDialogsInfo = UserDialog(dialogID: dialogID,",
     44: "created: Current.timestamp, opponentIDKey: user.uid).dictionary",
     45: "//"

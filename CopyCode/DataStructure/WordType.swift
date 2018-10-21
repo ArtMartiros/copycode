@@ -19,7 +19,7 @@ enum WordType: CustomStringConvertible, Equatable {
         case allCustom
         case undefined
     }
-    
+
     var description: String {
         switch self {
         case .mix: return "mix"
@@ -27,7 +27,7 @@ enum WordType: CustomStringConvertible, Equatable {
         case .undefined: return "undefined"
         }
     }
-    
+
     static func == (lhs: WordType, rhs: WordType) -> Bool {
         return lhs.description == rhs.description
     }
@@ -37,15 +37,15 @@ extension WordType: Codable {
     private enum CodingKeys: String, CodingKey {
         case sameType, base
     }
-    
+
     private enum Base: String, Codable {
         case undefined, mix, same
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let base = try container.decode(Base.self, forKey: .base)
-        
+
         switch base {
         case .undefined: self = .undefined
         case .mix: self = .mix
@@ -54,7 +54,7 @@ extension WordType: Codable {
             self = .same(type: sameTypeValue)
         }
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
@@ -102,7 +102,7 @@ extension LetterType {
         case .same(let sameType): self.init(sameType)
         }
     }
-    
+
     init(_ sameType: WordType.SameType) {
         switch sameType {
         case .allLower: self = .low
@@ -113,6 +113,3 @@ extension LetterType {
         }
     }
 }
-
-
-

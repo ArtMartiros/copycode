@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Checker {
+final class Checker {
     enum AccuracyPercentRate: CGFloat {
         case superHigh = 4
         case high = 6
@@ -16,7 +16,7 @@ class Checker {
         case low = 30
         case superLow = 50
     }
-    
+
     func isSameHeight(first: CGFloat, with second: CGFloat, accuracy: CGFloat) -> Bool {
         let diff = first / second
         print("first \(first), second \(second), diff \(diff), accuracy \(accuracy)")
@@ -26,7 +26,7 @@ class Checker {
     func isSame(_ first: CGFloat, with second: CGFloat, height: CGFloat, accuracy: AccuracyPercentRate = .high) -> Bool {
         return isSame(first, with: second, relativelyTo: height, accuracy: accuracy.rawValue)
     }
-    
+
     ///accuracy in percent
     func isSame(_ first: CGFloat, with second: CGFloat, relativelyTo: CGFloat, accuracy: CGFloat) -> Bool {
         let diff = abs(first - second)
@@ -35,5 +35,3 @@ class Checker {
         return !different
     }
 }
-
-

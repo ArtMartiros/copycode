@@ -8,18 +8,18 @@
 
 import Cocoa
 
-class CustomButton: NSButton {
+final class CustomButton: NSButton {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
         // Drawing code here.
     }
-    
+
     override var wantsUpdateLayer: Bool {
         return true
     }
-    
+
     override func updateLayer() {
         layer?.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0, height: 0)
         if cell?.isHighlighted ?? false {

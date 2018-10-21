@@ -15,22 +15,22 @@ struct TrackingDistanceFinder {
     private let kLetterWidthStuckRate: CGFloat = 1.4
     private let kMinimumAmountOfGapsIncludedOutside = 4
     private let preliminaryLetterWidthDetection = TrackingPreliminaryLetterWidthDetection()
-    
+
     func find(from word: Word<LetterRectangle>) -> SimpleSuccess<TrackingRange> {
         let gaps = word.fixedGapsWithOutside
         guard gaps.count >= kMinimumAmountOfGapsIncludedOutside else { return .failure }
         let result = find(gaps: gaps)
         return result
     }
-    
+
     private func find(gaps: [CGRect]) -> SimpleSuccess<TrackingRange> {
         let insidedGaps = Array(gaps[1..<gaps.count - 1])
         let preliminaryAverageSize = preliminaryLetterWidthDetection.detect(gaps: insidedGaps)
-        
+
         let bigWidths = gaps.mapPair { abs($0.leftX - $1.rightX) }
         //минимальная ширина от левого края одного гапа до правого края следующего за ним гапа
         let minBigWidth = bigWidths.sorted { $0 < $1 }[0]
-        
+
         guard let newGaps = Gap.updatedOutside(gaps, with: minBigWidth),
             let firstGap = newGaps.first,
             let lastGap = newGaps.last
@@ -41,17 +41,17 @@ struct TrackingDistanceFinder {
         let count = CGFloat(lettersCount)
         let minDistance = abs(firstGap.rightX - lastGap.leftX) / count
         let maxDistance = abs(firstGap.leftX - lastGap.rightX) / count
-        
+
         //дистанция не может быть меньше maxLetterWidth
         //        let start = max(minDistance, maxLetterWidth)
         //дистанция не может быть больше minBigWidth
         let end = min(maxDistance, minBigWidth)
-        
+
         guard minDistance <= end + 1 else { return .failure }
-        
+
         return .success(rangeOf(one: minDistance, two: maxDistance))
     }
-    
+
     private func getCount(_ gaps: [CGRect], with preliminaryAverageSize: CGFloat) -> Int {
         var additionCount = 0
         for (index, gap) in gaps.enumerated() where index > 0 && index + 1 < gaps.count {
@@ -73,7 +73,7 @@ struct TrackingDistanceFinder {
         let lettersCount = gaps.count - 1 + additionCount
         return lettersCount
     }
-    
+
     ///если находит слипшуюся буквуб то тогда учитывает ее при подсчете
     private func additionalNumberIfStuck(width: CGFloat, preliminaryAverageSize: CGFloat) -> Int? {
         let rate = width / preliminaryAverageSize

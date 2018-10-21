@@ -14,14 +14,14 @@ final class TextRecognizerManager {
 
     private let textDetection: TextDetection
     private let rectangleConverter: RectangleConverter
-    
+
     init() {
         self.textDetection = TextDetection()
         self.rectangleConverter = RectangleConverter()
     }
-    
+
     func testPerformReques(image: NSImage, completion: @escaping TestTextCompletion) {
-        textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
+        textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, _) in
             guard let sself = self else { return }
             let bitmap = image.bitmap
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
@@ -29,13 +29,12 @@ final class TextRecognizerManager {
             completion(bitmap, wordsRectangles)
         }
     }
-    
+
     func performRequest(image: NSImage, completion: @escaping TextCompletion) {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
-            
-            
+
             let bitmap = image.bitmap
             let restorer = LetterRestorer(bitmap: bitmap)
             print(bitmap.pixelSize)
@@ -43,23 +42,23 @@ final class TextRecognizerManager {
             let wordRecognizer = WordRecognizer(in: bitmap)
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
-            
+
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "WordRectangles Converted")
-            
+
             let blocks = blockCreator.create(from: wordsRectangles)
-            
+
             let gridBlocks = sself.filterGrids(blocks)
             Timer.stop(text: "BlockCreator created")
-            
+
             let blocksWithTypes = gridBlocks.compactMap { [weak self] in
                 self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0)
                 }.reduce([], +)
             Timer.stop(text: "TypeConverter Updated Type ")
-            
+
             let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
             Timer.stop(text: "LetterRestorer restored")
-            
+
             let completedBlocks = restoredBlocks.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
 //                        for block in restoredBlocks {
@@ -83,19 +82,18 @@ final class TextRecognizerManager {
             }
         }
     }
-    
-    
+
     private func detectTypeWithUpdatedLeading(in bitmap: NSBitmapImageRep, from block: SimpleBlock) -> [SimpleBlock] {
-        
+
         guard Settings.filterBlock else { return [block] }
         switch block.typography {
-            
+
         case .grid(let grid):
             var typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
             let blockWithLow = typeConverter.convert(block)
             let updater = LeadingAndBlockUpdater(grid: grid)
             let splittedBlocks = updater.update(block: blockWithLow)
-            
+
             return splittedBlocks.compactMap {
                 if case .grid(let grid) = $0.typography {
                     if Settings.showGrid { return grid.getTestBlock(from: $0) }
@@ -104,23 +102,19 @@ final class TextRecognizerManager {
                 }
                 return nil
             }
-            
+
         default: return []
-            
+
         }
     }
 }
 
-
 extension TextRecognizerManager {
     fileprivate func printAllCustomLetters(from blocks: [SimpleBlock]) {
         let oneBlock = blocks.filter {
-            if case .grid = $0.typography { return true }
-            else { return false }
+            if case .grid = $0.typography { return true } else { return false }
             }[0]
-        
-        
-        
+
         var letters: [LetterWithPosition<LetterRectangle>] = []
         for (lineIndex, line) in oneBlock.lines.enumerated() {
             var index = 0
@@ -132,7 +126,7 @@ extension TextRecognizerManager {
                         letters.append(position)
                     }
                     index += 1
-                    
+
                 }
             }
         }
@@ -144,7 +138,7 @@ extension TextRecognizerManager {
         //
         //        let letters = words.map { $0.letters }.reduce([], +)
         let value = CodableHelper.encode(letters)
-        
+
         print(value)
     }
 }

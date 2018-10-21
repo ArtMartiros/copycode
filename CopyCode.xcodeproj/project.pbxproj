@@ -1321,6 +1321,7 @@
 				ACEC1A26215E26D000A2B767 /* Hockey Framework */,
 				AB82DB5E1774D90EFE28CEC5 /* [CP] Embed Pods Frameworks */,
 				38E7EE0702B7A3515792608B /* [CP] Copy Pods Resources */,
+				ACEBAF15217C849200308C6B /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -1620,6 +1621,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nFILE=\"${SRCROOT}/HockeySDK-Mac/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi\n";
+		};
+		ACEBAF15217C849200308C6B /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		ACEC1A22215E268F00A2B767 /* Hockey */ = {
 			isa = PBXShellScriptBuildPhase;

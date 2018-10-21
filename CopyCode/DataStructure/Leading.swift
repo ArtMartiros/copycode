@@ -12,7 +12,7 @@ struct Leading: Codable {
     let fontSize: CGFloat
     let lineSpacing: CGFloat
     let startPointTop: CGFloat
-    
+
     init(fontSize: CGFloat, lineSpacing: CGFloat, startPointTop: CGFloat) {
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
@@ -25,9 +25,9 @@ extension Leading {
     var leading: CGFloat {
         return fontSize + lineSpacing
     }
-    
+
     typealias Rate = (errorRate: CGFloat, preciseRate: CGFloat)
-    
+
     func checkIsFrameInsideLinePosition(frame: CGRect) -> SimpleSuccess<Rate> {
         let point = findNearestPointTop(to: frame)
         let errorPercent: CGFloat = 10
@@ -37,19 +37,19 @@ extension Leading {
         let checker = Checker()
         if point >= frame.topY {
             if lowerPoint <= frame.bottomY {
-                return .success((0,topDiffOrError + botDiffOrError))
+                return .success((0, topDiffOrError + botDiffOrError))
             } else {
                 guard checker.isSame(lowerPoint, with: frame.bottomY, relativelyTo: fontSize, accuracy: errorPercent)
                     else { return .failure }
-                
+
                 return .success((botDiffOrError, topDiffOrError))
             }
         } else {
             guard checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: errorPercent)
                 else { return .failure }
-            
+
             if lowerPoint <= frame.bottomY {
-                return .success((topDiffOrError,botDiffOrError))
+                return .success((topDiffOrError, botDiffOrError))
             } else {
                 guard checker.isSame(lowerPoint, with: frame.bottomY, relativelyTo: fontSize, accuracy: errorPercent)
                     else { return .failure }
@@ -57,7 +57,7 @@ extension Leading {
             }
         }
     }
-    
+
     ///делает фрейм возможного размера учитывая лидинг, поэтому может быть обрезан
     func missingLinesFrame(in frame: CGRect) -> [CGRect] {
         guard frame.height > leading else { return [] }
@@ -65,10 +65,10 @@ extension Leading {
         let difference = frame.topY - startPoint
         let height = startPoint - frame.bottomY
         let lineCount = ((height - fontSize - difference) / leading).rounded()
-        
+
         var currentFrame = frame
         var frames: [CGRect] = []
-        
+
         for i in 0...Int(lineCount) {
             let afterDistance = i == 0 ? difference : lineSpacing
             let divided = currentFrame.divided(atDistance: fontSize,
@@ -78,22 +78,22 @@ extension Leading {
         }
         return frames
     }
-    
+
     ///делает фрем сандартного размера с помощью лидинга
     func missingLinesWithStandartFrame(in frame: CGRect) -> [CGRect] {
         let startPoint = findStartPoint(inside: frame)
         let difference = frame.topY - startPoint
         let height = startPoint - frame.bottomY
         let lineCount = ((height - fontSize - difference) / leading).rounded()
-        
+
         var currentFrame = frame
         var frames: [CGRect] = []
-        
+
         for i in 0...Int(lineCount) {
             let afterDistance = i == 0 ? difference : lineSpacing
             let divided = currentFrame.divided(atDistance: fontSize,
                                                afterDistance: afterDistance, from: .maxYEdge)
-            
+
             let temporaryFrame = divided.slice
             //проблема с течм что крайние обрезаются
             if temporaryFrame.height < fontSize {
@@ -103,14 +103,13 @@ extension Leading {
             } else {
                 frames.append(temporaryFrame)
             }
-            
+
             currentFrame = divided.remainder
-            
+
         }
         return frames
     }
-    
-    
+
     private func findNearestPointTop(to frame: CGRect) -> CGFloat {
         let distance = abs(frame.topY - startPointTop)
         let value = (distance / leading).rounded()
@@ -122,26 +121,25 @@ extension Leading {
             return point
         }
     }
-    
+
     ///topY
     func findStartPoint(inside frame: CGRect) -> CGFloat {
         let point = findNearestPointTop(to: frame)
         let checker = Checker()
-        
+
         var startPoint = point
         if point > frame.topY, !checker.isSame(point, with: frame.topY, relativelyTo: fontSize, accuracy: 40) {
             startPoint -= leading
         }
         return startPoint
     }
-    
+
     func createVirtualFrame(from frame: CGRect) -> CGRect {
         let startPoint = findStartPoint(inside: frame) - fontSize
         let frame = CGRect(x: frame.origin.x, y: startPoint, width: frame.width, height: fontSize)
         return frame
     }
-    
-    
+
 }
 
 enum Position {

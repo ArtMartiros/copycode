@@ -39,7 +39,6 @@ class LetterOCRTests: XCTestCase {
         }
     }
     
-    
     //3
     // треш с %№
     //    ✅#✅ -- ❌f❌
@@ -121,5 +120,3 @@ class LetterOCRTests: XCTestCase {
     }
     
 }
-
-

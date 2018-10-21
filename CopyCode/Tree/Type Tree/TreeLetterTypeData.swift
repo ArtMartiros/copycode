@@ -39,9 +39,7 @@ let quotesOrDots: TreeLetterType = .n(.maxHRatio(>, kGridCommaMaxRatio),
                                       quotesOrColumnTree,
                                       dotsOrDash)
 
-
 let gridTailOrUpper: TreeLetterType = .n(.isLowWithTailCustom, .r(.lowWithTail), .r(.upper))
-
 
 let gridUndefineType: TreeLetterType = .n(.maxHRatio(>, kGridOnlyUpperMaxRatio),
                                           .r(.upper),
@@ -50,7 +48,6 @@ let gridUndefineType: TreeLetterType = .n(.maxHRatio(>, kGridOnlyUpperMaxRatio),
                                              .n(.maxHRatio(>, kGridLowMaxRatio),
                                                 .r(.low),
                                                 quotesOrDots)))
-
 
 let gridOnlyLowType: TreeLetterType = .n(.maxHRatio(>, kGridUpperMaxRatio),
                                          .r(.undefined),

@@ -23,11 +23,11 @@ final class LineCreator<WordChild: Rectangle> {
     init(checker: LineChecker_ = LineChecker() ) {
         self.checker = checker
     }
-    
+
     func create(from rectangles: [Word<WordChild>]) ->  [Line<WordChild>] {
         let rectanglesSortebByY = rectangles.sortedFromTopToBottom()
         let lines = rectanglesSortebByY.chunkForSorted { checker.same($0, with: $1) }
-        
+
         let sortedLines = lines.map { Line(words: $0.sortedFromLeftToRight()) }
         return sortedLines
     }

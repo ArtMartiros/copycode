@@ -18,9 +18,9 @@ struct TrackingStartPointFinder {
         let trackings = findPointWithDifferentStep(word, range: range)
         return trackings
     }
-    
+
     private func findPointWithDifferentStep(_ word: SimpleWord, range: TrackingRange) -> [Tracking] {
-        
+
         let wordGaps = word.fixedGapsWithOutside
         let width = range.upperBound - range.lowerBound
         let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
@@ -33,13 +33,13 @@ struct TrackingStartPointFinder {
                                                         right: right, distance: distance)
             points.forEach { trackings.append(Tracking(startPoint: $0, width: distance)) }
         }
-        
+
         return trackings
     }
-    
+
     private func findPointInDifferentStartPoint(_ smallestGap: CGRect, leftReversed: [CGRect],
                                                 right: [CGRect], distance: CGFloat) -> [CGFloat] {
-        
+
         let distance = distance.rounded(toPlaces: 3)
         let gaps = leftReversed + right
         let points = getStartPoints(from: smallestGap).filter {
@@ -48,7 +48,7 @@ struct TrackingStartPointFinder {
 
         return points
     }
-    
+
     private func getStartPoints(from gap: CGRect) -> [CGFloat] {
         let newGap = gap.width == 0 ? CGRect(x: gap.leftX - 0.5, y: gap.bottomY, width: 1, height: gap.height) : gap
 
@@ -58,23 +58,21 @@ struct TrackingStartPointFinder {
             let point = newGap.leftX + (CGFloat(i) * kGapWidthStep)
             startPoints.append(point)
         }
-        
+
         return startPoints
     }
-    
+
     typealias DividedGaps = (smallest: CGRect, leftReversed: [CGRect], right: [CGRect])
-    
+
     private func gapsDivider(_ gaps: [CGRect]) -> DividedGaps {
         var smallestWidth: CGFloat = 10
         var smallestIndex: Int = 0
-        
-        for (index, gap) in gaps.enumerated() {
-            if gap.width < smallestWidth {
-                smallestIndex = index
-                smallestWidth = gap.width
-            }
+
+        for (index, gap) in gaps.enumerated() where gap.width < smallestWidth {
+            smallestIndex = index
+            smallestWidth = gap.width
         }
-        
+
         let leftReversed = Array(Array(gaps[0..<smallestIndex]).reversed())
         let nexIndex = smallestIndex + 1
         let right = Array(gaps[nexIndex..<gaps.count])
@@ -82,6 +80,5 @@ struct TrackingStartPointFinder {
         print("smallest \(smallest) indes: \(smallestIndex)")
         return (smallest, leftReversed, right)
     }
-    
-   
+
 }

@@ -15,24 +15,24 @@ enum ActionForLetterType {
 }
 
 ///Класс конвертирует слова из неизвестного типа в конкретный тип
-class TypeConverter {
+final class TypeConverter {
 
     private let typeAction: ActionForLetterType
     private let bitmap: NSBitmapImageRep
     private let grid: TypographicalGrid
-    
+
     init(in bitmap: NSBitmapImageRep, grid: TypographicalGrid, type: ActionForLetterType) {
         self.bitmap = bitmap
         self.grid = grid
         self.typeAction = type
     }
-    
+
     func convert(_ block: SimpleBlock) -> SimpleBlock {
         let lines: [SimpleLine] = block.lines.map { convert($0) }
         let newBlock = Block(lines: lines, frame: block.frame, column: block.column, typography: block.typography)
         return newBlock
     }
-    
+
     func convert(_ line: SimpleLine) -> SimpleLine {
         var words: [SimpleWord] = []
         for (index, word) in line.words.enumerated() {
@@ -59,7 +59,7 @@ class TypeConverter {
         }
         return newLetters
     }
-    
+
     private func getInformation(from word: SimpleWord) -> WordInformation {
 
         let information = WordInformation(leading: grid.leading, letterFrame: word.letters[0].frame)

@@ -9,11 +9,11 @@
 import Foundation
 
 final class ScreenShot {
-    
+
     @objc func capture() -> CGImage? {
         let image = CGDisplayCreateImage(CGMainDisplayID())
         //        let url = NSURL(fileURLWithPath: path)
-        
+
         //         пока не нужно
         //        guard let destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, nil) else { return nil }
         //
@@ -24,7 +24,7 @@ final class ScreenShot {
         print(path)
         return image
     }
-    
+
     private var path: String {
         let timestamp = lround(Date().timeIntervalSince1970)
         let filename = "\(timestamp)_shot.png"

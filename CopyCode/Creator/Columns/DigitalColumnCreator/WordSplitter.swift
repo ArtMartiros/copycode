@@ -12,7 +12,7 @@ final class WordSplitter<WordChild: Rectangle> {
     typealias WordAlias = Word<WordChild>
     typealias SplittedWord = (word: WordAlias, shitWord: WordAlias?)
     typealias SplittedWords = (words: [WordAlias], shitWords: [WordAlias])
-    
+
     static func split(_ rectangle: WordAlias, after number: Int) -> SplittedWord {
         let letters = rectangle.letters
         guard letters.count >= number else { return (Word.from(letters), nil) }
@@ -20,9 +20,9 @@ final class WordSplitter<WordChild: Rectangle> {
         let second = Array(letters[number..<letters.count])
         return (Word.from(first), Word.from(second))
     }
-    
+
     static func split(_ rectangles: [WordAlias], after number: Int) -> SplittedWords {
         let splitted = rectangles.map { split($0, after: number) }
-        return (splitted.map { $0.word }, splitted.compactMap { $0.shitWord } )
+        return (splitted.map { $0.word }, splitted.compactMap { $0.shitWord })
     }
 }

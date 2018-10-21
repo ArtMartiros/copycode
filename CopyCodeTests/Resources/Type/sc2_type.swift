@@ -33,4 +33,3 @@ let sc2_type = [
     21: "cc llullluuulltuluulluuuu,lu",
     22: "llulll llluullul"
 ]
-

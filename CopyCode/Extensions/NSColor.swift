@@ -24,15 +24,15 @@ extension NSColor {
         return NSColor.blue
         //NSColor(deviceRed: 0, green: 122, blue: 255, alpha: 1)
     }
-    
+
     static var textViewBackgroundColor: NSColor {
         return Settings.showText ? NSColor.white : .clear
     }
-    
+
     static var textViewFillColor: NSColor {
         return NSColor.clear
     }
-    
+
     static var textColor: NSColor {
         return Settings.showText ? .black : .clear
     }

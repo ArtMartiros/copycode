@@ -10,7 +10,7 @@ import Foundation
 
 extension Double {
     /// Rounds the double to decimal places value
-    func rounded(toPlaces places:Int) -> Double {
+    func rounded(toPlaces places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }
@@ -24,12 +24,12 @@ extension CGFloat {
     ///     print(x(toPlaces: 3))
     ///     // Prints "1.235"
     ///
-    func rounded(toPlaces places:Int) -> CGFloat {
+    func rounded(toPlaces places: Int) -> CGFloat {
         let divisor = pow(10.0, CGFloat(places))
         return (self * divisor).rounded() / divisor
     }
-    
-    mutating func round(toPlaces places:Int) {
+
+    mutating func round(toPlaces places: Int) {
         let divisor = pow(10.0, CGFloat(places))
         let newValue = (self * divisor).rounded() / divisor
         self = newValue

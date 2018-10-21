@@ -24,6 +24,7 @@ PODS:
   - Mixpanel-swift (2.4.4):
     - Mixpanel-swift/Complete (= 2.4.4)
   - Mixpanel-swift/Complete (2.4.4)
+  - SwiftLint (0.27.0)
 
 DEPENDENCIES:
   - FirebaseAuth (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - HockeySDK-Mac (~> 5.1.0)
   - MASShortcut
   - Mixpanel-swift
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -43,6 +45,7 @@ SPEC REPOS:
     - leveldb-library
     - MASShortcut
     - Mixpanel-swift
+    - SwiftLint
 
 EXTERNAL SOURCES:
   FirebaseAuth:
@@ -84,7 +87,8 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MASShortcut: 9c215e8a8a78f3d01ce56da48e2730ab66b538fa
   Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: be068c5b50a74e5a4b93dc87d5760a32a6925f7a
+PODFILE CHECKSUM: a8d71e421d7d8fb8fa5514c18f861c2d6b546415
 
 COCOAPODS: 1.6.0.beta.1

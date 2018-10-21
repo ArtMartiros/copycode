@@ -13,38 +13,38 @@ class SceneTypeTests: XCTestCase {
     //ошиька С не знаю как исправить
     func testSc1() {
         executeCheck(scene: .sc1, exluded: [0]) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     
     //    ошибка с p можно исправить улучшением соотношения
     func testSc2() {
         executeCheck(scene: .sc2, exluded: []) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     
     func testSc3_p1() {
         executeCheck(scene: .sc3_p1, exluded: []) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     
     func testSc3_p2() {
         executeCheck(scene: .sc3_p2, exluded: []) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     
     func testSc9() {
         executeCheck(scene: .sc9, exluded: []) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     
     func testSc11() {
         executeCheck(scene: .sc11, exluded: []) { (type, position) in
-            XCTAssertEqual(position.letter.type, type,  "L: \(position.l), index: \(position.lineCharCount)")
+            XCTAssertEqual(position.letter.type, type, "L: \(position.l), index: \(position.lineCharCount)")
         }
     }
     

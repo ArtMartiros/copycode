@@ -11,7 +11,7 @@ import Foundation
 struct Line<WordChild: Rectangle>: StandartRectangle, Layerable, Gapable {
     typealias WordAlias = Word<WordChild>
     let words: [WordAlias]
-    
+
     var gaps: [Gap] {
         var gaps: [Gap] = []
         words.forEachPair {
@@ -21,17 +21,17 @@ struct Line<WordChild: Rectangle>: StandartRectangle, Layerable, Gapable {
         }
         return gaps
     }
-    
+
     func biggestWord() -> WordAlias {
         let word = words.sorted { $0.frame.width > $1.frame.width }[0]
         return word
     }
-    
+
     func gapsFramesFromBiggestWord() -> [CGRect] {
         let gaps = biggestWord().gaps.map { $0.frame }
         return gaps
     }
-    
+
     var frame: CGRect {
         return words.map { $0.frame }.compoundFrame
     }

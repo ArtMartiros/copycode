@@ -9,13 +9,13 @@
 import AppKit
 
 final class GlobalValues {
-    
+
     static let shared = GlobalValues()
     private init() {}
-    
+
     var screenImage: NSImage?
     var wordRectangles: [SimpleWord]?
-    
+
     func clear() {
         wordRectangles = nil
         screenImage = nil

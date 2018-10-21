@@ -8,10 +8,10 @@
 
 import Foundation
 
-class GapsCreator {
+final class GapsCreator {
     func createVertical(from rects: [StandartRectangle], last: CGFloat) -> [ClosedRange<CGFloat>] {
         var gaps: [ClosedRange<CGFloat>] = []
-        for (index, rect) in rects.enumerated()  {
+        for (index, rect) in rects.enumerated() {
             if index == 0 { gaps.append(0.0...rect.frame.bottomY) }
             let nextIndex = index + 1
             if rects.count > nextIndex {
@@ -26,4 +26,3 @@ class GapsCreator {
         return gaps
     }
 }
-

@@ -8,24 +8,24 @@
 
 import AppKit
 
-class WordRecognizer {
+final class WordRecognizer {
     private let bitmap: NSBitmapImageRep
     init(in bitmap: NSBitmapImageRep) {
         self.bitmap = bitmap
     }
-    
+
     func recognize(_ block: SimpleBlock) -> CompletedBlock {
         let lines: [CompletedLine] = block.lines.map { recognize($0) }
         let newBlock = Block(lines: lines, frame: block.frame, column: block.column, typography: block.typography )
         return newBlock
     }
-    
+
     func recognize(_ line: SimpleLine) -> CompletedLine {
         let words: [CompletedWord] = line.words.map { recognize($0) }
         let line = Line(words: words)
         return line
     }
-    
+
     func recognize(_ word: SimpleWord) -> CompletedWord {
         let recognizer = LetterRecognizer(bitmap, word: word)
         let letters: [Letter] = word.letters.map {
@@ -35,7 +35,7 @@ class WordRecognizer {
         let word = Word(rect: word, type: word.type, letters: letters)
         return word
     }
-    
+
     func recognize(_ rectangle: SimpleWord, with type: WordType.SameType) -> Word<Letter> {
         let letterRecognizer = LetterRecognizer(bitmap, word: rectangle)
         let letters: [Letter] = rectangle.letters.map {
@@ -45,5 +45,4 @@ class WordRecognizer {
         return Word(rect: rectangle, type: .same(type: type), letters: letters)
     }
 
-    
 }

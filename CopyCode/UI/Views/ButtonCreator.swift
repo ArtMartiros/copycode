@@ -9,7 +9,7 @@
 import AppKit
 
 final class ButtonCreator {
-    
+
     func create(title: NSAttributedString, selector: Selector, position: CGPoint) -> CustomButton {
         let button = CustomButton(title: title.string, target: nil, action: selector)
         button.attributedTitle = title

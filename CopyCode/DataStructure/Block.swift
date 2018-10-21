@@ -9,12 +9,12 @@
 import Foundation
 
 struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
-    
+
     let frame: CGRect
     let lines: [Line<WordChild>]
     let column: ColumnType
     var typography: Typography
-    
+
     var gaps: [Gap] {
         var gaps: [Gap] = []
         lines.forEachPair {
@@ -24,18 +24,18 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         }
         return gaps
     }
-    
+
     var averageLineHeight: CGFloat {
         let sum = lines.map { $0.frame.height }.reduce(0, +)
         return (sum / CGFloat(lines.count)).rounded()
     }
-    
+
     ///старый вариант пока не использую
    private func maxLineHeight2() -> CGFloat {
         let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }
         return heights[0]
     }
-    
+
     /// исключая аномальный результат буквы, место где ты печатаешь там палочка,
     /// она считается тоже буквой и дает аномальную высоту, ее надо исключить из поиска
     /// если будет хуево работать можно просто сделать новую линию убрав эту буквы и потом еще раз поискать
@@ -43,7 +43,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     func maxLineHeight() -> CGFloat {
         return lineWithMaxHeight().frame.height
     }
-    
+
     func lineWithMaxHeight() -> Line<WordChild> {
         let sortedLines = lines.sorted { $0.frame.height > $1.frame.height }
         lineLoop: for line in sortedLines {
@@ -65,23 +65,23 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         }
         return sortedLines[0]
     }
-    
+
     init(lines: [Line<WordChild>], frame: CGRect, column: ColumnType, typography: Typography) {
         self.lines = lines
         self.frame = frame
         self.column = column
         self.typography = typography
     }
-    
+
     mutating func update(_ typography: Typography) {
         self.typography = typography
     }
-    
+
     static func from(_ lines: [Line<WordChild>], column: ColumnType, typography: Typography) -> Block {
         let frame = lines.map { $0.frame }.compoundFrame
         return Block(lines: lines, frame: frame, column: column, typography: typography)
     }
-    
+
     static func updateTypography(_ block: Block, with leading: Leading?) -> Block {
         guard case .tracking(let data) = block.typography, let leading = leading
             else { return  block }
@@ -90,4 +90,3 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         return newBlock
     }
 }
-

@@ -17,4 +17,3 @@ enum Tree<Node, Result> {
     ///Recursive case with generic tree
     indirect case n(Node, Tree<Node, Result>, Tree<Node, Result>)
 }
-

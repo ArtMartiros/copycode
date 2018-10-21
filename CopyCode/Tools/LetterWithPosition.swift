@@ -14,7 +14,7 @@ struct LetterWithPosition<T: Rectangle>: Codable {
     let c: Int
     let lineCharCount: Int
     let letter: T
-    
+
     init(l: Int, w: Int, c: Int, lineCharCount: Int, letter: T) {
         self.l = l
         self.w = w
@@ -22,7 +22,7 @@ struct LetterWithPosition<T: Rectangle>: Codable {
         self.lineCharCount = lineCharCount
         self.letter = letter
     }
-    
+
     init(position: SimpleLetterPosition, letter: T) {
         self.init(l: position.l, w: position.w, c: position.c,
                   lineCharCount: position.lineCharCount, letter: letter)

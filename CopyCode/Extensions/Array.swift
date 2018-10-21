@@ -25,7 +25,7 @@ extension Array where Element == Word<LetterRectangle> {
         let classification = WordTypeIdentifier()
         return self.first { classification.isMix(word: $0) }
     }
-    
+
     var allWordsMixed: Bool {
         let classification = WordTypeIdentifier()
         return first { !classification.isMix(word: $0) } == nil
@@ -52,7 +52,7 @@ extension Array where Element: Layerable {
 }
 
 extension Array {
-    
+
     func forEachPairWithIndex(_ elements: (_ current: Element, _ next: Element, _ index: Int) -> Void ) {
         for (index, item) in self.enumerated() {
             let nextIndex = index + 1
@@ -60,7 +60,7 @@ extension Array {
             elements(item, self[nextIndex], index)
         }
     }
-    
+
     ///Два элемента сразу дает, текущий и след
     func forEachPair(_ elements: (_ current: Element, _ next: Element) -> Void ) {
         for (index, item) in self.enumerated() {
@@ -69,7 +69,7 @@ extension Array {
             elements(item, self[nextIndex])
         }
     }
-    
+
     func enumeratedMap<T>(_ transform: (_ current: Element, _ index: Int) throws -> T) rethrows -> [T] {
         var newArray: [T] = []
         for (index, item) in self.enumerated() {
@@ -80,7 +80,7 @@ extension Array {
         }
         return newArray
     }
-    
+
     func mapPair<T>(_ transform: (_ current: Element, _ next: Element) throws -> T) rethrows -> [T] {
         var newArray: [T] = []
         for (index, item) in self.enumerated() {
@@ -91,7 +91,7 @@ extension Array {
         }
         return newArray
     }
-    
+
     func enumeratedMapPair<T>(_ transform: (_ current: Element, _ next: Element, _ index: Int) throws -> T) rethrows -> [T] {
         var newArray: [T] = []
         for (index, item) in self.enumerated() {
@@ -102,9 +102,9 @@ extension Array {
         }
         return newArray
     }
-    
+
     typealias PastCurrentFuture = (past: Element?, present: Element, future: Element?)
-    
+
     func pastCurrentFuture() -> [PastCurrentFuture] {
         var array: [PastCurrentFuture] = []
         for (index, item) in self.enumerated() {
@@ -112,10 +112,10 @@ extension Array {
             let element: PastCurrentFuture = (past, item, self.optional(atIndex: index + 1))
             array.append(element)
         }
-        
+
         return array
     }
-    
+
     func optional(atIndex index: Int) -> Element? {
         guard index >= 0 && index < count else { return nil }
         return self[index]
@@ -126,14 +126,14 @@ extension Array where Element: StandartRectangle {
     func sortedFromTopToBottom() -> [Element] {
         return sorted { $0.frame.bottomY >  $1.frame.bottomY }
     }
-    
+
     func sortedFromBottomToTop() -> [Element] {
         return sorted { $0.frame.bottomY <  $1.frame.bottomY }
     }
     func sortedFromLeftToRight() -> [Element] {
         return sorted { $0.frame.leftX <  $1.frame.leftX }
     }
-    
+
     func sortedFromRightToLeft() -> [Element] {
         return sorted { $0.frame.leftX >  $1.frame.leftX }
     }

@@ -16,24 +16,24 @@ protocol PanelDelegate: class {
     func tapSendScreenButton(panel: Panel)
 }
 
-class Panel: NSPanel {
+final class Panel: NSPanel {
     private var alertView: NSImageView?
-    
+
     @IBOutlet weak var screenButton: NSButton!
     @IBOutlet weak var imageView: NSImageView!
 	@IBAction func tapClose(_ sender: NSButtonCell) {
 		panelDelegate?.tapCloseButton(panel: self)
 	}
-    
+
     @IBAction func tapSend(_ sender: NSButton) {
         panelDelegate?.tapSendScreenButton(panel: self)
     }
-    
+
     private let stringCreator = AttrStringCreator()
     private let textViewCreator = TextViewCreator()
     private let buttonCreator = ButtonCreator()
     weak var panelDelegate: PanelDelegate?
-    
+
     func addTextFrame(with text: String, in frame: NSRect, letterWidth: CGFloat, spacing: CGFloat) {
         let attrString = stringCreator.createForTextView(with: text, letterWidth: letterWidth, spacing: spacing)
 //        let updatedFrame = frame.update(by: 20, in: .offset(.right))
@@ -43,8 +43,6 @@ class Panel: NSPanel {
         self.contentView?.addSubview(textView)
     }
 
-   
-    
     private func showAlert(completion: @escaping () -> Void) {
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
@@ -58,12 +56,12 @@ class Panel: NSPanel {
             })
         })
     }
-    
+
     func closePanel() {
         orderOut(nil)
         removeTextViews()
     }
-    
+
     func initialSetupe(with frame: CGRect, showScreeenButton: Bool) {
         makeKeyAndOrderFront(nil)
         //две линии отвечаают за прозрачность
@@ -73,11 +71,11 @@ class Panel: NSPanel {
         if Settings.showAlert {
             alertInitialSetup()
         }
-        
+
         screenButton.isHidden = !showScreeenButton
-        
+
     }
-    
+
     func removeTextViews() {
         guard let subviews = contentView?.subviews else { return }
         for view in subviews {
@@ -86,14 +84,13 @@ class Panel: NSPanel {
             }
         }
     }
-    
 
 	override var canBecomeKey: Bool {
 		return true
 	}
 }
 
-extension Panel: CopyTextViewDelegate, NSTextViewDelegate  {
+extension Panel: CopyTextViewDelegate, NSTextViewDelegate {
     func copyButtonTapped(textView: CopyTextView, text: String?) {
         showAlert { [weak self] in
             guard let sself = self else { return }

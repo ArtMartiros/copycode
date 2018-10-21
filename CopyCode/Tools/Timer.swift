@@ -8,16 +8,16 @@
 
 import Foundation
 
-class Timer {
+final class Timer {
     private static var startTime: CFAbsoluteTime = 0
     private static var stopTime: CFAbsoluteTime = 0
     private static var previous: String = ""
-    class func start() {
+    static func start() {
         startTime = CFAbsoluteTimeGetCurrent()
         stopTime = CFAbsoluteTimeGetCurrent()
     }
-    
-    class func stop(text: String) {
+
+    static func stop(text: String) {
         let newStop = CFAbsoluteTimeGetCurrent()
         let stopDiff = newStop - stopTime
         stopTime = newStop

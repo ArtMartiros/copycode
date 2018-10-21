@@ -19,16 +19,16 @@ struct LetterPixelChecker: LetterPixelExistenceProtocol {
     /// Диапазон от backgroundWhite до letterWhite в котором ответ считается правильным
     /// При 100% весь диапазон счтается правильным при 0% только letterWhite
     private let whitePercent: UInt
-    init(backgroundWhite: CGFloat, letterDefaultWhite: CGFloat,  whitePercent: UInt) {
+    init(backgroundWhite: CGFloat, letterDefaultWhite: CGFloat, whitePercent: UInt) {
         self.backgroundWhite = backgroundWhite
         self.letterDefaultWhite = letterDefaultWhite
         self.whitePercent = whitePercent
     }
-    
+
     func exist(currentValue value: CGFloat, accuracyPercenRate: CGFloat = 100) -> Bool {
         let allowedInterval = abs(letterDefaultWhite - backgroundWhite) / 100 * CGFloat(whitePercent)
         let updatedAllowedInterval = allowedInterval  * accuracyPercenRate / 100
-        if letterDefaultWhite >= backgroundWhite{
+        if letterDefaultWhite >= backgroundWhite {
             let startPoint = letterDefaultWhite - updatedAllowedInterval
             let range = startPoint.rounded(toPlaces: 3) ... 1
             print("Range \(range)")

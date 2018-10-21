@@ -44,7 +44,7 @@ extension LetterType {
         case .undefined: return .r("...")
         case .custom: return customOCRTree
         case .doubleQuote: return .r("\"")
-            
+
         }
     }
 }

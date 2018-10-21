@@ -18,7 +18,6 @@ class ScenesOCRTests: XCTestCase {
             XCTAssertEqual(position.letter.value, answer, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
-    
 
     func testOCRScene2() {
         executeCheck(scene: .sc2, exlude: []) { (answer, position) in
@@ -76,8 +75,6 @@ class ScenesOCRTests: XCTestCase {
         let lettersCount = block.lines.map { $0.words.map { $0.letters } }.reduce([], +).reduce([], +).count
         print("letters count \(lettersCount)")
         
-        
     }
- 
 
 }

@@ -8,7 +8,7 @@
 
 import XCTest
 
-fileprivate struct Answer: Codable {
+private struct Answer: Codable {
     var frame: CGRect { return CGRect(origin: origin, size: size) }
     var origin: CGPoint { return CGPoint(x: x, y: y) }
     var size: CGSize { return CGSize(width: width, height: height) }
@@ -88,7 +88,5 @@ class LetterPixelFinderTests: XCTestCase {
                                                 structType: [Answer].self) else { return [] }
         return frames.map { $0.frame }
     }
-
     
 }
-

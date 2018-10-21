@@ -26,7 +26,6 @@ enum Scene: String {
     case oneCode = "block_one_code"
     case two = "block_two"
     
-    
     var imageName: String {
         switch self {
         case .sc1: return "sc1_text_view_creator"
@@ -181,7 +180,6 @@ enum Scene: String {
                                     structType: [SimpleLetterPosition].self, shouldPrint: false)!
     }
     
-    
     func getBlock(_ object: AnyObject) -> SimpleBlock {
         return CodableHelper.decode(object, path: self.rawValue, structType: SimpleBlock.self, shouldPrint: false)!
     }
@@ -198,7 +196,6 @@ enum Scene: String {
         return CodableHelper.decode(object, path: self.gridWithTypeBlockName,
                                     structType: SimpleBlock.self, shouldPrint: false)!
     }
-    
     
 }
 

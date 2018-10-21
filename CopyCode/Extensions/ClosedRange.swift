@@ -27,12 +27,12 @@ extension ClosedRange where Bound == CGFloat {
     ///
     /// - Parameter limits: The range to clamp the bounds of this range.
     /// - Returns: A new range clamped to the bounds of `limits`.
-    
+
     func intesected(with newRange: ClosedRange<CGFloat>) -> ClosedRange<CGFloat>? {
         guard self.overlaps(newRange) else { return nil }
         return clamped(to: newRange)
     }
-    
+
     var integers: [Int] {
         let lower = Int(lowerBound.rounded(.up))
         let upper = Int(upperBound.rounded(.down))
@@ -40,15 +40,14 @@ extension ClosedRange where Bound == CGFloat {
         let array = Array(lower...upper)
         return array
     }
-    
-    
+
     var distance: CGFloat {
         return upperBound - lowerBound
     }
 }
 
 extension ClosedRange: Codable where Bound: Codable {
-    
+
 }
 extension ClosedRange where Bound: Codable {
     private enum CodingKeys: String, CodingKey {
@@ -56,14 +55,18 @@ extension ClosedRange where Bound: Codable {
     }
     public init(from decoder: Decoder) throws {
         let dict = try [String: Bound](from: decoder)
-        
+
         guard let lower = dict[CodingKeys.lowerBound.stringValue] else {
-            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: decoder.codingPath + [CodingKeys.lowerBound], debugDescription: "lowerBound not found"))
+            let path = decoder.codingPath + [CodingKeys.lowerBound]
+            let message = "lowerBound not found"
+            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: path, debugDescription: message))
         }
         guard let upper = dict[CodingKeys.upperBound.stringValue] else {
-            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: decoder.codingPath + [CodingKeys.upperBound], debugDescription: "upperBound not found"))
+            let path = decoder.codingPath + [CodingKeys.upperBound]
+            let message = "upperBound not found"
+            throw DecodingError.valueNotFound(Bound.self, .init(codingPath: path, debugDescription: message))
         }
-        
+
         self.init(uncheckedBounds: (lower: lower, upper: upper))
     }
 }

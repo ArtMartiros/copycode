@@ -17,7 +17,7 @@ extension CGRect {
     var bC: CGPoint { return CGPoint(x: midX, y: bottomY) }
     var lC: CGPoint { return CGPoint(x: minX, y: midY) }
     var rC: CGPoint { return CGPoint(x: maxX, y: midY) }
-    var c:  CGPoint { return CGPoint(x: midX, y: midY) }
+    var c: CGPoint { return CGPoint(x: midX, y: midY) }
     ///minY
     var bottomY: CGFloat { return minY }
     var topY: CGFloat { return maxY }
@@ -25,7 +25,7 @@ extension CGRect {
     var rightX: CGFloat { return maxX }
     ///height/width
     var ratio: CGFloat { return height/width  }
-    
+
     /// Принимает значение от 0 до 1 и на основе него ищет точку у frame
     func yAs(part: Int, of number: Int) -> CGFloat {
         let innerHeight = height / CGFloat(number) * CGFloat(part)
@@ -52,12 +52,11 @@ extension CGRect {
     }
 }
 
-
 extension CGRect {
     func update(by value: UInt, in edgeDirection: EdgeDirection) -> CGRect {
        return update(byValue: CGFloat(value), in: edgeDirection)
     }
-    
+
     func update(byValue value: CGFloat, in edgeDirection: EdgeDirection) -> CGRect {
         let direction: DirectionOptions
         let newValue: CGFloat
@@ -71,7 +70,7 @@ extension CGRect {
         }
         return update(by: newValue, in: direction)
     }
-    
+
    private func update(by pixels: CGFloat, in dimension: DirectionOptions) -> CGRect {
         var newFrame = self
         for direction in dimension.directions {
@@ -79,7 +78,7 @@ extension CGRect {
         }
         return newFrame
     }
-    
+
     private func update(by pixels: CGFloat, in dimension: Direction) -> CGRect {
         switch dimension {
         case .left: return CGRect(left: leftX - pixels, right: rightX, top: topY, bottom: bottomY)
@@ -88,7 +87,7 @@ extension CGRect {
         case .bottom: return CGRect(left: leftX, right: rightX, top: topY, bottom: bottomY - pixels)
         }
     }
-    
+
     enum EdgeDirection {
         case inset(DirectionOptions)
         case offset(DirectionOptions)
@@ -123,7 +122,6 @@ extension CGRect: Hashable {
     }
 }
 
-
 extension CGRect {
     func divided(atDistance distance: CGFloat,
                  afterDistance value: CGFloat, from edge: CGRectEdge) -> (slice: CGRect, remainder: CGRect) {
@@ -131,7 +129,7 @@ extension CGRect {
         let secondDevided = firstDivided.slice.divided(atDistance: value, from: edge)
         return (secondDevided.remainder, firstDivided.remainder)
     }
-    
+
     /**
      - Parameter **point**: x position in main frame
      - Returns: A *tuple* with **left** and **rigth** frame divided by current **X** position
@@ -145,7 +143,7 @@ extension CGRect {
         let dividedValue = divided(atDistance: distance, from: .minXEdge)
         return (dividedValue.slice, dividedValue.remainder)
     }
-    
+
     /**
      - Parameter **point**: x position in main frame
      - Returns: A *tuple* with **left** and **rigth** percent of main width divided by current **X** position
@@ -160,24 +158,24 @@ extension CGRect {
         let right = left - 100
         return (left, right )
     }
-    
+
     func divided(byPercent percent: CGFloat) -> (left: CGRect, right: CGRect) {
         let distance = width * percent / 100
         let (left, right) = divided(atDistance: distance, from: .minXEdge)
         return (left, right)
     }
-    
+
     func divided(byPercent percent: CGFloat, afterPercent value: CGFloat) -> (left: CGRect, right: CGRect) {
         let mainPercent = percent + value
         let distance = width * mainPercent / 100
         let newPercent = value / mainPercent * 100
-        
+
         let firstDivided = divided(atDistance: distance, from: .minXEdge)
         let newWidth = firstDivided.slice.width * newPercent / 100
         let secondDivided = firstDivided.slice.divided(atDistance: newWidth, from: .minXEdge)
         return (secondDivided.remainder, firstDivided.remainder)
     }
-    
+
 }
 
 extension CGRect {

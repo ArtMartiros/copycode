@@ -28,7 +28,6 @@ enum OCRPicture: PictureNameProtocol {
     case visual18
     case visual20
     
-    
     var imageName: String {
         switch self {
             //        case .typeWhite: return "picLetterTypeClassificationWhite"
@@ -49,7 +48,6 @@ enum OCRPicture: PictureNameProtocol {
         case .visual20: return "picOCRVisualDark20"
         }
     }
-    
     
     var image: NSImage {
         return NSImage(named: .init(imageName))!
@@ -119,8 +117,6 @@ enum OCRPicture: PictureNameProtocol {
     
 }
 
-
-
 enum LetterPixelFinderPicture: PictureNameProtocol {
     case dot, dash, quotes, equal, underscore
     var imageName: String {
@@ -143,4 +139,3 @@ enum LetterPixelFinderPicture: PictureNameProtocol {
         }
     }
 }
-
