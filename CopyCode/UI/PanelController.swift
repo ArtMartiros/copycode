@@ -23,7 +23,8 @@ final class PanelController: NSWindowController {
     
     func openPanel(with image: CGImage) {
         guard let screenRect = NSScreen.screens.first?.frame else { return }
-        panel.initialSetupe(with: screenRect)
+        let show = Auth.auth().currentUser != nil
+        panel.initialSetupe(with: screenRect, showScreeenButton: show)
         let image = NSImage(cgImage: image, size: screenRect.size)
         panel.imageView.image = image
         if Settings.enableFirebase {

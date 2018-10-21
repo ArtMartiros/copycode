@@ -81,7 +81,6 @@ extension Leading {
     
     ///делает фрем сандартного размера с помощью лидинга
     func missingLinesWithStandartFrame(in frame: CGRect) -> [CGRect] {
-        guard frame.height > leading else { return [] }
         let startPoint = findStartPoint(inside: frame)
         let difference = frame.topY - startPoint
         let height = startPoint - frame.bottomY

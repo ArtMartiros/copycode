@@ -67,6 +67,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="Moo-sz-cKT"/>
                 <outlet property="imageView" destination="we3-lz-mf6" id="HRD-Ra-aNu"/>
+                <outlet property="screenButton" destination="KWd-mF-CbC" id="zHa-gM-8cw"/>
             </connections>
             <point key="canvasLocation" x="51" y="136.5"/>
         </window>

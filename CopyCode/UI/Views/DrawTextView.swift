@@ -18,8 +18,8 @@ class DrawTextView: NSTextView {
     }
     
     fileprivate struct Constants {
-        static let borderCornerRadius: CGFloat = 6.0
-        static let borderLineWidth: CGFloat = 3
+        static let borderCornerRadius: CGFloat = 0
+        static let borderLineWidth: CGFloat = 2
     }
     
     func drawBorderGraphInContext(_ context: CGContext?) {

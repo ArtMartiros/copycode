@@ -19,6 +19,7 @@ class MissingElementsRestorer {
     init(finder: MissingElementsFinder) {
         self.finder = finder
     }
+    @IBOutlet weak var sendScreenButton: NSButton!
     
     ///восстанавливает потерянные линии внутри блока
     func restore(_ block: Block<LetterRectangle>) -> Block<LetterRectangle> {

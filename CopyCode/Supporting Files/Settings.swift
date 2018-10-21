@@ -9,7 +9,7 @@
 import Foundation
 
 struct Settings {
-    static let release = true
+    static let release = false
     private static let isDefault = true
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true

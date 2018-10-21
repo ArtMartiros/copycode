@@ -21,7 +21,7 @@ extension NSColor {
 
 extension NSColor {
     static var textViewStrokeColor: NSColor {
-        return NSColor.red
+        return NSColor.blue
         //NSColor(deviceRed: 0, green: 122, blue: 255, alpha: 1)
     }
     

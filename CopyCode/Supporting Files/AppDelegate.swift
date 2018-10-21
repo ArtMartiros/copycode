@@ -20,16 +20,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
         Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
         Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release])
-        NSPasteboard.general.declareTypes([.string], owner: self)
-//        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
-//        // Do some additional configuration if needed here
-//        //больше не должно требовать пароля
-//        BITHockeyManager.shared()?.isMetricsManagerDisabled = false
-//        BITHockeyManager.shared().start()
-        
         firebaseSetup()
+        NSPasteboard.general.declareTypes([.string], owner: self)
         createStatusBar()
         createMenu()
         listenGlobalKey()

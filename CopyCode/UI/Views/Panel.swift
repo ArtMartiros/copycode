@@ -19,7 +19,8 @@ protocol PanelDelegate: class {
 class Panel: NSPanel {
     private var alertView: NSImageView?
     
-	@IBOutlet weak var imageView: NSImageView!
+    @IBOutlet weak var screenButton: NSButton!
+    @IBOutlet weak var imageView: NSImageView!
 	@IBAction func tapClose(_ sender: NSButtonCell) {
 		panelDelegate?.tapCloseButton(panel: self)
 	}
@@ -63,7 +64,7 @@ class Panel: NSPanel {
         removeTextViews()
     }
     
-    func initialSetupe(with frame: CGRect) {
+    func initialSetupe(with frame: CGRect, showScreeenButton: Bool) {
         makeKeyAndOrderFront(nil)
         //две линии отвечаают за прозрачность
         isOpaque = false
@@ -72,6 +73,9 @@ class Panel: NSPanel {
         if Settings.showAlert {
             alertInitialSetup()
         }
+        
+        screenButton.isHidden = !showScreeenButton
+        
     }
     
     func removeTextViews() {
