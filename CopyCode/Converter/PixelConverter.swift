@@ -14,7 +14,7 @@ final class PixelConverter {
 
     private init () { }
 
-    var ratio: CGFloat { return pixelSize.width / size.width }
+    var ratio: CGFloat = 2 //{ return pixelSize.width / size.width }
     private (set) var size = CGSize(width: 1, height: 1)
     private (set) var pixelSize = CGSize(width: 1, height: 1)
     func setSize(size: NSSize, pixelSize: NSSize) {

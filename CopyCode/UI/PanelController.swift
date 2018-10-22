@@ -22,16 +22,16 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
-    func openPanel(with image: CGImage) {
+    func openPanel(with cgImage: CGImage) {
         guard let screenRect = NSScreen.screens.first?.frame else { return }
 //        let show = Auth.auth().currentUser != nil
         panel.initialSetupe(with: screenRect, showScreeenButton: false)
-        let image = NSImage(cgImage: image, size: screenRect.size)
+        let image = NSImage(cgImage: cgImage, size: screenRect.size)
         panel.imageView.image = image
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
         }
-        showWords(image: image, size: screenRect.size)
+        showWords(image: cgImage)
     }
 
     func closePanel() {
@@ -41,7 +41,7 @@ final class PanelController: NSWindowController {
 
     private let textDetection = TextRecognizerManager()
     //отсчет пикселей с левого верхнего угла
-    func showWords(image: NSImage, size: CGSize) {
+    func showWords(image: CGImage) {
         Timer.stop(text: "showWords")
         textDetection.performRequest(image: image) { [weak self] (_, blocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
@@ -95,7 +95,9 @@ final class PanelController: NSWindowController {
             //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
             //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //
-            self?.sendToFirebase()
+            if Settings.release {
+                self?.sendToFirebase()
+            }
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }

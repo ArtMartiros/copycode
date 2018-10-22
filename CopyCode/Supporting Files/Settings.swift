@@ -25,7 +25,8 @@ struct Settings {
     private static let defaultFilterBlock = true
 
     static let enableFirebase = isDefault ? defaultEnableFirebase : true
-    static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
+
+    static let showInitialBlock = isDefault ? defaultShowInitialBlock : true
     static let showBlock = isDefault ? defaultShowBlock : true
     static let showLines = isDefault ? defaultShowLines : true
     static let showWords = isDefault ? defaultShowWords : true
@@ -37,5 +38,6 @@ struct Settings {
 
     static let showGrid = isDefault ? defaultShowGrid : false
     static let showAlert = isDefault ? defaultShowAlert : false
-    static let filterBlock = isDefault ? defaultFilterBlock : true
+    static let filterBlock = isDefault ? defaultFilterBlock : false
+    
 }

@@ -24,20 +24,20 @@ final class TextRecognizerManager {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, _) in
             guard let sself = self else { return }
             let bitmap = image.bitmap
+
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             completion(bitmap, wordsRectangles)
         }
     }
 
-    func performRequest(image: NSImage, completion: @escaping TextCompletion) {
-        textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, error) in
+    func performRequest(image: CGImage, completion: @escaping TextCompletion) {
+        textDetection.performRequest(cgImage: image) {[weak self] (results, error) in
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
-
-            let bitmap = image.bitmap
+            let bitmap = NSBitmapImageRep(cgImage: image)
             let restorer = LetterRestorer(bitmap: bitmap)
-            print(bitmap.pixelSize)
+
             PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordRecognizer = WordRecognizer(in: bitmap)
             let blockCreator = BlockCreator(in: bitmap)
