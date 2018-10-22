@@ -95,7 +95,10 @@ final class PanelController: NSWindowController {
             //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
             //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //
-            self?.sendToFirebase()
+            if Settings.release {
+                self?.sendToFirebase()
+            }
+
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
