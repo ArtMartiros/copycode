@@ -19,7 +19,7 @@ final class TextDetection {
     }
 
     private func createRequests(completionHandler: VNTextObservationsCompletionHandler? ) -> [VNRequest] {
-        let textRequest =  VNDetectTextRectanglesRequest { request, error in
+        let textRequest = VNDetectTextRectanglesRequest { request, error in
             let results = request.results?.compactMap { $0 as? VNTextObservation } ?? []
             completionHandler?(results, error)
         }

@@ -275,6 +275,8 @@
 		ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237621393B44009D8409 /* ArrayTests.swift */; };
 		ACAF237921398BD4009D8409 /* CGRectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237821398BD3009D8409 /* CGRectEdge.swift */; };
 		ACAF237A21398BD4009D8409 /* CGRectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF237821398BD3009D8409 /* CGRectEdge.swift */; };
+		ACBA3C35217E10B800644F82 /* 2018-10-22 16_20.json in Resources */ = {isa = PBXBuildFile; fileRef = ACBA3C34217E10B800644F82 /* 2018-10-22 16_20.json */; };
+		ACBA3C36217E126000644F82 /* 2018-10-22 16_20.json in Resources */ = {isa = PBXBuildFile; fileRef = ACBA3C34217E10B800644F82 /* 2018-10-22 16_20.json */; };
 		ACDA4A7B2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDA6DBE215E724B00A7AA62 /* DrawTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DBD215E724B00A7AA62 /* DrawTextView.swift */; };
@@ -560,6 +562,7 @@
 		ACAF237021381C95009D8409 /* Gap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gap.swift; sourceTree = "<group>"; };
 		ACAF237621393B44009D8409 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		ACAF237821398BD3009D8409 /* CGRectEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectEdge.swift; sourceTree = "<group>"; };
+		ACBA3C34217E10B800644F82 /* 2018-10-22 16_20.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "2018-10-22 16_20.json"; sourceTree = "<group>"; };
 		ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterTypeData.swift; sourceTree = "<group>"; };
 		ACDA6DBD215E724B00A7AA62 /* DrawTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTextView.swift; sourceTree = "<group>"; };
 		ACDA6DC0215E727700A7AA62 /* AttrStringCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrStringCreator.swift; sourceTree = "<group>"; };
@@ -803,6 +806,7 @@
 		AC199EAA211A98AA00B53656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ACBA3C33217E10A600644F82 /* Beta */,
 				AC380661216E2A35004EA7A2 /* Other */,
 				AC6493EC21663B96003A4164 /* Letters */,
 				AC218145216505E600515FBD /* Type */,
@@ -1124,6 +1128,14 @@
 			path = ExtensionsTests;
 			sourceTree = "<group>";
 		};
+		ACBA3C33217E10A600644F82 /* Beta */ = {
+			isa = PBXGroup;
+			children = (
+				ACBA3C34217E10B800644F82 /* 2018-10-22 16_20.json */,
+			);
+			path = Beta;
+			sourceTree = "<group>";
+		};
 		ACC82E7D2110AF1C002B299E /* DigitalColumnCreator */ = {
 			isa = PBXGroup;
 			children = (
@@ -1429,6 +1441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC302DE5217A0CED0073A569 /* sc3_words.json in Resources */,
+				ACBA3C36217E126000644F82 /* 2018-10-22 16_20.json in Resources */,
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
 				AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */,
 				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
@@ -1487,6 +1500,7 @@
 				AC35884B2171DD390023F311 /* ocr_xcode_dark_14_words.json in Resources */,
 				ACEBB286216CEACE0094336F /* sc3_p2_user_main_view_controller_grid_with_type.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
+				ACBA3C35217E10B800644F82 /* 2018-10-22 16_20.json in Resources */,
 				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC3588592171DDC70023F311 /* ocr_visual_14_words.json in Resources */,

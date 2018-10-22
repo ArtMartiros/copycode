@@ -10,7 +10,7 @@ import Cocoa
 import Mixpanel
 import FirebaseDatabase
 import FirebaseStorage
-import FirebaseAuth
+//import FirebaseAuth
 
 final class PanelController: NSWindowController {
     // swiftlint:disable force_cast
@@ -24,8 +24,8 @@ final class PanelController: NSWindowController {
 
     func openPanel(with image: CGImage) {
         guard let screenRect = NSScreen.screens.first?.frame else { return }
-        let show = Auth.auth().currentUser != nil
-        panel.initialSetupe(with: screenRect, showScreeenButton: show)
+//        let show = Auth.auth().currentUser != nil
+        panel.initialSetupe(with: screenRect, showScreeenButton: false)
         let image = NSImage(cgImage: image, size: screenRect.size)
         panel.imageView.image = image
         if Settings.enableFirebase {
@@ -95,6 +95,7 @@ final class PanelController: NSWindowController {
             //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
             //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
             //
+            self?.sendToFirebase()
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
@@ -108,7 +109,7 @@ extension PanelController: PanelDelegate {
     }
 
     func tapSendScreenButton(panel: Panel) {
-        sendToFirebase()
+//        sendToFirebase()
     }
 
     func tapCopyButton(panel: Panel, text: String?) {
@@ -124,15 +125,16 @@ extension PanelController {
     private var storageRef: StorageReference { return Storage.storage().reference() }
 
     func sendToFirebase() {
-        guard let user = Auth.auth().currentUser,
-            let imageData = GlobalValues.shared.screenImage?.tiffRepresentation,
+        guard let imageData = GlobalValues.shared.screenImage?.tiffRepresentation,
             let rectangles = GlobalValues.shared.wordRectangles
             else { return }
 
         let wordsData = CodableHelper.toData(rectangles)
-        let stringDate = Date().toString
-        let screenStorageRef = storageRef.child(user.uid).child("screens").child(stringDate + ".png")
-        let jsonStorageRef = storageRef.child(user.uid).child("json").child(stringDate + ".json")
+        let user = Date().toString(.yyyyMMdd ) //Auth.auth().currentUser,
+        let stringDate = Date().toString(.yyyyMMddHHmm)
+        let timeDate = Date().toString(.HHmm)
+        let screenStorageRef = storageRef.child(user).child("screens").child(stringDate + ".png")
+        let jsonStorageRef = storageRef.child(user).child("json").child(stringDate + ".json")
 
         screenStorageRef.putData(imageData, metadata: nil) { (_, _) in
             screenStorageRef.downloadURL(completion: { [weak self] (screenURL, _) in
@@ -140,7 +142,7 @@ extension PanelController {
                 jsonStorageRef.putData(wordsData, metadata: nil, completion: { (_, _) in
                     jsonStorageRef.downloadURL(completion: { (jsonURL, _) in
                         guard let jsonURL = jsonURL else { return }
-                        self?.screenRef.child(user.uid).child(stringDate).setValue(["screenURL": screenURL.absoluteString,
+                        self?.screenRef.child(user).child(timeDate).setValue(["screenURL": screenURL.absoluteString,
                                                                                     "uploadTime": ServerValue.timestamp(),
                                                                                     "date": stringDate,
                                                                                     "jsonURL": jsonURL.absoluteString])

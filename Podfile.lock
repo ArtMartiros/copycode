@@ -1,9 +1,4 @@
 PODS:
-  - FirebaseAuth (5.0.4):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.2)
-    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.1.5):
     - GoogleUtilities/Logger (~> 5.2)
@@ -27,7 +22,6 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
-  - FirebaseAuth (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseCore (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseDatabase (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseStorage (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
@@ -48,9 +42,6 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
-  FirebaseAuth:
-    :branch: master
-    :git: https://github.com/firebase/firebase-ios-sdk.git
   FirebaseCore:
     :branch: master
     :git: https://github.com/firebase/firebase-ios-sdk.git
@@ -62,9 +53,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/firebase/firebase-ios-sdk.git
 
 CHECKOUT OPTIONS:
-  FirebaseAuth:
-    :commit: 55acc03aed36cd04931c27ab687730d3bf394724
-    :git: https://github.com/firebase/firebase-ios-sdk.git
   FirebaseCore:
     :commit: 55acc03aed36cd04931c27ab687730d3bf394724
     :git: https://github.com/firebase/firebase-ios-sdk.git
@@ -76,7 +64,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/firebase-ios-sdk.git
 
 SPEC CHECKSUMS:
-  FirebaseAuth: 5cf499255699ede3ab6242b66194c53f089a6f7d
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
@@ -89,6 +76,6 @@ SPEC CHECKSUMS:
   Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: a8d71e421d7d8fb8fa5514c18f861c2d6b546415
+PODFILE CHECKSUM: 08dee95ac6b4e588fa4cb774483c4e78fb5044ce
 
 COCOAPODS: 1.6.0.beta.1

@@ -42,10 +42,11 @@ final class TextRecognizerManager {
             let wordRecognizer = WordRecognizer(in: bitmap)
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
-
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             Timer.stop(text: "WordRectangles Converted")
-
+            if Settings.enableFirebase {
+                GlobalValues.shared.wordRectangles = wordsRectangles
+            }
             let blocks = blockCreator.create(from: wordsRectangles)
 
             let gridBlocks = sself.filterGrids(blocks)

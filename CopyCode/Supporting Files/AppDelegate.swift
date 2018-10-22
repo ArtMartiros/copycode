@@ -9,7 +9,7 @@
 import Cocoa
 import Mixpanel
 import FirebaseCore
-import FirebaseAuth
+//import FirebaseAuth
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,11 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
-        // Do some additional configuration if needed here
-        BITHockeyManager.shared().start()
-        Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
-        Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release])
+//        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
+//        // Do some additional configuration if needed here
+//        BITHockeyManager.shared().start()
+        setupMixpanel()
         firebaseSetup()
         NSPasteboard.general.declareTypes([.string], owner: self)
         createStatusBar()
@@ -78,6 +77,25 @@ extension AppDelegate {
 extension AppDelegate {
     func firebaseSetup() {
         FirebaseApp.configure()
-        Auth.auth().signInAnonymously(completion: nil)
+//        Auth.auth().signInAnonymously(completion: nil)
+    }
+
+    func setupMixpanel() {
+        Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
+        print(Bundle.main.version)
+        print(Bundle.main.bundle)
+        Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release,
+                                                         "Version": Bundle.main.version,
+                                                         "Bundle": Bundle.main.bundle])
+    }
+}
+
+extension Bundle {
+    var version: String {
+        return self.infoDictionary?["CFBundleShortVersionString"]  as? String  ?? ""
+    }
+
+    var bundle: String {
+       return self.infoDictionary?["CFBundleVersion"]  as? String  ?? ""
     }
 }
