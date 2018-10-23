@@ -9,6 +9,17 @@
 import Foundation
 
 enum ColumnType: ColumnProtocol {
+    func updated(by rate: Int) -> ColumnType {
+        switch self {
+        case .digit(column: let column):
+            let newColumn = column.updated(by: rate)
+            return .digit(column: newColumn)
+        case .standart(column: let column):
+            let newColumn = column.updated(by: rate)
+            return .standart(column: newColumn)
+        }
+    }
+
 
     var frame: CGRect {
         switch self {

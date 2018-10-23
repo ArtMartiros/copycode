@@ -9,6 +9,7 @@
 import Foundation
 
 struct TrackingData: Codable {
+
     let range: TrackingRange
 
     init(range: TrackingRange, defaultTracking: Tracking) {
@@ -39,9 +40,25 @@ struct TrackingData: Codable {
         }
     }
 
-    mutating func insert(toTopY newElement: Tracking) {
-        let yPosition = range.upperBound
-        dictionary[yPosition] = newElement
-        array.insert(yPosition)
+}
+
+extension TrackingData: RatioUpdatable {
+    func updated(by rate: Int) -> TrackingData {
+        let floatRate = CGFloat(rate)
+
+        let lower = self.range.lowerBound / floatRate
+        let upper = self.range.upperBound / floatRate
+
+        let defaultTracking = self.defaultTracking.updated(by: rate)
+
+        var newData = TrackingData(range: lower...upper, defaultTracking: defaultTracking)
+
+        for (key, value) in dictionary {
+            let newKey = key / floatRate
+            let newValue = value.updated(by: rate)
+            newData[newKey] = newValue
+        }
+
+        return newData
     }
 }

@@ -36,15 +36,14 @@ final class StuckRestorer {
         }
 
         guard lastChagedIndex != nil else { return word }
-
-        let newWord = Word(frame: word.frame, pixelFrame: word.pixelFrame, type: .mix, letters: letters)
+        
+        let newWord = Word(frame: word.frame, type: .mix, letters: letters)
         return newWord
     }
 
     private func getNewLetter(current: LetterRectangle, next: LetterRectangle) -> LetterRectangle {
         let frame = getNewFrame(current: current.frame, next: next.frame)
-        let pixelFrame = getNewFrame(current: current.pixelFrame, next: next.pixelFrame)
-        return LetterRectangle(frame: frame, pixelFrame: pixelFrame, type: .doubleQuote)
+        return LetterRectangle(frame: frame, type: .doubleQuote)
     }
 
     private func getNewFrame(current: CGRect, next: CGRect) -> CGRect {

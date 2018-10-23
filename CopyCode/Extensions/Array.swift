@@ -122,7 +122,7 @@ extension Array {
     }
 }
 
-extension Array where Element: StandartRectangle {
+extension Array where Element: Rectangle {
     func sortedFromTopToBottom() -> [Element] {
         return sorted { $0.frame.bottomY >  $1.frame.bottomY }
     }

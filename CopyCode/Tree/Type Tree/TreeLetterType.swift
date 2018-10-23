@@ -20,7 +20,7 @@ extension Tree where Node == LetterTypeOperations, Result == LetterType {
             switch operation.action {
             case .frame(let action): exist = action(rect.frame)
             case .checkerWithFrame(let action): exist = action(information, rect.frame)
-            case .recognizerWithFrame(let action): exist = action(recognizer, rect.pixelFrame)
+            case .recognizerWithFrame(let action): exist = action(recognizer, rect.frame)
             }
             return (exist ? left : right).find(rect, with: information, recognizer: recognizer)
         }

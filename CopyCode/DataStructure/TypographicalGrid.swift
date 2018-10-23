@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TypographicalGrid: Codable {
+struct TypographicalGrid: Codable, RatioUpdatable {
     let trackingData: TrackingData
     private (set) var leading: Leading
 
@@ -19,6 +19,12 @@ struct TypographicalGrid: Codable {
 
     mutating func update(_ leading: Leading) {
         self.leading = leading
+    }
+
+    func updated(by rate: Int) -> TypographicalGrid {
+        let data = trackingData.updated(by: rate)
+        let leading = self.leading.updated(by: rate)
+        return TypographicalGrid(data: data, leading: leading)
     }
 
 }
@@ -45,7 +51,7 @@ extension TypographicalGrid {
     func getTestBlock(from block: SimpleBlock) -> SimpleBlock {
         let lines: [SimpleLine] = getArrayOfFrames(from: block.frame).map {
             let letters: [LetterRectangle] =  $0.map {
-                LetterRectangle(frame: $0, pixelFrame: $0, type: .custom)
+                LetterRectangle(frame: $0, type: .custom)
             }
             let word = Word.from(letters, type: .same(type: .allCustom))
             let line = Line(words: [word])

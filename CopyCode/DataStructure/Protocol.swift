@@ -22,40 +22,48 @@ extension Layerable {
     }
 }
 
-protocol PixelRectangle {
-    var pixelFrame: CGRect { get }
-}
-
-protocol StandartRectangle: Codable {
+protocol Rectangle: RatioUpdatable, Layerable, Codable {
     var frame: CGRect { get }
-    func intersectByX(with rectangle: StandartRectangle) -> Bool
-    func intersectByY(with rectangle: StandartRectangle) -> Bool
-    func inside(in rectangle: StandartRectangle) -> Bool
+    func intersectByX(with rectangle: Rectangle) -> Bool
+    func intersectByY(with rectangle: Rectangle) -> Bool
+    func inside(in rectangle: Rectangle) -> Bool
 }
 
-extension StandartRectangle {
-    func intersectByX(with rectangle: StandartRectangle) -> Bool {
+protocol RatioUpdatable {
+   func updated(by rate: Int) -> Self
+}
+extension Rectangle {
+    func updatedFrame(by rate: Int) -> CGRect {
+        let rate = CGFloat(rate)
+        let x = frame.origin.x / rate
+        let y = frame.origin.y / rate
+        let width = frame.size.width / rate
+        let height = frame.size.height / rate
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+
+    func intersectByX(with rectangle: Rectangle) -> Bool {
         return intersectValue(with: rectangle) { ($0.frame.leftX.rounded(), $0.frame.rightX.rounded()) }
     }
 
-    func intersectByY(with rectangle: StandartRectangle) -> Bool {
+    func intersectByY(with rectangle: Rectangle) -> Bool {
         return intersectValue(with: rectangle) { ($0.frame.topY.rounded(), $0.frame.bottomY.rounded()) }
     }
 
-    func inside(in rectangle: StandartRectangle) -> Bool {
+    func inside(in rectangle: Rectangle) -> Bool {
       return rectangle.frame.leftX < frame.leftX  &&  frame.rightX < rectangle.frame.rightX
     }
 
-    private func intersectValue(with rectangle: StandartRectangle, op: (StandartRectangle) -> (CGFloat, CGFloat)) -> Bool {
+    private func intersectValue(with rectangle: Rectangle, op: (Rectangle) -> (CGFloat, CGFloat)) -> Bool {
         let (one, two) = op(self)
         let (newOne, newTwo) = op(rectangle)
         return rangeOf(one: one, two: two).overlaps(rangeOf(one: newOne, two: newTwo))
     }
 }
 
-protocol Rectangle: PixelRectangle, StandartRectangle, Layerable {
-    var frame: CGRect { get }
-    var pixelFrame: CGRect { get }
+protocol Container: Rectangle {
+    associatedtype Content: Rectangle
+    var letters: [Content] { get }
 }
 
 extension Container {
@@ -100,10 +108,9 @@ extension Container {
     var lowerY: CGFloat {
         return ascendingLettersBottomY.first?.frame.bottomY ?? 0
     }
-
 }
 
-protocol BlockProtocol: StandartRectangle, Layerable {
+protocol BlockProtocol: Rectangle {
     associatedtype WordChild: Rectangle
     var lines: [Line<WordChild>] { get }
 }

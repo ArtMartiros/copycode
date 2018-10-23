@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct Gap: StandartRectangle {
+struct Gap: Rectangle {
+    func updated(by rate: Int) -> Gap {
+       let frame = updatedFrame(by: rate)
+       return Gap(frame: frame)
+    }
+
     let frame: CGRect
     init(frame: CGRect) {
         self.frame = frame

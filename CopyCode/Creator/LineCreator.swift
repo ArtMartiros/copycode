@@ -9,11 +9,11 @@
 import Foundation
 
 protocol LineChecker_ {
-    func same(_ first: StandartRectangle, with second: StandartRectangle) -> Bool
+    func same(_ first: Rectangle, with second: Rectangle) -> Bool
 }
 
 struct LineChecker: LineChecker_ {
-    func same(_ first: StandartRectangle, with second: StandartRectangle) -> Bool {
+    func same(_ first: Rectangle, with second: Rectangle) -> Bool {
         return first.intersectByY(with: second)
     }
 }

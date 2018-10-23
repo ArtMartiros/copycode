@@ -20,6 +20,16 @@ struct Leading: Codable {
     }
 }
 
+extension Leading: RatioUpdatable {
+    func updated(by rate: Int) -> Leading {
+        let rate = CGFloat(rate)
+        let fontSize = self.fontSize / rate
+        let lineSpacing = self.lineSpacing / rate
+        let startPoint = self.startPointTop / rate
+        return Leading(fontSize: fontSize, lineSpacing: lineSpacing, startPointTop: startPoint)
+    }
+}
+
 extension Leading {
     ///sum of **fontSize** and **lineSpacing**
     var leading: CGFloat {

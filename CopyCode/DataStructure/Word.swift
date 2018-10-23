@@ -8,11 +8,6 @@
 
 import Foundation
 
-protocol Container: Rectangle {
-    associatedtype Content: Rectangle
-    var letters: [Content] { get }
-}
-
 struct Word<Child: Rectangle>: Container, Gapable {
 
     var gaps: [Gap] {
@@ -20,54 +15,36 @@ struct Word<Child: Rectangle>: Container, Gapable {
         return getGaps(from: frames, wordFrame: frame)
     }
 
-    var pixelGaps: [Gap] {
-        let frames = letters.map { $0.pixelFrame }
-        return getGaps(from: frames, wordFrame: pixelFrame)
-    }
-
-    private func getGaps(from frames: [CGRect], wordFrame: CGRect ) -> [Gap] {
-        var gaps: [Gap] = []
-        frames.forEachPair {
-            let gapFrame: CGRect
-            if $0.rightX > $1.leftX {
-                let width = $0.rightX - $1.leftX
-                let position = $1.leftX + width / 2
-                gapFrame = CGRect(x: position, y: wordFrame.bottomY, width: 0, height: frame.height)
-            } else {
-                gapFrame = CGRect(left: $0.rightX, right: $1.leftX,
-                                  top: wordFrame.topY, bottom: wordFrame.bottomY)
-            }
-            gaps.append(Gap(frame: gapFrame))
-        }
-        return gaps
-    }
-
     let frame: CGRect
-    let pixelFrame: CGRect
     let letters: [Child]
     let type: WordType
 
-    init(frame: CGRect, pixelFrame: CGRect, type: WordType = .undefined, letters: [Child]) {
+    init(frame: CGRect, type: WordType = .undefined, letters: [Child]) {
         self.frame = frame
-        self.pixelFrame = pixelFrame
         self.letters = letters
         self.type = type
     }
 
     static func from(_ letters: [Child], type: WordType = .undefined) -> Word<Child> {
         let frame = letters.map { $0.frame }.compoundFrame
-        let pixelFrame = letters.map { $0.pixelFrame }.compoundFrame
-        return Word(frame: frame, pixelFrame: pixelFrame, type: type, letters: letters)
+        return Word(frame: frame, type: type, letters: letters)
     }
 }
 
-extension Word where Word.Content == Letter {
+extension Word  {
+    func updated(by rate: Int) -> Word<Child> {
+        let frame = updatedFrame(by: rate)
+        return Word<Child>(frame: frame, type: type, letters: letters.map { $0.updated(by: rate) } )
+    }
+}
+
+extension Word where Child == Letter {
     var value: String { return letters.map { $0.value }.joined() }
 }
 
 extension Word {
-    init(rect: Rectangle, type: WordType, letters: [Word.Content]) {
-        self.init(frame: rect.frame, pixelFrame: rect.pixelFrame, type: type, letters: letters)
+    init(rect: Rectangle, type: WordType, letters: [Child]) {
+        self.init(frame: rect.frame, type: type, letters: letters)
     }
 }
 
@@ -111,3 +88,24 @@ extension Word {
     }
 
 }
+
+extension Word {
+    private func getGaps(from frames: [CGRect], wordFrame: CGRect ) -> [Gap] {
+        var gaps: [Gap] = []
+        frames.forEachPair {
+            let gapFrame: CGRect
+            if $0.rightX > $1.leftX {
+                let width = $0.rightX - $1.leftX
+                let position = $1.leftX + width / 2
+                gapFrame = CGRect(x: position, y: wordFrame.bottomY, width: 0, height: frame.height)
+            } else {
+                gapFrame = CGRect(left: $0.rightX, right: $1.leftX,
+                                  top: wordFrame.topY, bottom: wordFrame.bottomY)
+            }
+            gaps.append(Gap(frame: gapFrame))
+        }
+        return gaps
+    }
+}
+
+

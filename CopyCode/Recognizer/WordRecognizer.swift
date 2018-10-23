@@ -39,7 +39,7 @@ final class WordRecognizer {
     func recognize(_ rectangle: SimpleWord, with type: WordType.SameType) -> Word<Letter> {
         let letterRecognizer = LetterRecognizer(bitmap, word: rectangle)
         let letters: [Letter] = rectangle.letters.map {
-            let value = letterRecognizer.recognize(from: $0.pixelFrame, with: LetterType(type))
+            let value = letterRecognizer.recognize(from: $0.frame, with: LetterType(type))
             return Letter(rectangle: $0, value: value)
         }
         return Word(rect: rectangle, type: .same(type: type), letters: letters)

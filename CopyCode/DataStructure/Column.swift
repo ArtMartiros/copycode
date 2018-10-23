@@ -8,9 +8,14 @@
 
 import Foundation
 
-protocol ColumnProtocol: StandartRectangle, Layerable { }
+protocol ColumnProtocol: Rectangle { }
 
 struct DigitColumn<Child: Rectangle>: ColumnProtocol {
+    func updated(by rate: Int) -> DigitColumn<Child> {
+        let newWords = words.map { $0.updated(by: rate) }
+        let frame = updatedFrame(by: rate)
+        return DigitColumn<Child>(words: newWords, frame: frame)
+    }
 
     let frame: CGRect
     let words: [Word<Child>]
@@ -26,5 +31,10 @@ struct DigitColumn<Child: Rectangle>: ColumnProtocol {
 }
 
 struct CustomColumn: ColumnProtocol {
+    func updated(by rate: Int) -> CustomColumn {
+        let frame = updatedFrame(by: rate)
+        return CustomColumn(frame: frame)
+    }
+
      let frame: CGRect
 }

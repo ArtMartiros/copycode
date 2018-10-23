@@ -31,8 +31,8 @@ struct WordFactor {
         self.frame = frame
     }
 
-    init(rectangle: PixelRectangle) {
-        self.frame = rectangle.pixelFrame
+    init(rectangle: Rectangle) {
+        self.frame = rectangle.frame
     }
 
     func frameCrop() -> CGRect {

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Settings {
-    static let release = false
+    static let release = true
     private static let isDefault = true
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true
@@ -26,18 +26,17 @@ struct Settings {
 
     static let enableFirebase = isDefault ? defaultEnableFirebase : true
 
-    static let showInitialBlock = isDefault ? defaultShowInitialBlock : true
+    static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlock = isDefault ? defaultShowBlock : true
     static let showLines = isDefault ? defaultShowLines : true
     static let showWords = isDefault ? defaultShowWords : true
     static let showChars = isDefault ? defaultShowChars : true
-    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
+    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : false
 
-    static let showTextView = isDefault ? defaultShowTextView : false
-    static let showText = isDefault ? defaultShowText : false
+    static let showTextView = isDefault ? defaultShowTextView : true
+    static let showText = isDefault ? defaultShowText : true
 
     static let showGrid = isDefault ? defaultShowGrid : false
-    static let showAlert = isDefault ? defaultShowAlert : false
-    static let filterBlock = isDefault ? defaultFilterBlock : false
-    
+    static let showAlert = isDefault ? defaultShowAlert : true
+    static let filterBlock = isDefault ? defaultFilterBlock : true
 }

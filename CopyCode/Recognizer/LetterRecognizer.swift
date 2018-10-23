@@ -25,23 +25,29 @@ struct LetterRecognizer {
     }
 
     func recognize(from frame: CGRect, with type: LetterType) -> String {
-        let checker = letterExistenceChecker(from: frame)
-        return type.treeOCR.find(checker, with: frame) ?? "*"
+        let wordFactor = WordFactor(frame: frame)
+        let newFrame = wordFactor.frameCrop()
+        let checker = letterExistenceChecker(from: newFrame)
+        return type.treeOCR.find(checker, with: newFrame) ?? "*"
     }
 
     /// Метод нужен когда необходимо использовать кастомное древо
     func recognize(from frame: CGRect, with treeOCR: TreeOCR) -> String {
-        let checker = letterExistenceChecker(from: frame)
-        return treeOCR.find(checker, with: frame) ?? "*"
+         let wordFactor = WordFactor(frame: frame)
+ let newFrame = wordFactor.frameCrop()
+        let checker = letterExistenceChecker(from: newFrame)
+        return treeOCR.find(checker, with: newFrame) ?? "*"
     }
 
     func recognize(from letter: LetterRectangle) -> String {
-        print("Letter pf frame \(letter.pixelFrame) type: \(letter.type)")
-        return recognize(from: letter.pixelFrame, with: letter.type)
+        print("Letter pf frame \(letter.frame) type: \(letter.type)")
+        return recognize(from: letter.frame, with: letter.type)
     }
 
     private func letterExistenceChecker(from frame: CGRect) -> LetterExistenceChecker {
-        let letterDefaultColor = letterColorFinder.findedLetterColor(frame, with: wordBackgroundWhiteColor)
+        let wordFactor2 = WordFactor(frame: frame)
+        let newFrame = wordFactor2.frameCrop()
+        let letterDefaultColor = letterColorFinder.findedLetterColor(newFrame, with: wordBackgroundWhiteColor)
         let pixelChecker = LetterPixelChecker(backgroundWhite: wordBackgroundWhiteColor,
                                               letterDefaultWhite: letterDefaultColor,
                                               whitePercent: wordFactor.whiteRate)

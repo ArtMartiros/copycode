@@ -37,9 +37,8 @@ final class MissingElementsFinder {
     }
 
     func findLetter(in frame: CGRect) -> LetterRectangle? {
-        let pixelFrame = PixelConverter.shared.toPixel(from: frame)
-        guard letterPixelFinder.find(in: pixelFrame) else { return nil }
-        return LetterRectangle(frame: frame, pixelFrame: pixelFrame, type: .custom)
+        guard letterPixelFinder.find(in: frame) else { return nil }
+        return LetterRectangle(frame: frame, type: .custom)
     }
 
 }

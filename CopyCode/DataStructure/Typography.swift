@@ -14,6 +14,21 @@ enum Typography {
     case grid(TypographicalGrid)
 }
 
+extension Typography: RatioUpdatable {
+    func updated(by rate: Int) -> Typography {
+        switch self {
+        case .empty:
+            return .empty
+        case .tracking(let data):
+            let newData = data.updated(by: rate)
+            return .tracking(newData)
+        case .grid(let grid):
+            let newGrid = grid.updated(by: rate)
+            return .grid(newGrid)
+        }
+    }
+}
+
 extension Typography: Codable {
 
     private enum CodingKeys: CodingKey {

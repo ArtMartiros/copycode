@@ -24,8 +24,6 @@ final class TextRecognizerManager {
         textDetection.performRequest(cgImage: image.toCGImage) {[weak self] (results, _) in
             guard let sself = self else { return }
             let bitmap = image.bitmap
-
-            PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
             completion(bitmap, wordsRectangles)
         }
@@ -37,8 +35,6 @@ final class TextRecognizerManager {
             guard let sself = self else { return }
             let bitmap = NSBitmapImageRep(cgImage: image)
             let restorer = LetterRestorer(bitmap: bitmap)
-
-            PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
             let wordRecognizer = WordRecognizer(in: bitmap)
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")

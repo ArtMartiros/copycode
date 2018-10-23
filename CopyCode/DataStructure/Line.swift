@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Line<WordChild: Rectangle>: StandartRectangle, Layerable, Gapable {
+struct Line<WordChild: Rectangle>: Rectangle, Layerable, Gapable {
     typealias WordAlias = Word<WordChild>
     let words: [WordAlias]
 
@@ -32,11 +32,14 @@ struct Line<WordChild: Rectangle>: StandartRectangle, Layerable, Gapable {
         return gaps
     }
 
-    var frame: CGRect {
-        return words.map { $0.frame }.compoundFrame
-    }
+    var frame: CGRect { return words.map { $0.frame }.compoundFrame }
 
     init(words: [WordAlias]) {
         self.words = words
+    }
+
+    func updated(by rate: Int) -> Line<WordChild> {
+        let newWords = words.map { $0.updated(by: rate)}
+        return Line<WordChild>(words: newWords)
     }
 }

@@ -11,25 +11,15 @@ import Foundation
 final class UnstuckRestorer {
     func unstuck(from word: SimpleWord, tracking: Tracking) -> SimpleWord {
         let letters = word.letters.map { unstuckLetter(from: $0, tracking: tracking) }.reduce([], +)
-        return Word(frame: word.frame, pixelFrame: word.pixelFrame, letters: letters)
+        return Word(frame: word.frame, letters: letters)
     }
 
     func unstuckLetter(from letter: LetterRectangle, tracking: Tracking) -> [LetterRectangle] {
         let frames = split(frame: letter.frame, tracking: tracking)
 
         guard frames.count > 1 else { return [letter] }
-        var usedPercent: CGFloat = 0
-        var newLetters: [LetterRectangle] = []
-
-        for frame in frames {
-            let percent = frame.width / letter.frame.width * 100
-            let (pixelFrame, _ ) = letter.pixelFrame.divided(byPercent: percent, afterPercent: usedPercent)
-            let newLetter = LetterRectangle(frame: frame, pixelFrame: pixelFrame, type: letter.type)
-            newLetters.append(newLetter)
-            usedPercent += percent
-        }
-
-        return  newLetters
+        let letters = frames.map { LetterRectangle(frame: $0, type: letter.type) }
+        return  letters
     }
 
     private func split(frame: CGRect, tracking: Tracking) -> [CGRect] {

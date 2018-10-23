@@ -8,12 +8,19 @@
 
 import Foundation
 
-struct Tracking: Codable {
+struct Tracking: Codable, RatioUpdatable {
     let width: CGFloat
     let startPoint: CGFloat
     init(startPoint: CGFloat, width: CGFloat) {
         self.width = width
         self.startPoint = startPoint
+    }
+
+    func updated(by rate: Int) -> Tracking {
+        let rate = CGFloat(rate)
+        let newWidth = self.width / rate
+        let newStartPoint = self.startPoint / rate
+        return Tracking(startPoint: newStartPoint, width: newWidth)
     }
 }
 

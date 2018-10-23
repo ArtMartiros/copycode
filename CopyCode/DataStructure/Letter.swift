@@ -9,20 +9,16 @@
 import Foundation
 
 struct LetterRectangle: Rectangle, Hashable, Codable {
-
     let frame: CGRect
-    let pixelFrame: CGRect
     let type: LetterType
 
     init(rect: Rectangle, type: LetterType = .undefined) {
         self.frame = rect.frame
-        self.pixelFrame = rect.pixelFrame
         self.type = type
     }
 
-    init(frame: CGRect, pixelFrame: CGRect, type: LetterType = .undefined) {
+    init(frame: CGRect, type: LetterType = .undefined) {
         self.frame = frame
-        self.pixelFrame = pixelFrame
         self.type = type
     }
 
@@ -36,17 +32,31 @@ struct LetterRectangle: Rectangle, Hashable, Codable {
     static func letterWidth(from height: CGFloat) -> CGFloat {
         return height / kHeightWidthRatio
     }
+}
 
+extension LetterRectangle: RatioUpdatable {
+    func updated(by rate: Int) -> LetterRectangle {
+        let frame = updatedFrame(by: rate)
+        return LetterRectangle(frame: frame, type: type)
+    }
 }
 
 struct Letter: Rectangle, ValueProtocol {
     let frame: CGRect
-    let pixelFrame: CGRect
     let value: String
 
     init(rectangle: Rectangle, value: String) {
-        self.frame = rectangle.frame
-        self.pixelFrame = rectangle.pixelFrame
+        self.init(frame: rectangle.frame, value: value)
+    }
+
+    init(frame: CGRect, value: String) {
+        self.frame = frame
         self.value = value
+    }
+}
+extension Letter: RatioUpdatable {
+    func updated(by rate: Int) -> Letter {
+       let frame = updatedFrame(by: rate)
+       return Letter(frame: frame, value: value)
     }
 }

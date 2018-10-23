@@ -33,7 +33,6 @@ class DigitColumnDetectionTests: XCTestCase {
     private func execute(scene: Scene, answers: [Bool]) {
         let bitmap = scene.image.bitmap
         let detection = DigitColumnDetection(in: bitmap)
-        PixelConverter.shared.setSize(size: bitmap.size, pixelSize: bitmap.pixelSize)
         let wordsArray = scene.gePreDigitColumnWords(self)
         for (index, words) in wordsArray.enumerated() {
             let result = detection.detect(words)

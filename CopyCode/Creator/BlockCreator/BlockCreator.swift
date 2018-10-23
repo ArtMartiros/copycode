@@ -20,8 +20,10 @@ final class BlockCreator: BlockCreatorProtocol {
     private let trackingInfoFinder = TrackingInfoFinder()
     private let blockPreparator: BlockPreparator
 
-    init(digitalColumnCreator: DigitColumnSplitter) {
-        self.blockPreparator = BlockPreparator(digitalColumnSplitter: digitalColumnCreator)
+    init(digitalColumnCreator: DigitColumnSplitter, width: CGFloat) {
+        let customCreator = CustomColumnCreator<LetterRectangle>(imageWidth: width)
+        self.blockPreparator = BlockPreparator(digitalColumnSplitter: digitalColumnCreator,
+                                               customColumnCreator: customCreator)
     }
 
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
@@ -68,6 +70,6 @@ extension BlockCreator {
         let columnDetection = DigitColumnDetection(recognizer: recognizer)
         let columnMerger = DigitColumnMerger()
         let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
-        self.init(digitalColumnCreator: columnCreator)
+        self.init(digitalColumnCreator: columnCreator, width: bitmap.size.width)
     }
 }

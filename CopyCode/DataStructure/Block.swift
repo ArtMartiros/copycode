@@ -9,6 +9,13 @@
 import Foundation
 
 struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
+    func updated(by rate: Int) -> Block<WordChild> {
+        let frame = updatedFrame(by: rate)
+        let newLines = lines.map { $0.updated(by: rate) }
+        let newColumn = column.updated(by: rate)
+        let typography = self.typography.updated(by: rate)
+        return Block(lines: newLines, frame: frame, column: newColumn, typography: typography)
+    }
 
     let frame: CGRect
     let lines: [Line<WordChild>]
@@ -28,12 +35,6 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     var averageLineHeight: CGFloat {
         let sum = lines.map { $0.frame.height }.reduce(0, +)
         return (sum / CGFloat(lines.count)).rounded()
-    }
-
-    ///старый вариант пока не использую
-   private func maxLineHeight2() -> CGFloat {
-        let heights = lines.map { $0.frame.height }.sorted { $0 > $1 }
-        return heights[0]
     }
 
     /// исключая аномальный результат буквы, место где ты печатаешь там палочка,

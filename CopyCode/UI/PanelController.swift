@@ -11,6 +11,9 @@ import Mixpanel
 import FirebaseDatabase
 import FirebaseStorage
 //import FirebaseAuth
+var screenFrame: CGRect {
+    return NSScreen.screens.first!.frame
+}
 
 final class PanelController: NSWindowController {
     // swiftlint:disable force_cast
@@ -23,10 +26,9 @@ final class PanelController: NSWindowController {
     }
 
     func openPanel(with cgImage: CGImage) {
-        guard let screenRect = NSScreen.screens.first?.frame else { return }
 //        let show = Auth.auth().currentUser != nil
-        panel.initialSetupe(with: screenRect, showScreeenButton: false)
-        let image = NSImage(cgImage: cgImage, size: screenRect.size)
+        panel.initialSetupe(with: screenFrame, showScreeenButton: false)
+        let image = NSImage(cgImage: cgImage, size: screenFrame.size)
         panel.imageView.image = image
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
@@ -43,8 +45,11 @@ final class PanelController: NSWindowController {
     //отсчет пикселей с левого верхнего угла
     func showWords(image: CGImage) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { [weak self] (_, blocks, _) in
+        textDetection.performRequest(image: image) { [weak self] (bitmap, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+            let rate = bitmap.size.width / screenFrame.width
+            let intRate = Int(rate)
+            let blocks = oldBlocks.map { $0.updated(by: intRate) }
             let transcriptor = TextTranscriptor()
             if Settings.showTextView {
                 for block in blocks {

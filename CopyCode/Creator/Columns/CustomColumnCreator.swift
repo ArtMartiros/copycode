@@ -9,6 +9,11 @@
 import Foundation
 
 final class CustomColumnCreator<WordChild: Rectangle> {
+    let imageWidth: CGFloat
+    init(imageWidth: CGFloat) {
+        self.imageWidth = imageWidth
+    }
+
     func create(from words: [Word<WordChild>], numberOfColumns: Int) -> [CustomColumn] {
         let distance: CGFloat = 10
         let dictionary = createColumnDictionary(from: words, withDistance: distance)
@@ -18,10 +23,10 @@ final class CustomColumnCreator<WordChild: Rectangle> {
         return columns
     }
 
-    private func createColumnDictionary(from words: [Word<WordChild>], withDistance distance: CGFloat) -> [CGFloat: [StandartRectangle]] {
+    private func createColumnDictionary(from words: [Word<WordChild>], withDistance distance: CGFloat) -> [CGFloat: [Rectangle]] {
         let wordsSortedByX = words.sortedFromLeftToRight()
 
-        var dictionary: [CGFloat: [StandartRectangle]] = [:]
+        var dictionary: [CGFloat: [Rectangle]] = [:]
         for word in wordsSortedByX {
             var currentLeftX = CGFloat(Int(word.frame.leftX / distance) * Int(distance))
             while true {
@@ -36,23 +41,22 @@ final class CustomColumnCreator<WordChild: Rectangle> {
         return dictionary
     }
 
-    private func updatedColumnDictionary(dictionary: [CGFloat: [StandartRectangle]],
+    private func updatedColumnDictionary(dictionary: [CGFloat: [Rectangle]],
                                          distance: CGFloat) -> [CGFloat: [ClosedRange<CGFloat>]] {
         let lastKey = dictionary.keys.sorted().last ?? 0
         let lastElement = Int(lastKey / distance)
-        let width = PixelConverter.shared.size.width
         var allGaps: [CGFloat: [ClosedRange<CGFloat>]] = [:]
         let gapsCreator = GapsCreator()
         for index in 0...lastElement {
             let leftX = CGFloat(index) * distance
             if let rects = dictionary[leftX] {
                 let sortedRects = rects.sorted { $0.frame.bottomY < $1.frame.bottomY }
-                let gaps = gapsCreator.createVertical(from: sortedRects, last: width)
+                let gaps = gapsCreator.createVertical(from: sortedRects, last: imageWidth)
                     .filter { $0.distance > 50 }
                     .sorted { $0.distance > $1.distance }
                 allGaps[leftX] = gaps
             } else {
-                allGaps[leftX] = [0...width]
+                allGaps[leftX] = [0...imageWidth]
             }
         }
         return allGaps

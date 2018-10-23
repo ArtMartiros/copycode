@@ -48,7 +48,7 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
     func findBackgroundColor<T: Rectangle> (_ word: Word<T>) -> CGFloat {
         let points = getPoints(from: word)
         if points.isEmpty {
-            let frame = word.pixelFrame
+            let frame = word.frame
             let newPoint = CGPoint(x: frame.xAs(rate: 0) - 2, y: frame.yAs(rate: 0) + 2)
             return picker.pickWhite(at: newPoint)
         } else {
@@ -66,7 +66,7 @@ struct UniversalWhiteColorFinder: BackgroundWhiteColorProtocol, LetterWhiteColor
 
     private func getPoints<T: Rectangle>(from word: Word<T>) -> [CGPoint] {
         let requiredNumber = 3
-        let gaps = word.pixelGaps.filter { $0.frame.width > 1 }.sorted { $0.frame.width > $1.frame.width }
+        let gaps = word.gaps.filter { $0.frame.width > 1 }.sorted { $0.frame.width > $1.frame.width }
         let prefix = gaps.count < requiredNumber ? gaps.count : requiredNumber
         let filteredGaps = gaps[0..<prefix]
         let newPoints = filteredGaps.map { CGPoint(x: $0.frame.xAs(rate: 0.5), y: $0.frame.yAs(rate: 0.5)) }

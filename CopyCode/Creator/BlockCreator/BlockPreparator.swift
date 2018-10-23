@@ -15,15 +15,18 @@ extension BlockCreator {
         typealias ColumnsWithWords = (column: ColumnType, words: [SimpleWord])
         private let kNumberOfCustomColums = 3
         private let digitalColumnSplitter: DigitColumnSplitter
-        private let customColumnCreator = CustomColumnCreator<LetterRectangle>()
+        private let customColumnCreator: CustomColumnCreator<LetterRectangle>
         private let lineCreator = LineCreator<LetterRectangle>()
 
-        init(digitalColumnSplitter: DigitColumnSplitter) {
+        init(digitalColumnSplitter: DigitColumnSplitter, customColumnCreator: CustomColumnCreator<LetterRectangle>) {
             self.digitalColumnSplitter = digitalColumnSplitter
+            self.customColumnCreator = customColumnCreator
+
         }
 
         init(in bitmap: NSBitmapImageRep) {
             self.digitalColumnSplitter = DigitColumnSplitter(in: bitmap)
+            self.customColumnCreator = CustomColumnCreator<LetterRectangle>(imageWidth: bitmap.size.width)
         }
 
         func initialPrepare(from words: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
