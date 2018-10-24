@@ -215,6 +215,8 @@
 		AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
 		AC87125721806EB900DFB955 /* sc13_p1_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC87125621806EB900DFB955 /* sc13_p1_grid.json */; };
 		AC87125921806FA800DFB955 /* GridCorrelatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */; };
+		AC87125B21807AFA00DFB955 /* sc13_p1.json in Resources */ = {isa = PBXBuildFile; fileRef = AC87125A21807AFA00DFB955 /* sc13_p1.json */; };
+		AC87125D2180987100DFB955 /* TypographicalGridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125C2180987100DFB955 /* TypographicalGridTests.swift */; };
 		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9E214A4DEA00F0FD13 /* Leading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */; };
@@ -526,6 +528,8 @@
 		AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLineCorrelator.swift; sourceTree = "<group>"; };
 		AC87125621806EB900DFB955 /* sc13_p1_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc13_p1_grid.json; sourceTree = "<group>"; };
 		AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCorrelatorTests.swift; sourceTree = "<group>"; };
+		AC87125A21807AFA00DFB955 /* sc13_p1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc13_p1.json; sourceTree = "<group>"; };
+		AC87125C2180987100DFB955 /* TypographicalGridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographicalGridTests.swift; sourceTree = "<group>"; };
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
 		AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingDistanceFinder.swift; sourceTree = "<group>"; };
@@ -713,6 +717,7 @@
 				AC250A6B214EE92900E6D596 /* LeadingTests.swift */,
 				AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */,
 				AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */,
+				AC87125C2180987100DFB955 /* TypographicalGridTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -1068,6 +1073,7 @@
 			isa = PBXGroup;
 			children = (
 				AC87125621806EB900DFB955 /* sc13_p1_grid.json */,
+				AC87125A21807AFA00DFB955 /* sc13_p1.json */,
 			);
 			path = sc13;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */,
 				AC302DEA217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json in Resources */,
 				AC3588492171DD270023F311 /* ocr_xcode_dark_18_words.json in Resources */,
+				AC87125B21807AFA00DFB955 /* sc13_p1.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
 				AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */,
@@ -1964,6 +1971,7 @@
 				AC4CA3FC21025DDF0093D938 /* CGPoint.swift in Sources */,
 				AC250A65214ECA9100E6D596 /* Typography.swift in Sources */,
 				AC71FB772112F17E00EE41C6 /* Line.swift in Sources */,
+				AC87125D2180987100DFB955 /* TypographicalGridTests.swift in Sources */,
 				AC03DCE0213D545D00730DCD /* ColumnType.swift in Sources */,
 				ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */,
 				AC7CAC90215F7919004458D1 /* Settings.swift in Sources */,

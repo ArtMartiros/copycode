@@ -13,6 +13,7 @@ struct TrackingStartPointFinder {
     private let kGapWidthStep: CGFloat = 0.5
     private let kRangeTimes = 4
     private let checker = TrackingChecker()
+    private let generator = TrackingStartPointGenerator()
 
     func find(in word: SimpleWord, with range: TrackingRange) -> [Tracking] {
         let trackings = findPointWithDifferentStep(word, range: range)
@@ -42,24 +43,12 @@ struct TrackingStartPointFinder {
 
         let distance = distance.rounded(toPlaces: 3)
         let gaps = leftReversed + right
-        let points = getStartPoints(from: smallestGap).filter {
+
+        let points = generator.generate(from: smallestGap).filter {
             checker.check(gaps, withDistance: distance, startPoint: $0).result
         }
 
         return points
-    }
-
-    private func getStartPoints(from gap: CGRect) -> [CGFloat] {
-        let newGap = gap.width == 0 ? CGRect(x: gap.leftX - 0.5, y: gap.bottomY, width: 1, height: gap.height) : gap
-
-        let amount = Int(newGap.width / kGapWidthStep)
-        var startPoints: [CGFloat] = []
-        for i in 0...amount {
-            let point = newGap.leftX + (CGFloat(i) * kGapWidthStep)
-            startPoints.append(point)
-        }
-
-        return startPoints
     }
 
     typealias DividedGaps = (smallest: CGRect, leftReversed: [CGRect], right: [CGRect])
@@ -81,4 +70,33 @@ struct TrackingStartPointFinder {
         return (smallest, leftReversed, right)
     }
 
+}
+
+struct TrackingStartPointGenerator {
+    private let kGapWidthStep: CGFloat = 0.5
+
+    func generate(from gap: CGRect) -> [CGFloat] {
+        let range = (gap.leftX...gap.rightX).expandEqually(toDistance: 2)
+
+        let amount = Int(range.distance / kGapWidthStep)
+        var startPoints: [CGFloat] = []
+        for i in 0...amount {
+            let point = range.lowerBound + (CGFloat(i) * kGapWidthStep)
+            startPoints.append(point)
+        }
+        return startPoints
+    }
+
+
+}
+
+extension ClosedRange where Bound == CGFloat  {
+   fileprivate func expandEqually(toDistance distance: CGFloat) -> TrackingRange {
+        let difference = distance - self.distance
+        guard difference > 0 else { return self }
+
+        let addedValue = difference / 2
+        let newRange = (lowerBound - addedValue)...(upperBound + addedValue)
+        return newRange
+    }
 }
