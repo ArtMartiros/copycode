@@ -25,9 +25,12 @@ struct Tracking: Codable, RatioUpdatable {
 }
 
 extension Tracking {
+
     func nearestPointToLeftX(from frame: CGRect) -> CGFloat {
         let distance = abs(frame.leftX - startPoint)
-        let result = startPoint + (frame.leftX < startPoint ? -distance : distance)
+        let value = (distance / width).rounded()
+        let newDistance = (value * width)
+        let result = startPoint + (frame.leftX < startPoint ? -newDistance  : newDistance)
         return result
     }
 

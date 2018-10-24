@@ -21,6 +21,7 @@ enum Scene: String {
     case sc9 = "sc9"
     case sc10 = "sc10"
     case sc11 = "sc11"
+    case sc13_p1 = "sc13_p1"
     case comments = "block_with_comments"
     case one = "block_one"
     case oneCode = "block_one_code"
@@ -37,6 +38,7 @@ enum Scene: String {
         case .sc9: return "sc9_playground"
         case .sc10: return "sc10_nscolor"
         case .sc11: return "sc11_video"
+        case .sc13_p1: return "sc13"
         default: return ""
         }
     }
@@ -105,6 +107,7 @@ enum Scene: String {
         case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
         case .sc9: return "sc9_playground_grid"
         case .sc11: return "sc11_video_grid"
+        case .sc13_p1: return "sc13_p1_grid"
         default: return ""
         }
     }

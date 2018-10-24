@@ -207,6 +207,12 @@
 		AC7CAC90215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */; };
 		AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8539D2217348B10093469B /* GoogleService-Info.plist */; };
+		AC87125321806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
+		AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
+		AC87125721806EB900DFB955 /* sc13_p1_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC87125621806EB900DFB955 /* sc13_p1_grid.json */; };
+		AC87125921806FA800DFB955 /* GridCorrelatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */; };
+		AC87125B21807AFA00DFB955 /* sc13_p1.json in Resources */ = {isa = PBXBuildFile; fileRef = AC87125A21807AFA00DFB955 /* sc13_p1.json */; };
+		AC87125D2180987100DFB955 /* TypographicalGridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125C2180987100DFB955 /* TypographicalGridTests.swift */; };
 		AC8C0A9A21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9B21491AA500F0FD13 /* EqualityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */; };
 		AC8C0A9E214A4DEA00F0FD13 /* Leading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */; };
@@ -513,6 +519,11 @@
 		AC7CAC8E215F7919004458D1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRCustomData.swift; sourceTree = "<group>"; };
 		AC8539D2217348B10093469B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLineCorrelator.swift; sourceTree = "<group>"; };
+		AC87125621806EB900DFB955 /* sc13_p1_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc13_p1_grid.json; sourceTree = "<group>"; };
+		AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCorrelatorTests.swift; sourceTree = "<group>"; };
+		AC87125A21807AFA00DFB955 /* sc13_p1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc13_p1.json; sourceTree = "<group>"; };
+		AC87125C2180987100DFB955 /* TypographicalGridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographicalGridTests.swift; sourceTree = "<group>"; };
 		AC8C0A9921491AA500F0FD13 /* EqualityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualityChecker.swift; sourceTree = "<group>"; };
 		AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leading.swift; sourceTree = "<group>"; };
 		AC8C0AA0214A4E0200F0FD13 /* LeadingDistanceFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingDistanceFinder.swift; sourceTree = "<group>"; };
@@ -699,6 +710,8 @@
 				AC95B4B7214139E10007B5C5 /* TrackingFinderTests */,
 				AC250A6B214EE92900E6D596 /* LeadingTests.swift */,
 				AC250A6D214EF49400E6D596 /* TextTranscriptorTests.swift */,
+				AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */,
+				AC87125C2180987100DFB955 /* TypographicalGridTests.swift */,
 			);
 			path = CopyCodeTests;
 			sourceTree = "<group>";
@@ -1050,6 +1063,15 @@
 			path = "Type Tree";
 			sourceTree = "<group>";
 		};
+		AC87125521806E9F00DFB955 /* sc13 */ = {
+			isa = PBXGroup;
+			children = (
+				AC87125621806EB900DFB955 /* sc13_p1_grid.json */,
+				AC87125A21807AFA00DFB955 /* sc13_p1.json */,
+			);
+			path = sc13;
+			sourceTree = "<group>";
+		};
 		AC8C0A9C214A4DB500F0FD13 /* LeadingFinder */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,6 +1287,7 @@
 			children = (
 				AC06D8AD21020B9800770DBB /* TypeConverter.swift */,
 				ACF1AC5C210B180700897732 /* RectangleConverter.swift */,
+				AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -1282,9 +1305,9 @@
 		ACF8D10A2156BF2F00DF4A38 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				AC302DE3217A0CAD0073A569 /* sc3 */,
 				ACEBB27E216CCF180094336F /* sc1 */,
 				ACEBB27F216CCF310094336F /* sc2 */,
+				AC302DE3217A0CAD0073A569 /* sc3 */,
 				ACEBB28A216D19250094336F /* sc4_leading_finder.json */,
 				ACEBB28C216D1C7C0094336F /* sc5_tree_letter_type.json */,
 				ACE0E2262170BD2000E28E28 /* sc6 */,
@@ -1293,6 +1316,7 @@
 				ACE0E22D2170CA6D00E28E28 /* sc9 */,
 				AC302DD62178D2400073A569 /* sc10 */,
 				AC302DD52178D2330073A569 /* sc11 */,
+				AC87125521806E9F00DFB955 /* sc13 */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -1471,11 +1495,13 @@
 				AC7310CC2168AC1E00FB4D8B /* sc1_text_view_creator_grid.json in Resources */,
 				AC302DEA217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json in Resources */,
 				AC3588492171DD270023F311 /* ocr_xcode_dark_18_words.json in Resources */,
+				AC87125B21807AFA00DFB955 /* sc13_p1.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
 				AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */,
 				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
 				AC35885D217250510023F311 /* sc10_nscolor_pre_digit_column_words.json in Resources */,
+				AC87125721806EB900DFB955 /* sc13_p1_grid.json in Resources */,
 				AC3588532171DD7E0023F311 /* ocr_xcode_light_12_words.json in Resources */,
 				ACEBB271216BEAA40094336F /* sc3_p1_firebase_chat.json in Resources */,
 				AC35885B2171DDD20023F311 /* ocr_visual_12_words.json in Resources */,
@@ -1753,6 +1779,7 @@
 				AC06D8AE21020B9800770DBB /* TypeConverter.swift in Sources */,
 				AC06D89420FF504900770DBB /* Panel.swift in Sources */,
 				AC2405592114B19200017B6F /* TreeLetterType.swift in Sources */,
+				AC87125321806DEE00DFB955 /* GridLineCorrelator.swift in Sources */,
 				AC06D88720FF4ED100770DBB /* Timer.swift in Sources */,
 				AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */,
 				ACAE190F21735689007E88C3 /* Date.swift in Sources */,
@@ -1892,6 +1919,7 @@
 				AC4CA3FE21025DE30093D938 /* Tree.swift in Sources */,
 				ACF1AC64210B30A400897732 /* DigitColumnMerger.swift in Sources */,
 				AC250A5F214EBC4500E6D596 /* TextTranscriptor.swift in Sources */,
+				AC87125921806FA800DFB955 /* GridCorrelatorTests.swift in Sources */,
 				AC6493EE21663BBA003A4164 /* sc2_letter.swift in Sources */,
 				ACAE191021735689007E88C3 /* Date.swift in Sources */,
 				AC71FB6E2112EC3500EE41C6 /* Word.swift in Sources */,
@@ -1932,10 +1960,12 @@
 				AC4CA3FC21025DDF0093D938 /* CGPoint.swift in Sources */,
 				AC250A65214ECA9100E6D596 /* Typography.swift in Sources */,
 				AC71FB772112F17E00EE41C6 /* Line.swift in Sources */,
+				AC87125D2180987100DFB955 /* TypographicalGridTests.swift in Sources */,
 				AC03DCE0213D545D00730DCD /* ColumnType.swift in Sources */,
 				ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */,
 				AC7CAC90215F7919004458D1 /* Settings.swift in Sources */,
 				AC31C3CF2114573100E09F91 /* TreeOCR.swift in Sources */,
+				AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */,
 				AC8C0AB4214AB14500F0FD13 /* LeadingDistanceFinderTests.swift in Sources */,
 				AC50A87A2133ECD900B196BE /* MissingElementsFinder.swift in Sources */,
 				ACAF237721393B45009D8409 /* ArrayTests.swift in Sources */,

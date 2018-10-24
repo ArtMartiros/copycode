@@ -36,7 +36,7 @@ struct Settings {
     static let showTextView = isDefault ? defaultShowTextView : false
     static let showText = isDefault ? defaultShowText : false
 
-    static let showGrid = isDefault ? defaultShowGrid : true
+    static let showGrid = isDefault ? defaultShowGrid : false
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : true
 }

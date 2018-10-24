@@ -103,6 +103,7 @@ final class PanelController: NSWindowController {
             if Settings.release {
                 self?.sendToFirebase()
             }
+
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
