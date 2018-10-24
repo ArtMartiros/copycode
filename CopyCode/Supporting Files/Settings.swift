@@ -9,8 +9,8 @@
 import Foundation
 
 struct Settings {
-    static let release = true
-    private static let isDefault = true
+    static let release = false
+    private static let isDefault = false
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true
     private static let defaultShowBlock = false
@@ -31,12 +31,12 @@ struct Settings {
     static let showLines = isDefault ? defaultShowLines : true
     static let showWords = isDefault ? defaultShowWords : true
     static let showChars = isDefault ? defaultShowChars : true
-    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : false
+    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
 
-    static let showTextView = isDefault ? defaultShowTextView : true
-    static let showText = isDefault ? defaultShowText : true
+    static let showTextView = isDefault ? defaultShowTextView : false
+    static let showText = isDefault ? defaultShowText : false
 
-    static let showGrid = isDefault ? defaultShowGrid : false
-    static let showAlert = isDefault ? defaultShowAlert : true
+    static let showGrid = isDefault ? defaultShowGrid : true
+    static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : true
 }
