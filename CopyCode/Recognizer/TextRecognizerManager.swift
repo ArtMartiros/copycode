@@ -58,13 +58,14 @@ final class TextRecognizerManager {
 
             let completedBlocks = restoredBlocks.map { wordRecognizer.recognize($0) }
             Timer.stop(text: "WordRecognizer Recognize")
-//            for block in restoredBlocks {
-//                if case .grid(let grid) = block.typography {
-//                    let value = CodableHelper.encode(block)
-//
-//                    print(value)
-//                }
-//            }
+//            let value = CodableHelper.encode(blocks[1])
+//            print(value)
+            for block in restoredBlocks {
+                if case .grid(let grid) = block.typography {
+                    let value = CodableHelper.encode(block)
+                    print(value)
+                }
+            }
             //            sself.printAllCustomLetters(from: blocksWithTypes)
             completion(bitmap, completedBlocks, error)
         }

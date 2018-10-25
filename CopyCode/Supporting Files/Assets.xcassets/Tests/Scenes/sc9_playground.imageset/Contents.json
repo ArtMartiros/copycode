@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "sc9_playground.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "sc9_playground@2x.png",
       "scale" : "2x"
     },
     {

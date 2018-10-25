@@ -42,7 +42,7 @@ extension TypographicalGrid {
     func getArrayOfFrames(from frame: CGRect) -> [[CGRect]] {
         let lineFrames = leading.missingLinesWithStandartFrame(in: frame)
         let arrayOfFrames: [[CGRect]] = lineFrames.map {
-            let tracking = trackingData[$0.topY]
+            let tracking = trackingData[$0.bottomY]
             return tracking.missingCharFrames(in: $0)
         }
         return arrayOfFrames

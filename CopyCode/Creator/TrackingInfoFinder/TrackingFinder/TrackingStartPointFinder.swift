@@ -71,32 +71,3 @@ struct TrackingStartPointFinder {
     }
 
 }
-
-struct TrackingStartPointGenerator {
-    private let kGapWidthStep: CGFloat = 0.5
-
-    func generate(from gap: CGRect) -> [CGFloat] {
-        let range = (gap.leftX...gap.rightX).expandEqually(toDistance: 2)
-
-        let amount = Int(range.distance / kGapWidthStep)
-        var startPoints: [CGFloat] = []
-        for i in 0...amount {
-            let point = range.lowerBound + (CGFloat(i) * kGapWidthStep)
-            startPoints.append(point)
-        }
-        return startPoints
-    }
-
-
-}
-
-extension ClosedRange where Bound == CGFloat  {
-   fileprivate func expandEqually(toDistance distance: CGFloat) -> TrackingRange {
-        let difference = distance - self.distance
-        guard difference > 0 else { return self }
-
-        let addedValue = difference / 2
-        let newRange = (lowerBound - addedValue)...(upperBound + addedValue)
-        return newRange
-    }
-}

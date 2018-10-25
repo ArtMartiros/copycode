@@ -21,7 +21,8 @@ struct LeadingFinder {
         switch result {
         case .success(let range):
             let point = block.lineWithMaxHeight().frame.topY
-            let leadingErrors = startPointGenerator.generate(from: point)
+            let points = startPointGenerator.generate(from: point)
+            let leadingErrors = points
                 .map { spaceFinder.find(in: range, startPoint: $0)}
                 .reduce([], +)
 

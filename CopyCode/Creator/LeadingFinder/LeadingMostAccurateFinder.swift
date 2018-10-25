@@ -15,7 +15,14 @@ struct LeadingMostAccurateFinder {
             .chunkForSorted { $0.errorRate == $1.errorRate }
         let chanked = value
             .first?
-            .sorted { $0.preciseRate > $1.preciseRate }
+            .sorted {
+                if $0.preciseRate == $1.preciseRate {
+                    return $0.leading.startPointTop > $1.leading.startPointTop
+                } else {
+                    return $0.preciseRate > $1.preciseRate
+                }
+
+            }
             .first
         return chanked?.leading
     }

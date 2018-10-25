@@ -9,7 +9,7 @@
 import Foundation
 
 let sc9_type = [
-    0: "ulu ll c uuuuu, u  u, u, uuu, u, uu",
+    0: "ulu ll c uuuuu, uc  u, u, uuu, u, uu",
     1: "uuulu l c c",
     2: "uulluccllu",
     3: "ulll lllluuc cc uuluuu cc ccccc c",
@@ -23,7 +23,7 @@ let sc9_type = [
     11: "lll uluuulull c c",
     12: "lll lltuuulull c c",
     13: "ull c ll uucccul.llllu-uuu u",
-    14: "lu lltuuulull cc lltuuullulu.llllu uu uluuulull l c uluuullulu.llllu u uluuulluluuuluuulullu l -",
+    14: "lu lltuuulull cc lltuuullulu.llllu uu uluuulull l c uluuullulu.llllu uu uluuulluluuuluuulullu l-",
     15: "lltuuulluluulltuuulullu u",
     16: "lllluu.lttlluuuluuulluluuuluuululluu",
     17: "uluuulull l- c",

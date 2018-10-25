@@ -22,6 +22,7 @@ final class LeadingAndBlockUpdater {
 
     func update(block: SimpleBlock) -> [SimpleBlock] {
         let loweDiffInfos = getDifference(from: block, type: .low, grid: grid)
+         getDifference(from: block, type: .lowWithTail, grid: grid)
         let chunks = chunksCreator.create(from: loweDiffInfos, fontSize: grid.leading.fontSize)
         let infos = getLeadingInfos(from: chunks)
         var blocks: [SimpleBlock] = []
@@ -32,10 +33,13 @@ final class LeadingAndBlockUpdater {
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             newGrid.update(leading)
+            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             var block = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: block)
             newGrid.update(newLeading)
             block.update(.grid(newGrid))
+             getDifference(from: block, type: .low, grid: newGrid)
+             getDifference(from: block, type: .lowWithTail, grid: newGrid)
             blocks.append(block)
         }
 
@@ -57,7 +61,7 @@ final class LeadingAndBlockUpdater {
     }
 
     private func getDifference(from block: SimpleBlock, type: DifferenceType, grid: TypographicalGrid) -> [DifferenceInfo] {
-        print("Leading \(grid.leading)")
+        print("♦️Leading \(grid.leading) type: \(type)")
         let arrayOfFrames = grid.getArrayOfFrames(from: block.frame)
         let lines = block.lines
         let gridLineCorrelations = gridCorrelator.correlate(lines: lines, arrayOfFrames: arrayOfFrames)

@@ -100,7 +100,7 @@ class TrackingInfoFinderTests: XCTestCase {
             XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
         }
     }
-    
+
     private func getChucked(_ scene: Scene) -> [[TrackingInfo]] {
         let block = scene.getBlock(self)
         let infos = finder.find(from: block)
@@ -109,10 +109,5 @@ class TrackingInfoFinderTests: XCTestCase {
 
     }
 
-    func testPerformanceExample() {
-        let block = Scene.sc1.getBlock(self)
-        self.measure {
-            _ = finder.find(from: block)
-        }
-    }
+
 }

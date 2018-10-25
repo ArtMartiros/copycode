@@ -113,7 +113,7 @@ class LetterOCRTests: XCTestCase {
         
         for (index, letter) in word.letters.enumerated() {
             let answer = answers[index]
-            let value = letterRecognizer.recognize(from: letter.pixelFrame, with: answer.type)
+            let value = letterRecognizer.recognize(from: letter.frame, with: answer.type)
             let newLetter = Letter(rectangle: letter, value: value)
             completion(answer.letter, newLetter)
         }

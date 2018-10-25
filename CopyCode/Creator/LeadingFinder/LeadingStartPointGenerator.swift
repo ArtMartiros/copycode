@@ -10,16 +10,10 @@ import Foundation
 
 struct LeadingStartPointGenerator {
 
-    private let kLineStartPositionStep: CGFloat = 0.5
-
+    private let kStep: CGFloat = 0.25
+    private let kExpanded: CGFloat = 2
     func generate(from point: CGFloat) -> [CGFloat] {
-        return [point + 1,
-                point + 0.75,
-                point + kLineStartPositionStep,
-                point,
-                point - kLineStartPositionStep,
-                point - 0.75,
-                point - 1]
+        let range = (point - kExpanded)...(point + kExpanded)
+        return range.splitToChunks(withStep: kStep)
     }
-
 }

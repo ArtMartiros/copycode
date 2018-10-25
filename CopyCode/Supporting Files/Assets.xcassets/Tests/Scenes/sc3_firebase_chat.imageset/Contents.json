@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "sc3_firebase_chat.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "sc3_firebase_chat@2x.png",
       "scale" : "2x"
     },
     {

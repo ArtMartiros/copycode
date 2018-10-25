@@ -10,7 +10,12 @@ import Foundation
 
 extension Tree where Node == LetterTypeOperations, Result == LetterType {
     func find(_ rect: LetterRectangle, with information: WordInformation, recognizer: LetterRecognizer) -> LetterType {
-        guard rect.type == .undefined else { return rect.type }
+        switch rect.type {
+        case .custom, .doubleQuote:
+            return rect.type
+        default: break
+        }
+
         switch self {
         case .empty: return .undefined
         case .r(let result): return result

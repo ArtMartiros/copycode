@@ -21,9 +21,14 @@ struct TrackingData: Codable {
     }
 
     fileprivate (set) var defaultTracking: Tracking
-    fileprivate (set) var array = SortedArray<CGFloat>()
-    fileprivate var dictionary: [CGFloat: Tracking] = [:]
+    fileprivate var array = SortedArray<CGFloat>()
+    fileprivate (set) var dictionary: [CGFloat: Tracking] = [:]
 
+    var trackings: [Tracking] {
+        return dictionary.sorted { $0.key > $1.key }.map { $0.value }
+    }
+
+    ///записывай по топ позиции, вытаскивай по бот позиции для того чтобы точно входил
     subscript(yPosition: CGFloat) -> Tracking {
         get {
             let nearestNextIndex = array.index(for: yPosition)

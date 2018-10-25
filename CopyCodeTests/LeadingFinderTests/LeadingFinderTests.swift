@@ -9,14 +9,12 @@
 import XCTest
 
 class LeadingFinderTests: XCTestCase {
-//    let finder = LeadingFinder()
-//    func testFindLeadings() {
-//        let blocks = SceneHelper.getCodeBlocks(self)
-//        for block in blocks {
-//           let leading = finder.find(block)
-//            print("ddd")
-//        }
-//
-//    }
+
+    let leadingFinder = LeadingFinder()
+    func testSc11() {
+        let block = Scene.sc11.getTrackingBlock(self)
+        let result = leadingFinder.find(block)
+        XCTAssertNotNil(result)
+    }
 
 }

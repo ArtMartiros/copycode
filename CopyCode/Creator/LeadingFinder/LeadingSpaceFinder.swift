@@ -21,6 +21,7 @@ struct LeadingSpaceFinder {
         for singleWidth in widths {
             let spacing = range.lowerBound + singleWidth - fontSize
             let leading = Leading(fontSize: fontSize, lineSpacing: spacing, startPointTop: startPoint)
+            print("??????????????????")
             guard case .success(let error, let precise) = checker.check(lines, with: leading) else { continue }
             let leadingError = LeadigError(errorRate: error, preciseRate: precise, leading: leading)
             leadingErrors.append(leadingError)

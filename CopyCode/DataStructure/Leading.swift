@@ -40,7 +40,7 @@ extension Leading {
 
     func checkIsFrameInsideLinePosition(frame: CGRect) -> SimpleSuccess<Rate> {
         let point = findNearestPointTop(to: frame)
-        let errorPercent: CGFloat = 10
+        let errorPercent: CGFloat = 12
         let lowerPoint = point - fontSize
         let topDiffOrError = abs(frame.topY - point)
         let botDiffOrError = abs(frame.bottomY - lowerPoint)

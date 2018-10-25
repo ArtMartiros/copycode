@@ -32,13 +32,15 @@ final class BlockCreator: BlockCreatorProtocol {
 
         Timer.stop(text: "BlockCreator Initial Created")
 
-//                let value = CodableHelper.encode(rectangles)
-//                print(value)
-//        
+
+//
         if Settings.showInitialBlock { return blocks }
 
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
         Timer.stop(text: "BlockCreator Tracking Created")
+
+//        let value = CodableHelper.encode(blocks[0])
+//        print(value)
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)
         Timer.stop(text: "BlockCreator Leading Created")
         return leadingUpdatedBlocks

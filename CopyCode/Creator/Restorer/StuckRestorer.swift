@@ -36,7 +36,6 @@ final class StuckRestorer {
         }
 
         guard lastChagedIndex != nil else { return word }
-        
         let newWord = Word(frame: word.frame, type: .mix, letters: letters)
         return newWord
     }

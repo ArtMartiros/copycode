@@ -44,6 +44,16 @@ extension ClosedRange where Bound == CGFloat {
     var distance: CGFloat {
         return upperBound - lowerBound
     }
+
+    func splitToChunks(withStep step: CGFloat) -> [CGFloat] {
+        let amount = Int(distance / step)
+        var chuncks: [CGFloat] = []
+        for i in 0...amount {
+            let point = lowerBound + (CGFloat(i) * step)
+            chuncks.append(point)
+        }
+        return chuncks
+    }
 }
 
 extension ClosedRange: Codable where Bound: Codable {
@@ -69,6 +79,7 @@ extension ClosedRange where Bound: Codable {
 
         self.init(uncheckedBounds: (lower: lower, upper: upper))
     }
+    
 }
 
 extension ClosedRange where Bound: Codable {

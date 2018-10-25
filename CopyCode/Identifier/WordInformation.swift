@@ -31,7 +31,7 @@ struct WordInformation: TypeChecker {
             return positionOf(currentY: frame.bottomY, relativeTo: standartLetter) > _midDiffRate
         case .bottom:
             return checker.isSame(frame.bottomY, with: standartLetter.bottomY,
-                                  height: standartLetter.height, accuracy: .high)
+                                  height: standartLetter.height, accuracy: .medium)
         }
     }
 
@@ -56,7 +56,7 @@ struct WordInformation: TypeChecker {
         let differenceRate = different / standartLetter.height * 100
         print("differenceRate \(differenceRate )")
 
-        return differenceRate > 15
+        return differenceRate > 12
     }
 
     func getBotDifferrent(with frame: CGRect) -> CGFloat {

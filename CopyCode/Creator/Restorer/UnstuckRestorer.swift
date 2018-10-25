@@ -29,19 +29,30 @@ final class UnstuckRestorer {
         var currentFrame = frame
 
         while shouldContinue {
-            if currentFrame.width > tracking.width + tracking.width * 0.1 {
-                var point = tracking.nearestPointToLeftX(from: currentFrame)
-
-                let shouldAdd = currentFrame.leftX >= point
-                point += shouldAdd ? tracking.width : 0
-                let (left, right) = currentFrame.divided(atXPoint: point)
-
-                frames.append(left)
-                currentFrame = right
+            if currentFrame.width > (tracking.width + tracking.width * 0.1) {
+                let (left, right) = divide(frame: currentFrame, by: tracking)
+                if left.width > tracking.width * 0.1 {
+                    frames.append(left)
+                    currentFrame = right
+                } else {
+                    let divided = divide(frame: right, by: tracking)
+                    let newLeft = CGRect(left: left.leftX, right: divided.left.rightX,
+                                         top: left.topY, bottom: left.bottomY)
+                    frames.append(newLeft)
+                    currentFrame = divided.right
+                }
             } else {
                 frames.append(currentFrame)
                 return frames
             }
         }
     }
+
+    private func divide(frame: CGRect, by tracking: Tracking) -> (left: CGRect, right: CGRect) {
+        var point = tracking.nearestPointToLeftX(from: frame)
+        let shouldAdd = frame.leftX >= point
+        point += shouldAdd ? tracking.width : 0
+        return frame.divided(atXPoint: point)
+    }
+
 }
