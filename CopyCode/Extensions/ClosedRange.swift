@@ -79,7 +79,7 @@ extension ClosedRange where Bound: Codable {
 
         self.init(uncheckedBounds: (lower: lower, upper: upper))
     }
-    
+
 }
 
 extension ClosedRange where Bound: Codable {

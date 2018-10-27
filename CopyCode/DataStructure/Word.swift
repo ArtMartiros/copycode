@@ -31,10 +31,10 @@ struct Word<Child: Rectangle>: Container, Gapable {
     }
 }
 
-extension Word  {
+extension Word {
     func updated(by rate: Int) -> Word<Child> {
         let frame = updatedFrame(by: rate)
-        return Word<Child>(frame: frame, type: type, letters: letters.map { $0.updated(by: rate) } )
+        return Word<Child>(frame: frame, type: type, letters: letters.map { $0.updated(by: rate) })
     }
 }
 
@@ -107,5 +107,3 @@ extension Word {
         return gaps
     }
 }
-
-

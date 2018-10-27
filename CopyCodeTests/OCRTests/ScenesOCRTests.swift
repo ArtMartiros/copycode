@@ -48,7 +48,7 @@ class ScenesOCRTests: XCTestCase {
     
     private func executeCheck(scene: Scene, exlude: Set<Int>,
                               completion: @escaping (String, CompletedLetterPosition) -> Void) {
-        let block = scene.getGridWithTypeBlock(self)
+        let block = scene.getRestoredBlock(self)
         let bitmap = scene.image.bitmap
         
         for (lineIndex, line) in block.lines.enumerated() where !exlude.contains(lineIndex) {

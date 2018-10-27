@@ -29,6 +29,7 @@ final class TextDetection {
     }
 
     private func performImageRequest(cgImage: CGImage, requests: [VNRequest]) {
+
         let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, orientation: .downMirrored, options: [:])
         do {
             try imageRequestHandler.perform(requests)

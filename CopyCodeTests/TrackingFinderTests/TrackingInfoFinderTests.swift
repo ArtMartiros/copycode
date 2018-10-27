@@ -25,7 +25,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testBlockOne() {
         let answers = [Answer(start: 2, end: 36)]
         let index = 1
-        let chunked = getChucked(.one)
+        let chunked = getChucked(.block_one)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -36,7 +36,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testBlockTwo() {
         let answers = [Answer(start: 3, end: 34)]
         let index = 2
-        let chunked = getChucked(.two)
+        let chunked = getChucked(.block_two)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -47,7 +47,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testBlockWithComments() {
         let answers = [Answer(start: 4, end: 13), Answer(start: 14, end: 24), Answer(start: 25, end: 34)]
         let index = 4
-        let chunked = getChucked(.comments)
+        let chunked = getChucked(.block_with_comments)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")

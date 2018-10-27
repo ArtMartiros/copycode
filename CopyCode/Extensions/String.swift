@@ -10,6 +10,13 @@ import Foundation
 
 extension String {
     func trimWhiteSpacesAtTheEnd() -> String {
-       return self.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression)
+        return self.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression)
+    }
+
+    func removeAll(after: String) -> String {
+        var value = self
+        guard let range = value.range(of: after) else { return value }
+        value.removeSubrange(range.lowerBound..<value.endIndex)
+        return value
     }
 }

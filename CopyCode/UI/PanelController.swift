@@ -11,8 +11,11 @@ import Mixpanel
 import FirebaseDatabase
 import FirebaseStorage
 //import FirebaseAuth
-var screenFrame: CGRect {
-    return NSScreen.screens.first!.frame
+
+class Screen {
+    static var screen: NSScreen {
+        return NSScreen.screens.first!
+    }
 }
 
 final class PanelController: NSWindowController {
@@ -26,13 +29,15 @@ final class PanelController: NSWindowController {
     }
 
     func openPanel(with cgImage: CGImage) {
-//        let show = Auth.auth().currentUser != nil
-        panel.initialSetupe(with: screenFrame, showScreeenButton: false)
-        let image = NSImage(cgImage: cgImage, size: screenFrame.size)
+        let frame = Screen.screen.frame
+        panel.initialSetupe(with: frame, showScreeenButton: false)
+
+        let image = NSImage(cgImage: cgImage, size: frame.size)
         panel.imageView.image = image
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
         }
+        let cgImage = shouldPrepare ? prepare(image: image).toCGImage : cgImage
         showWords(image: cgImage)
     }
 
@@ -45,11 +50,9 @@ final class PanelController: NSWindowController {
     //отсчет пикселей с левого верхнего угла
     func showWords(image: CGImage) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { [weak self] (bitmap, oldBlocks, _) in
+        textDetection.performRequest(image: image) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
-            let rate = bitmap.size.width / screenFrame.width
-            let intRate = Int(rate)
-            let blocks = oldBlocks.map { $0.updated(by: intRate) }
+            let blocks = oldBlocks.map { $0.updated(by: 2) }
             let transcriptor = TextTranscriptor()
             if Settings.showTextView {
                 for block in blocks {
@@ -125,6 +128,26 @@ extension PanelController: PanelDelegate {
         let pasterboard = NSPasteboard.general
         pasterboard.setString(string, forType: .string)
         closePanel()
+    }
+}
+
+extension PanelController {
+    fileprivate var shouldPrepare: Bool {
+       return Screen.screen.backingScaleFactor == 1
+    }
+
+    fileprivate func prepare(image: NSImage) -> NSImage {
+        let adjusted = image.adjustColors
+        Timer.stop(text: "Adjusted")
+        let resized = resize(adjusted)
+        Timer.stop(text: "Resized")
+        return resized
+    }
+
+    fileprivate func resize(_ image: NSImage) -> NSImage {
+        guard shouldPrepare else { return image }
+        let newSize = CGSize(width: Screen.screen.frame.width * 2, height: Screen.screen.frame.height * 2)
+        return image.resize(targetSize: newSize)
     }
 }
 

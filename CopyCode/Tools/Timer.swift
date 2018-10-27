@@ -25,7 +25,7 @@ final class Timer {
         if !previous.isEmpty {
             Swift.print("(\(previous) ➡️ \(text)): \(stopDiff.rounded(toPlaces: 4))")
         }
-        Swift.print("(start ↔️ \(text)): \(diff.rounded(toPlaces: 4)) 🏁")
+        Swift.print("(\(text)): \(diff.rounded(toPlaces: 4)) 🏁")
         previous = text
     }
 }

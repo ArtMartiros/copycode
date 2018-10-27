@@ -10,6 +10,10 @@ import Foundation
 import AppKit
 
 extension NSImage {
+    convenience init(_ name: String) {
+        self.init(named: .init(name))!
+    }
+
     var ciimage: CIImage? {
         guard let tiffData = self.tiffRepresentation,
             let ciiImage = CIImage(data: tiffData) else { return nil }
@@ -27,8 +31,8 @@ extension NSImage {
         let newImage = NSImage(size: size)
         let currentFilter = CIFilter(name: "CIColorControls")!
         currentFilter.setValue(self.ciimage!, forKey: kCIInputImageKey)
-        currentFilter.setValue(0, forKey: kCIInputSaturationKey)
-        currentFilter.setValue(1.45, forKey: kCIInputContrastKey)
+//        currentFilter.setValue(0, forKey: kCIInputSaturationKey)
+        currentFilter.setValue(1.8, forKey: kCIInputContrastKey)
         newImage.lockFocus()
         //Нужна хуйня чтоб конвертация пикселей проходила норм, иначе при конвертации только часть изображения остается
         let trans = NSAffineTransform()

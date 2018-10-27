@@ -20,7 +20,6 @@ enum ColumnType: ColumnProtocol {
         }
     }
 
-
     var frame: CGRect {
         switch self {
         case .digit(let column): return column.frame

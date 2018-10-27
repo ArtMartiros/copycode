@@ -8,46 +8,25 @@
 
 import AppKit
 
-enum Scene {
+enum Scene: String {
     case sc1, sc2, sc3_p1, sc3_p2, sc4, sc5, sc6, sc7, sc8, sc9, sc10
     case sc11, sc13_p1
-    case comments, one, oneCode, two
+    case block_with_comments, block_one, block_one_code, block_two
 
-    var image: NSImage { return NSImage(named: .init(imageName))! }
+    var image: NSImage { return NSImage(withoutPart) }
+    var lowImage: NSImage { return NSImage(withoutPart + "_low") }
 
-    private var blockName: String {
-        switch self {
-        case .sc1: return "sc1_text_view_creator"
-        case .sc2: return "sc2_block_creator"
-        case .sc3_p1: return "sc3_p1_firebase_chat"
-        case .sc3_p2: return "sc3_p2_user_main_view_controller"
-        case .sc4: return "sc4_leading_finder"
-        case .sc5: return "sc5_tree_letter_type"
-        case .sc11: return "sc11_block"
-        case .comments: return "block_with_comments"
-        case .one: return "block_one"
-        case .oneCode: return "block_one_code"
-        case .two: return "block_two"
-        default: return ""
-        }
-    }
+/// первоначально поделенный блок обычно один или жва
+    private var blockName: String { return rawValue + "_block" }
+    private var wordsName: String { return rawValue + "_words" }
+    private var customLettersName: String { return rawValue + "_custom_letters" }
+    private var customLettersPositionName: String { return rawValue + "_custom_letters_position" }
+    private var trackingInfo: String { return rawValue + "_tracking_info" }
+    private var gridBlockName: String { return rawValue + "_grid" }
+    private var trackingBlockName: String { return rawValue + "_tracking_block" }
+    private var restoredName: String { return rawValue + "_restored" }
+    private var completedWithStuckName: String { return rawValue + "_stuck_completed" }
 
-    private var imageName: String {
-        switch self {
-        case .sc1: return "sc1_text_view_creator"
-        case .sc2: return "sc2_block_creator"
-        case .sc3_p1, .sc3_p2: return "sc3_firebase_chat"
-        case .sc6: return "sc6_tree_letter_type"
-        case .sc7: return "sc7_panel"
-        case .sc8: return "sc8_panel_controller"
-        case .sc9: return "sc9_playground"
-        case .sc10: return "sc10_nscolor"
-        case .sc11: return "sc11_video"
-        case .sc13_p1: return "sc13"
-        default: return ""
-        }
-    }
-    
     private var preDigitColumnWordsNames: [String] {
         switch self {
         case .sc6: return ["sc6_pre_digit_column_words"]
@@ -60,92 +39,6 @@ enum Scene {
         }
     }
 
-    private var wordsName: String {
-        switch self {
-        case .sc3_p1: return "sc3_words"
-        case .sc3_p2: return "sc3_words"
-        case .sc6: return "sc6_words"
-        default: return ""
-        }
-    }
-
-    private var customLettersName: String {
-        switch self {
-        case .sc1: return "sc1_custom_letters"
-        case .sc2: return "sc2_custom_letters"
-        default: return ""
-        }
-    }
-
-    private var customLettersPositionName: String {
-        switch self {
-        case .sc1: return "sc1_custom_letters_position"
-        case .sc2: return "sc2_custom_letters_position"
-        case .sc9: return "sc9_custom_letters_position"
-        default: return ""
-        }
-    }
-    
-    private var trackingInfo: String {
-        return "sc1_tracking_info"
-    }
-
-    private var trackingBlockName: String {
-        switch self {
-        case .sc11: return "sc11_tracking_block"
-        default: return ""
-        }
-    }
-
-    private var gridBlockName: String {
-        switch self {
-        case .sc1: return "sc1_text_view_creator_grid"
-        case .sc2: return "sc2_block_creator_grid"
-        case .sc3_p1: return "sc3_p1_firebase_chat_grid"
-        case .sc3_p2: return "sc3_p2_user_main_view_controller_grid"
-        case .sc9: return "sc9_playground_grid"
-        case .sc11: return "sc11_video_grid"
-        case .sc13_p1: return "sc13_p1_grid"
-        default: return ""
-        }
-    }
-
-    private var restoredName: String {
-        switch self {
-        case .sc1: return "sc1_text_view_creator_restored"
-        case .sc2: return "sc2_block_creator_restored"
-        case .sc3_p1: return "sc3_p1_restored"
-        case .sc3_p2: return "sc3_p2_restored"
-        case .sc9: return "sc9_restored"
-        case .sc11: return "sc11_restored"
-        default:
-            return ""
-        }
-    }
-
-
-    
-    private var gridWithTypeBlockName: String {
-        switch self {
-        case .sc1: return "sc1_block_text_view_creator_grid_with_type"
-        case .sc2: return "sc2_block_creator_grid_with_type"
-        case .sc3_p1: return "sc3_p1_firebase_chat_grid_with_type"
-        case .sc9: return "sc9_playground_grid_with_type"
-        case .sc11: return "sc11_video_grid_with_type"
-        default: return ""
-        }
-        
-    }
-    
-    private var completedWithStuckName: String {
-        switch self {
-        case .sc11:
-            return "sc11_video_stuck_completed"
-        default:
-            return ""
-        }
-    }
-    
     private var letterTypeDictionary: [Int: String] {
         switch self {
         case .sc1: return sc1_type
@@ -215,8 +108,9 @@ enum Scene {
         return CodableHelper.decode(object, path: trackingBlockName, structType: SimpleBlock.self, shouldPrint: false)!
     }
 
-    func getRestoredBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: restoredName, structType: SimpleBlock.self, shouldPrint: false)!
+    func getRestoredBlock(_ object: AnyObject, low: Bool = false) -> SimpleBlock {
+        let name = restoredName + (low ? "_low" : "")
+        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
     }
 
     func getGridBlock(_ object: AnyObject) -> SimpleBlock {
@@ -226,11 +120,7 @@ enum Scene {
     func getCompletedWithStuck(_ object: AnyObject) -> CompletedBlock {
         return CodableHelper.decode(object, path: completedWithStuckName, structType: CompletedBlock.self, shouldPrint: false)!
     }
-    
-    func getGridWithTypeBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: gridWithTypeBlockName, structType: SimpleBlock.self, shouldPrint: false)!
-    }
-    
+    private var withoutPart: String { return rawValue.removeAll(after: "_p") }
 }
 
 extension LetterType {

@@ -32,7 +32,6 @@ final class BlockCreator: BlockCreatorProtocol {
 
         Timer.stop(text: "BlockCreator Initial Created")
 
-
 //
         if Settings.showInitialBlock { return blocks }
 
