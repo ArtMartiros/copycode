@@ -95,12 +95,13 @@ final class TextRecognizerManager {
         let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
         Timer.stop(text: "LetterRestorer restored")
         for block in restoredBlocks {
-            if case .grid(let grid) = block.typography {
+            if case .grid( _) = block.typography {
                 let value = CodableHelper.encode(block)
                 print(value)
             }
         }
-        let completedBlocks = restoredBlocks.map { wordRecognizer.recognize($0) }
+        let _ = restoredBlocks.map { wordRecognizer.recognize($0) }
+
     }
 
     private func filterGrids(_ blocks: [SimpleBlock]) -> [SimpleBlock] {

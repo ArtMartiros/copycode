@@ -8,7 +8,7 @@
 
 import XCTest
 
-//24
+//22
 class ScenesOCRTests: XCTestCase {
     
     func testOCRScene1() {
@@ -23,8 +23,7 @@ class ScenesOCRTests: XCTestCase {
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
         }
     }
-    
-    //1 ошибки кастом
+
     func testOCRScene3_p1() {
         let exludedIndex: Set<Int> = [0, 1, 2, 3, 4, 5, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
         OCRHelper.execute(self, scene: .sc3_p1, exlude: exludedIndex, isLow: false) { (answer, position) in
@@ -37,14 +36,14 @@ class ScenesOCRTests: XCTestCase {
 //            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
 //        }
 //    }
-    //2
+
     func testOCRScene9() {
         OCRHelper.execute(self, scene: .sc9, exlude: [1, 2], isLow: false) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
         }
     }
     
-    //5
+
     func testOCRScene11() {
         OCRHelper.execute(self, scene: .sc11, exlude: [], isLow: false) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))

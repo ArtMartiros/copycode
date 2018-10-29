@@ -60,7 +60,9 @@ enum OCROperations: CustomStringConvertible {
     case notH
     case f_t_low
     case m_a
+    case s_a
     case e_a
+    case N_A
     case f_2
     case S_5
     case hyphenOrDash
@@ -69,6 +71,7 @@ enum OCROperations: CustomStringConvertible {
     case asterix
     case S_Dollar
     case semicolon
+    case E_5
     case braceOrRoundL
     case braceOrRoundR
     case colon
@@ -221,22 +224,39 @@ enum OCROperations: CustomStringConvertible {
                                  $0.exist(x: 0.8, y: 0.8, in: $1)]
             return array.filter { $0 == false }.count >= 3
             }
-
+        case .E_5: return .checkerWithFrame {
+            $0.exist(yRange: 5...7, of: 10, x: 0.05, with: $1, op: .and, percent: 90)
+            }
         case .G_0: return .checkerWithFrame { $0.exist(yRange: 4...8, of: 14, x: 0.95, with: $1, op: .someFalse) }
         case .G_8: return .checkerWithFrame {
            !($0.exist(xRange: 2...6, of: 10, y: 0.6, with: $1, op: .and) ||
             $0.exist(xRange: 2...6, of: 10, y: 0.5, with: $1, op: .and) ||
             $0.exist(xRange: 2...6, of: 10, y: 0.4, with: $1, op: .and))
             }
+        case .N_A: return .checkerWithFrame {
+             let newFrame = $1.expandFrame(by: 1, times: 4, using: $0, in: .left, with: [9])
+            return $0.exist(x: 0.1, y: 0.2, in: newFrame)
+            }
         case .l_1: return .checkerWithFrame (l_1Operation)
         case .i_1: return .checkerWithFrame {
-            $0.exist(yRange: 3...6, of: 20, x: 0.5, with: $1, op: .someFalse, percent: 80)
+            let percents: [CGFloat] = [60, 70, 80, 90, 100]
+            for percent in percents {
+                guard $0.exist(x: 0.5, y: 0.9, in: $1, percent: percent) else { continue }
+                return !($0.exist(yRange: 3...6, of: 20, x: 0.4, with: $1, op: .and, percent: percent) ||
+                    $0.exist(yRange: 3...6, of: 20, x: 0.5, with: $1, op: .and, percent: percent) ||
+                    $0.exist(yRange: 3...6, of: 20, x: 0.6, with: $1, op: .and, percent: percent))
             }
+            return false
+            }
+
         case .S_5: return .checkerWithFrame (S_5Operation)
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
         case .m_a: return .checkerWithFrame (m_aOperation)
+        case .s_a: return .checkerWithFrame  {
+            return  $0.exist(yRange: 2...4, of: 10, x: 0.9, with: $1, op: .someFalse, percent: 90)
+            }
         case .e_a: return .checkerWithFrame {
             $0.exist(xRange: 6...9, of: 10, y: 0.9, with: $1, op: .allFalse, percent: 70) ||
                 $0.exist(xRange: 6...9, of: 10, y: 0.8, with: $1, op: .allFalse, percent: 70) ||
@@ -274,6 +294,7 @@ enum OCROperations: CustomStringConvertible {
         case .G_6: return "G_6"
         case .G_C: return "G_C"
         case .H_N: return "H_N"
+        case .N_A: return "N_A"
         case .I_Z: return "I_Z"
         case .K_k: return "K_k"
         case .i_1: return "i_1"
@@ -328,7 +349,9 @@ enum OCROperations: CustomStringConvertible {
         case .f_2: return "f_2"
         case .f_t_low: return "f_t_low"
         case .v_u: return "v_u"
+        case .E_5: return "E_5"
         case .notH: return "notH"
+        case .s_a: return "s_a"
         case let .vLine(l, op, x, mainOp):
             return "vLine: \(l), lineOp: \(op), x: \(x), mainOp: \(mainOp)"
         case let .hLine(l, op, y, mainOp):
@@ -431,6 +454,7 @@ enum OCROperations: CustomStringConvertible {
     }
     private var m_aOperation: Operation {
         return { checker, frame in
+            guard frame.ratio <= 1.2 else { return false}
             let xArray: [CGFloat] = [0.4, 0.5, 0.6]
             let yArray: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7]
             var existedX: CGFloat?
