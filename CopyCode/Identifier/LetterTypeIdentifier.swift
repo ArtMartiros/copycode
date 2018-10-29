@@ -30,7 +30,7 @@ struct LetterTypeIdentifier {
             return types
         }
 
-    private func getTree(from type: ActionForLetterType) -> TreeLetterType {
+    private func getTree(from type: ActionForLetterType) -> TreeType {
         switch type {
         case .all:
             print("Noam gridUndefineType")

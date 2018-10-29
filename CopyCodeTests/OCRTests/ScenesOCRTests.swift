@@ -8,7 +8,7 @@
 
 import XCTest
 
-//26
+//24
 class ScenesOCRTests: XCTestCase {
     
     func testOCRScene1() {
