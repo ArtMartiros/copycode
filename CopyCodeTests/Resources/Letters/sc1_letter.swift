@@ -9,7 +9,7 @@
 import Foundation
 
 let sc1_letter = [
-    0: "// Created by Артем щт 15/09/2018.",
+    0: "// Created by Артем on 15/09/2018.",
     1: "//  Copyright © 2018 Artem Martirosyan. All rights reserved.",
     2: "//",
 
@@ -21,9 +21,9 @@ let sc1_letter = [
     6: "func create(with frame: NSRect, with attrString: NSAttributedString) -> NSTextView {",
     7: "let textView = NSTextView(frame: frame)",
     8: "textView.isEditable = false",
-    9: "textView.isSelectable = true",
+    9: "textView.isSelectable = true123",
     10: "textView.backgroundColor = kTextViewColor",
-    11: "textView.textStorage? append(attrString)",
+    11: "textView.textStorage? append(attrString)123",
     12: "return textView",
     13: "}",
     14: "}",

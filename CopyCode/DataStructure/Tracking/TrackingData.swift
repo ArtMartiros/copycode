@@ -45,6 +45,10 @@ struct TrackingData: Codable {
         }
     }
 
+    subscript(rect: Rectangle) -> Tracking {
+        get { return self[rect.frame.bottomY] }
+        set { self[rect.frame.topY] = newValue }
+    }
 }
 
 extension TrackingData: RatioUpdatable {

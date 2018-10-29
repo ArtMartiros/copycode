@@ -12,7 +12,7 @@ class TypographicalGridTests: XCTestCase {
 
     func testExample() {
 
-        let block = Scene.sc13_p1.getGridBlock(self)
+        let block = Scene.sc13_p1.getGridBlock(self, isLow: false)
         guard case .grid(let grid) = block.typography else { return }
         let tracking = grid.trackingData.defaultTracking
         let defaultTracking = Tracking(startPoint: 406, width: tracking.width)

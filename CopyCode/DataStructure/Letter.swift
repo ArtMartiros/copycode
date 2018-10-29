@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 struct LetterRectangle: Rectangle, Hashable, Codable {
     let frame: CGRect
     let type: LetterType
@@ -44,19 +45,21 @@ extension LetterRectangle: RatioUpdatable {
 struct Letter: Rectangle, ValueProtocol {
     let frame: CGRect
     let value: String
+    let type: LetterType
 
-    init(rectangle: Rectangle, value: String) {
-        self.init(frame: rectangle.frame, value: value)
+    init(rectangle: LetterRectangle, value: String) {
+        self.init(frame: rectangle.frame, value: value, type: rectangle.type)
     }
 
-    init(frame: CGRect, value: String) {
+    init(frame: CGRect, value: String, type: LetterType) {
         self.frame = frame
         self.value = value
+        self.type = type
     }
 }
 extension Letter: RatioUpdatable {
     func updated(by rate: Int) -> Letter {
        let frame = updatedFrame(by: rate)
-       return Letter(frame: frame, value: value)
+        return Letter(frame: frame, value: value, type: type)
     }
 }

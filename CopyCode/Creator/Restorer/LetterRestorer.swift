@@ -34,7 +34,7 @@ final class LetterRestorer {
     }
 
     func restore(_ word: SimpleWord, grid: TypographicalGrid) -> SimpleWord {
-        let tracking = grid.trackingData[word.frame.topY]
+        let tracking = grid.trackingData[word]
         var newWord = stuckRestorer.stuck(from: word, tracking: tracking)
         newWord = unstuckRestorer.unstuck(from: newWord, tracking: tracking)
         return newWord

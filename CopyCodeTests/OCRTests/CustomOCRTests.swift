@@ -33,7 +33,7 @@ class CustomOCRTests: XCTestCase {
     }
     
     private func checkLetter(from scene: Scene, completion: (String, CompletedLetterPosition) -> Void ) {
-        let bitmap = scene.image.bitmap
+        let bitmap = scene.getImage(isLow: false).bitmap
         let letterPositions = scene.getCustomLettersPosition(self)
         let recognizer = getRecognizer(from: bitmap, frame: letterPositions[0].letter)
        

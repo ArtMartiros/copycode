@@ -5,7 +5,7 @@
 //  Created by Артем on 12/08/2018.
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
-//22
+
 import XCTest
 
 class LetterOCRTests: XCTestCase {

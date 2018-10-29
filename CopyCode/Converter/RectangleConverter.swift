@@ -14,7 +14,7 @@ final class RectangleConverter {
     func convert(_ results: [VNTextObservation], bitmap: NSBitmapImageRep) -> [SimpleWord] {
         let words: [SimpleWord] = results.map {
             let letters = convertToLetters(from: $0, in: bitmap)
-            let frame = $0.frame(in: bitmap.size)
+            let frame = $0.frame(in: bitmap.pixelSize)
             return Word(frame: frame, letters: letters)
         }
         return words
@@ -23,7 +23,7 @@ final class RectangleConverter {
 
     private func convertToLetters(from result: VNTextObservation, in bitmap: NSBitmapImageRep) -> [LetterRectangle] {
         return result.characterBoxes?.map {
-            let frame = $0.frame(in: bitmap.size)
+            let frame = $0.frame(in: bitmap.pixelSize)
             return LetterRectangle(frame: frame)
             } ?? []
     }

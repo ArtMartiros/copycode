@@ -12,14 +12,13 @@ class PrepareTest: XCTestCase {
 
 
     func testExample() {
-        let scene = Scene.sc1
-
+        let scene = Scene.sc11
+        let isLow = false
+        let words = scene.getRects(self, low: isLow)
+        let bitmap = scene.getImage(isLow: isLow).bitmap
         let textRecognizer = TextRecognizerManager()
-        textRecognizer.performRequest(image: scene.lowImage.toCGImage) { (_, block, _) in
-            
-        }
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        textRecognizer.completedBlocks(from: words, with: bitmap, retina: !isLow)
+
     }
 
 }

@@ -29,18 +29,14 @@ final class BlockCreator: BlockCreatorProtocol {
     func create(from rectangles: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {
 
         let blocks = blockPreparator.initialPrepare(from: rectangles)
-
         Timer.stop(text: "BlockCreator Initial Created")
-
-//
         if Settings.showInitialBlock { return blocks }
-
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
-        Timer.stop(text: "BlockCreator Tracking Created")
 
-//        let value = CodableHelper.encode(blocks[0])
-//        print(value)
+        Timer.stop(text: "BlockCreator Tracking Created")
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)
+//        let value = CodableHelper.encode(leadingUpdatedBlocks[0])
+//        print(value)
         Timer.stop(text: "BlockCreator Leading Created")
         return leadingUpdatedBlocks
     }
@@ -71,6 +67,6 @@ extension BlockCreator {
         let columnDetection = DigitColumnDetection(recognizer: recognizer)
         let columnMerger = DigitColumnMerger()
         let columnCreator = DigitColumnSplitter(columnDetection: columnDetection, columnMerger: columnMerger)
-        self.init(digitalColumnCreator: columnCreator, width: bitmap.size.width)
+        self.init(digitalColumnCreator: columnCreator, width: bitmap.pixelSize.width)
     }
 }

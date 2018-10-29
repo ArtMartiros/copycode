@@ -13,33 +13,36 @@ final class LeadingAndBlockUpdater {
     private let startPointGenerator = LeadingStartPointGenerator()
     private let accuracyFinder = LeadingMostAccurateFinder()
     private let chunksCreator = ChunksCreator()
-    private let kStandartLowRatio: CGFloat = 0.5384
-
+    private let kStandartLowRatio: CGFloat = 0.52 // 0.5384
+    private let kLowStandartLowRatio: CGFloat = 0.56
+    private let isRetina: Bool
     let grid: TypographicalGrid
-    init(grid: TypographicalGrid) {
+    init(grid: TypographicalGrid, isRetina: Bool) {
         self.grid = grid
+        self.isRetina = isRetina
     }
 
     func update(block: SimpleBlock) -> [SimpleBlock] {
-        let loweDiffInfos = getDifference(from: block, type: .low, grid: grid)
-         getDifference(from: block, type: .lowWithTail, grid: grid)
-        let chunks = chunksCreator.create(from: loweDiffInfos, fontSize: grid.leading.fontSize)
+        let lowDiffInfos = getDifference(from: block, type: .low, grid: grid)
+//         getDifference(from: block, type: .lowWithTail, grid: grid)
+        let chunks = chunksCreator.create(from: lowDiffInfos, fontSize: grid.leading.fontSize)
         let infos = getLeadingInfos(from: chunks)
         var blocks: [SimpleBlock] = []
 
         var newGrid = grid
-        for info in infos {
+        for (index, info) in infos.enumerated() where index == 0 {
             guard let leading = updatedLeadingSizeAndSpacing(from: info, block: block) else { continue }
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             newGrid.update(leading)
-            getDifference(from: block, type: .lowWithTail, grid: newGrid)
+//            getDifference(from: block, type: .low, grid: newGrid)
+//            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             var block = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: block)
             newGrid.update(newLeading)
             block.update(.grid(newGrid))
-             getDifference(from: block, type: .low, grid: newGrid)
-             getDifference(from: block, type: .lowWithTail, grid: newGrid)
+//             getDifference(from: block, type: .low, grid: newGrid)
+//             getDifference(from: block, type: .lowWithTail, grid: newGrid)
             blocks.append(block)
         }
 
@@ -74,7 +77,7 @@ final class LeadingAndBlockUpdater {
 
             let differentInfo = DifferenceInfo(lineIndex: lineIndex, gridIndex: gridIndex, diff: difference)
             diffInfos.append(differentInfo)
-            print("type \(type), gi: \(gridIndex), li: \(lineIndex), d: \(difference)")
+            print("type \(type), gi: \(gridIndex), li: \(lineIndex), d: \(difference.rounded(toPlaces: 4))")
         }
         return diffInfos
     }
@@ -86,8 +89,8 @@ final class LeadingAndBlockUpdater {
 
         guard let ratio = getLowLetterRatio(lines, height: oldLeading.fontSize)
             else { return nil }
-
-        let newFontSize = oldLeading.fontSize / (kStandartLowRatio / ratio)
+        let standartRatio = isRetina ? kStandartLowRatio : kLowStandartLowRatio
+        let newFontSize = oldLeading.fontSize / (standartRatio / ratio)
         let sizeDiff = newFontSize - oldLeading.fontSize
         let spacing = oldLeading.lineSpacing - lagValue - sizeDiff
         let leading = Leading(fontSize: newFontSize, lineSpacing: spacing, startPointTop: oldLeading.startPointTop)
@@ -227,6 +230,7 @@ extension LeadingAndBlockUpdater {
             var type: SequenceType?
             var chunks: [[DifferenceInfo]] = []
             var chunk: [DifferenceInfo] = []
+            var betweenDiffs: [CGFloat] = []
             let checker = Checker()
             chunk.append(differenceInfos[0])
 
@@ -238,27 +242,49 @@ extension LeadingAndBlockUpdater {
                     continue
                 }
 
+                let diff = past.diff - current.diff
+                betweenDiffs.append(diff)
+
                 guard let future = future else {
                     chunk.append(current)
                     continue
                 }
 
-                if sequenceType == SequenceType(current.diff, compareTo: future.diff) ||
-                    (sequenceType == SequenceType(past.diff, compareTo: future.diff) &&
-                        checker.isSame(past.diff, with: current.diff, relativelyTo: fontSize, accuracy: kDiffAccuracy)) {
+                var shouldSplit = true
+
+                let isSameSequence = sequenceType == SequenceType(current.diff, compareTo: future.diff)
+                if isSameSequence {
+                    shouldSplit = !isSameDiffInFuture(betweenDiffs, current: current, future: future)
+                } else if sequenceType == SequenceType(past.diff, compareTo: future.diff) &&
+                    checker.isSame(past.diff, with: current.diff, relativelyTo: fontSize, accuracy: kDiffAccuracy) {
+                    shouldSplit = false
+                }
+
+                if shouldSplit {
                     chunk.append(current)
-                } else {
-                    chunk.append(current)
+                    betweenDiffs = []
                     chunks.append(chunk)
                     type = nil
                     chunk = [future]
                     break
+                } else {
+                    chunk.append(current)
+
                 }
             }
 
             if !chunk.isEmpty { chunks.append(chunk) }
 
             return chunks
+        }
+
+        private func isSameDiffInFuture(_ diffs: [CGFloat], current: DifferenceInfo, future: DifferenceInfo) -> Bool {
+            let averageDiff = diffs.reduce(0, +) / CGFloat(diffs.count)
+            let nextdiff = current.diff - future.diff
+            let ratio = abs(averageDiff / nextdiff)
+            let range: TrackingRange = 0.2...5
+            let contrain = range.contains(ratio)
+            return contrain
         }
     }
 }

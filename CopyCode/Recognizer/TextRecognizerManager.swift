@@ -29,16 +29,20 @@ final class TextRecognizerManager {
         }
     }
 
-    func performRequest(image: CGImage, completion: @escaping TextCompletion) {
+    func performRequest(image: CGImage, retina: Bool, completion: @escaping TextCompletion) {
         textDetection.performRequest(cgImage: image) {[weak self] (results, error) in
             Timer.stop(text: "VNTextObservation Finded")
             guard let sself = self else { return }
             let bitmap = NSBitmapImageRep(cgImage: image)
+
             let restorer = LetterRestorer(bitmap: bitmap)
             let wordRecognizer = WordRecognizer(in: bitmap)
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
+            let value = CodableHelper.encode(wordsRectangles)
+            print(value)
+//            return
             Timer.stop(text: "WordRectangles Converted")
             if Settings.enableFirebase {
                 GlobalValues.shared.wordRectangles = wordsRectangles
@@ -49,7 +53,7 @@ final class TextRecognizerManager {
             Timer.stop(text: "BlockCreator created")
 
             let blocksWithTypes = gridBlocks.compactMap { [weak self] in
-                self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0)
+                self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0, retina: retina)
                 }.reduce([], +)
             Timer.stop(text: "TypeConverter Updated Type ")
 
@@ -66,9 +70,37 @@ final class TextRecognizerManager {
                     print(value)
                 }
             }
-            //            sself.printAllCustomLetters(from: blocksWithTypes)
+//                        sself.printAllCustomLetters(from: restoredBlocks)
             completion(bitmap, completedBlocks, error)
         }
+    }
+
+    func completedBlocks(from words: [SimpleWord], with bitmap: NSBitmapImageRep, retina: Bool) {
+        let restorer = LetterRestorer(bitmap: bitmap)
+        let wordRecognizer = WordRecognizer(in: bitmap)
+        let blockCreator = BlockCreator(in: bitmap)
+        if Settings.enableFirebase {
+            GlobalValues.shared.wordRectangles = words
+        }
+        let blocks = blockCreator.create(from: words)
+
+        let gridBlocks = filterGrids(blocks)
+        Timer.stop(text: "BlockCreator created")
+
+        let blocksWithTypes = gridBlocks.compactMap { [weak self] in
+            self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0, retina: retina)
+            }.reduce([], +)
+        Timer.stop(text: "TypeConverter Updated Type ")
+
+        let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
+        Timer.stop(text: "LetterRestorer restored")
+        for block in restoredBlocks {
+            if case .grid(let grid) = block.typography {
+                let value = CodableHelper.encode(block)
+                print(value)
+            }
+        }
+        let completedBlocks = restoredBlocks.map { wordRecognizer.recognize($0) }
     }
 
     private func filterGrids(_ blocks: [SimpleBlock]) -> [SimpleBlock] {
@@ -81,7 +113,7 @@ final class TextRecognizerManager {
         }
     }
 
-    private func detectTypeWithUpdatedLeading(in bitmap: NSBitmapImageRep, from block: SimpleBlock) -> [SimpleBlock] {
+    private func detectTypeWithUpdatedLeading(in bitmap: NSBitmapImageRep, from block: SimpleBlock, retina: Bool) -> [SimpleBlock] {
 
         guard Settings.filterBlock else { return [block] }
         switch block.typography {
@@ -89,7 +121,7 @@ final class TextRecognizerManager {
         case .grid(let grid):
             var typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
             let blockWithLow = typeConverter.convert(block)
-            let updater = LeadingAndBlockUpdater(grid: grid)
+            let updater = LeadingAndBlockUpdater(grid: grid, isRetina: retina)
             let splittedBlocks = updater.update(block: blockWithLow)
 
             return splittedBlocks.compactMap {

@@ -11,7 +11,7 @@ import AppKit
 extension NSColor {
     ///white == 1, black == 0
     var grayScale: CGFloat {
-        let grayScaleColor = usingColorSpace(NSColorSpace.deviceGray)
+        let grayScaleColor = usingColorSpace(.genericGray)
         var grayscale: CGFloat = 0
         var alpha: CGFloat = 0
         grayScaleColor?.getWhite(&grayscale, alpha: &alpha)

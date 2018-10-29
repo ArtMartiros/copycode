@@ -31,7 +31,7 @@ final class Checker {
     func isSame(_ first: CGFloat, with second: CGFloat, relativelyTo: CGFloat, accuracy: CGFloat) -> Bool {
         let diff = abs(first - second)
         let different = (diff / relativelyTo) * 100 > accuracy
-        print("first \(first), second \(second), diff \(diff), different \(diff / relativelyTo)")
+//        print("first \(first), second \(second), diff \(diff), different \(diff / relativelyTo)")
         return !different
     }
 }

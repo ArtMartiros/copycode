@@ -28,29 +28,48 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
+    var isTest = true
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-
+        let testImage = NSImage("sc1")
+        testImage.size = frame.size
+//        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
-        panel.imageView.image = image
+        panel.imageView.image = isTest ? testImage : image
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
         }
-        let cgImage = shouldPrepare ? prepare(image: image).toCGImage : cgImage
-        showWords(image: cgImage)
+        if isTest {
+            testShow()
+        } else {
+            let cgImage = !isRetina ? prepare(image: image).toCGImage : cgImage
+            showWords(image: cgImage)
+        }
+
     }
 
+    func testShow() {
+        let words = CodableHelper.decode(self, path: "sc1_rects_low", structType: [SimpleWord].self, shouldPrint: false)!.map{ $0.updated(by: 2) }
+        let chars = words.reduce([Rectangle]()) { $0 + $1.letters }
+        let charLayers = chars.map { $0.layer(.green, width: 1) }
+        if Settings.showChars {
+            charLayers.forEach { panel.imageView.layer!.addSublayer($0) }
+        }
+    }
     func closePanel() {
         GlobalValues.shared.clear()
         panel.closePanel()
     }
 
     private let textDetection = TextRecognizerManager()
+    //        let newBlock = CodableHelper.decode(self!, path: "sc1_restored_low", structType: SimpleBlock.self)?.updated(by: 2)
+    //        let blocks = [newBlock!]
+
     //отсчет пикселей с левого верхнего угла
     func showWords(image: CGImage) {
         Timer.stop(text: "showWords")
-        textDetection.performRequest(image: image) { [weak self] (_, oldBlocks, _) in
+        textDetection.performRequest(image: image, retina: isRetina) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             let blocks = oldBlocks.map { $0.updated(by: 2) }
             let transcriptor = TextTranscriptor()
@@ -92,7 +111,7 @@ final class PanelController: NSWindowController {
 
             //------------chars--------------
 
-            let chars = words.reduce([Letter]()) { $0 + $1.letters }
+            let chars = words.reduce([Rectangle]()) { $0 + $1.letters }
             let charLayers = chars.map { $0.layer(.green, width: 1) }
             if Settings.showChars {
                 charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
@@ -132,8 +151,8 @@ extension PanelController: PanelDelegate {
 }
 
 extension PanelController {
-    fileprivate var shouldPrepare: Bool {
-       return Screen.screen.backingScaleFactor == 1
+    fileprivate var isRetina: Bool {
+       return Screen.screen.backingScaleFactor != 1
     }
 
     fileprivate func prepare(image: NSImage) -> NSImage {
@@ -145,7 +164,7 @@ extension PanelController {
     }
 
     fileprivate func resize(_ image: NSImage) -> NSImage {
-        guard shouldPrepare else { return image }
+        guard !isRetina else { return image }
         let newSize = CGSize(width: Screen.screen.frame.width * 2, height: Screen.screen.frame.height * 2)
         return image.resize(targetSize: newSize)
     }

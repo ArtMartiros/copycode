@@ -26,7 +26,9 @@ private let ppSubTree: TreeOCR = .n(.expandFrame(.horizontal), pppSubTree, .empt
 private let pnSubTree: TreeOCR = .n(.rCr,
                                     .n(.tR,
                                        .n(.xy(x: 0.05, y: 1), .r("]"), .r("1")),
-                                       .r(")")),
+                                       .n(.yRange(x: 0.9, y: 3...6, op: .and),
+                                          .r(")"),
+                                          .r("}"))),
                                     .n(.lCr,
                                        .n(.tL,
                                           .r("["),
@@ -39,7 +41,7 @@ private let npnSubTree: TreeOCR = .n(.tCr,
                                      .n(.tL,
                                         RKkTree,
                                         .n(.bL,
-                                           .r("A"),
+                                           .n(.xy(x: 0.1, y: 0.2), .r("N"), .r("A")),
                                            .n(.lC, Q4AndTree, .r("t")))),
                                      .n(.xy(x: 0.95, y: 0.7),
                                         .n(.tR,
@@ -60,10 +62,14 @@ private let nnnSubTree: TreeOCR = .n(.tL,
                                            .n(.tCr,
                                               .n(.lC,
                                                  .n(.p_d,
-                                                    PF75Tree,
-                                                    .n(.yRange(x:0, y: 7...9, op: .someFalse), .r("9"), .r("D"))),
+                                                    .n(.yRange(x: 0.9, y: 8...9, op: .or), nB5Tree, PF7Tree),
+                                                    .n(.yRange(x:0, y: 7...9, op: .someFalse),
+                                                       .r("9"),
+                                                       .n(.xRange(x: 8...10, y: 0.2, op: .or), .r("D"), .r("b")))),
                                                  .n(.xy(x:0.05, y: 0.3), .r("5"), .r("}"))),
-                                              .n(.tR, .r("U"), .r("b"))),
+                                              .n(.tR,
+                                                 .r("U"),
+                                                 .n(.lCr, .r("b"), .r("}")))),
                                            BbPF75Tree),
                                         .n(.bC,
                                            .n(.lC,
@@ -81,6 +87,7 @@ private let nnnSubTree: TreeOCR = .n(.tL,
                                                        O_0Tree, .r("d")),
                                                     G6Tree),
                                                  n59Tree),
+                                              ///
                                               .n(.xy(x: 0, y: 0.3), Q4AndTree, .r("4"))),
                                            .n(.tR, .r("J"), n59Tree)),
                                         .n(.G_C,
@@ -159,7 +166,7 @@ private let nppnSubTree: TreeOCR = .n(.tCr,
                                             .n(.xy(x: 0.05, y: 0.5),
                                                .n(.xRange(x: 4...10, y: 0.5, op: .or),
                                                   .n(.xRange(x: 6...10, y: 0.7, op: .or),
-                                                     .r("b"),
+                                                     .n(.xRange(x: 4...5, y: 0.95, op: .and), .r("b"), .r("k")),
                                                      //sc11 l там она не такая как все
                                                      .r("l")),
                                                   .r("L")),
@@ -186,7 +193,7 @@ private let nnpnSubTree: TreeOCR = .n(.bC,
                                       .n(.tL,
                                          .n(.r6,
                                             .n(.botCircleLeft,
-.n(.yRange(x: 0.05, y: 4...6, op: .and), .r("0"), .r("8")),
+                                               .n(.yRange(x: 0.05, y: 4...6, op: .and), .r("0"), .r("8")),
                                                .n(.topCircleRight,
                                                   .n(.topCircleLeft, .r("9"), .r("3")),
                                                   nS_5Tree)),
@@ -199,14 +206,15 @@ private let nnpnSubTree: TreeOCR = .n(.bC,
                                                   .r("8"))),
                                             .n(.xy(x:0.95, y: 2/3),
                                                .n(.xy(x:0.1, y: 1/3),
-                                                  n83SDollarTree,
+                                                  asterixOr83SDollarTree,
                                                   .n(.xy(x:0.1, y: 1/5),
                                                      n83SDollarTree,
                                                      .n(.not5, n83Tree, .r("5")))),
                                                f_tTree))),
-                                      n7fWDollarTree)
+                                      n7fWDollarSlashTree)
 
 // MARK: Helper
+private let asterixOr83SDollarTree: TreeOCR = .n(.ratio(<, 1.2), .r("*"), n83SDollarTree)
 private let O_0Tree: TreeOCR = .n(.yRange(x:0.5, y: 4...6, op: .allFalse ), .r("O"), .r("0"))
 private let l_1Tree: TreeOCR = .n(.l_1,
                                   .r("l"),
@@ -218,7 +226,7 @@ private let RKkTree: TreeOCR = .n(.R_K,
 
 private let nS_5Tree: TreeOCR = .n(.S_5, .r("S"), .r("5"))
 private let Q4AndTree: TreeOCR = .n(.yRange(x:0, y: 2...6, op: .and ),
-                                    .n(.xRange(x: 3...7, y: 0.05, op: .and), .r("Q"), .r("N")),
+                                    .n(.yRange(x: 0.5, y: 4...5, op: .allFalse), .r("Q"), .r("N")),
                                     .n(.xRange(x: 1...3, y: 0.95, op: .allFalse), .r("4"), .r("&")))
 
 private let G_0Tree: TreeOCR = .n(.G_0, .r("G"), .r("0"))
@@ -229,7 +237,9 @@ private let BbPF75Tree: TreeOCR = .n(.tCr,
                                     .n(.yRange(x:0.05, y: 6...7, op: .someFalse), .r("5"),
                                        .n(.xy(x: 0.5, y: 0.95), .r("B"), PF75Tree)),
                                     .r("b"))
-
+private let PF7Tree: TreeOCR = .n(.topCircleRight,
+                                   .n(.lCr, .r("P"), .r("7")),
+                                   .r("F"))
 private let PF75Tree: TreeOCR = .n(.topCircleRight,
                                    .n(.lCr, .r("P"), .r("7")),
                                    .n(.xRange(x:8...10, y: 0.8, op: .or), .r("5"), .r("F")))
@@ -238,8 +248,16 @@ private let n7fWDollarTree: TreeOCR = .n(.n7_W, .r("7"),
                                    .n(.ratio(>, 1.4),
                                       .n(.yRange(x: 0.95, y: 7...9, op: .or), .r("$"), .r("f")),
                                       .n(.xRange(x:7...10, y: 0.3, op: .or), .r("W"), .r("$")) ))
-private let n59Tree: TreeOCR = .n(.topCircleRight, .r("9"), .r("5"))
 
+private let n7fWDollarSlashTree: TreeOCR = .n(.n7_W, .r("7"),
+                                         .n(.ratio(>, 1.4),
+                                            .n(.yRange(x: 0.95, y: 7...9, op: .or),
+                                               .r("$"),
+.n(.yRange(x: 0.1, y: 2...3, op: .or), .r("f"), .r("/"))),
+                                            .n(.xRange(x:7...10, y: 0.3, op: .or), .r("W"), .r("$")) ))
+
+private let n59Tree: TreeOCR = .n(.topCircleRight, .r("9"), .r("5"))
+private let nB5Tree: TreeOCR = .n(.topCircleRight, .r("B"), .r("5"))
 private let n83SDollarTree: TreeOCR = .n(.r3, n83Tree, SDollarTree)
 //2 места
 private let n83Tree: TreeOCR = .n(.botCircleLeft, .r("8"), .r("3"))

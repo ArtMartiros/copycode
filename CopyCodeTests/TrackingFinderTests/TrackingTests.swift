@@ -19,7 +19,7 @@ class TrackingTests: XCTestCase {
     }
 
     func testSc11() {
-        let block = Scene.sc11.getRestoredBlock(self)
+        let block = Scene.sc11.getRestoredBlock(self, low: false)
         guard case .grid(let grid) = block.typography else { return }
         let frames = grid.getArrayOfFrames(from: block.frame)
         let frameLine = frames[1]

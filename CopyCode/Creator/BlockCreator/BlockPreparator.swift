@@ -26,7 +26,7 @@ extension BlockCreator {
 
         init(in bitmap: NSBitmapImageRep) {
             self.digitalColumnSplitter = DigitColumnSplitter(in: bitmap)
-            self.customColumnCreator = CustomColumnCreator<LetterRectangle>(imageWidth: bitmap.size.width)
+            self.customColumnCreator = CustomColumnCreator<LetterRectangle>(imageWidth: bitmap.pixelSize.width)
         }
 
         func initialPrepare(from words: [Word<LetterRectangle>]) -> [Block<LetterRectangle>] {

@@ -18,6 +18,7 @@ final class StuckRestorer {
             if lastChagedIndex != nil, lastChagedIndex! == index {
                 shouldExecute = false
             }
+
             if shouldExecute {
                 let width = next.frame.rightX - current.frame.leftX
                 if width < tracking.width {

@@ -13,9 +13,12 @@ enum Scene: String {
     case sc11, sc13_p1
     case block_with_comments, block_one, block_one_code, block_two
 
-    var image: NSImage { return NSImage(withoutPart) }
-    var lowImage: NSImage { return NSImage(withoutPart + "_low") }
+    func getImage(isLow: Bool) -> NSImage {
+        let name = getName(withoutPart, isLow: isLow)
+        return NSImage(name)
+    }
 
+    private var rectsName: String { return withoutPart + "_rects" }
 /// первоначально поделенный блок обычно один или жва
     private var blockName: String { return rawValue + "_block" }
     private var wordsName: String { return rawValue + "_words" }
@@ -50,7 +53,19 @@ enum Scene: String {
         default: return [:]
         }
     }
-    
+
+    private var lowLetterTypeDictionary: [Int: String] {
+        switch self {
+        case .sc1: return sc1_type_low
+        case .sc2: return sc2_type
+        case .sc3_p1: return sc3_p1_type
+        case .sc3_p2: return sc3_p2_type
+        case .sc9: return sc9_type
+        case .sc11: return sc11_type
+        default: return [:]
+        }
+    }
+
     private var letterDictionary: [Int: String] {
         switch self {
         case .sc1: return sc1_letter
@@ -68,6 +83,11 @@ enum Scene: String {
         }
     }
 
+    func getRects(_ object: AnyObject, low: Bool) -> [SimpleWord] {
+        let name = rectsName + (low ? "_low" : "")
+        return CodableHelper.decode(object, path: name, structType: [SimpleWord].self, shouldPrint: false)!
+    }
+
     func getWords(_ object: AnyObject) -> [SimpleWord] {
         return CodableHelper.decode(object, path: wordsName, structType: [SimpleWord].self, shouldPrint: false)!
     }
@@ -76,9 +96,10 @@ enum Scene: String {
         return CodableHelper.decode(object, path: trackingInfo, structType: [TrackingInfo].self, shouldPrint: false)!
     }
     
-    func getLetterTypes(for lineIndex: Int) -> [LetterType] {
-        guard lineIndex < letterTypeDictionary.count else { return [] }
-        let newString = letterTypeDictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
+    func getLetterTypes(for lineIndex: Int, isLow: Bool) -> [LetterType] {
+        let dictionary = isLow ? lowLetterTypeDictionary : letterTypeDictionary
+        guard lineIndex < dictionary.count else { return [] }
+        let newString = dictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
         let types = newString?.compactMap { LetterType(letter: String($0)) }
         return types ?? []
     }
@@ -108,17 +129,22 @@ enum Scene: String {
         return CodableHelper.decode(object, path: trackingBlockName, structType: SimpleBlock.self, shouldPrint: false)!
     }
 
-    func getRestoredBlock(_ object: AnyObject, low: Bool = false) -> SimpleBlock {
-        let name = restoredName + (low ? "_low" : "")
+    func getRestoredBlock(_ object: AnyObject, low: Bool) -> SimpleBlock {
+        let name = getName(restoredName, isLow: low)
         return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
     }
 
-    func getGridBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: gridBlockName, structType: SimpleBlock.self, shouldPrint: false)!
+    func getGridBlock(_ object: AnyObject, isLow: Bool) -> SimpleBlock {
+        let name = getName(gridBlockName, isLow: isLow)
+        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
     }
     
     func getCompletedWithStuck(_ object: AnyObject) -> CompletedBlock {
         return CodableHelper.decode(object, path: completedWithStuckName, structType: CompletedBlock.self, shouldPrint: false)!
+    }
+
+    private func getName(_ name: String, isLow: Bool) -> String {
+        return name + (isLow ? "_low" : "")
     }
     private var withoutPart: String { return rawValue.removeAll(after: "_p") }
 }
