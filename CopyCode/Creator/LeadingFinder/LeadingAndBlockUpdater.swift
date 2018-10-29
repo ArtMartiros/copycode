@@ -157,9 +157,11 @@ final class LeadingAndBlockUpdater {
         case .low:
             let letters = line.words.map { $0.letters.filter { $0.type == .low } }.reduce([], +)
 
-            let differenceChunks = letters.map { difference($0, with: standardFrame) }
+             let differences = letters
+                .map { difference($0, with: standardFrame) }
                 .sorted { $0 > $1 }
-                .chunkForSorted { $0 == $1 }
+
+             let differenceChunks = differences.chunkForSorted { $0 == $1 }
 
             let sortedChunks = differenceChunks.sorted { $0.count > $1.count }
             guard let chunk = sortedChunks.first, let difference = chunk.first else { return nil }

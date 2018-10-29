@@ -34,7 +34,7 @@ struct DigitColumnCreator: DigitColumnCreatorProtocol {
 //        }
         var columnsWords: [[WordAlias]] = []
         var blockRectangles: [WordAlias] = []
-        divide(from: &dictionaryWordsByOriginX, toColumnsWords: &columnsWords, and: &blockRectangles)
+        divide(from: &dictionaryWordsByOriginX, to: &columnsWords, and: &blockRectangles)
         additionUpdate(&dictionaryWordsByOriginX, columnsWords: &columnsWords, blockRectangles: &blockRectangles)
         dictionaryWordsByOriginX.values.forEach { blockRectangles.append(contentsOf: $0) }
         let columns = columnsWords.map { DigitColumn.from($0) }
@@ -44,14 +44,14 @@ struct DigitColumnCreator: DigitColumnCreatorProtocol {
 
     ///вырезает из словаря значения и разделяет их на column и block слова
     private func divide(from dictionaryToUpdate: inout [Int: [WordAlias]],
-                                toColumnsWords columnsWords: inout [[WordAlias]],
-                                and blockRectangles: inout [WordAlias]) {
+                        to columnsWords: inout [[WordAlias]],
+                        and blockRects: inout [WordAlias]) {
         let dictionary = dictionaryToUpdate
         for (key, value) in dictionary where value.count >= kMinimumColumnWordsCount {
             if let detectedValue = columnDetection.detecte(value) {
                 dictionaryToUpdate.removeValue(forKey: key)
                 columnsWords.append(detectedValue.digitColumnWords)
-                blockRectangles.append(contentsOf: detectedValue.shitWords)
+                blockRects.append(contentsOf: detectedValue.shitWords)
             }
         }
     }

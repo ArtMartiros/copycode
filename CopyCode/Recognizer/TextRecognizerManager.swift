@@ -65,7 +65,7 @@ final class TextRecognizerManager {
 //            let value = CodableHelper.encode(blocks[1])
 //            print(value)
             for block in restoredBlocks {
-                if case .grid(let grid) = block.typography {
+                if case .grid( _) = block.typography {
                     let value = CodableHelper.encode(block)
                     print(value)
                 }
@@ -100,7 +100,7 @@ final class TextRecognizerManager {
                 print(value)
             }
         }
-        let _ = restoredBlocks.map { wordRecognizer.recognize($0) }
+        _ = restoredBlocks.map { wordRecognizer.recognize($0) }
 
     }
 

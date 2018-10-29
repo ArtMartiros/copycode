@@ -30,6 +30,4 @@ final class ScreenShot {
         let image = CGDisplayCreateImage(CGMainDisplayID())
         return image
     }
-
-
 }

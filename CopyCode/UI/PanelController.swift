@@ -50,8 +50,9 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let words = CodableHelper.decode(self, path: "sc1_rects_low", structType: [SimpleWord].self, shouldPrint: false)!.map{ $0.updated(by: 2) }
-        let chars = words.reduce([Rectangle]()) { $0 + $1.letters }
+        let words = CodableHelper.decode(self, path: "sc1_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
+        let updatedWords = words.map { $0.updated(by: 2) }
+        let chars = updatedWords.reduce([Rectangle]()) { $0 + $1.letters }
         let charLayers = chars.map { $0.layer(.green, width: 1) }
         if Settings.showChars {
             charLayers.forEach { panel.imageView.layer!.addSublayer($0) }

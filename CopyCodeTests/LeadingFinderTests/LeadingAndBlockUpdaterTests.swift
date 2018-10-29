@@ -21,6 +21,6 @@ class LeadingAndBlockUpdaterTests: XCTestCase {
         let typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
         let blockWithLow = typeConverter.convert(block)
         let result = updater.update(block: blockWithLow)
-        print("D")
+        print(result.count)
     }
 }

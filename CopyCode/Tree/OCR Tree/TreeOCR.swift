@@ -9,7 +9,6 @@
 import Foundation
 
 //start top left corner
-
 extension Tree where Node == OCROperations, Result == String {
     func find(_ colorChecker: LetterExistenceChecker, with frame: CGRect) -> String? {
         switch self {
@@ -158,21 +157,13 @@ enum OCROperations: CustomStringConvertible {
             }
 
             }
-        case .O_G: return .checkerWithFrame {
-            $0.exist(xRange: 8...9, of: 10, y: 2/7, with: $1, op: .or) &&
-                $0.exist(xRange: 8...9, of: 10, y: 3/7, with: $1, op: .or)
-            }
+        case .O_G: return .checkerWithFrame (O_GOperation)
         case .I_Z: return .checkerWithFrame {
             $0.exist(yArray: [3, 5, 7], of: 10, x: 0.5, with: $1, op: .and)
-//            $0.exist(yArray: [3, 5, 7], of: 10, x: 0.6, with: $1, op: .and) ||
-//            $0.exist(yArray: [3, 5, 7], of: 10, x: 0.4, with: $1, op: .and)
+
             }
         case .G_6: return .checkerWithFrame(G_6Operation)
-        case .not5: return .checkerWithFrame {
-            !($0.exist(xRange: 0...2, of: 6, y: 5/9, with: $1, op: .allFalse) ||
-                $0.exist(xRange: 0...2, of: 6, y: 6/9, with: $1, op: .allFalse) ||
-                $0.exist(xRange: 0...2, of: 6, y: 7/9, with: $1, op: .allFalse))
-            }
+        case .not5: return .checkerWithFrame (no5Operation)
         case .hyphenOrDash: return .checkerWithFrame {
             $0.exist(xRange: 5...7, of: 8, y: 0.2, with: $1, op: .someFalse) &&
                 $0.exist(xRange: 1...3, of: 8, y: 0.8, with: $1, op: .someFalse)
@@ -254,9 +245,7 @@ enum OCROperations: CustomStringConvertible {
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
         case .bracketOrArrowCustom: return .checkerWithFrame (bracketOrArrowCustomOperation)
         case .m_a: return .checkerWithFrame (m_aOperation)
-        case .s_a: return .checkerWithFrame  {
-            return  $0.exist(yRange: 2...4, of: 10, x: 0.9, with: $1, op: .someFalse, percent: 90)
-            }
+        case .s_a: return .checkerWithFrame { $0.exist(yRange: 2...4, of: 10, x: 0.9, with: $1, op: .someFalse, percent: 90) }
         case .e_a: return .checkerWithFrame {
             $0.exist(xRange: 6...9, of: 10, y: 0.9, with: $1, op: .allFalse, percent: 70) ||
                 $0.exist(xRange: 6...9, of: 10, y: 0.8, with: $1, op: .allFalse, percent: 70) ||
@@ -414,6 +403,21 @@ enum OCROperations: CustomStringConvertible {
             }
 
             return true
+        }
+    }
+
+    private var no5Operation: Operation {
+        return {
+            !($0.exist(xRange: 0...2, of: 6, y: 5/9, with: $1, op: .allFalse) ||
+                $0.exist(xRange: 0...2, of: 6, y: 6/9, with: $1, op: .allFalse) ||
+                $0.exist(xRange: 0...2, of: 6, y: 7/9, with: $1, op: .allFalse))
+        }
+    }
+
+    private var O_GOperation: Operation {
+        return {
+                $0.exist(xRange: 8...9, of: 10, y: 2/7, with: $1, op: .or) &&
+                    $0.exist(xRange: 8...9, of: 10, y: 3/7, with: $1, op: .or)
         }
     }
 

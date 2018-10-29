@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate typealias OCR = TreeOCR
+private typealias OCR = TreeOCR
 private let s_rTree = OCR.n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
 private let s_aTree = OCR.n(.yRange(x: 0.05, y: 6...8, op: .and), .r("a"), .r("s"))
 private let e_aTree = OCR.n(.e_a, .r("e"), .r("a"))

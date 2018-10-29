@@ -43,7 +43,7 @@ extension LetterType {
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
         case .custom: return customOCRTree
-            //тип введен после восстановления
+            //тип введен после восстановления LetterResotrer
         case .doubleQuote: return .r("\"")
 
         }

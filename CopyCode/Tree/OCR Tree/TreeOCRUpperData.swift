@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate typealias OCR = TreeOCR
+private typealias OCR = TreeOCR
 let upperOCRTree = OCR.n(.ratio(>, 2.55), pSubTree, nSubTree)
 
 // MARK: - ------------------------1 LEVEL-----------------------------

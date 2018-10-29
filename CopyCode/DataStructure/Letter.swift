@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct LetterRectangle: Rectangle, Hashable, Codable {
     let frame: CGRect
     let type: LetterType
