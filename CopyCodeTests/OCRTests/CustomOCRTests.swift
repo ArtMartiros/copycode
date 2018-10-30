@@ -42,7 +42,7 @@ class CustomOCRTests: XCTestCase {
             let char = recognizer.recognize(from: lp.letter)
             let letter = Letter(rectangle: lp.letter, value: char)
             let position = LetterWithPosition(position: lp, letter: letter)
-            let lineLetters = scene.getLetters(for: position.l)
+            let lineLetters = scene.getLetters(for: position.l, isLow: false)
             let answer = Array(lineLetters)[position.lineCharCount]
             completion(answer, position)
         }

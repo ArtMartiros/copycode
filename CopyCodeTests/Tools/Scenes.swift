@@ -77,6 +77,16 @@ enum Scene: String {
         }
     }
 
+    private var lowLetterDictionary: [Int: String] {
+        switch self {
+        case .sc1: return sc1_letter_low
+        case .sc2: return sc2_letter
+        case .sc3_p1: return sc3_p1_letter
+        case .sc9: return sc9_letter
+        case .sc11: return sc11_letter
+        default: return [:]
+        }
+    }
     func gePreDigitColumnWords(_ object: AnyObject) -> [[SimpleWord]] {
         return preDigitColumnWordsNames.map {
             CodableHelper.decode(object, path: $0, structType: [SimpleWord].self, shouldPrint: false)!
@@ -104,9 +114,10 @@ enum Scene: String {
         return types ?? []
     }
     
-    func getLetters(for lineIndex: Int) -> [String] {
-        guard lineIndex < letterDictionary.count else { return [] }
-        let newString = letterDictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
+    func getLetters(for lineIndex: Int, isLow: Bool) -> [String] {
+        let dictionary = isLow ? lowLetterDictionary : letterDictionary
+        guard lineIndex < dictionary.count else { return [] }
+        let newString = dictionary[lineIndex]?.replacingOccurrences(of: " ", with: "")
         let array = newString?.compactMap { String($0) }
         return array ?? []
     }

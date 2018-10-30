@@ -15,7 +15,7 @@ final class OCRHelper {
         let bitmap = scene.getImage(isLow: isLow).bitmap
 
         for (lineIndex, line) in block.lines.enumerated() where !exlude.contains(lineIndex) {
-            let rightLine = Array(scene.getLetters(for: lineIndex))
+            let rightLine = Array(scene.getLetters(for: lineIndex, isLow: isLow))
 
             for (wordIndex, word) in line.words.enumerated() {
                 let recognizer = LetterRecognizer(bitmap, word: word)

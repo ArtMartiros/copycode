@@ -9,7 +9,7 @@
 import XCTest
 
 class SceneOCRLowTests: XCTestCase {
-
+    //43
     func testOCRScene1() {
         let exludedIndex: Set<Int> = [0, 1, 2, 15, 16, 17]
         OCRHelper.execute(self, scene: .sc1, exlude: exludedIndex, isLow: true) { (answer, position) in
