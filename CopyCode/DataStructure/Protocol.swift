@@ -22,6 +22,20 @@ extension Layerable {
     }
 }
 
+struct LayerOptions: OptionSet {
+    let rawValue: Int
+    static let block = LayerOptions(rawValue: 1 << 0)
+    static let line = LayerOptions(rawValue: 1 << 1)
+    static let word = LayerOptions(rawValue: 1 << 2)
+    static let char = LayerOptions(rawValue: 1 << 3)
+    static let column = LayerOptions(rawValue: 1 << 4)
+    static let text = LayerOptions(rawValue: 1 << 5)
+    static let textView = LayerOptions(rawValue: 1 << 6)
+    static let release: LayerOptions = [.textView]
+    static let debug: LayerOptions = [.block, .line, .word, .char]
+
+}
+
 protocol Rectangle: RatioUpdatable, Layerable, Codable {
     var frame: CGRect { get }
     func intersectByX(with rectangle: Rectangle) -> Bool
@@ -113,6 +127,7 @@ extension Container {
 protocol BlockProtocol: Rectangle {
     associatedtype WordChild: Rectangle
     var lines: [Line<WordChild>] { get }
+    var column: ColumnType { get }
 }
 
 protocol ValueProtocol {

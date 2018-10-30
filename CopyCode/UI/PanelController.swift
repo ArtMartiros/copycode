@@ -32,9 +32,9 @@ final class PanelController: NSWindowController {
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc3")
+        let testImage = NSImage("sc2_low")
         testImage.size = frame.size
-//        Save().save(cgImage)
+        //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
         panel.imageView.image = isTest ? testImage : image
         if Settings.enableFirebase {
@@ -50,82 +50,71 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let words = CodableHelper.decode(self, path: "sc3_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
-        let updatedWords = words.map { $0.updated(by: 2) }
-        let chars = updatedWords.reduce([Rectangle]()) { $0 + $1.letters }
-        let charLayers = chars.map { $0.layer(.green, width: 1) }
-        if Settings.showChars {
+        let block = CodableHelper.decode(self, path: "sc2_restored_low", structType: SimpleBlock.self, shouldPrint: false)!
+        let updatedBlock = block.updated(by: 2)
+        show(updatedBlock, options: [.block, .line, .word, .char])
+    }
+
+    private func show<T: BlockProtocol>(_ block: T, options: LayerOptions) {
+        let transcriptor = TextTranscriptor()
+        if options.contains(.textView) {
+            if let block = block as? CompletedBlock {
+                if case .grid(let grid) = block.typography {
+                    let text = transcriptor.transcript(block: block)
+                    let width = grid.trackingData.defaultTracking.width
+                    let spacing = grid.leading.lineSpacing
+                    let updatedFrame = grid.getUpdatedFrame(from: block.frame)
+                    panel.addTextFrame(with: text, in: updatedFrame, letterWidth: width, spacing: spacing - 1)
+                }
+            }
+        }
+
+        if options.contains(.block) {
+            let layer = block.layer(.blue, width: 3)
+            panel.imageView.layer!.addSublayer(layer)
+        }
+
+        let lines = block.lines
+        if options.contains(.line) {
+            let lineLayers = lines.layers(.red, width: 1)
+            lineLayers.forEach { panel.imageView.layer!.addSublayer($0) }
+        }
+
+        let words = lines.reduce([Word]()) { $0 + $1.words }
+        if options.contains(.word) {
+            let wordsLayers = words.map { $0.layer(.blue, width: 1) }
+            wordsLayers.forEach { panel.imageView.layer!.addSublayer($0) }
+        }
+
+        let chars = words.reduce([Rectangle]()) { $0 + $1.letters }
+        if options.contains(.char) {
+            let charLayers = chars.map { $0.layer(.green, width: 1) }
             charLayers.forEach { panel.imageView.layer!.addSublayer($0) }
         }
+
+        if options.contains(.column) {
+          let layer = block.column.layer(.red, width: 1)
+            panel.imageView.layer!.addSublayer(layer)
+        }
+
     }
+
     func closePanel() {
         GlobalValues.shared.clear()
         panel.closePanel()
     }
 
     private let textDetection = TextRecognizerManager()
-    //        let newBlock = CodableHelper.decode(self!, path: "sc1_restored_low", structType: SimpleBlock.self)?.updated(by: 2)
-    //        let blocks = [newBlock!]
-
     //отсчет пикселей с левого верхнего угла
     func showWords(image: CGImage) {
         Timer.stop(text: "showWords")
         textDetection.performRequest(image: image, retina: isRetina) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             let blocks = oldBlocks.map { $0.updated(by: 2) }
-            let transcriptor = TextTranscriptor()
-            if Settings.showTextView {
-                for block in blocks {
-                    if case .grid(let grid) = block.typography {
-                        let text = transcriptor.transcript(block: block)
-                        let width = grid.trackingData.defaultTracking.width
-                        let spacing = grid.leading.lineSpacing
-                        let updatedFrame = grid.getUpdatedFrame(from: block.frame)
-                        self?.panel.addTextFrame(with: text, in: updatedFrame, letterWidth: width, spacing: spacing - 1)
-                    }
-                }
-            }
 
             Timer.stop(text: "TextTranscriptor transcriptor")
-            if Settings.showBlock {
-                let layers = blocks.layers(.blue, width: 3)
-                layers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            }
-
-            //------------Columns--------------
-            //            let columnsLayers = columns.map { $0.layer(.green, width: 2) }
-            //            columnsLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-
-            //------------Lines--------------
-            let lines = blocks.reduce([Line]()) { $0 + $1.lines }
-            let lineLayers = lines.layers(.red, width: 1)
-            if Settings.showLines {
-                lineLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            }
-
-            //------------Words--------------
-            let words = lines.reduce([Word]()) { $0 + $1.words }
-            let wordsLayers = words.map { $0.layer(.blue, width: 1) }
-            if Settings.showWords {
-                wordsLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            }
-
-            //------------chars--------------
-
-            let chars = words.reduce([Rectangle]()) { $0 + $1.letters }
-            let charLayers = chars.map { $0.layer(.green, width: 1) }
-            if Settings.showChars {
-                charLayers.forEach { self?.panel.imageView.layer!.addSublayer($0) }
-            }
-
-            //------------Column--------------
-            //            let columnFrames = BlockCreator(rectangles: words, in: bitmap).column().map { $0.frame }
-            //            let columnLayers = layerCreator.layerForFrame(width: 1, color: NSColor.green, frames: columnFrames)
-            //            columnLayers.forEach { self.panel.imageView.layer!.addSublayer($0) }
-            //
-            if Settings.release {
-                self?.sendToFirebase()
-            }
+            blocks.forEach { self!.show($0, options: Settings.showBlockOptions) }
+            if Settings.release { self?.sendToFirebase() }
 
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
@@ -140,7 +129,7 @@ extension PanelController: PanelDelegate {
     }
 
     func tapSendScreenButton(panel: Panel) {
-//        sendToFirebase()
+        //        sendToFirebase()
     }
 
     func tapCopyButton(panel: Panel, text: String?) {
@@ -153,7 +142,7 @@ extension PanelController: PanelDelegate {
 
 extension PanelController {
     fileprivate var isRetina: Bool {
-       return Screen.screen.backingScaleFactor != 1
+        return Screen.screen.backingScaleFactor != 1
     }
 
     fileprivate func prepare(image: NSImage) -> NSImage {
@@ -194,9 +183,9 @@ extension PanelController {
                     jsonStorageRef.downloadURL(completion: { (jsonURL, _) in
                         guard let jsonURL = jsonURL else { return }
                         self?.screenRef.child(user).child(timeDate).setValue(["screenURL": screenURL.absoluteString,
-                                                                                    "uploadTime": ServerValue.timestamp(),
-                                                                                    "date": stringDate,
-                                                                                    "jsonURL": jsonURL.absoluteString])
+                                                                              "uploadTime": ServerValue.timestamp(),
+                                                                              "date": stringDate,
+                                                                              "jsonURL": jsonURL.absoluteString])
                         GlobalValues.shared.clear()
                     })
                 })

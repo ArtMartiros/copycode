@@ -12,8 +12,8 @@ class PrepareTest: XCTestCase {
 
 
     func testExample() {
-        let scene = Scene.sc3_p2
-        let isLow = false
+        let scene = Scene.sc2
+        let isLow = true
         let words = scene.getRects(self, low: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
         let textRecognizer = TextRecognizerManager()

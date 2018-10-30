@@ -13,35 +13,17 @@ struct Settings {
     private static let isDefault = false
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true
-    private static let defaultShowBlock = false
-    private static let defaultShowLines = false
-    private static let defaultShowWords = false
-    private static let defaultShowChars = false
+    private static let defaultShowBlock: LayerOptions = [.release]
     private static let defaultIncludeMissingChars = true
-    private static let defaultShowTextView = true
-    private static let defaultShowText = false
     private static let defaultShowGrid = false
     private static let defaultShowAlert = true
     private static let defaultFilterBlock = true
 
     static let enableFirebase = isDefault ? defaultEnableFirebase : true
-
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
-    static let showBlock = isDefault ? defaultShowBlock : true
-    static let showLines = isDefault ? defaultShowLines : true
-    static let showWords = isDefault ? defaultShowWords : true
-    static let showChars = isDefault ? defaultShowChars : true
+    static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
-
-    static let showTextView = isDefault ? defaultShowTextView : false
-    static let showText = isDefault ? defaultShowText : false
-
     static let showGrid = isDefault ? defaultShowGrid : false
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : true
-
-//    enum SettingsType {
-//        case showText
-//        case 
-//    }
 }

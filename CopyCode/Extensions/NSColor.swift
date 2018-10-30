@@ -26,7 +26,7 @@ extension NSColor {
     }
 
     static var textViewBackgroundColor: NSColor {
-        return Settings.showText ? NSColor.white : .clear
+        return Settings.showBlockOptions.contains(.text) ? NSColor.white : .clear
     }
 
     static var textViewFillColor: NSColor {
@@ -34,6 +34,6 @@ extension NSColor {
     }
 
     static var textColor: NSColor {
-        return Settings.showText ? .black : .clear
+        return Settings.showBlockOptions.contains(.text) ? .black : .clear
     }
 }
