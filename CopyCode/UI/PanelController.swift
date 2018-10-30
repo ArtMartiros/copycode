@@ -28,11 +28,11 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
-    var isTest = true
+    var isTest = false
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc1")
+        let testImage = NSImage("sc3")
         testImage.size = frame.size
 //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
@@ -50,7 +50,7 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let words = CodableHelper.decode(self, path: "sc1_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
+        let words = CodableHelper.decode(self, path: "sc3_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
         let updatedWords = words.map { $0.updated(by: 2) }
         let chars = updatedWords.reduce([Rectangle]()) { $0 + $1.letters }
         let charLayers = chars.map { $0.layer(.green, width: 1) }

@@ -57,7 +57,7 @@ enum OCROperations: CustomStringConvertible {
     case O_G, I_Z, n4_f, not5, n7_W, G_6
     case n_u, r3, r6
     case left4
-    case notH
+    case M_H
     case f_t_low
     case m_a
     case s_a
@@ -120,9 +120,15 @@ enum OCROperations: CustomStringConvertible {
         case .rC: return .checkerWithFrame { $0.exist(at: $1.rC) }
         case .c: return  .checkerWithFrame { $0.exist(at: $1.c) }
         case .G_C: return .checkerWithFrame { $0.exist(x: 1, y: 0.6, in: $1) }
-        case .notH: return .checkerWithFrame {
-            !($0.exist(xRange: 2...5, of: 7, y: 0.5, with: $1, op: .and) ||
-                $0.exist(xRange: 2...5, of: 7, y: 0.4, with: $1, op: .and))
+        case .M_H: return .checkerWithFrame {
+            let yArray: [CGFloat] = [0.3, 0.4, 0.5, 0.6]
+            var lastY: CGFloat?
+            for y in yArray {
+                guard !$0.exist(x: 0.5, y: y, in: $1) else { break }
+                lastY = y
+            }
+            guard let currentY = lastY else { return true }
+            return $0.exist(xArray: [4, 6], of: 10, y: currentY, with: $1, op: .or)
             }
         case .v_u: return .checkerWithFrame (v_uOperation)
         case .H_N: return .checkerWithFrame (H_NOperation)
@@ -362,7 +368,7 @@ enum OCROperations: CustomStringConvertible {
         case .f_t_low: return "f_t_low"
         case .v_u: return "v_u"
         case .E_5: return "E_5"
-        case .notH: return "notH"
+        case .M_H: return "M_H"
         case .s_a: return "s_a"
         case let .vLine(l, op, x, mainOp):
             return "vLine: \(l), lineOp: \(op), x: \(x), mainOp: \(mainOp)"

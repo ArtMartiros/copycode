@@ -12,7 +12,7 @@ class PrepareTest: XCTestCase {
 
 
     func testExample() {
-        let scene = Scene.sc11
+        let scene = Scene.sc3_p2
         let isLow = false
         let words = scene.getRects(self, low: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap

@@ -50,7 +50,7 @@ private let npnSubTree = OCR.n(.tCr,
                                      OCR.n(.tR,
                                            OCR.n(.lC,
                                                  OCR.n(.H_N,
-                                                       OCR.n(.notH, .r("M"), .r("H")),
+                                                       OCR.n(.M_H, .r("M"), .r("H")),
                                                        OCR.n(.xRange(x: 7...9, y: 0.8, op: .and), .r("N"), .r("M"))),
                                                  .r("1")),
                                            .r("h")),
@@ -176,6 +176,7 @@ private let nppnSubTree = OCR.n(.tCr,
                                                                     .r("Q"),
                                                                     OCR.n(.xRange(x: 0...3, y: 0.2, op: .or), .r("6"), .r("d"))),
                                                               OCR.n(.yRange(x:0, y:2...4, op: .someFalse), .r("&"), .r("G")))),
+                                                  ///sssss
                                                   t84AndTree))),
                                 OCR.n(.tL,
                                       OCR.n(.ratio(>, 1.3),
@@ -289,7 +290,9 @@ private let SDollarTree = OCR.n(.S_Dollar, .r("S"), .r("$"))
 private let  Z_2Tree = OCR.n(.xy(x: 0.9, y: 0.3), .r("2"), .r("Z"))
 //2 места
 private let t84AndTree = OCR.n(.t_4,
-                               OCR.n(.vLine(l: 3...7, x: 3...5, op: .and, mainOp: .or), .r("t"), .r("8")),
+                               OCR.n(.vLine(l: 3...7, x: 3...5, op: .and, mainOp: .or),
+                                     .r("t"),
+                                     OCR.n(.botCircleLeft, .r("8"), .r("S"))),
                                OCR.n(.xRange(x:2...6, y:0.9, op: .and),
                                      OCR.n(.yRange(x: 0.9, y: 1...4, op: .and), .r("d"), .r("&")),
                                      OCR.n(.xRange(x: 1...3, y: 0.95, op: .allFalse), .r("4"), .r("&"))))

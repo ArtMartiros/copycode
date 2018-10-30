@@ -64,7 +64,7 @@ final class TextRecognizerManager {
             Timer.stop(text: "WordRecognizer Recognize")
 //            let value = CodableHelper.encode(blocks[1])
 //            print(value)
-            for block in restoredBlocks {
+            for block in gridBlocks {
                 if case .grid( _) = block.typography {
                     let value = CodableHelper.encode(block)
                     print(value)

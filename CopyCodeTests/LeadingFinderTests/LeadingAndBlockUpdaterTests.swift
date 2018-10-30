@@ -9,18 +9,33 @@
 import XCTest
 
 class LeadingAndBlockUpdaterTests: XCTestCase {
+    func testSc1() {
+        let result = execute(.sc1, isLow: false)[0]
+        XCTAssertEqual(result.lines.count, 22)
+    }
 
+    func testSc3_p1() {
+        let result = execute(.sc3_p1, isLow: false)[0]
+        XCTAssertEqual(result.lines.count, 45)
+    }
 
-    func testExample() {
-        let scene = Scene.sc11
-        let isLow = false
+    func testSc3_p2() {
+        let result = execute(.sc3_p2, isLow: false)[0]
+        XCTAssertEqual(result.lines.count, 34)
+    }
+
+    func testSc11() {
+        let result = execute(.sc11, isLow: false)
+        XCTAssertEqual(result[0].lines.count, 8)
+    }
+
+    private func execute(_ scene: Scene, isLow: Bool) -> [SimpleBlock] {
         let block = scene.getGridBlock(self, isLow: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
-        guard case .grid(let grid) = block.typography else { return }
+        guard case .grid(let grid) = block.typography else { return [] }
         let updater = LeadingAndBlockUpdater(grid: grid, isRetina: !isLow)
         let typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
         let blockWithLow = typeConverter.convert(block)
-        let result = updater.update(block: blockWithLow)
-        print(result.count)
+        return updater.update(block: blockWithLow)
     }
 }

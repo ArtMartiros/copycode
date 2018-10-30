@@ -88,6 +88,7 @@ enum LetterType: String, Codable {
     case underscore
     //- ~
     case dashOrHyphen
+    //,
     case comma
     case quote
     case doubleQuote

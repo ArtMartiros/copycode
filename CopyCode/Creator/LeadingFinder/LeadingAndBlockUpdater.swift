@@ -281,8 +281,11 @@ extension LeadingAndBlockUpdater {
         }
 
         private func isSameDiffInFuture(_ diffs: [CGFloat], current: DifferenceInfo, future: DifferenceInfo) -> Bool {
+
             let averageDiff = diffs.reduce(0, +) / CGFloat(diffs.count)
+
             let nextdiff = current.diff - future.diff
+            guard nextdiff != 0 else { return true }
             let ratio = abs(averageDiff / nextdiff)
             let range: TrackingRange = 0.2...5
             let contrain = range.contains(ratio)
