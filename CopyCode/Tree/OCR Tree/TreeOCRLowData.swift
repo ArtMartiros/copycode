@@ -10,6 +10,7 @@ import Foundation
 
 private typealias OCR = TreeOCR
 private let s_rTree = OCR.n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
+private let m_wTree = OCR.n(.xy(x: 0.05, y: 0.95), .r("m"), .r("w"))
 private let s_aTree = OCR.n(.yRange(x: 0.05, y: 6...8, op: .and), .r("a"), .r("s"))
 private let e_aTree = OCR.n(.e_a, .r("e"), .r("a"))
 private let z_rTree = OCR.n(.xy(x:0.8, y: 0.1), .r("z"), .r("i"))
@@ -44,7 +45,9 @@ private let nnLowSubTree = OCR.n(.c,
                                                          .r("x")),
                                                    OCR.n(.xRange(x: 4...8, y: 0.05, op: .and),
                                                          .r("a"),
-                                                         OCR.n(.x_asterix, .r("x"), .r("*")))))),
+                                                         OCR.n(.x_asterix,
+                                                               OCR.n(.bC, .r("i"), .r("x")),
+                                                               .r("*")))))),
                                  OCR.n(.question,
                                        .r("?"),
                                        OCR.n(.rC,
@@ -56,7 +59,11 @@ private let nnLowSubTree = OCR.n(.c,
                                                          .r("r"),
                                                          .r("i")),
                                                    OCR.n(.xy(x:0.5, y: 0.4),
-                                                         OCR.n(.xy(x: 0.05, y: 0.5), .r("e"), .r("r")),
+                                                         OCR.n(.xy(x: 0.05, y: 0.5),
+                                                               OCR.n(.xy(x: 0.5, y: 0.05),
+                                                                     .r("e"),
+                                                                     .r("<")),
+                                                               .r("r")),
                                                          OCR.n(.xy(x:0.3, y: 0),
                                                                .r("c"),
                                                                OCR.n(.xRange(x: 0...3, y: 0.1, op: .or), .r("v"), .r("<"))))))))
@@ -99,27 +106,33 @@ private let npppLowSubTree = OCR.n(.n_u,
                                                OCR.n(.yRange(x:1, y: 6...8, op: .and),
                                                      OCR.n(.m_a,
                                                            .r("m"),
-                                                        OCR.n(.s_a,
-                                                              .r("s"),
-                                                              .r("a"))),
+                                                        s_aTree),
                                                      OCR.n(.e_a, .r("e"), .r("m"))),
                                                .r("o")),
-                                         OCR.n(.yRange(x: 0.5, y: 3...6, op: .allFalse), .r("n"), .r("w"))),
+                                         OCR.n(.xRangeP(x: 4...6, y: 0.5, op: .allFalse, p: 92),
+                                               .r("n"),
+                                               OCR.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
+                                                     .r("w"),
+                                                     .r("m")))),
                                    OCR.n(.xy(x: 0.5, y: 0.95),
                                          OCR.n(.xy(x: 0.95, y: 0.95), .r("u"), .r("v")),
-                                         OCR.n(.xy(x: 0.05, y: 0.95), .r("m"), .r("w"))))
+                                         m_wTree))
 
-private let nppnLowSubTree = OCR.n(.xy(x:0, y: 1),
+private let nppnLowSubTree = OCR.n(.xy(x: 0, y: 1),
                                    OCR.n(.xy(x: 0.95, y: 0.6),
                                          OCR.n(.yRange(x: 0.05, y: 6...8, op: .and),
                                                .r("c"),
-                                               .r("s")),
-                                         OCR.n(.xyp(x: 0.05, y: 0.5, p: 90),
+                                               OCR.n(.m_a,
+                                                     .r("m"),
+                                                     .r("s"))),
+
+                                         OCR.n(.xyp(x: 0, y: 0.5, p: 85),
                                                OCR.n(.xRange(x: 8...10, y: 0.6, op: .or),
-                                                     .r("a"),
-                                                     //r без ножки прижатая к левому боку
-                                                OCR.n(.xy(x: 0.5, y: 0.9), .r("c"), .r("r"))),
-                                               //r c ножкой
+                                                     s_aTree,
+                                                     OCR.n(.xRange(x: 9...10, y: 0.8, op: .or),
+                                                           .r("c"),
+                                                           .r("r"))), //r без ножки
+                                               //r точно c ножкой
                                             .r("r"))),
                                    OCR.n(.xRange(x: 5...9, y: 0.5, op: .allFalse),
                                          .r("c"),
@@ -132,5 +145,5 @@ private let nppnLowSubTree = OCR.n(.xy(x:0, y: 1),
                                                OCR.n(.yRange(x: 0.5, y: 3...6, op: .allFalse),
                                                      .r("u"),
                                                      OCR.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
-                                                        OCR.n(.test, .r("w"), .r("*")),
+                                                           OCR.n(.test, .r("w"), .r("*")),
                                                            OCR.n(.m_a, .r("m"), .r("a")))))))

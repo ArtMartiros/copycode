@@ -18,7 +18,7 @@ let lowWithTailOCRTree: TreeOCR = .n(.xy(x:0, y:0.05),
                                                        g_qTree,
                                                        .n(.xy(x: 0.05, y: 0.7), .r("p"), .r("y"))),
                                                     .n(.rC, .r("j"), .r("y"))),
-                                                 .n(.xy(x:0.1, y: 0.33),
+                                                 .n(.xyp(x:0.1, y: 0.33, p: 110),
                                                     .n(.xy(x:0.9, y: 0.8), g_qTree, .r("p")) ,
                                                     .r("j")))
 let dashOrHyphenOCRTree: TreeOCR = .n(.hyphenOrDash,

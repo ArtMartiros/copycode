@@ -30,12 +30,12 @@ struct LetterPixelChecker: LetterPixelExistenceProtocol {
         let updatedAllowedInterval = allowedInterval  * accuracyPercenRate / 100
         if letterDefaultWhite >= backgroundWhite {
             let startPoint = letterDefaultWhite - updatedAllowedInterval
-            let range = startPoint.rounded(toPlaces: 3) ... 1
+            let range = startPoint.rounded(toPlaces: 2) ... 1
             print("Range \(range)")
             return range ~= value
         } else {
             let endPoint = letterDefaultWhite + updatedAllowedInterval
-            let range =  0...endPoint.rounded(toPlaces: 3)
+            let range =  0...endPoint.rounded(toPlaces: 2)
             print("Range \(range)")
             return range ~= value
         }

@@ -138,3 +138,19 @@ extension Array where Element: Rectangle {
         return sorted { $0.frame.leftX >  $1.frame.leftX }
     }
 }
+
+extension Array where Element == Bool {
+    ///не придумал название
+    ///находит если средний элемент отличен от крайних
+    func name(middle: Bool) -> Bool {
+        let startIndex = firstIndex { $0 == !middle }
+
+        guard let index = startIndex else { return false }
+        let newArray = self[index..<count]
+        let optionMiddleIndex = newArray.firstIndex { $0 == middle }
+
+        guard let middleIndex = optionMiddleIndex else { return false }
+        let newArray2 = self[middleIndex..<count]
+        return newArray2.first { $0 == !middle} != nil
+    }
+}

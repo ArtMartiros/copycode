@@ -57,7 +57,7 @@ enum Scene: String {
     private var lowLetterTypeDictionary: [Int: String] {
         switch self {
         case .sc1: return sc1_type_low
-        case .sc2: return sc2_type
+        case .sc2: return sc2_type_low
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
         case .sc9: return sc9_type
