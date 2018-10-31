@@ -30,11 +30,7 @@ class SceneOCRLowTests: XCTestCase {
         }
     }
 
-//    func testOCRScene3_p2() {
-//        OCRHelper.execute(self, scene: .sc3_p2, exlude: [], isLow: false) { (answer, position) in
-//            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
-//        }
-//    }
+
 //    //2
 //    func testOCRScene9() {
 //        OCRHelper.execute(self, scene: .sc9, exlude: [1, 2], isLow: false) { (answer, position) in

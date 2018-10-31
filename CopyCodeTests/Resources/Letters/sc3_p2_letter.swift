@@ -45,6 +45,7 @@ let sc3_p2_letter = [
     33: "//чтоб не убирать обсервер мейн просто перезаписываю пустотой"
 ]
 
+//10, 11 w поменял на h это unstuck letter
 let sc3_p2_letter_low = [
     0: "import UIKit",
     1: "class UserMainViewController: UserDescrViewController {",
@@ -56,8 +57,8 @@ let sc3_p2_letter_low = [
     7: "super.viewDidLoad()",
     8: "infoView = EmptyTableClass().setupEmptyView(type: .userMain)",
     9: "}",
-    10: "override func vieWWillAppear(_ animated: Bool) {",
-    11: "super.vieWWillAppear(animated)",
+    10: "override func viehWillAppear(_ animated: Bool) {",
+    11: "super.viehWillAppear(animated)",
     12: "userDescr = MainUser()",
     13: "}",
     14: "override func userPlacesObserve() {",

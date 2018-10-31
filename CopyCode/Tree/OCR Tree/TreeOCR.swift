@@ -77,6 +77,7 @@ enum OCROperations: CustomStringConvertible {
     case braceOrRoundR
     case colon
     case s_star
+    case w_u
     case l_1
     case R_K
     case O_Q
@@ -84,7 +85,7 @@ enum OCROperations: CustomStringConvertible {
     case v_u
     case G_8
     case i_1
-    case test
+    case w_star
     case x_asterix
     case plus_e
     case doubleQuotesCustom
@@ -98,7 +99,7 @@ enum OCROperations: CustomStringConvertible {
             print("ratio \($0.ratio)")
             return operation($0.ratio, ratio)
             }
-        case .test: return .checkerWithFrame {
+        case .w_star: return .checkerWithFrame {
             let xArray: [CGFloat] = [0.9, 0.8, 0.7, 0.6]
             var lastX: CGFloat?
             for x in xArray {
@@ -108,6 +109,15 @@ enum OCROperations: CustomStringConvertible {
             guard let currentX = lastX else { return true }
             return $0.exist(yRange: 6...8, of: 10, x: currentX, with: $1, op: .allFalse)
             }
+        case .w_u: return .checkerWithFrame {
+        let xArray: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7]
+        var results: [Bool] = []
+        for x in xArray {
+            results.append($0.exist(x: x, y: 0.9, in: $1, percent: 100))
+        }
+        print("w_star array \(results)")
+        return results.name(middle: false)
+        }
         case .braceOrRoundL: return .checkerWithFrame (braceOrRoundLOperation)
         case .braceOrRoundR: return .checkerWithFrame (braceOrRoundROperation)
         case .tL: return .checkerWithFrame { $0.exist(at: $1.tL) }
@@ -125,7 +135,7 @@ enum OCROperations: CustomStringConvertible {
                 let xArray: [CGFloat] = [0.1, 0.2, 0.3, 0.4, 0.5]
                 var results: [Bool] = []
                 for x in xArray {
-                    results.append($0.exist(x: x, y: 0.7, in: $1, percent: 100))
+                    results.append($0.exist(x: x, y: 0.6, in: $1, percent: 100))
                 }
                 print("M_H array \(results)")
                 return results.name(middle: false)
@@ -377,7 +387,8 @@ enum OCROperations: CustomStringConvertible {
         case let .hLine(l, op, y, mainOp):
             return "hLine: \(l), lineOp: \(op), y: \(y), mainOp: \(mainOp)"
         case .x_asterix:  return "x_asterix"
-        case .test: return "test"
+        case .w_star: return "test"
+        case .w_u: return "w_u"
 
 
         }
@@ -516,8 +527,15 @@ enum OCROperations: CustomStringConvertible {
     private var H_NOperation: Operation {
         return { checker, frame in
             let yArray: [CGFloat] = [0.3, 0.4, 0.6, 0.7]
+            var newFrame = frame
+            let options: DirectionOptions = [.horizontal]
+            for direction in options.directions {
+                newFrame = newFrame.expandFrame(by: 1, times: 4, using: checker, in: direction, with: [5])
+            }
             for y in yArray {
-                if !checker.sameWithMirrorX(frame: frame, part: 4, of: 10, withY: y, accuracy: 7) {
+                print("y \(y)")
+                if !checker.sameWithMirrorX(frame: newFrame, part: 4, of: 10, withY: y, accuracy: 7) {
+                    print("false")
                     return false
                 }
             }
