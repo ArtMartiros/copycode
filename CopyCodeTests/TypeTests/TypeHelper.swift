@@ -10,7 +10,7 @@ import Foundation
 
 class TypeHelper {
     static func message(_ position: SimpleLetterPosition) -> String {
-        return "L: \(position.l), index: \(position.lineCharCount), ❌: \(position.letter.type)"
+        return "L: \(position.l), index: \(position.lineCharCount), ✔️: \(position.letter.type)"
     }
 
     static func execute(_ object: AnyObject, scene: Scene, exluded: Set<Int>, isLow: Bool,

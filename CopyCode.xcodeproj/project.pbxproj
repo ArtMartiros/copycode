@@ -14,6 +14,8 @@
 		AC03DCF9213D61AF00730DCD /* block_two.json in Resources */ = {isa = PBXBuildFile; fileRef = AC03DCF8213D61AF00730DCD /* block_two.json */; };
 		AC03DD00213DC2F200730DCD /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03DCFF213DC2F200730DCD /* CodableHelper.swift */; };
 		AC03DD01213DC2F200730DCD /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03DCFF213DC2F200730DCD /* CodableHelper.swift */; };
+		AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0686932189CBF800C54D59 /* sc3_p1_restored_low.json */; };
+		AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0686952189CC0B00C54D59 /* sc3_p2_restored_low.json */; };
 		AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D84620FF30D000770DBB /* AppDelegate.swift */; };
 		AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC06D84C20FF30D100770DBB /* Main.storyboard */; };
 		AC06D86520FF30D100770DBB /* CopyCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D86420FF30D100770DBB /* CopyCodeUITests.swift */; };
@@ -412,6 +414,8 @@
 		AC03DCE1213D600800730DCD /* block_one.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = block_one.json; sourceTree = "<group>"; };
 		AC03DCF8213D61AF00730DCD /* block_two.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = block_two.json; sourceTree = "<group>"; };
 		AC03DCFF213DC2F200730DCD /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		AC0686932189CBF800C54D59 /* sc3_p1_restored_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p1_restored_low.json; sourceTree = "<group>"; };
+		AC0686952189CC0B00C54D59 /* sc3_p2_restored_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_restored_low.json; sourceTree = "<group>"; };
 		AC06D84320FF30D000770DBB /* CopyCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CopyCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC06D84620FF30D000770DBB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC06D84D20FF30D100770DBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -1254,6 +1258,8 @@
 			children = (
 				ACD0F84D21850B0700DFB12B /* sc1_restored_low.json */,
 				ACA646722188D0AD005F6302 /* sc2_restored_low.json */,
+				AC0686932189CBF800C54D59 /* sc3_p1_restored_low.json */,
+				AC0686952189CC0B00C54D59 /* sc3_p2_restored_low.json */,
 			);
 			path = Restored;
 			sourceTree = "<group>";
@@ -1595,6 +1601,8 @@
 			files = (
 				AC35884F2171DD590023F311 /* ocr_xcode_light_18_words.json in Resources */,
 				ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */,
+				AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */,
+				AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				ACD0F8302184FDBE00DFB12B /* sc2_rects_low.json in Resources */,
 				ACD0F8252184F80700DFB12B /* sc11_rects.json in Resources */,

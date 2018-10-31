@@ -14,25 +14,25 @@ final class LetterExistenceChecker {
 
     private let bitmap: NSBitmapImageRep
     private let pixelExistence: LetterPixelExistenceProtocol
-
+    private let colorPicker: ColorPicker
     init(_ bitmap: NSBitmapImageRep, pixelChecker: LetterPixelExistenceProtocol) {
         self.bitmap = bitmap
+        self.colorPicker =  ColorPicker(bitmap)
         self.pixelExistence = pixelChecker
     }
 
     private static let defaultValue: CGFloat = 100
 
-    func exist(at point: CGPoint, accuracyPercenRate: CGFloat = defaultValue) -> Bool {
-        let colorPicker = ColorPicker(bitmap)
+    func exist(at point: CGPoint, percent: CGFloat = defaultValue) -> Bool {
         let color = colorPicker.pickWhite(at: point)
-        let exist = pixelExistence.exist(currentValue: color, accuracyPercenRate: accuracyPercenRate)
+        let exist = pixelExistence.exist(currentValue: color, accuracyPercenRate: percent)
         print(exist ? "✅\n" : "⭕️\n")
         return exist
     }
 
     func exist(x: CGFloat, y: CGFloat, in frame: CGRect, percent: CGFloat = defaultValue) -> Bool {
         let point = CGPoint(x: frame.xAs(rate: x), y: frame.yAs(rate: y))
-        return exist(at: point, accuracyPercenRate: percent)
+        return exist(at: point, percent: percent)
     }
 
     func exist(xRange: ClosedRange<Int>, of unit: Int, y: CGFloat, with frame: CGRect,
@@ -72,21 +72,34 @@ final class LetterExistenceChecker {
         }
     }
 
-    func sameWithMirrorX(frame: CGRect, part: Int, of number: Int, withY y: CGFloat) -> Bool {
+    func samePoint(_ first: CGPoint, with second: CGPoint, accuracy: CGFloat) -> Bool {
+        let color = colorPicker.pickWhite(at: first)
+        let mirrorColor = colorPicker.pickWhite(at: second)
+        return sameColor(color, with: mirrorColor, accuracy: accuracy)
+    }
+
+    func sameColor(_ first: CGFloat, with second: CGFloat, accuracy: CGFloat) -> Bool {
+        let isSame = Checker().isSame(first, with: second, relativelyTo: 1, accuracy: accuracy)
+        print(isSame ? "✅\n" : "⭕️\n")
+        return isSame
+    }
+
+    func sameWithMirrorX(frame: CGRect, part: Int, of number: Int, withY y: CGFloat, accuracy: CGFloat) -> Bool {
         let x = frame.xAs(part: part, of: number)
+        let y = frame.yAs(rate: y)
         let mirrorX = frame.xAs(part: number - part, of: number)
         let point = CGPoint(x: x, y: y)
         let mirrorPoint = CGPoint(x: mirrorX, y: y)
-        return exist(at: point) == exist(at: mirrorPoint)
+        return samePoint(point, with: mirrorPoint, accuracy: accuracy)
     }
 
     private func exist(_ points: [CGPoint], op: LogicalOperator, with frame: CGRect,
                        percent: CGFloat = defaultValue) -> Bool {
         switch op {
-        case .or:  return points.first { exist(at: $0, accuracyPercenRate: percent) } != nil
-        case .and: return points.first { !exist(at: $0, accuracyPercenRate: percent) } == nil
-        case .allFalse: return points.first { exist(at: $0, accuracyPercenRate: percent) } == nil
-        case .someFalse: return points.first { !exist(at: $0, accuracyPercenRate: percent) } != nil
+        case .or:  return points.first { exist(at: $0, percent: percent) } != nil
+        case .and: return points.first { !exist(at: $0, percent: percent) } == nil
+        case .allFalse: return points.first { exist(at: $0, percent: percent) } == nil
+        case .someFalse: return points.first { !exist(at: $0, percent: percent) } != nil
 
         }
     }

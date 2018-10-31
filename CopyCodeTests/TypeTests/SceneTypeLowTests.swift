@@ -22,20 +22,20 @@ class SceneTypeLowTests: XCTestCase {
         }
     }
 
-//    func testSc3_p1() {
-//        TypeHelper.execute(self, scene: .sc3_p1, exluded: [], isLow: false) { (type, position) in
-//            print(type)
-//            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
-//        }
-//    }
-//
-//    func testSc3_p2() {
-//        TypeHelper.execute(self, scene: .sc3_p2, exluded: [], isLow: false) { (type, position) in
-//            print(type)
-//            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
-//        }
-//    }
-//
+    func testSc3_p1() {
+        TypeHelper.execute(self, scene: .sc3_p1, exluded: [], isLow: true) { (type, position) in
+            print(type)
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
+    func testSc3_p2() {
+        TypeHelper.execute(self, scene: .sc3_p2, exluded: [], isLow: true) { (type, position) in
+            print(type)
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
 //    func testSc9() {
 //        TypeHelper.execute(self, scene: .sc9, exluded: [], isLow: false) { (type, position) in
 //            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))

@@ -56,7 +56,7 @@ enum OCROperations: CustomStringConvertible {
     case vLine(l: ClosedRange<Int>, x: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator)
     case hLine(l: ClosedRange<Int>, y: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator)
     case H_N, c, p_d, Z_S, G_C, t_4, K_k, f_t
-    case O_G, I_Z, n4_f, not5, n7_W, G_6
+    case O_G, I_Z, n4_f, not5, n7_W
     case n_u, r3, r6
     case left4
     case M_H
@@ -122,15 +122,15 @@ enum OCROperations: CustomStringConvertible {
         case .c: return  .checkerWithFrame { $0.exist(at: $1.c) }
         case .G_C: return .checkerWithFrame { $0.exist(x: 1, y: 0.6, in: $1) }
         case .M_H: return .checkerWithFrame {
-            let yArray: [CGFloat] = [0.3, 0.4, 0.5, 0.6]
-            var lastY: CGFloat?
-            for y in yArray {
-                guard !$0.exist(x: 0.5, y: y, in: $1) else { break }
-                lastY = y
+                let xArray: [CGFloat] = [0.1, 0.2, 0.3, 0.4, 0.5]
+                var results: [Bool] = []
+                for x in xArray {
+                    results.append($0.exist(x: x, y: 0.7, in: $1, percent: 100))
+                }
+                print("M_H array \(results)")
+                return results.name(middle: false)
             }
-            guard let currentY = lastY else { return true }
-            return $0.exist(xArray: [4, 6], of: 10, y: currentY, with: $1, op: .or)
-            }
+
         case .v_u: return .checkerWithFrame (v_uOperation)
         case .H_N: return .checkerWithFrame (H_NOperation)
         case .p_d: return .checkerWithFrame { $0.exist(yArray: [3, 5], of: 7, x: 0.5, with: $1, op: .or) }
@@ -181,7 +181,6 @@ enum OCROperations: CustomStringConvertible {
             $0.exist(yArray: [3, 5, 7], of: 10, x: 0.5, with: $1, op: .and) ||
             $0.exist(yArray: [3, 5, 7], of: 10, x: 0.6, with: $1, op: .and)
             }
-        case .G_6: return .checkerWithFrame(G_6Operation)
         case .not5: return .checkerWithFrame (no5Operation)
         case .hyphenOrDash: return .checkerWithFrame {
             $0.exist(xRange: 5...7, of: 8, y: 0.2, with: $1, op: .someFalse) &&
@@ -311,7 +310,6 @@ enum OCROperations: CustomStringConvertible {
         case .bR: return "bottomRight"
         case .c: return "center"
         case .f_t: return "f_t"
-        case .G_6: return "G_6"
         case .G_C: return "G_C"
         case .H_N: return "H_N"
         case .N_A: return "N_A"
@@ -351,7 +349,7 @@ enum OCROperations: CustomStringConvertible {
         case .left4:  return "left4"
         case .question: return "question"
         case .equalOrDash: return "equalOrDash"
-        case .sobaka: return "asterix"
+        case .sobaka: return "sobaka"
         case .S_Dollar: return "S_Dollar"
         case .semicolon: return "semicolon"
         case .colon: return "colon"
@@ -517,12 +515,9 @@ enum OCROperations: CustomStringConvertible {
 
     private var H_NOperation: Operation {
         return { checker, frame in
-            let leftX: CGFloat = 0.35
-            let rightX: CGFloat = 0.65
             let yArray: [CGFloat] = [0.3, 0.4, 0.6, 0.7]
-
             for y in yArray {
-                if checker.exist(x: leftX, y: y, in: frame) != checker.exist(x: rightX, y: y, in: frame) {
+                if !checker.sameWithMirrorX(frame: frame, part: 4, of: 10, withY: y, accuracy: 7) {
                     return false
                 }
             }
@@ -537,33 +532,21 @@ enum OCROperations: CustomStringConvertible {
         }
     }
 
-    ///проверка скгибается ли верхняя линия
+    //у 5ки модем провести слева линию пустоты до середины
+    //у S мы столкнемся
     private var S_5Operation: Operation {
         return { checker, frame in
-            let yArray: [CGFloat] = [0.1, 0.15, 0.2, 0.25, 0.3]
-            let xArray: [CGFloat] = [0.5, 0.6, 0.7, 0.8, 0.9]
-            var findExist = false
-            var emptyY: CGFloat?
+            let yArray: [CGFloat] = [0.5, 0.55, 0.6, 0.65]
+            var lastY: CGFloat?
             for y in yArray {
-                if findExist {
-                    if !checker.exist(x: 0.4, y: y, in: frame) {
-                       emptyY = y
-                    }
-                }
-                if checker.exist(x: 0.4, y: y, in: frame) {
-                    findExist = true
+                if !checker.exist(x: 0.05, y: y, in: frame) {
+                    lastY = y
+                    break
                 }
             }
 
-            guard let y = emptyY else { return true }
-
-            for x in xArray {
-                if checker.exist(x: x, y: y, in: frame) {
-                    return true
-                }
-            }
-
-            return false
+            guard let currentY = lastY else { return false }
+            return checker.exist(xRange: 1...6, of: 10, y: currentY, with: frame, op: .or)
         }
     }
 
@@ -613,53 +596,6 @@ enum OCROperations: CustomStringConvertible {
         }
     }
 
-    ///находим первую черную точку линии G
-    private var firsGrayscaleOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect, _ startY: CGFloat) -> CGFloat {
-        return { checker, frame, startY  in
-            let y = startY
-            let x = frame.xAs(rate: 0.9)
-            var isGrayscale = false
-            var lastY = y
-            while !isGrayscale {
-                lastY -= 1
-                let newPoint = CGPoint(x: x, y: lastY)
-                isGrayscale = checker.exist(at: newPoint)
-            }
-            return lastY
-        }
-    }
-
-    private var firstWhiteOperation: (_ checker: LetterExistenceChecker, _ frame: CGRect) -> CGFloat {
-        return { checker, frame in
-            let y = frame.yAs(rate: 0.2)
-            let x = frame.xAs(rate: 0.9)
-            var isWhite = false
-            var lastY = y
-            while !isWhite {
-                lastY -= 1
-                let newPoint = CGPoint(x: x, y: lastY)
-                isWhite = !checker.exist(at: newPoint)
-            }
-            return lastY
-        }
-    }
-
-    private var G_6Operation: Operation {
-        return { checker, frame in
-            //так как firsGrayscaleOperation может сразу попасть на верх G то тогда будет ошибка, нужно чтобы сначала нашел пустоту, а потом от нее черный цвет
-            let white = self.firstWhiteOperation(checker, frame)
-            let firstBlack = self.firsGrayscaleOperation(checker, frame, white)
-            let lastWhite = firstBlack + 1
-            for i in Array(4...8).reversed() {
-                let x = frame.xAs(part: i, of: 8)
-                let point = CGPoint(x: x, y: lastWhite)
-                if checker.exist(at: point) {
-                    return false
-                }
-            }
-            return true
-        }
-    }
 }
 
 extension Direction {

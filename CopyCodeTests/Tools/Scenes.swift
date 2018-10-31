@@ -58,8 +58,8 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_type_low
         case .sc2: return sc2_type_low
-        case .sc3_p1: return sc3_p1_type
-        case .sc3_p2: return sc3_p2_type
+        case .sc3_p1: return sc3_p1_type_low
+        case .sc3_p2: return sc3_p2_type_low
         case .sc9: return sc9_type
         case .sc11: return sc11_type
         default: return [:]
@@ -82,7 +82,8 @@ enum Scene: String {
         switch self {
         case .sc1: return sc1_letter_low
         case .sc2: return sc2_letter
-        case .sc3_p1: return sc3_p1_letter
+        case .sc3_p1: return sc3_p1_letter_low
+            case .sc3_p2: return sc3_p2_letter_low
         case .sc9: return sc9_letter
         case .sc11: return sc11_letter
         default: return [:]

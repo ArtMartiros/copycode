@@ -22,15 +22,14 @@ class SceneOCRLowTests: XCTestCase {
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
         }
     }
-//
-//    //1 ошибки кастом
-//    func testOCRScene3_p1() {
-//        let exludedIndex: Set<Int> = [0, 1, 2, 3, 4, 5, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
-//        OCRHelper.execute(self, scene: .sc3_p1, exlude: exludedIndex, isLow: false) { (answer, position) in
-//            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
-//        }
-//    }
-//
+
+    func testOCRScene3_p1() {
+        let exludedIndex: Set<Int> = [0, 1, 2, 3, 4, 5, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
+        OCRHelper.execute(self, scene: .sc3_p1, exlude: exludedIndex, isLow: true) { (answer, position) in
+            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
+        }
+    }
+
 //    func testOCRScene3_p2() {
 //        OCRHelper.execute(self, scene: .sc3_p2, exlude: [], isLow: false) { (answer, position) in
 //            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))

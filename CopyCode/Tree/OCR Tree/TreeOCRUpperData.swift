@@ -73,7 +73,7 @@ private let pppSubTree = OCR.n(.ratio(>, 7.5),
                                            OCR.n(.bL, .r("I"), .r("1")))))
 
 // MARK: - ------------------------4 LEVEL-----------------------------
-
+// MARK: nppp
 private let npppSubTree = OCR.n(.bL,
                                 OCR.n(.lC,
                                       OCR.n(.tCr,
@@ -88,25 +88,36 @@ private let npppSubTree = OCR.n(.bL,
                                               .r("f"),
                                               .r("I")),
                                         OCR.n(.xy(x: 0.9, y: 0.3),
-                                              OCR.n(.f_2, .r("f"), .r("2")),
+                                              OCR.n(.f_2,
+                                                    .r("f"),
+                                                    OCR.n(.yRange(x: 0.95, y: 6...8, op: .and),
+                                                          .r("J"),
+                                                          .r("2"))),
                                               .r("Z")))),
                                 OCR.n(.G_C,
                                       OCR.n(.tCr,
                                             OCR.n(.yRange(x:0.95, y: 4...6, op: .someFalse),
                                                   OCR.n(.botCircleLeft, G_8Tree, .r("S")),
                                                   OCR.n(.O_Q,
-                                                        OCR.n(.yRange(x: 0.5, y: 4...6, op: .or), .r("0"), .r("O")),
+
+                                                        OCR.n(.yRange(x: 0.5, y: 4...6, op: .or),
+                                                              OCR.n(.yRangeP(x: 0, y: 4...6, op: .and, p: 90),
+                                                                    .r("0"),
+                                                                    .r("8")),
+                                                              .r("O")),
                                                         .r("Q"))),
                                             OCR.n(.xRange(x: 0...1, y: 0.1, op: .or), .r("U"), .r("d"))),
                                       OCR.n(.ratio(>, 2),
                                             OCR.n(.xyp(x: 0.05, y: 0.3, p: 90), .r("t"), .r("{")),
                                             OCR.n(.hLine(l: 5...7, y: 2...4, op: .and, mainOp: .or), f_tTree, .r("C")))))
 
+// MARK: nppn
 private let nppnSubTree = OCR.n(.tCr,
                                 OCR.n(.tL,
                                       OCR.n(.lC,
                                             .r("E"),
-                                            OCR.n(.ratio(>=, 2), .r("l"),
+                                            OCR.n(.ratio(>=, 2),
+                                                  OCR.n(.xy(x: 0.9, y: 0.05), .r("I"), .r("l")),
                                                   OCR.n(.xy(x: 0.8, y: 0),
                                                         Z_2Tree,
                                                         OCR.n(.yRange(x: 0.95, y: 1...5, op: .or), .r("2"), .r("l"))))),
@@ -141,7 +152,7 @@ private let nppnSubTree = OCR.n(.tCr,
                                             OCR.n(.yRange(x: 0.9, y: 4...7, op: .and),
                                                   .r("d"),
                                                   t4AndTree))))
-
+// MARK: nnpp
 private let nnppSubTree = OCR.n(.bC,
                                 OCR.n(.tL,
                                       OCR.n(.tR,
@@ -150,16 +161,25 @@ private let nnppSubTree = OCR.n(.bC,
                                                   OCR.n(.Z_S, .r("Z"), .r("S"))),
                                             OCR.n(.lC,
                                                   OCR.n(.tCr,
-                                                        OCR.n(.botCircleLeft, .r("B"), .r("S")),
+                                                        OCR.n(.botCircleLeft,
+                                                              .r("B"),
+                                                              nS_5Tree),
                                                         .r("b")),
                                                   OCR.n(.xy(x:1, y:0.7), .r("3"), .r("}")))),
                                     OCR.n(.yRange(x: 0.05, y: 6...7, op: .and),
                                           .r("B"),
-                                          OCR.n(.Z_S, .r("Z"), SDollarTree))),
+                                          OCR.n(.Z_S,
+                                                .r("Z"),
+
+                                                OCR.n(.S_Dollar,
+                                                      .r("S"),
+                                                      OCR.n(.vLine(l: 7...8, x: 4...6, op: .and, mainOp: .or),
+                                                            .r("$"),
+                                                            .r("6")))))),
                                 OCR.n(.tR,
                                       OCR.n(.tL, PF75Tree, .r("/")),
                                       OCR.n(.xy(x:0.95, y: 0.3), .r("P"), .r("}"))))
-
+// MARK: nnpn
 private let nnpnSubTree = OCR.n(.bC,
                                 OCR.n(.tL,
                                       OCR.n(.r6,
@@ -189,7 +209,7 @@ private let nnpnSubTree = OCR.n(.bC,
                                                               OCR.n(.not5, n83Tree, .r("5")))),
                                                   f_tTree))),
                                 n7fWDollarSlashTree)
-
+// MARK: nnnp
 private let nnnpSubTree = OCR.n(.xy(x:0.05, y: 0.95),
                                 OCR.n(.rCr,
                                       OCR.n(.tCr,
@@ -199,7 +219,9 @@ private let nnnpSubTree = OCR.n(.xy(x:0.05, y: 0.95),
                                                         OCR.n(.yRange(x:0, y: 7...9, op: .someFalse),
                                                               .r("9"),
                                                               OCR.n(.xRange(x: 8...10, y: 0.8, op: .or), .r("D"), .r("P")))),
-                                                  OCR.n(.xy(x:0.05, y: 0.3), .r("5"), .r("}"))),
+                                                  OCR.n(.xy(x:0.05, y: 0.3),
+                                                        .r("5"),
+                                                        OCR.n(.yRange(x: 1, y: 6...8, op: .and), .r("J"), .r("}")))),
                                             OCR.n(.tR,
                                                   .r("U"),
                                                   OCR.n(.lCr, .r("b"), .r("}")))),
@@ -267,9 +289,8 @@ private let QP4AndTree = OCR.n(.yRange(x:0, y: 2...6, op: .and ),
                                OCR.n(.xRange(x: 1...3, y: 0.95, op: .allFalse), .r("4"), .r("&")))
 
 private let G_0Tree = OCR.n(.G_0, .r("G"), .r("0"))
-private let G6Tree = OCR.n(.G_6, .r("G"), .r("6"))
+private let G6Tree = OCR.n(.vLine(l: 4...6, x: 2...4, op: .allFalse, mainOp: .or), .r("G"), .r("6"))
 private let G_8Tree = OCR.n(.G_8, .r("G"), .r("8"))
-
 private let BbPF75Tree = OCR.n(.tCr,
                                OCR.n(.yRange(x:0.05, y: 6...7, op: .someFalse),
                                      OCR.n(.botCircleLeft, .r("C"), .r("5")),
@@ -326,5 +347,7 @@ private let n469GTree =  OCR.n(.yRange(x: 0.95, y: 4...7, op: .and),
                                            OCR.n(.botCircleLeft, .r("0"), .r("9"))),
                                      .r("6")),
                                OCR.n(.botCircleLeft,
-                                     OCR.n(.xRange(x: 0...3, y: 0.95, op: .or), .r("G"), .r("4")),
+                                     OCR.n(.xRange(x: 0...3, y: 0.95, op: .or),
+                                           G6Tree,
+                                           .r("4")),
                                      .r("9")))
