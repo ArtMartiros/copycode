@@ -24,7 +24,7 @@ class TrackingFormatterTests: XCTestCase {
         
         let scene = Scene.sc1
         let infos = scene.getTrackingInfos(self)
-        let block = scene.getBlock(self)
+        let block = scene.getBlock(self, low: false)
         let chunked = formatter.chunk(infos, with: block)
 
         XCTAssertTrue(chunked.count > 2, "Chunked must be more than 2")

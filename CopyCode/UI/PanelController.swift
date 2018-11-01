@@ -32,7 +32,7 @@ final class PanelController: NSWindowController {
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc3_low")
+        let testImage = NSImage("sc11")
         testImage.size = frame.size
         //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
@@ -50,10 +50,16 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let block = CodableHelper.decode(self, path: "sc3_p2_restored_low", structType: SimpleBlock.self, shouldPrint: false)!
+        let block = CodableHelper.decode(self, path: "sc11_restored_low", structType: SimpleBlock.self, shouldPrint: false)!
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
+
+//        let words = CodableHelper.decode(self, path: "sc11_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
+//        let updatedWords = words.map { $0.updated(by: 2) }
+//        show(words: updatedWords, options: [.word, .char])
     }
+
+
 
     private func show<T: BlockProtocol>(_ block: T, options: LayerOptions) {
         let transcriptor = TextTranscriptor()
@@ -69,6 +75,11 @@ final class PanelController: NSWindowController {
             }
         }
 
+        if options.contains(.column) {
+            let layer = block.column.layer(.red, width: 1)
+            panel.imageView.layer!.addSublayer(layer)
+        }
+
         if options.contains(.block) {
             let layer = block.layer(.blue, width: 3)
             panel.imageView.layer!.addSublayer(layer)
@@ -81,6 +92,10 @@ final class PanelController: NSWindowController {
         }
 
         let words = lines.reduce([Word]()) { $0 + $1.words }
+        show(words: words, options: options)
+    }
+
+    private func show<T: Container>(words: [T], options: LayerOptions) {
         if options.contains(.word) {
             let wordsLayers = words.map { $0.layer(.blue, width: 1) }
             wordsLayers.forEach { panel.imageView.layer!.addSublayer($0) }
@@ -91,12 +106,6 @@ final class PanelController: NSWindowController {
             let charLayers = chars.map { $0.layer(.green, width: 1) }
             charLayers.forEach { panel.imageView.layer!.addSublayer($0) }
         }
-
-        if options.contains(.column) {
-          let layer = block.column.layer(.red, width: 1)
-            panel.imageView.layer!.addSublayer(layer)
-        }
-
     }
 
     func closePanel() {

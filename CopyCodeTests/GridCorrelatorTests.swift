@@ -9,24 +9,16 @@
 import XCTest
 
 class GridCorrelatorTests: XCTestCase {
-//    let correlator = GridLineCorrelator()
-//
-//    func testExample() {
-//        let scene = Scene.sc13_p1
-//        let block = scene.getGridBlock(self)
-//        let bitmap = scene.image.bitmap
-//        guard case .grid(let grid) = block.typography else { return }
-//        let line = block.lines[3]
-//        let letters = line.words.map { $0.letters }.reduce([], +)
-//        let arrayOfFrame = grid.getArrayOfFrames(from: block.frame)
-//        let correlations = correlator.correlate(letters, frames: arrayOfFrame[7])
-//        correlations.forEach { print($0) }
-////        let elementRestorer = MissingElementsRestorer(bitmap: bitmap)
-////        let words = elementRestorer.restoreWords(in: line, lineFrames: arrayOfFrame[7])
-//        print("d")
-//    }
-//
-//    func testRestorer() {
-//
-//    }
+    let correlator = GridLineCorrelator()
+
+    func testSc11_low() {
+        let line = CodableHelper.decode(self, path: "sc11_grid_halfRestored_l1_low",
+                                           structType: SimpleLine.self, shouldPrint: false)!
+        let frames = CodableHelper.decode(self, path: "sc11_grid_l1_frames_low",
+                                          structType: [CGRect].self, shouldPrint: false)!
+        let letters = line.words.map { $0.letters }.reduce([], +)
+       let correlation = correlator.correlate(letters, frames: frames)
+
+        XCTAssertNotNil(correlation[8].lineIndex)
+    }
 }

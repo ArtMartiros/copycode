@@ -13,7 +13,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     let finder = TrackingDistanceFinder()
     
     func testFindFail() {
-        let block = Scene.block_one.getBlock(self)
+        let block = Scene.block_one.getBlock(self, low: false)
         let line = block.lines[0]
         let result = finder.find(from: line.biggestWord())
         switch result {
@@ -24,7 +24,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
 
     func testDistanceInBlock1() {
-        let block = Scene.block_one.getBlock(self)
+        let block = Scene.block_one.getBlock(self, low: false)
         //14 там всего один гап поэтому исключаем
         for (index, line) in block.lines.enumerated() where index > 1 && index != 14 {
             let result = finder.find(from: line.biggestWord())
@@ -41,7 +41,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     
     func testDistanceInBlock2() {
         let exluded: Set<Int> = [0, 1, 2, 31, 34]
-        let block = Scene.block_two.getBlock(self)
+        let block = Scene.block_two.getBlock(self, low: false)
         //14 там всего один гап поэтому исключаем
         for (index, line) in block.lines.enumerated() where !exluded.contains(index) {
             let result = finder.find(from: line.biggestWord())
@@ -57,7 +57,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
 
     func testBlockComments() {
-        let block = Scene.block_with_comments.getBlock(self)
+        let block = Scene.block_with_comments.getBlock(self, low: false)
         let line = block.lines[4]
         let word = line.words[0]
         let result = finder.find(from: word)
@@ -72,7 +72,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
 
     func testBlockTwoComments() {
-        let block = Scene.block_two.getBlock(self)
+        let block = Scene.block_two.getBlock(self, low: false)
         let line = block.lines[3]
         let word = line.words[0]
         let result = finder.find(from: word)
@@ -87,7 +87,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
     
     func testScene3_p1() {
-        let block = Scene.sc3_p1.getBlock(self)
+        let block = Scene.sc3_p1.getBlock(self, low: false)
         let line = block.lines[3]
         let word = line.words[0]
         let result = finder.find(from: word)
@@ -102,7 +102,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
     
     func testScene3_p12() {
-        let block = Scene.sc3_p1.getBlock(self)
+        let block = Scene.sc3_p1.getBlock(self, low: false)
         let line = block.lines[38]
         let word = line.words[2]
         let result = finder.find(from: word)
@@ -117,7 +117,7 @@ class TrackingDistanceFinderTests: XCTestCase {
     }
 
     func testExample() {
-        let block = Scene.block_two.getBlock(self)
+        let block = Scene.block_two.getBlock(self, low: false)
         let line = block.lines[33]
         let result = finder.find(from: line.biggestWord())
         switch result {
@@ -128,5 +128,21 @@ class TrackingDistanceFinderTests: XCTestCase {
             let message = "Range: \(range)\n"
             XCTAssertTrue(testRange.intesected(with: range) != nil, message)
         }
+    }
+
+    let standartRange: TrackingRange = 14.7...14.9
+
+    func testSc1() {
+        let result = execute(.sc1, lineIndex: 20, wordIndex: 0, isLow: false)
+        XCTAssertTrue(result?.overlaps(standartRange) ?? false, "\(String(describing: result))")
+        
+    }
+
+    func execute(_ scene: Scene, lineIndex: Int, wordIndex: Int, isLow: Bool) -> TrackingRange? {
+        let block = scene.getBlock(self, low: isLow)
+        let line = block.lines[lineIndex]
+        let result = finder.find(from: line.words[wordIndex])
+        guard case .success(let range) = result else { return nil }
+        return range
     }
 }

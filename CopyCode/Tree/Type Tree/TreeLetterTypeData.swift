@@ -10,11 +10,6 @@ import Foundation
 //Бинарное древо, отвечающее за определение типа буквы
 typealias TreeType = Tree<LetterTypeOperations, LetterType>
 
-private let kUpperMaxRatio: CGFloat = 0.78
-private let kLowMaxRatio: CGFloat = 0.5//0.622
-private let kCommaMaxRatio: CGFloat = 0.37
-
-private let tailOrUpper: TreeType = .n(.isLowWithTail, .r(.lowWithTail), .r(.upper))
 private let quotesOrColumnTree: TreeType = .n(.quotesOrColumn,
                                               .r(.quote),
                                               .n(.dashOrComma, .r(.dashOrHyphen), .r(.comma)))
@@ -22,13 +17,6 @@ private let dotsOrDash: TreeType = .n(.squareForDot,
                                       .r(.dot),
                                       .n(.bottomY, .r(.underscore), .r(.dashOrHyphen)))
 
-let undefinedTypeTree: TreeType = TreeType.n(.maxHRatio(>, kUpperMaxRatio),
-                                             tailOrUpper,
-                                             TreeType.n(.maxHRatio(>, kLowMaxRatio),
-                                                        .r(.low),
-                                                        TreeType.n(.maxHRatio(>, kCommaMaxRatio),
-                                                                   quotesOrColumnTree,
-                                                                   dotsOrDash)))
 
 private let kGridOnlyUpperMaxRatio: CGFloat = 0.8
 private let kGridUpperMaxRatio: CGFloat = 0.59

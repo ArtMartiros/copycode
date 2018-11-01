@@ -45,7 +45,6 @@ final class MissingElementsRestorer {
     func restoreWords(in line: Line<LetterRectangle>, lineFrames: [CGRect]) -> Line<LetterRectangle> {
         var words = line.words
         let letters = words.map { $0.letters }.reduce([], +)
-
         let correlation = correlator.correlate(letters, frames: lineFrames)
 
         let chunked = correlation.chunkForSorted {
@@ -65,10 +64,7 @@ final class MissingElementsRestorer {
             } else {
                 newWords.append(word)
             }
-
         }
-
-        guard !newWords.isEmpty else { return line }
 
         newWords.append(contentsOf: words)
         return Line(words: newWords.sortedFromLeftToRight())

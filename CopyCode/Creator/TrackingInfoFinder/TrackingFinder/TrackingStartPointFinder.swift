@@ -9,8 +9,6 @@
 import Foundation
 
 struct TrackingStartPointFinder {
-    //если ширина мин гапа > 0, то тогда изменяем стартовую точку в пределе ширигны гапа в диапазоне kGapWidthStep
-    private let kGapWidthStep: CGFloat = 0.5
     private let kRangeTimes = 4
     private let checker = TrackingChecker()
     private let generator = TrackingStartPointGenerator()

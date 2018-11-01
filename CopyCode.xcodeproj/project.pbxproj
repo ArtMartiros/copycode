@@ -47,8 +47,8 @@
 		AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */ = {isa = PBXBuildFile; fileRef = AC199EAB211A9A5F00B53656 /* letter_type_classification.json */; };
 		AC1FABB221713850003DFD5C /* sc1_custom_letters_position.json in Resources */ = {isa = PBXBuildFile; fileRef = AC1FABB121713850003DFD5C /* sc1_custom_letters_position.json */; };
 		AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */ = {isa = PBXBuildFile; fileRef = AC1FABB3217138BA003DFD5C /* sc2_custom_letters_position.json */; };
-		AC21813D21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */; };
-		AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */; };
+		AC21813D21636F0F00515FBD /* PositionInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* PositionInfoFinder.swift */; };
+		AC21813E21636F0F00515FBD /* PositionInfoFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813C21636F0F00515FBD /* PositionInfoFinder.swift */; };
 		AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
 		AC2181412163F89200515FBD /* TrackingFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21813F2163F89200515FBD /* TrackingFinder.swift */; };
 		AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2181432164C83700515FBD /* sc2_custom_letters.json */; };
@@ -315,6 +315,26 @@
 		ACD0F87121860C1200DFB12B /* sc1_grid_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD0F87021860C1200DFB12B /* sc1_grid_low.json */; };
 		ACD71120218AE8D30069FF37 /* sc11_grid_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD7111F218AE8D30069FF37 /* sc11_grid_low.json */; };
 		ACD71122218B10C10069FF37 /* sc11_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71121218B10C10069FF37 /* sc11_restored_low.json */; };
+		ACD71124218B149A0069FF37 /* sc11_grid_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD7111F218AE8D30069FF37 /* sc11_grid_low.json */; };
+		ACD71125218B16100069FF37 /* sc11_rects_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD0F8412184FE0900DFB12B /* sc11_rects_low.json */; };
+		ACD71128218B1A260069FF37 /* sc1_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71127218B1A260069FF37 /* sc1_block.json */; };
+		ACD7112A218B1A620069FF37 /* sc2_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71129218B1A620069FF37 /* sc2_block.json */; };
+		ACD7112C218B1AB70069FF37 /* sc3_p1_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD7112B218B1AB70069FF37 /* sc3_p1_block.json */; };
+		ACD7112E218B1ACA0069FF37 /* sc3_p2_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD7112D218B1ACA0069FF37 /* sc3_p2_block.json */; };
+		ACD71130218B20CF0069FF37 /* sc11_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD7112F218B20CF0069FF37 /* sc11_block.json */; };
+		ACD71133218B20EE0069FF37 /* sc11_block_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71132218B20EE0069FF37 /* sc11_block_low.json */; };
+		ACD71135218B3AA30069FF37 /* ForbiddensCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71134218B3AA30069FF37 /* ForbiddensCreator.swift */; };
+		ACD71136218B3BF30069FF37 /* ForbiddensCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71134218B3AA30069FF37 /* ForbiddensCreator.swift */; };
+		ACD7113A218B69690069FF37 /* TrackingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71139218B69690069FF37 /* TrackingAction.swift */; };
+		ACD7113B218B69690069FF37 /* TrackingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71139218B69690069FF37 /* TrackingAction.swift */; };
+		ACD7113C218B77DC0069FF37 /* sc1_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71127218B1A260069FF37 /* sc1_block.json */; };
+		ACD7113D218B7D910069FF37 /* sc11_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE55672218649C4003D9263 /* sc11_restored.json */; };
+		ACD7113E218B7DC10069FF37 /* sc11_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71121218B10C10069FF37 /* sc11_restored_low.json */; };
+		ACD71141218C34AB0069FF37 /* MissingElementsRestorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71140218C34AB0069FF37 /* MissingElementsRestorerTests.swift */; };
+		ACD71146218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */; };
+		ACD71147218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */; };
+		ACD71149218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71148218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json */; };
+		ACD7114A218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71148218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json */; };
 		ACDA4A7B2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDA4A7C2114A58E00E3EC18 /* TreeLetterTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */; };
 		ACDA6DBE215E724B00A7AA62 /* DrawTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA6DBD215E724B00A7AA62 /* DrawTextView.swift */; };
@@ -453,7 +473,7 @@
 		AC199EAB211A9A5F00B53656 /* letter_type_classification.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification.json; sourceTree = "<group>"; };
 		AC1FABB121713850003DFD5C /* sc1_custom_letters_position.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_custom_letters_position.json; sourceTree = "<group>"; };
 		AC1FABB3217138BA003DFD5C /* sc2_custom_letters_position.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters_position.json; sourceTree = "<group>"; };
-		AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingPosInfoFinder.swift; sourceTree = "<group>"; };
+		AC21813C21636F0F00515FBD /* PositionInfoFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionInfoFinder.swift; sourceTree = "<group>"; };
 		AC21813F2163F89200515FBD /* TrackingFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFinder.swift; sourceTree = "<group>"; };
 		AC2181432164C83700515FBD /* sc2_custom_letters.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_custom_letters.json; sourceTree = "<group>"; };
 		AC2181462165060500515FBD /* sc2_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc2_type.swift; sourceTree = "<group>"; };
@@ -636,6 +656,17 @@
 		ACD0F87021860C1200DFB12B /* sc1_grid_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_grid_low.json; sourceTree = "<group>"; };
 		ACD7111F218AE8D30069FF37 /* sc11_grid_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_grid_low.json; sourceTree = "<group>"; };
 		ACD71121218B10C10069FF37 /* sc11_restored_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_restored_low.json; sourceTree = "<group>"; };
+		ACD71127218B1A260069FF37 /* sc1_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_block.json; sourceTree = "<group>"; };
+		ACD71129218B1A620069FF37 /* sc2_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc2_block.json; sourceTree = "<group>"; };
+		ACD7112B218B1AB70069FF37 /* sc3_p1_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p1_block.json; sourceTree = "<group>"; };
+		ACD7112D218B1ACA0069FF37 /* sc3_p2_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc3_p2_block.json; sourceTree = "<group>"; };
+		ACD7112F218B20CF0069FF37 /* sc11_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_block.json; sourceTree = "<group>"; };
+		ACD71132218B20EE0069FF37 /* sc11_block_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_block_low.json; sourceTree = "<group>"; };
+		ACD71134218B3AA30069FF37 /* ForbiddensCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForbiddensCreator.swift; sourceTree = "<group>"; };
+		ACD71139218B69690069FF37 /* TrackingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingAction.swift; sourceTree = "<group>"; };
+		ACD71140218C34AB0069FF37 /* MissingElementsRestorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingElementsRestorerTests.swift; sourceTree = "<group>"; };
+		ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_grid_l1_frames_low.json; sourceTree = "<group>"; };
+		ACD71148218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc11_grid_halfRestored_l1_low.json; sourceTree = "<group>"; };
 		ACDA4A7A2114A58E00E3EC18 /* TreeLetterTypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLetterTypeData.swift; sourceTree = "<group>"; };
 		ACDA6DBD215E724B00A7AA62 /* DrawTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTextView.swift; sourceTree = "<group>"; };
 		ACDA6DC0215E727700A7AA62 /* AttrStringCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrStringCreator.swift; sourceTree = "<group>"; };
@@ -884,6 +915,8 @@
 				AC441918216270BF00248DCC /* Custom */,
 				AC7734A3215C07CA009617F7 /* TrackingInfo */,
 				ACF8D10A2156BF2F00DF4A38 /* Blocks */,
+				ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */,
+				ACD71148218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1171,8 +1204,10 @@
 				AC2181422163FEC600515FBD /* TrackingFinder */,
 				AC95B4A421410B2F0007B5C5 /* TrackingInfoFinder.swift */,
 				AC95B4AE21412B1F0007B5C5 /* TrackingChecker.swift */,
-				AC21813C21636F0F00515FBD /* TrackingPosInfoFinder.swift */,
+				AC21813C21636F0F00515FBD /* PositionInfoFinder.swift */,
 				AC7310D021692A1B00FB4D8B /* TrackingInfoFormatter.swift */,
+				ACD71134218B3AA30069FF37 /* ForbiddensCreator.swift */,
+				ACD71139218B69690069FF37 /* TrackingAction.swift */,
 			);
 			path = TrackingInfoFinder;
 			sourceTree = "<group>";
@@ -1271,6 +1306,7 @@
 		ACD0F8672185FAC100DFB12B /* Normal */ = {
 			isa = PBXGroup;
 			children = (
+				ACD71126218B195D0069FF37 /* Block */,
 				ACE5566D218640EF003D9263 /* Restored */,
 				ACD0F8692185FB5000DFB12B /* Grid */,
 				ACD0F8682185FADC00DFB12B /* Rects */,
@@ -1318,6 +1354,26 @@
 			path = Grid;
 			sourceTree = "<group>";
 		};
+		ACD71126218B195D0069FF37 /* Block */ = {
+			isa = PBXGroup;
+			children = (
+				ACD71127218B1A260069FF37 /* sc1_block.json */,
+				ACD71129218B1A620069FF37 /* sc2_block.json */,
+				ACD7112B218B1AB70069FF37 /* sc3_p1_block.json */,
+				ACD7112D218B1ACA0069FF37 /* sc3_p2_block.json */,
+				ACD7112F218B20CF0069FF37 /* sc11_block.json */,
+			);
+			path = Block;
+			sourceTree = "<group>";
+		};
+		ACD71131218B20DE0069FF37 /* Block */ = {
+			isa = PBXGroup;
+			children = (
+				ACD71132218B20EE0069FF37 /* sc11_block_low.json */,
+			);
+			path = Block;
+			sourceTree = "<group>";
+		};
 		ACDA6DBC215E723700A7AA62 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1362,6 +1418,7 @@
 			children = (
 				AC9E5B2821810BF400984860 /* UnstuckRestorerTests.swift */,
 				ACE5566821863605003D9263 /* StuckRestorerTests.swift */,
+				ACD71140218C34AB0069FF37 /* MissingElementsRestorerTests.swift */,
 			);
 			path = LetterRestorer;
 			sourceTree = "<group>";
@@ -1448,6 +1505,7 @@
 		ACFBD13F218475490051C942 /* Low */ = {
 			isa = PBXGroup;
 			children = (
+				ACD71131218B20DE0069FF37 /* Block */,
 				ACD0F86F21860BB500DFB12B /* Grid */,
 				ACD0F8522185E14200DFB12B /* Restored */,
 				ACD0F8512185E06B00DFB12B /* Rects */,
@@ -1592,9 +1650,16 @@
 			files = (
 				ACE5566A21863BF1003D9263 /* sc1_rects_low.json in Resources */,
 				ACBA3C36217E126000644F82 /* 2018-10-22 16_20.json in Resources */,
+				ACD71146218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */,
+				ACD7113E218B7DC10069FF37 /* sc11_restored_low.json in Resources */,
+				ACD71149218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */,
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
+				ACD7113D218B7D910069FF37 /* sc11_restored.json in Resources */,
 				AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */,
+				ACD7113C218B77DC0069FF37 /* sc1_block.json in Resources */,
+				ACD71125218B16100069FF37 /* sc11_rects_low.json in Resources */,
 				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
+				ACD71124218B149A0069FF37 /* sc11_grid_low.json in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1636,6 +1701,7 @@
 				AC3588572171DDBB0023F311 /* ocr_visual_18_words.json in Resources */,
 				ACD0F83E2184FDFA00DFB12B /* sc9_rects_low.json in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
+				ACD7112E218B1ACA0069FF37 /* sc3_p2_block.json in Resources */,
 				ACD71120218AE8D30069FF37 /* sc11_grid_low.json in Resources */,
 				ACD0F8442184FE1200DFB12B /* sc12_rects_low.json in Resources */,
 				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
@@ -1646,6 +1712,7 @@
 				ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
 				ACD0F87121860C1200DFB12B /* sc1_grid_low.json in Resources */,
+				ACD71147218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */,
 				AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */,
 				ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */,
 				AC302DEA217A12B80073A569 /* sc3_p2_pre_digit_column_words_f.json in Resources */,
@@ -1670,10 +1737,12 @@
 				AC3588512171DD6B0023F311 /* ocr_xcode_light_14_words.json in Resources */,
 				AC3588472171DCDF0023F311 /* ocr_sublime_dark_18_words.json in Resources */,
 				AC35884B2171DD390023F311 /* ocr_xcode_dark_14_words.json in Resources */,
+				ACD71128218B1A260069FF37 /* sc1_block.json in Resources */,
 				ACD0F82C2184F96600DFB12B /* sc1_restored.json in Resources */,
 				ACA646692188B2EE005F6302 /* sc3_rects_low.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
 				ACBA3C35217E10B800644F82 /* 2018-10-22 16_20.json in Resources */,
+				ACD7112A218B1A620069FF37 /* sc2_block.json in Resources */,
 				ACD0F83C2184FDF100DFB12B /* sc8_rects_low.json in Resources */,
 				ACD0F84E21850B0700DFB12B /* sc1_restored_low.json in Resources */,
 				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
@@ -1684,15 +1753,18 @@
 				ACD0F80D2184ECA100DFB12B /* sc2_rects.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
+				ACD71130218B20CF0069FF37 /* sc11_block.json in Resources */,
 				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
 				ACE55673218649C4003D9263 /* sc11_restored.json in Resources */,
 				ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */,
+				ACD7112C218B1AB70069FF37 /* sc3_p1_block.json in Resources */,
 				ACD0F8422184FE0900DFB12B /* sc11_rects_low.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC3588552171DD910023F311 /* ocr_visual_20_words.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
+				ACD7114A218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */,
 				ACD0F8482184FF4700DFB12B /* sc2_restored.json in Resources */,
 				ACD0F82A2184F88500DFB12B /* sc13_rects.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,
@@ -1700,6 +1772,7 @@
 				AC9EF0A221232C00004ED89D /* ocr_xcode_dark_14.json in Resources */,
 				AC50A8842134003000B196BE /* missing_dot.json in Resources */,
 				AC35885F217250960023F311 /* sc10_nscolor_pre_digit_column_words_f.json in Resources */,
+				ACD71133218B20EE0069FF37 /* sc11_block_low.json in Resources */,
 				ACD0F80F2184ED0300DFB12B /* sc3_rects.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1907,6 +1980,7 @@
 				AC302DE12179BA880073A569 /* UnstuckRestorer.swift in Sources */,
 				AC06D89120FF500200770DBB /* ScreenShot.swift in Sources */,
 				AC71FB6A2112EBCE00EE41C6 /* Letter.swift in Sources */,
+				ACD71135218B3AA30069FF37 /* ForbiddensCreator.swift in Sources */,
 				AC675775212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC06D89E20FF538300770DBB /* LetterRecognizer.swift in Sources */,
 				AC15F81F214D0ADD001DC55E /* BlockSplitter.swift in Sources */,
@@ -1942,9 +2016,10 @@
 				ACAE190F21735689007E88C3 /* Date.swift in Sources */,
 				AC06D88D20FF4F7400770DBB /* VNRectangleObservation.swift in Sources */,
 				AC06D87E20FF4DA100770DBB /* CGRect.swift in Sources */,
-				AC21813D21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */,
+				AC21813D21636F0F00515FBD /* PositionInfoFinder.swift in Sources */,
 				AC8C0AAD214A67CC00F0FD13 /* LeadingFinder.swift in Sources */,
 				AC2181402163F89200515FBD /* TrackingFinder.swift in Sources */,
+				ACD7113A218B69690069FF37 /* TrackingAction.swift in Sources */,
 				AC6493F52166914A003A4164 /* LetterRestorer.swift in Sources */,
 				AC250A5E214EBC4500E6D596 /* TextTranscriptor.swift in Sources */,
 				AC302DC621773B3C0073A569 /* LeadingStartPointGenerator.swift in Sources */,
@@ -2019,6 +2094,7 @@
 				AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
+				ACD7113B218B69690069FF37 /* TrackingAction.swift in Sources */,
 				AC8EB594213EBF72003D345B /* Collection.swift in Sources */,
 				AC4CA3F921025DDF0093D938 /* CGRect.swift in Sources */,
 				AC8C0A9F214A4DEA00F0FD13 /* Leading.swift in Sources */,
@@ -2059,6 +2135,7 @@
 				AC95B4AD2141286A0007B5C5 /* TrackingStartPointFinder.swift in Sources */,
 				AC67577C212C5A470051C34A /* CustomColumnCreator.swift in Sources */,
 				ACEBB27D216CBC8C0094336F /* sc3_p1_type.swift in Sources */,
+				ACD71141218C34AB0069FF37 /* MissingElementsRestorerTests.swift in Sources */,
 				AC790435215CDA44001D1FB1 /* TrackingFormatterTests.swift in Sources */,
 				AC675776212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */,
@@ -2149,7 +2226,7 @@
 				ACD0F8662185F69000DFB12B /* OCRHelper.swift in Sources */,
 				AC6493F62166914A003A4164 /* LetterRestorer.swift in Sources */,
 				AC457DF32148198700D9E69F /* Scenes.swift in Sources */,
-				AC21813E21636F0F00515FBD /* TrackingPosInfoFinder.swift in Sources */,
+				AC21813E21636F0F00515FBD /* PositionInfoFinder.swift in Sources */,
 				AC5A2F43216F28F2005C2B20 /* ButtonCreator.swift in Sources */,
 				AC302DD2217794FC0073A569 /* sc11_letter.swift in Sources */,
 				AC4CA3F721025DDF0093D938 /* Thread.swift in Sources */,
@@ -2159,6 +2236,7 @@
 				AC4CA3F521025DDF0093D938 /* Double.swift in Sources */,
 				ACE0E22A2170C17D00E28E28 /* sc9_type.swift in Sources */,
 				AC03DD01213DC2F200730DCD /* CodableHelper.swift in Sources */,
+				ACD71136218B3BF30069FF37 /* ForbiddensCreator.swift in Sources */,
 				ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

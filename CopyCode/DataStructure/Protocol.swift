@@ -8,6 +8,11 @@
 
 import AppKit
 
+protocol ErrorRateProtocol {
+    var errorRate: CGFloat { get }
+}
+
+
 protocol Layerable {
     var frame: CGRect { get }
     func layer(_ color: NSColor, width: CGFloat) -> CALayer

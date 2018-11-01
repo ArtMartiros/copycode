@@ -13,7 +13,7 @@ final class CodableHelper {
     private static let encoder = JSONEncoder()
 
     static func decode<T>(_ object: AnyObject, path: String, structType: T.Type, shouldPrint: Bool = true) -> T? where T: Decodable {
-        guard let path = Bundle(for: type(of: object)).path(forResource: path, ofType: "json"),
+        guard let path = Bundle.main.path(forResource: path, ofType: "json"),
             let json = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) else { return nil }
         let data = Data(json.utf8)
 
