@@ -184,6 +184,13 @@ extension LeadingAndBlockUpdater {
         let lineIndex: Int
         let gridIndex: Int
         let diff: CGFloat
+
+        func getDiff(previous: DifferenceInfo) -> CGFloat {
+            let diff = previous.diff - self.diff
+            let index = gridIndex - previous.gridIndex
+            guard index != 0 else { return 0 }
+            return diff / CGFloat(index)
+        }
     }
 
     struct LeadingInfo {
@@ -212,84 +219,75 @@ extension LeadingAndBlockUpdater {
         case same
 
         init<T: Comparable>(_ first: T, compareTo second: T) {
-            if first > second { self = .ascending } else if first < second { self = .descending } else { self = .same }
+            self = first < second ? .ascending : (first > second ? .descending : .same)
         }
     }
 }
 
 extension LeadingAndBlockUpdater {
-
     struct ChunksCreator {
-        private let kDiffAccuracy: CGFloat = 10
-        ///стартую от первого элемента
-        ///сравниваю со вторым и определяю тип последовательности
-        ///сравниваю второй с третьим: опа, ошибка последовательность другая
-        ///сравнивая третий с прошлым элементом через один, последовательность сохранена
-        ///значит возможно это просто погрешность, проверяем  разницу между вторым и предыдущим элементом
-        ///погрешность должна быть не больше 10 процентов иначе  делим
+
         func create(from differenceInfos: [DifferenceInfo], fontSize: CGFloat) -> [[DifferenceInfo]] {
             guard differenceInfos.count > 1 else { return [] }
             var type: SequenceType?
             var chunks: [[DifferenceInfo]] = []
             var chunk: [DifferenceInfo] = []
-            var betweenDiffs: [CGFloat] = []
-            let checker = Checker()
-            chunk.append(differenceInfos[0])
-
-            for (past, current, future) in differenceInfos.pastCurrentFuture() {
-
-                guard let sequenceType = type, let past = past else {
-                    guard let future = future else { break }
-                    type = SequenceType(current.diff, compareTo: future.diff)
-                    continue
-                }
-
-                let diff = past.diff - current.diff
-                betweenDiffs.append(diff)
-
-                guard let future = future else {
-                    chunk.append(current)
-                    continue
-                }
-
-                var shouldSplit = true
-
-                let isSameSequence = sequenceType == SequenceType(current.diff, compareTo: future.diff)
-                if isSameSequence {
-                    shouldSplit = !isSameDiffInFuture(betweenDiffs, current: current, future: future)
-                } else if sequenceType == SequenceType(past.diff, compareTo: future.diff) &&
-                    checker.isSame(past.diff, with: current.diff, relativelyTo: fontSize, accuracy: kDiffAccuracy) {
-                    shouldSplit = false
-                }
-
-                if shouldSplit {
-                    chunk.append(current)
-                    betweenDiffs = []
+            for (previous, current, next) in differenceInfos.previousCurrentNext() {
+                let splitOperation = {
                     chunks.append(chunk)
+                    chunk = []
                     type = nil
-                    chunk = [future]
-                    break
-                } else {
-                    chunk.append(current)
+                }
 
+                guard let previous = previous else {
+                    chunk.append(current)
+                    continue
+                }
+
+                type = type ?? SequenceType(previous.diff, compareTo: current.diff)
+                if let next = next {
+                    if isAllOk(chunk, first: previous, second: current, type: type!) ||
+                        isAllOk(chunk, first: previous, second: next, type: type!) {
+                        chunk.append(current)
+                    } else {
+                        splitOperation()
+                    }
+
+                } else {
+                    if isAllOk(chunk, first: previous, second: current, type: type!) {
+                        chunk.append(current)
+                        if !chunk.isEmpty { chunks.append(chunk) }
+                    } else {
+                        splitOperation()
+                    }
                 }
             }
-
-            if !chunk.isEmpty { chunks.append(chunk) }
 
             return chunks
         }
 
-        private func isSameDiffInFuture(_ diffs: [CGFloat], current: DifferenceInfo, future: DifferenceInfo) -> Bool {
+        func isAllOk(_ diffs: [DifferenceInfo], first: DifferenceInfo, second: DifferenceInfo, type: SequenceType) -> Bool {
+            let isSameSequence = type == SequenceType(first.diff, compareTo: second.diff)
+            let result = isSameSequence && isSameDiff(diffs, past: first, current: second)
+            return result
+        }
 
-            let averageDiff = diffs.reduce(0, +) / CGFloat(diffs.count)
-
-            let nextdiff = current.diff - future.diff
-            guard nextdiff != 0 else { return true }
-            let ratio = abs(averageDiff / nextdiff)
-            let range: TrackingRange = 0.2...5
+        private func isSameDiff(_ diffs: [DifferenceInfo], past: DifferenceInfo, current: DifferenceInfo) -> Bool {
+            guard let diff = diffs.averageDiff else { return true }
+            let currentDiff = current.getDiff(previous: past)
+            guard currentDiff != 0 else { return true }
+            let ratio = abs(diff / currentDiff)
+//            print("ratio \(ratio), nextdiff \(currentDiff.rounded(toPlaces: 3)), averageDiff \(diff.rounded(toPlaces: 3) )")
+            let range: TrackingRange = 0.15...6
             let contrain = range.contains(ratio)
             return contrain
         }
+    }
+}
+
+extension Array where Element == LeadingAndBlockUpdater.DifferenceInfo {
+    fileprivate var averageDiff: CGFloat? {
+        guard self.count > 1 else { return nil }
+        return last!.getDiff(previous: first!)
     }
 }

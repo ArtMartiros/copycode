@@ -103,13 +103,13 @@ extension Array {
         return newArray
     }
 
-    typealias PastCurrentFuture = (past: Element?, present: Element, future: Element?)
+    typealias PreviousCurrentNext = (previous: Element?, present: Element, next: Element?)
 
-    func pastCurrentFuture() -> [PastCurrentFuture] {
-        var array: [PastCurrentFuture] = []
+    func previousCurrentNext() -> [PreviousCurrentNext] {
+        var array: [PreviousCurrentNext] = []
         for (index, item) in self.enumerated() {
             let past = index == 0 ? nil : self[index - 1]
-            let element: PastCurrentFuture = (past, item, self.optional(atIndex: index + 1))
+            let element: PreviousCurrentNext = (past, item, self.optional(atIndex: index + 1))
             array.append(element)
         }
 
