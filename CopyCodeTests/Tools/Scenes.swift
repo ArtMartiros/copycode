@@ -100,6 +100,11 @@ enum Scene: String {
         return CodableHelper.decode(object, path: name, structType: [SimpleWord].self, shouldPrint: false)!
     }
 
+    func getBlock(_ object: AnyObject, low: Bool) -> SimpleBlock {
+        let name = blockName + (low ? "_low" : "")
+        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
+    }
+
     func getWords(_ object: AnyObject) -> [SimpleWord] {
         return CodableHelper.decode(object, path: wordsName, structType: [SimpleWord].self, shouldPrint: false)!
     }
@@ -133,9 +138,7 @@ enum Scene: String {
                                     structType: [SimpleLetterPosition].self, shouldPrint: false)!
     }
     
-    func getBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: blockName, structType: SimpleBlock.self, shouldPrint: false)!
-    }
+
 
     ///блок сразу после определения тракинга
     func getTrackingBlock(_ object: AnyObject) -> SimpleBlock {

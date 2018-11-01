@@ -11,10 +11,14 @@ import Foundation
 struct TrackingChecker {
     typealias Result = (result: Bool, errorRate: CGFloat)
     private let kMiscalculationSuccessedRate: CGFloat = 0.04
+    private let kMiscalculationSuccessedRateValue: CGFloat = 0.000265
+    func miscalculationSuccessedRate(basedOn distance: CGFloat) -> CGFloat {
+        return distance * kMiscalculationSuccessedRateValue
+    }
 
     func getMiscalculation(_ gap: CGRect, withDistance distance: CGFloat, startPoint: CGFloat) -> CGFloat {
-        let leftX = gap.leftX - (gap.width == 0 ? 0.25 : 0)
-        let rightX = gap.rightX + (gap.width == 0 ? 0.25 : 0)
+        let leftX = gap.leftX - (gap.width == 0 ? 0.5 : 0)
+        let rightX = gap.rightX + (gap.width == 0 ? 0.5 : 0)
 
         let width = leftX - startPoint
         let width1 = rightX - startPoint
@@ -22,7 +26,8 @@ struct TrackingChecker {
         var amount1 = (width1 / distance)
         amount.round(toPlaces: 3)
         amount1.round(toPlaces: 3)
-        print("amount \(amount), amount1 \(amount1),  startPoint: \(startPoint), left \(leftX), right \(rightX) ")
+        print("amount \(amount), amount1 \(amount1),  startPoint: \(startPoint)" )
+        print("Gap border: (left: \(leftX), right: \(rightX))")
 
         let integers = rangeOf(one: amount, two: amount1).integers
 

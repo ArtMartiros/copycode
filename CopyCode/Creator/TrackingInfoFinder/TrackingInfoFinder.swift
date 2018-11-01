@@ -11,10 +11,10 @@ import Foundation
 struct TrackingInfoFinder {
     typealias SplittedWords = (biggestWord: Word<LetterRectangle>, otherWords: [Word<LetterRectangle>])
     private let trackingFinder = TrackingFinder()
-    private let posFinder = TrackingPosInfoFinder()
+    private let posFinder = PositionInfoFinder()
     private let checker = TrackingChecker()
     private let preliminaryChecker = PreliminaryTrackingChecker()
-
+    private let forbiddensCreator = ForbiddensCreator()
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
 
@@ -28,18 +28,15 @@ struct TrackingInfoFinder {
         return trackingInfos
     }
 
-    private func completeFindTrackingInfo(in line: SimpleLine, with currentLineIndex: Int, lines: [SimpleLine]) -> TrackingInfo {
+    private func completeFindTrackingInfo(in line: SimpleLine,
+                                          with currentLineIndex: Int, lines: [SimpleLine]) -> TrackingInfo {
 
         var posInfos = posFinder.find(from: line.words)
         posInfos.sort { $0.startX < $1.startX }
 
         guard let posInfo = posInfos.first, !posInfo.trackings.isEmpty
             else { return TrackingInfo(startIndex: currentLineIndex, endIndex: currentLineIndex) }
-
-        var forbiddens: [Int: CGFloat] = [:]
-        if posInfos.count > 1 {
-            forbiddens[currentLineIndex] = posInfos[1].startX
-        }
+        let forbiddens = forbiddensCreator.create(from: posInfos, lineIndex: currentLineIndex)
 
         let trackings = posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
         let trackingInfo = findTrackingInfo(in: lines, startIndex: currentLineIndex,
