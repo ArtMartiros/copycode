@@ -12,10 +12,9 @@ class GridCorrelatorTests: XCTestCase {
     let correlator = GridLineCorrelator()
 
     func testSc11_low() {
-        let line = CodableHelper.decode(self, path: "sc11_grid_halfRestored_l1_low",
-                                           structType: SimpleLine.self, shouldPrint: false)!
-        let frames = CodableHelper.decode(self, path: "sc11_grid_l1_frames_low",
-                                          structType: [CGRect].self, shouldPrint: false)!
+        let line = "sc11_grid_halfRestored_l1_low".decode(as: SimpleLine.self)!
+        let frames = "sc11_grid_l1_frames_low".decode(as: [CGRect].self)!
+        
         let letters = line.words.map { $0.letters }.reduce([], +)
        let correlation = correlator.correlate(letters, frames: frames)
 

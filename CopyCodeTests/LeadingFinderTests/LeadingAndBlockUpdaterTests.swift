@@ -36,7 +36,7 @@ class LeadingAndBlockUpdaterTests: XCTestCase {
     }
 
     private func execute(_ scene: Scene, isLow: Bool) -> [SimpleBlock] {
-        let block = scene.getGridBlock(self, isLow: isLow)
+        let block = scene.getGridBlock(isLow: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
         guard case .grid(let grid) = block.typography else { return [] }
         let updater = LeadingAndBlockUpdater(grid: grid, isRetina: !isLow)

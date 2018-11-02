@@ -15,14 +15,13 @@ class MissingElementsRestorerTests: XCTestCase {
         let scene = Scene.sc11
         let isLow = true
         let bitmap = scene.getImage(isLow: isLow).bitmap
-        let gridBlock = scene.getGridBlock(self, isLow: isLow)
+        let gridBlock = scene.getGridBlock(isLow: isLow)
         let restorer = MissingElementsRestorer(bitmap: bitmap)
 
 
         guard case .grid(let grid) = gridBlock.typography else { return }
         let arrayOfFrames = grid.getArrayOfFrames(from: gridBlock.frame)
-        let line = CodableHelper.decode(self, path: "sc11_grid_halfRestored_l1_low",
-                                        structType: SimpleLine.self, shouldPrint: false)!
+        let line = "sc11_grid_halfRestored_l1_low".decode(as: SimpleLine.self)!
         let restoredLine = restorer.restoreWords(in: line, lineFrames: arrayOfFrames[0])
         XCTAssertEqual(restoredLine.words[0].letters.count, 17)
     }

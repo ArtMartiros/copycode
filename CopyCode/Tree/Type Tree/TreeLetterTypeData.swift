@@ -17,7 +17,6 @@ private let dotsOrDash: TreeType = .n(.squareForDot,
                                       .r(.dot),
                                       .n(.bottomY, .r(.underscore), .r(.dashOrHyphen)))
 
-
 private let kGridOnlyUpperMaxRatio: CGFloat = 0.8
 private let kGridUpperMaxRatio: CGFloat = 0.59
 private let kGridLowMaxRatio: CGFloat = 0.45

@@ -50,7 +50,7 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let block = CodableHelper.decode(self, path: "sc11_restored_low", structType: SimpleBlock.self, shouldPrint: false)!
+        let block = "sc11_restored_low".decode(as: SimpleBlock.self)!
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
 
@@ -178,7 +178,7 @@ extension PanelController {
             let rectangles = GlobalValues.shared.wordRectangles
             else { return }
 
-        let wordsData = CodableHelper.toData(rectangles)
+        let wordsData = rectangles.toData()
         let user = Date().toString(.yyyyMMdd ) //Auth.auth().currentUser,
         let stringDate = Date().toString(.yyyyMMddHHmm)
         let timeDate = Date().toString(.HHmm)

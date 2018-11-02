@@ -20,12 +20,14 @@ let sc11_type = [
     8: "uuutl.uuulu.utuullllltulll-ulltlulullu"
 ]
 
+//линия 4 t определяется как low
+//линия 0 последний символ точка а не запятая
 let sc11_type_low = [
-    0: "lulll ullcltluull.",
+    0: "lulll ullcltluull,",
     1: "ulu cctlucc ulluuc ullullll, lllllu.",
     2: "llulll lltulluut_tlu c llullu. ccc",
     3: "ulu ccllucculluuc ullullll, llullu.",
-    4: "lllluu llull l- cc clll-lltluull llull lltlullu\"",
+    4: "lllluu llull l- cc clll-lltl            lull llull lltlullu\"",
     5: "lltllluut_llu c llullucccc",
     6: "ulu cculululcculluu, ullullllu.",
     7: "lltllluut c ululul c llullu.ccc",

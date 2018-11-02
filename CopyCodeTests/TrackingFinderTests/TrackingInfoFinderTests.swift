@@ -114,7 +114,7 @@ class TrackingInfoFinderTests: XCTestCase {
     }
 
     private func getChucked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {
-        let block = scene.getBlock(self, low: isLow)
+        let block = scene.getBlock(low: isLow)
         let infos = finder.find(from: block)
         let chunked = formatter.chunk(infos, with: block)
         return chunked

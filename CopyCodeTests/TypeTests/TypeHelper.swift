@@ -16,7 +16,7 @@ class TypeHelper {
     static func execute(_ object: AnyObject, scene: Scene, exluded: Set<Int>, isLow: Bool,
                         completion: @escaping (LetterType, SimpleLetterPosition) -> Void) {
 
-        let block = scene.getRestoredBlock(object, low: isLow)
+        let block = scene.getRestoredBlock(low: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
 
         guard case .grid(let grid) = block.typography else { return }

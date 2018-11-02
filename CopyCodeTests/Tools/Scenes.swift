@@ -49,7 +49,7 @@ enum Scene: String {
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
         case .sc9: return sc9_type
-        case .sc11: return sc11_type
+        case .sc11: return sc11_letter_low
         default: return [:]
         }
     }
@@ -90,27 +90,23 @@ enum Scene: String {
         }
     }
     func gePreDigitColumnWords(_ object: AnyObject) -> [[SimpleWord]] {
-        return preDigitColumnWordsNames.map {
-            CodableHelper.decode(object, path: $0, structType: [SimpleWord].self, shouldPrint: false)!
-        }
+        return preDigitColumnWordsNames.map { $0.decode(as: [SimpleWord].self)! }
     }
 
     func getRects(_ object: AnyObject, low: Bool) -> [SimpleWord] {
-        let name = rectsName + (low ? "_low" : "")
-        return CodableHelper.decode(object, path: name, structType: [SimpleWord].self, shouldPrint: false)!
+        return getName(rectsName, isLow: low).decode(as: [SimpleWord].self)!
     }
 
-    func getBlock(_ object: AnyObject, low: Bool) -> SimpleBlock {
-        let name = blockName + (low ? "_low" : "")
-        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
+    func getBlock(low: Bool) -> SimpleBlock {
+        return getName(blockName, isLow: low).decode(as: SimpleBlock.self)!
     }
 
-    func getWords(_ object: AnyObject) -> [SimpleWord] {
-        return CodableHelper.decode(object, path: wordsName, structType: [SimpleWord].self, shouldPrint: false)!
+    func getWords(low: Bool) -> [SimpleWord] {
+        return getName(wordsName, isLow: low).decode(as: [SimpleWord].self)!
     }
 
     func getTrackingInfos(_ object: AnyObject) -> [TrackingInfo] {
-        return CodableHelper.decode(object, path: trackingInfo, structType: [TrackingInfo].self, shouldPrint: false)!
+        return trackingInfo.decode(as: [TrackingInfo].self)!
     }
     
     func getLetterTypes(for lineIndex: Int, isLow: Bool) -> [LetterType] {
@@ -129,34 +125,32 @@ enum Scene: String {
         return array ?? []
     }
     
-    func getCustomLetters(_ object: AnyObject) -> [LetterRectangle] {
-        return CodableHelper.decode(object, path: customLettersName, structType: [LetterRectangle].self, shouldPrint: false)!
+    func getCustomLetters() -> [LetterRectangle] {
+        return customLettersName.decode(as: [LetterRectangle].self)!
     }
     
-    func getCustomLettersPosition(_ object: AnyObject) -> [SimpleLetterPosition] {
-        return CodableHelper.decode(object, path: customLettersPositionName,
-                                    structType: [SimpleLetterPosition].self, shouldPrint: false)!
+    func getCustomLettersPosition() -> [SimpleLetterPosition] {
+       return customLettersPositionName.decode(as: [SimpleLetterPosition].self)!
     }
     
 
 
     ///блок сразу после определения тракинга
-    func getTrackingBlock(_ object: AnyObject) -> SimpleBlock {
-        return CodableHelper.decode(object, path: trackingBlockName, structType: SimpleBlock.self, shouldPrint: false)!
+    func getTrackingBlock() -> SimpleBlock {
+        return trackingBlockName.decode(as: SimpleBlock.self)!
     }
 
-    func getRestoredBlock(_ object: AnyObject, low: Bool) -> SimpleBlock {
+    func getRestoredBlock(low: Bool) -> SimpleBlock {
         let name = getName(restoredName, isLow: low)
-        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
+        return name.decode(as: SimpleBlock.self)!
     }
 
-    func getGridBlock(_ object: AnyObject, isLow: Bool) -> SimpleBlock {
-        let name = getName(gridBlockName, isLow: isLow)
-        return CodableHelper.decode(object, path: name, structType: SimpleBlock.self, shouldPrint: false)!
+    func getGridBlock(isLow: Bool) -> SimpleBlock {
+        return getName(gridBlockName, isLow: isLow).decode(as: SimpleBlock.self)!
     }
     
-    func getCompletedWithStuck(_ object: AnyObject) -> CompletedBlock {
-        return CodableHelper.decode(object, path: completedWithStuckName, structType: CompletedBlock.self, shouldPrint: false)!
+    func getCompletedWithStuck() -> CompletedBlock {
+        return completedWithStuckName.decode(as: CompletedBlock.self)!
     }
 
     private func getName(_ name: String, isLow: Bool) -> String {
@@ -183,3 +177,4 @@ extension LetterType {
         }
     }
 }
+

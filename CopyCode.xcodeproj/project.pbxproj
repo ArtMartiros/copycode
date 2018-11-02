@@ -13,7 +13,6 @@
 		AC03DCE3213D600800730DCD /* block_one.json in Resources */ = {isa = PBXBuildFile; fileRef = AC03DCE1213D600800730DCD /* block_one.json */; };
 		AC03DCF9213D61AF00730DCD /* block_two.json in Resources */ = {isa = PBXBuildFile; fileRef = AC03DCF8213D61AF00730DCD /* block_two.json */; };
 		AC03DD00213DC2F200730DCD /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03DCFF213DC2F200730DCD /* CodableHelper.swift */; };
-		AC03DD01213DC2F200730DCD /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03DCFF213DC2F200730DCD /* CodableHelper.swift */; };
 		AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0686932189CBF800C54D59 /* sc3_p1_restored_low.json */; };
 		AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0686952189CC0B00C54D59 /* sc3_p2_restored_low.json */; };
 		AC06D84720FF30D000770DBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06D84620FF30D000770DBB /* AppDelegate.swift */; };
@@ -329,7 +328,6 @@
 		ACD7113B218B69690069FF37 /* TrackingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71139218B69690069FF37 /* TrackingAction.swift */; };
 		ACD7113C218B77DC0069FF37 /* sc1_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71127218B1A260069FF37 /* sc1_block.json */; };
 		ACD7113D218B7D910069FF37 /* sc11_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE55672218649C4003D9263 /* sc11_restored.json */; };
-		ACD7113E218B7DC10069FF37 /* sc11_restored_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71121218B10C10069FF37 /* sc11_restored_low.json */; };
 		ACD71141218C34AB0069FF37 /* MissingElementsRestorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD71140218C34AB0069FF37 /* MissingElementsRestorerTests.swift */; };
 		ACD71146218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */; };
 		ACD71147218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */ = {isa = PBXBuildFile; fileRef = ACD71145218C38EF0069FF37 /* sc11_grid_l1_frames_low.json */; };
@@ -1651,7 +1649,6 @@
 				ACE5566A21863BF1003D9263 /* sc1_rects_low.json in Resources */,
 				ACBA3C36217E126000644F82 /* 2018-10-22 16_20.json in Resources */,
 				ACD71146218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */,
-				ACD7113E218B7DC10069FF37 /* sc11_restored_low.json in Resources */,
 				ACD71149218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */,
 				AC06D89520FF504900770DBB /* Panel.xib in Resources */,
 				ACD7113D218B7D910069FF37 /* sc11_restored.json in Resources */,
@@ -2235,7 +2232,6 @@
 				ACF6ACCD21845EA80037CAF3 /* PrepareTest.swift in Sources */,
 				AC4CA3F521025DDF0093D938 /* Double.swift in Sources */,
 				ACE0E22A2170C17D00E28E28 /* sc9_type.swift in Sources */,
-				AC03DD01213DC2F200730DCD /* CodableHelper.swift in Sources */,
 				ACD71136218B3BF30069FF37 /* ForbiddensCreator.swift in Sources */,
 				ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */,
 			);
