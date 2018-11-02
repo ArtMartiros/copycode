@@ -35,14 +35,14 @@ final class LeadingAndBlockUpdater {
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             newGrid.update(leading)
-            getDifference(from: block, type: .low, grid: newGrid)
-            getDifference(from: block, type: .lowWithTail, grid: newGrid)
+//            getDifference(from: block, type: .low, grid: newGrid)
+//            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             var block = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: block)
             newGrid.update(newLeading)
             block.update(.grid(newGrid))
-             getDifference(from: block, type: .low, grid: newGrid)
-             getDifference(from: block, type: .lowWithTail, grid: newGrid)
+//             getDifference(from: block, type: .low, grid: newGrid)
+//             getDifference(from: block, type: .lowWithTail, grid: newGrid)
             blocks.append(block)
         }
 

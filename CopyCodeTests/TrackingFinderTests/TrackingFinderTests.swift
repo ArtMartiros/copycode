@@ -17,7 +17,7 @@ class TrackingFinderTests: XCTestCase {
         let line = block.lines[38]
         let word = line.words[2]
         let result = finder.findTrackings(from: word)
-        print("")
+        print(result.count)
     }
 
 }

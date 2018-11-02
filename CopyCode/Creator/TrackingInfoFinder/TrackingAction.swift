@@ -9,13 +9,13 @@
 import Foundation
 
 extension TrackingInfoFinder {
-    struct Action {
-        enum ActionType {
-            case sum(updatedTrackings: [TrackingError])
-            case split
-            case forbidden(x: CGFloat)
-        }
+    enum ActionType {
+        case sum(updatedTrackings: [TrackingError])
+        case split
+        case forbidden(x: CGFloat)
+    }
 
+    struct Action {
         private let trackingFinder = TrackingFinder()
         private let checker = TrackingChecker()
         private let preliminaryChecker = PreliminaryTrackingChecker()
