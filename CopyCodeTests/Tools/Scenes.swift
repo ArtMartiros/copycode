@@ -49,7 +49,7 @@ enum Scene: String {
         case .sc3_p1: return sc3_p1_type
         case .sc3_p2: return sc3_p2_type
         case .sc9: return sc9_type
-        case .sc11: return sc11_letter_low
+        case .sc11: return sc11_type
         default: return [:]
         }
     }
@@ -85,7 +85,7 @@ enum Scene: String {
         case .sc3_p1: return sc3_p1_letter_low
             case .sc3_p2: return sc3_p2_letter_low
         case .sc9: return sc9_letter
-        case .sc11: return sc11_letter
+        case .sc11: return sc11_letter_low
         default: return [:]
         }
     }

@@ -31,7 +31,7 @@ class SceneOCRLowTests: XCTestCase {
     }
 
     func testOCRScene11() {
-        OCRHelper.execute(self, scene: .sc11, exlude: [], isLow: false) { (answer, position) in
+        OCRHelper.execute(self, scene: .sc11, exlude: [], isLow: true) { (answer, position) in
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
         }
     }

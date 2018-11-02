@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
+final class Block<WordChild: Rectangle>: BlockProtocol, Gapable {
     func updated(by rate: Int) -> Block<WordChild> {
         let frame = updatedFrame(by: rate)
         let newLines = lines.map { $0.updated(by: rate) }
@@ -74,7 +74,7 @@ struct Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         self.typography = typography
     }
 
-    mutating func update(_ typography: Typography) {
+    func update(_ typography: Typography) {
         self.typography = typography
     }
 

@@ -28,7 +28,7 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
-    var isTest = true
+    var isTest = false
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)

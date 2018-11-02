@@ -57,6 +57,13 @@ final class LetterExistenceChecker {
         return exist(points, op: op, with: frame, percent: percent)
     }
 
+    func same(yArray: [Int], of unit: Int, x: CGFloat, with frame: CGRect, accuracy: CGFloat) -> Bool {
+        let points: [CGPoint] = yArray.map { CGPoint(x: frame.xAs(rate: x), y: frame.yAs(part: $0, of: unit)) }
+        let colors = points.map { colorPicker.pickWhite(at: $0) }.sorted()
+        guard let first = colors.first, let last = colors.last else { return false }
+        return sameColor(first, with: last, accuracy: accuracy)
+    }
+
     func sameMirrored(xArray: [Int], of unit: Int, y: CGFloat, with frame: CGRect, op: LogicalOperator) -> Bool {
         let pointPairs: [(CGPoint, CGPoint)] = xArray.map {
             let y = frame.yAs(rate: y)

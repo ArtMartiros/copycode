@@ -76,7 +76,7 @@ enum OCROperations: CustomStringConvertible {
     case braceOrRoundL
     case braceOrRoundR
     case colon
-    case s_star
+    case i_t
     case w_u
     case l_1
     case R_K
@@ -85,6 +85,7 @@ enum OCROperations: CustomStringConvertible {
     case v_u
     case G_8
     case i_1
+    case L_l
     case w_star
     case x_asterix
     case plus_e
@@ -177,10 +178,12 @@ enum OCROperations: CustomStringConvertible {
             }
         case .K_k: return .checkerWithFrame { $0.exist(xRange: 6...7, of: 8, y: 0.1, with: $1, op: .or) }
         case .f_t: return .checkerWithFrame {
-            let yArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.4]
+            let yArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
             var results: [Bool] = []
+            //для большего шрифта надо понизить четкость
+            let percent: CGFloat =  $1.width > 11 ? 90 : 100
             for y in yArray {
-                results.append($0.exist(x: 0.7, y: y, in: $1, percent: 100))
+                results.append($0.exist(x: 0.7, y: y, in: $1, percent: percent))
             }
             print("f_t array \(results)")
             return results.name(middle: false)
@@ -220,12 +223,11 @@ enum OCROperations: CustomStringConvertible {
             return $0.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
             }
         case .colon: return .checkerWithFrame (colonOperation)
-        case .s_star: return .checkerWithFrame {
-            var newFrame = $1
-            for direction in [Direction.left, Direction.right] {
-                newFrame = $1.update(by: 1, using: $0, in: direction, points: [1, 2, 3])
+        case .i_t: return .checkerWithFrame {
+            if !$0.exist(x: 0.1, y: 0.6, in: $1) {
+                return $0.exist(x: 0.1, y: 0.95, in: $1)
             }
-            return $0.exist(xRange: 7...10, of: 10, y: 0.95, with: newFrame, op: .or)
+            return false
             }
 
         case .R_K: return .checkerWithFrame {
@@ -262,14 +264,7 @@ enum OCROperations: CustomStringConvertible {
             }
         case .l_1: return .checkerWithFrame (l_1Operation)
         case .i_1: return .checkerWithFrame {
-            let percents: [CGFloat] = [60, 70, 80, 90, 100]
-            for percent in percents {
-                guard $0.exist(x: 0.5, y: 0.9, in: $1, percent: percent) else { continue }
-                return !($0.exist(yRange: 3...6, of: 20, x: 0.4, with: $1, op: .and, percent: percent) ||
-                    $0.exist(yRange: 3...6, of: 20, x: 0.5, with: $1, op: .and, percent: percent) ||
-                    $0.exist(yRange: 3...6, of: 20, x: 0.6, with: $1, op: .and, percent: percent))
-            }
-            return false
+             !$0.same(yArray: [3,4,5,6], of: 20, x: 0.5, with: $1, accuracy: 10)
             }
 
         case .S_5: return .checkerWithFrame (S_5Operation)
@@ -305,6 +300,12 @@ enum OCROperations: CustomStringConvertible {
             $0.exist(xRange: 1...3, of: 10, y: 0.95, with: $1, op: .or) &&
             $0.exist(xRange: 1...3, of: 10, y: 0.05, with: $1, op: .or) &&
             $0.exist(xRange: 1...3, of: 10, y: 0.05, with: $1, op: .or)
+            }
+
+        case .L_l :return .checkerWithFrame {
+            //для сцены 11 там своеобразная l
+            let newFrame = $1.expandFrame(by: 1, times: 2, using: $0, in: .left, with: [0, 1, 2])
+            return $0.exist(x: 0.05, y: 0.5, in: newFrame)
             }
 
         }
@@ -363,7 +364,7 @@ enum OCROperations: CustomStringConvertible {
         case .S_Dollar: return "S_Dollar"
         case .semicolon: return "semicolon"
         case .colon: return "colon"
-        case .s_star: return "s_star"
+        case .i_t: return "i_t"
         case .R_K: return "R_K"
         case .O_Q: return "O_Q"
         case .plus_e: return "plus_e"
@@ -389,7 +390,7 @@ enum OCROperations: CustomStringConvertible {
         case .x_asterix:  return "x_asterix"
         case .w_star: return "test"
         case .w_u: return "w_u"
-
+        case .L_l: return "L_l"
 
         }
     }
