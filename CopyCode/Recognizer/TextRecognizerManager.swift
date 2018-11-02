@@ -40,9 +40,7 @@ final class TextRecognizerManager {
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
-            let value = CodableHelper.encode(wordsRectangles)
-            print(value)
-//            return
+
             Timer.stop(text: "WordRectangles Converted")
             if Settings.enableFirebase {
                 GlobalValues.shared.wordRectangles = wordsRectangles
@@ -64,12 +62,12 @@ final class TextRecognizerManager {
             Timer.stop(text: "WordRecognizer Recognize")
 //            let value = CodableHelper.encode(blocks[1])
 //            print(value)
-            for block in gridBlocks {
-                if case .grid( _) = block.typography {
-                    let value = CodableHelper.encode(block)
-                    print(value)
-                }
-            }
+//            for block in gridBlocks {
+//                if case .grid( _) = block.typography {
+//                    let value = CodableHelper.encode(block)
+//                    print(value)
+//                }
+//            }
 //                        sself.printAllCustomLetters(from: restoredBlocks)
             completion(bitmap, completedBlocks, error)
         }
@@ -96,8 +94,7 @@ final class TextRecognizerManager {
         Timer.stop(text: "LetterRestorer restored")
         for block in restoredBlocks {
             if case .grid( _) = block.typography {
-                let value = CodableHelper.encode(block)
-                print(value)
+                block.toJSON().shouldPrint()
             }
         }
         _ = restoredBlocks.map { wordRecognizer.recognize($0) }
@@ -168,8 +165,6 @@ extension TextRecognizerManager {
         //            }.reduce([], +)
         //
         //        let letters = words.map { $0.letters }.reduce([], +)
-        let value = CodableHelper.encode(letters)
-
-        print(value)
+        letters.toJSON().shouldPrint()
     }
 }

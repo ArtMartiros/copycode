@@ -15,7 +15,7 @@ struct TrackingInfo: Codable {
     var forbiddens: Forbidden
     let startIndex: Int
     let endIndex: Int
-    init(tracking: Tracking? = nil, forbiddens: Forbidden = [:], startIndex: Int, endIndex: Int) {
+    init(tracking: Tracking? = nil, forbiddens: Forbidden = [:], startAt startIndex: Int, endAt endIndex: Int) {
         self.tracking = tracking
         self.startIndex = startIndex
         self.endIndex = endIndex

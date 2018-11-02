@@ -28,11 +28,11 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
-    var isTest = false
+    var isTest = true
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc11_low")
+        let testImage = NSImage("sc11")
         testImage.size = frame.size
         //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
@@ -50,13 +50,13 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-//        let block = CodableHelper.decode(self, path: "sc11_grid_low", structType: SimpleBlock.self, shouldPrint: false)!
-//        let updatedBlock = block.updated(by: 2)
-//        show(updatedBlock, options: [.block, .line, .word, .char])
+        let block = "sc11_restored_low".decode(as: SimpleBlock.self)!
+        let updatedBlock = block.updated(by: 2)
+        show(updatedBlock, options: [.block, .line, .word, .char])
 
-        let words = CodableHelper.decode(self, path: "sc11_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
-        let updatedWords = words.map { $0.updated(by: 2) }
-        show(words: updatedWords, options: [.word, .char])
+//        let words = CodableHelper.decode(self, path: "sc11_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
+//        let updatedWords = words.map { $0.updated(by: 2) }
+//        show(words: updatedWords, options: [.word, .char])
     }
 
 
@@ -178,7 +178,7 @@ extension PanelController {
             let rectangles = GlobalValues.shared.wordRectangles
             else { return }
 
-        let wordsData = CodableHelper.toData(rectangles)
+        let wordsData = rectangles.toData()
         let user = Date().toString(.yyyyMMdd ) //Auth.auth().currentUser,
         let stringDate = Date().toString(.yyyyMMddHHmm)
         let timeDate = Date().toString(.HHmm)

@@ -13,7 +13,7 @@ class TrackingFinderTests: XCTestCase {
     let finder = TrackingFinder()
     
     func testExample() {
-        let block = Scene.sc3_p1.getBlock(self, low: false)
+        let block = Scene.sc3_p1.getBlock(low: false)
         let line = block.lines[38]
         let word = line.words[2]
         let result = finder.findTrackings(from: word)

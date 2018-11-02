@@ -11,9 +11,11 @@ import Foundation
 struct TrackingChecker {
     typealias Result = (result: Bool, errorRate: CGFloat)
     private let kMiscalculationSuccessedRate: CGFloat = 0.04
+    private let kMiscalculationSuccessedHighRate: CGFloat = 0.05
     private let kMiscalculationSuccessedRateValue: CGFloat = 0.000265
     func miscalculationSuccessedRate(basedOn distance: CGFloat) -> CGFloat {
-        return distance * kMiscalculationSuccessedRateValue
+        return distance > 16 ? kMiscalculationSuccessedHighRate : kMiscalculationSuccessedRate
+//        return distance * kMiscalculationSuccessedRateValue
     }
 
     func getMiscalculation(_ gap: CGRect, withDistance distance: CGFloat, startPoint: CGFloat) -> CGFloat {
@@ -56,7 +58,7 @@ struct TrackingChecker {
 
         let average = miscalculation / CGFloat(gaps.count)
         print("sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4))")
-        let result = average < kMiscalculationSuccessedRate
+        let result = average < miscalculationSuccessedRate(basedOn: distance)
         return (result, average)
     }
 

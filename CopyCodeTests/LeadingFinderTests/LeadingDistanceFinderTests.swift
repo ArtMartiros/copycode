@@ -11,7 +11,7 @@ import XCTest
 class LeadingDistanceFinderTests: XCTestCase {
     
     func testFindDistance() {
-        let block = Scene.block_one_code.getBlock(self, low: false)
+        let block = Scene.block_one_code.getBlock(low: false)
         let finder = LeadingDistanceFinder(block: block)
         let result = finder.find()
         switch result {

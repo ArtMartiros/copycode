@@ -101,13 +101,11 @@ enum OCRPicture: PictureNameProtocol {
     }
     
     func getWord(_ object: AnyObject) -> SimpleWord {
-        return CodableHelper.decode(object, path: lettersName, structType: [SimpleWord].self, shouldPrint: false)![0]
+        return lettersName.decode(as: [SimpleWord].self)![0]
     }
     
     func getAnswers(_ object: AnyObject) -> [Answer] {
-        return  CodableHelper.decode(object,
-                                     path: answersName,
-                                     structType: [Answer].self)!
+        return answersName.decode(as: [Answer].self)!
     }
     
     struct Answer: Codable {
@@ -137,5 +135,41 @@ enum LetterPixelFinderPicture: PictureNameProtocol {
         case .equal: return "missing_equal"
         case .underscore: return "missing_underscore"
         }
+    }
+}
+
+extension String {
+    func decode<T>(as structType: T.Type) -> T? where T: Decodable {
+        guard let path = Bundle(for: CustomOCRTests.self).path(forResource: self, ofType: "json"),
+            let json = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) else { return nil }
+        let data = Data(json.utf8)
+
+        do {
+            let structs = try JSONDecoder().decode(structType, from: data)
+            //            if shouldPrint {
+            //                print(structs)
+            //            }
+            return structs
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    func shouldPrint() {
+        print(self)
+    }
+}
+
+extension Encodable {
+    func toJSON() -> String {
+        let data = self.toData()
+        let descr = String(data: data, encoding: .utf8)
+        return descr ?? ""
+    }
+
+    func toData() -> Data {
+        // swiftlint:disable force_try
+        return try! JSONEncoder().encode(self)
     }
 }

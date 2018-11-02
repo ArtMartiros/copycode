@@ -84,8 +84,7 @@ class LetterPixelFinderTests: XCTestCase {
     }
     
     private func getFrames(from picture: LetterPixelFinderPicture) -> [CGRect] {
-        guard let frames = CodableHelper.decode(self, path: picture.json,
-                                                structType: [Answer].self) else { return [] }
+        guard let frames = picture.json.decode(as: [Answer].self) else { return [] }
         return frames.map { $0.frame }
     }
     

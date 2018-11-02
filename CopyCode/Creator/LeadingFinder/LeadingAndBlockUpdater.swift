@@ -35,14 +35,14 @@ final class LeadingAndBlockUpdater {
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             newGrid.update(leading)
-//            getDifference(from: block, type: .low, grid: newGrid)
-//            getDifference(from: block, type: .lowWithTail, grid: newGrid)
+            getDifference(from: block, type: .low, grid: newGrid)
+            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             var block = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: block)
             newGrid.update(newLeading)
             block.update(.grid(newGrid))
-//             getDifference(from: block, type: .low, grid: newGrid)
-//             getDifference(from: block, type: .lowWithTail, grid: newGrid)
+             getDifference(from: block, type: .low, grid: newGrid)
+             getDifference(from: block, type: .lowWithTail, grid: newGrid)
             blocks.append(block)
         }
 
@@ -89,7 +89,11 @@ final class LeadingAndBlockUpdater {
 
         guard let ratio = getLowLetterRatio(lines, height: oldLeading.fontSize)
             else { return nil }
-        let standartRatio = isRetina ? kStandartLowRatio : kLowStandartLowRatio
+        //в сцене 11 тот же коэф как и в норм разрешении
+        let useLow = !isRetina && oldLeading.fontSize < 30
+        let standartRatio = useLow ? kLowStandartLowRatio : kStandartLowRatio
+        print("Bukaki \(ratio), standart \(standartRatio)")
+
         let newFontSize = oldLeading.fontSize / (standartRatio / ratio)
         let sizeDiff = newFontSize - oldLeading.fontSize
         let spacing = oldLeading.lineSpacing - lagValue - sizeDiff

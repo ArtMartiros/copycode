@@ -34,10 +34,8 @@ final class DigitColumnSplitter: DigitColumnCreatorProtocol {
     func spltted(from rectangles: [SimpleWord]) -> ColumnWithBlockWords {
         let dictionaryWordsByOriginX = rectangleDictionaryByXValue(rectangles)
         let values = dictionaryWordsByOriginX.sorted { $0.key < $1.key }
-        for item in values where item.key == 923 {
-          let value = CodableHelper.encode(item.value)
-        print(value)
-        }
+//        for item in values where item.key == 923 {
+//        }
         var pre = createPreliminaryWord(from: dictionaryWordsByOriginX)
         pre = updateByNearestXkey(pre)
         pre.dictionaryWordsByOriginX.values.forEach { pre.blockWords.append(contentsOf: $0) }

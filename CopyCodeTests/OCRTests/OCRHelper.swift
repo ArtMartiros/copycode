@@ -11,7 +11,7 @@ import Foundation
 final class OCRHelper {
     static func execute(_ object: AnyObject, scene: Scene, exlude: Set<Int>, isLow: Bool,
                         completion: @escaping (String, CompletedLetterPosition) -> Void) {
-        let block = scene.getRestoredBlock(self, low: isLow)
+        let block = scene.getRestoredBlock(low: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
 
         for (lineIndex, line) in block.lines.enumerated() where !exlude.contains(lineIndex) {

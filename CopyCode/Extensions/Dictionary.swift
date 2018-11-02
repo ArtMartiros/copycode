@@ -21,6 +21,11 @@ extension Dictionary where Key: Comparable, Key: Hashable {
         let keys = self.keys.sorted()
         return keys.compactMap { self[$0] }
     }
+
+    func sortedByKeys() -> [(key: Key, value: Value)] {
+        let values = self.sorted { $0.key < $1.key }
+        return values
+    }
 }
 extension Dictionary {
     func valuesSorted(byKey areInIncreasingOrder: (Key, Key) -> Bool) -> [Value] {
