@@ -11,10 +11,11 @@ import XCTest
 class PrepareTest: XCTestCase {
 
     func testExample() {
-        let scene = Scene.sc11
-        let isLow = true
+        let scene = Scene.sc14
+        let isLow = false
         let words = scene.getRects(self, low: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap
+        
         let textRecognizer = TextRecognizerManager()
         textRecognizer.completedBlocks(from: words, with: bitmap, retina: !isLow)
     }
