@@ -66,8 +66,8 @@ extension AppDelegate {
     }
 
     private func listenGlobalKey() {
-        let flags = UInt(NSEvent.ModifierFlags.command.rawValue + NSEvent.ModifierFlags.shift.rawValue)
-        let shortcut = MASShortcut(keyCode: UInt(kVK_ANSI_K), modifierFlags: flags)
+        let flags = UInt(NSEvent.ModifierFlags.command.rawValue)
+        let shortcut = MASShortcut(keyCode: UInt(kVK_ANSI_E), modifierFlags: flags)
         MASShortcutMonitor.shared()?.register(shortcut, withAction: { [weak self] in
             self?.screeenCapture()
         })

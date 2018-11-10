@@ -17,46 +17,13 @@ class TrackingInfoFinderTests: XCTestCase {
     
     let finder = TrackingInfoFinder()
     let formatter = TrackingInfoFormatter()
-//
-//    func testBlockOne() {
-//        let answers = [Answer(start: 2, end: 36)]
-//        let index = 1
-//        let chunked = getChucked(.block_one)
-//        for (answerIndex, answer) in answers.enumerated() {
-//            let current = chunked[index][answerIndex]
-//            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
-//            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
-//        }
-//    }
-//
-//    func testBlockTwo() {
-//        let answers = [Answer(start: 3, end: 34)]
-//        let index = 2
-//        let chunked = getChucked(.block_two)
-//        for (answerIndex, answer) in answers.enumerated() {
-//            let current = chunked[index][answerIndex]
-//            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
-//            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
-//        }
-//    }
-//
-//    func testBlockWithComments() {
-//        let answers = [Answer(start: 4, end: 13), Answer(start: 14, end: 24), Answer(start: 25, end: 34)]
-//        let index = 4
-//        let chunked = getChucked(.block_with_comments)
-//        for (answerIndex, answer) in answers.enumerated() {
-//            let current = chunked[index][answerIndex]
-//            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
-//            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
-//        }
-//    }
 
     func testSc1() {
-        let answers = [Answer(start: 2, end: 4), Answer(start: 6, end: 8),
-                       Answer(start: 10, end: 16), Answer(start: 17, end: 18),
+        let answers = [Answer(start: 2, end: 4), Answer(start: 6, end: 6),
+                       Answer(start: 8, end: 9), Answer(start: 11, end: 17),
                        Answer(start: 19, end: 27)]
         let index = 1
-        let chunked = getChucked(.sc1, isLow: false)
+        let chunked = getChuncked(.sc1, isLow: false)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -68,7 +35,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testSc2() {
         let answers = [Answer(start: 2, end: 22)]
         let index = 2
-        let chunked = getChucked(.sc2, isLow: false)
+        let chunked = getChuncked(.sc2, isLow: false)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -79,7 +46,7 @@ class TrackingInfoFinderTests: XCTestCase {
     func testSc3_p1() {
         let answers = [Answer(start: 3, end: 47)]
         let index = 1
-        let chunked = getChucked(.sc3_p1, isLow: false)
+        let chunked = getChuncked(.sc3_p1, isLow: false)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -92,7 +59,7 @@ class TrackingInfoFinderTests: XCTestCase {
                        Answer(start: 10, end: 16), Answer(start: 17, end: 18),
                        Answer(start: 19, end: 27)]
         let index = 1
-        let chunked = getChucked(.sc11, isLow: false)
+        let chunked = getChuncked(.sc11, isLow: false)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -105,7 +72,7 @@ class TrackingInfoFinderTests: XCTestCase {
                        Answer(start: 10, end: 16), Answer(start: 17, end: 18),
                        Answer(start: 19, end: 27)]
         let index = 1
-        let chunked = getChucked(.sc11, isLow: true)
+        let chunked = getChuncked(.sc11, isLow: true)
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -113,7 +80,14 @@ class TrackingInfoFinderTests: XCTestCase {
         }
     }
 
-    private func getChucked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {
+    func testSc15() {
+        let chuncked = getChuncked(.sc15, isLow: false)
+        let current = chuncked[3][0]
+        XCTAssertTrue(current.startIndex == 4, "start: \(current.startIndex) != answer: \(4)")
+        XCTAssertTrue(current.endIndex == 11, "end: \(current.endIndex) != answer: \(11)")
+    }
+
+    private func getChuncked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {
         let block = scene.getBlock(low: isLow)
         let infos = finder.find(from: block)
         let chunked = formatter.chunk(infos, with: block)

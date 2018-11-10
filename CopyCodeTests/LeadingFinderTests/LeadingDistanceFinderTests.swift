@@ -11,15 +11,15 @@ import XCTest
 class LeadingDistanceFinderTests: XCTestCase {
     
     func testFindDistance() {
-        let block = Scene.block_one_code.getBlock(low: false)
+        let block = Scene.sc15.getTrackingBlock()
         let finder = LeadingDistanceFinder(block: block)
-        let result = finder.find()
-        switch result {
-        case .failure: XCTAssertTrue(false, "Didn`t find range")
-        case .success(let range):
-            let testRange: LeadingRange = 16.9...17
-            let message = "Range: \(range), index \(index)\n"
-            XCTAssertTrue(testRange.intesected(with: range) != nil, message)
+        guard let range = finder.find() else {
+            XCTAssertTrue(false, "Didn`t find range")
+            return
         }
+
+        let testRange: LeadingRange = 59...60
+        let message = "Range: \(range), index \(index)\n"
+        XCTAssertTrue(testRange.intesected(with: range) != nil, message)
     }
 }

@@ -31,7 +31,8 @@ public struct SortedArray<Element: Comparable>: SortedSet where Element: Codable
 
 }
 extension SortedArray {
-    func index(for element: Element) -> Int {
+    ///находит или текущий индекс элемента, либо след при отсуствии
+    func index(forNext element: Element) -> Int {
         var start = 0
         var end = storage.count
         while start < end {
@@ -45,8 +46,14 @@ extension SortedArray {
         return start
     }
 
+    ///находит или текущий индекс элемента, либо пред при отсуствии
+    func index(forPrevious element: Element) -> Int {
+        let elementIndex = index(forNext: element)
+        return elementIndex > 0 ? elementIndex - 1 : 0
+    }
+
     public func index(of element: Element) -> Int? {
-        let index = self.index(for: element)
+        let index = self.index(forNext: element)
         guard index < count, storage[index] == element else { return nil }
         return index
     }
@@ -58,7 +65,7 @@ extension SortedArray {
     }
 
     public func contains(_ element: Element) -> Bool {
-        let index = self.index(for: element)
+        let index = self.index(forNext: element)
         return index < count && storage[index] == element
     }
 
@@ -72,7 +79,7 @@ extension SortedArray {
 
     @discardableResult
     public mutating func insert(_ newElement: Element) -> (inserted: Bool, memberAfterInsert: Element) {
-        let index = self.index(for: newElement)
+        let index = self.index(forNext: newElement)
         if index < count && storage[index] == newElement {
             return (false, storage[index])
         }

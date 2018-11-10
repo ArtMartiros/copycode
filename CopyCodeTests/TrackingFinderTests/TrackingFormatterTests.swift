@@ -29,7 +29,7 @@ class TrackingFormatterTests: XCTestCase {
 
         XCTAssertTrue(chunked.count > 2, "Chunked must be more than 2")
         let index = 1
-        XCTAssertTrue(chunked[index].count == 5, "Chunk ust be == 5, not \(chunked[index].count)")
+        XCTAssertTrue(chunked[index].count == 5, "Chunk must be == 5, not \(chunked[index].count)")
         for (answerIndex, answer) in answers.enumerated() {
             let current = chunked[index][answerIndex]
 

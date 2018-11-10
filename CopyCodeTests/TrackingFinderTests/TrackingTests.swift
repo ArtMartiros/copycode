@@ -15,7 +15,6 @@ class TrackingTests: XCTestCase {
         let frame = CGRect(x: 364, y: 805.5, width: 651, height: 12.5)
         let result = tracking.missingCharFrames(in: frame)[0]
         XCTAssertTrue(frame.leftX > result.leftX)
-        print("ss")
     }
 
     func testSc11() {
@@ -25,7 +24,6 @@ class TrackingTests: XCTestCase {
         let frameLine = frames[1]
         let result = frameLine.first { Int($0.leftX) == Int(2344) }
         XCTAssertNotNil(result)
-        print("d")
     }
 
 }

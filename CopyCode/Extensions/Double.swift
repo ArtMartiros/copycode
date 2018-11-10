@@ -8,6 +8,18 @@
 
 import Foundation
 
+extension BinaryInteger {
+    func percent(of number: Self) -> Self {
+        return number / self * 100
+    }
+}
+
+extension FloatingPoint {
+    func percent(of number: Self) -> Self {
+        return number / self * 100
+    }
+}
+
 extension Double {
     /// Rounds the double to decimal places value
     func rounded(toPlaces places: Int) -> Double {

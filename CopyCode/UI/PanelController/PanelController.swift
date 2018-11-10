@@ -32,7 +32,7 @@ final class PanelController: NSWindowController {
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc11")
+        let testImage = NSImage("sc15")
         testImage.size = frame.size
         //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
@@ -50,16 +50,15 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-        let block = "sc11_restored_low".decode(as: SimpleBlock.self)!
+           panel.imageView.layer?.sublayers?.removeSubrange(1...)
+        let block = "sc15_block".decode(as: SimpleBlock.self)!
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
 
-//        let words = CodableHelper.decode(self, path: "sc11_rects_low", structType: [SimpleWord].self, shouldPrint: false)!
+//        let words = "sc15_rects".decode(as: [SimpleWord].self)!
 //        let updatedWords = words.map { $0.updated(by: 2) }
 //        show(words: updatedWords, options: [.word, .char])
     }
-
-
 
     private func show<T: BlockProtocol>(_ block: T, options: LayerOptions) {
         let transcriptor = TextTranscriptor()
@@ -202,3 +201,4 @@ extension PanelController {
         }
     }
 }
+

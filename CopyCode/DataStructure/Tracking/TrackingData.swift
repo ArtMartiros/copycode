@@ -31,7 +31,7 @@ struct TrackingData: Codable {
     ///записывай по топ позиции, вытаскивай по бот позиции для того чтобы точно входил
     subscript(yPosition: CGFloat) -> Tracking {
         get {
-            let nearestNextIndex = array.index(for: yPosition)
+            let nearestNextIndex = array.index(forNext: yPosition)
             guard range.contains(yPosition),
                 !array.isEmpty,
                 nearestNextIndex < array.count else { return defaultTracking }

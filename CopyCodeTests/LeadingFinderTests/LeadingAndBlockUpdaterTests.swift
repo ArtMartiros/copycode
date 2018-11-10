@@ -8,6 +8,7 @@
 
 import XCTest
 
+//Все тесты успешно пройдены
 class LeadingAndBlockUpdaterTests: XCTestCase {
 
     func testSc1() {
@@ -32,6 +33,11 @@ class LeadingAndBlockUpdaterTests: XCTestCase {
 
     func testSc11_low() {
         let result = execute(.sc11, isLow: true)
+        XCTAssertEqual(result[0].lines.count, 8)
+    }
+
+    func testSc15() {
+        let result = execute(.sc15, isLow: false)
         XCTAssertEqual(result[0].lines.count, 8)
     }
 

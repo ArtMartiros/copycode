@@ -40,7 +40,7 @@ final class TextRecognizerManager {
             let blockCreator = BlockCreator(in: bitmap)
             Timer.stop(text: "Bitmap Created")
             let wordsRectangles = sself.rectangleConverter.convert(results, bitmap: bitmap)
-
+            wordsRectangles.toJSON().shouldPrint()
             Timer.stop(text: "WordRectangles Converted")
             if Settings.enableFirebase {
                 GlobalValues.shared.wordRectangles = wordsRectangles
@@ -84,6 +84,7 @@ final class TextRecognizerManager {
 
         let gridBlocks = filterGrids(blocks)
         Timer.stop(text: "BlockCreator created")
+//        gridBlocks[0].toJSON().shouldPrint()
 
         let blocksWithTypes = gridBlocks.compactMap { [weak self] in
             self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0, retina: retina)
@@ -117,14 +118,15 @@ final class TextRecognizerManager {
         switch block.typography {
 
         case .grid(let grid):
+            if Settings.showGrid { return [grid.getTestBlock(from: block)] }
+
             var typeConverter = TypeConverter(in: bitmap, grid: grid, type: .onlyLow)
             let blockWithLow = typeConverter.convert(block)
             let updater = LeadingAndBlockUpdater(grid: grid, isRetina: retina)
             let splittedBlocks = updater.update(block: blockWithLow)
-
             return splittedBlocks.compactMap {
                 if case .grid(let grid) = $0.typography {
-                    if Settings.showGrid { return grid.getTestBlock(from: $0) }
+
                     typeConverter = TypeConverter(in: bitmap, grid: grid, type: .all)
                     return typeConverter.convert($0)
                 }

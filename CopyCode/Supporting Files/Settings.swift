@@ -10,7 +10,7 @@ import Foundation
 
 struct Settings {
     static let release = false
-    private static let isDefault = true
+    private static let isDefault = false
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true
     private static let defaultShowBlock: LayerOptions = [.release]

@@ -15,17 +15,17 @@ struct LeadingDistanceFinder {
     let maxLineHeight: CGFloat
     let gaps: [CGRect]
 
-    func find() -> SimpleSuccess<LeadingRange> {
-        guard !gaps.isEmpty, let first = lines.first, let last = lines.last else { return .failure }
+    func find() -> LeadingRange? {
+        guard !gaps.isEmpty, let first = lines.first, let last = lines.last else { return nil }
         let linesCount = findCompleteLinesCount()
-        let distanceRange = findRangeDistance(topmostLine: first, bottommostLine: last, linesCount: linesCount)
+        let distanceRange = findRangeDistance(topmostLine: first, bottommostLine: last)
         let leadingRange = findLeadingRange(in: distanceRange, linesCount: linesCount)
-        return .success(leadingRange)
+        return leadingRange
     }
 
     private func findCompleteLinesCount() -> Int {
         let additionalCount = findAdditionalCount()
-        return (lines.count - 1) + additionalCount
+        return lines.count + additionalCount
     }
 
     private func findAdditionalCount() -> Int {
@@ -60,12 +60,12 @@ struct LeadingDistanceFinder {
     }
 
     private func findLeading(in distance: CGFloat, count: Int) -> CGFloat {
-        let result = ((distance - maxLineHeight) / CGFloat(count)).rounded(toPlaces: 1)
+        let result = ((distance - maxLineHeight) / CGFloat(count - 1)).rounded(toPlaces: 1)
         return result
     }
 
-    private func findRangeDistance(topmostLine: Line<LetterRectangle>, bottommostLine: Line<LetterRectangle>,
-                                   linesCount: Int) -> LeadingRange {
+    private func findRangeDistance(topmostLine: Line<LetterRectangle>,
+                                   bottommostLine: Line<LetterRectangle>) -> LeadingRange {
         let startPoint = topmostLine.frame.topY
         let lastPoint = bottommostLine.frame.bottomY
 

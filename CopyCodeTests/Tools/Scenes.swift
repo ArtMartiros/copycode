@@ -10,7 +10,7 @@ import AppKit
 
 enum Scene: String {
     case sc1, sc2, sc3_p1, sc3_p2, sc4, sc5, sc6, sc7, sc8, sc9, sc10
-    case sc11, sc13_p1
+    case sc11, sc13_p1, sc14, sc15
     case block_with_comments, block_one, block_one_code, block_two
 
     func getImage(isLow: Bool) -> NSImage {
@@ -50,6 +50,7 @@ enum Scene: String {
         case .sc3_p2: return sc3_p2_type
         case .sc9: return sc9_type
         case .sc11: return sc11_type
+        case .sc15: return sc15_type
         default: return [:]
         }
     }

@@ -17,17 +17,13 @@ struct LeadingFinder {
         let startPointGenerator = LeadingStartPointGenerator()
         let spaceFinder = LeadingSpaceFinder(block: block)
 
-        let result = distanceFinder.find()
-        switch result {
-        case .success(let range):
-            let point = block.lineWithMaxHeight().frame.topY
-            let points = startPointGenerator.generate(from: point)
-            let leadingErrors = points
-                .map { spaceFinder.find(in: range, startPoint: $0)}
-                .reduce([], +)
+        guard let range = distanceFinder.find() else { return nil }
 
-            return mostAccurateFinder.find(from: leadingErrors)
-        case .failure:  return nil
-        }
+        let point = block.lineWithMaxHeight().frame.topY
+        let points = startPointGenerator.generate(from: point)
+        let leadingErrors = points
+            .map { spaceFinder.find(in: range, startPoint: $0)}
+            .reduce([], +)
+        return mostAccurateFinder.find(from: leadingErrors)
     }
 }
