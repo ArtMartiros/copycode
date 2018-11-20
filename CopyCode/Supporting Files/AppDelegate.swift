@@ -45,7 +45,7 @@ extension AppDelegate {
 
     private func createMenu() {
         let menu = NSMenu()
-        let screenCaptureItem = NSMenuItem(title: "Capture Screen", action: #selector(screeenCapture), keyEquivalent: "s")
+        let screenCaptureItem = NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e")
         let exitItem = NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "")
 
         menu.addItem(screenCaptureItem)

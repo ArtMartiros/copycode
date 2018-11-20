@@ -7,12 +7,12 @@
 //
 
 import Foundation
-
+//строка 2 не увидел underscore
 let sc15_letter = [
     0: "let monster = (type, cpValue)",
     1: "switch (monster) {",
 
-    2: "case (\"Pikachu\", _):",
+    2: "case (\"Pikachu\", ):",
     3: "return \"I choose you!\"",
 
     4: "case (\"Magikarp\", 140...200):",

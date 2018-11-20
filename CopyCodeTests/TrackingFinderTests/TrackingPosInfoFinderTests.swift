@@ -7,7 +7,7 @@
 //
 
 import XCTest
-
+//проходит
 class TrackingPosInfoFinderTests: XCTestCase {
 
     let posFinder = TrackingInfoFinder.PositionInfoFinder()
@@ -31,4 +31,13 @@ class TrackingPosInfoFinderTests: XCTestCase {
         let posInfos = posFinder.find(from: line.words)
         XCTAssertEqual(posInfos.count, 1)
     }
+
+    func testSc14_L1() {
+        let block = Scene.sc14.getBlock(low: false)
+        let line = block.lines[1]
+        let posInfos = posFinder.find(from: line.words)
+        XCTAssertEqual(posInfos.count, 1)
+    }
+
+
 }

@@ -28,21 +28,22 @@ final class PanelController: NSWindowController {
         panel.panelDelegate = self
     }
 
-    var isTest = false
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc15")
+        let testImage = NSImage("sc14")
         testImage.size = frame.size
         //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
-        panel.imageView.image = isTest ? testImage : image
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
         }
-        if isTest {
+
+        if Settings.isTest {
+            panel.imageView.image = testImage
             testShow()
         } else {
+            panel.imageView.image = image
             let cgImage = !isRetina ? prepare(image: image).toCGImage : cgImage
             showWords(image: cgImage)
         }
@@ -50,12 +51,12 @@ final class PanelController: NSWindowController {
     }
 
     func testShow() {
-           panel.imageView.layer?.sublayers?.removeSubrange(1...)
-        let block = "sc15_block".decode(as: SimpleBlock.self)!
+        panel.imageView.layer?.sublayers?.removeSubrange(1...)
+        let block = "sc14_grid".decode(as: SimpleBlock.self)!
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
 
-//        let words = "sc15_rects".decode(as: [SimpleWord].self)!
+//        let words = "sc14_rects".decode(as: [SimpleWord].self)!
 //        let updatedWords = words.map { $0.updated(by: 2) }
 //        show(words: updatedWords, options: [.word, .char])
     }

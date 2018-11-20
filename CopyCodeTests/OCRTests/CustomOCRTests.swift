@@ -7,35 +7,45 @@
 //
 
 import XCTest
-
+//22
 class CustomOCRTests: XCTestCase {
     let textRecognizer = TextRecognizerManager()
-    
+    enum ColorType: CGFloat {
+        case white = 1
+        case black = 0
+    }
+    //2
     //1 @
     func testScene1() {
-        checkLetter(from: .sc1) { (answer, position) in
+        checkLetter(from: .sc1, bg: .white) { (answer, position) in
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
-    //1
+    //3
     func testScene2() {
-        checkLetter(from: .sc2) { (answer, position) in
+        checkLetter(from: .sc2, bg: .white) { (answer, position) in
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
-    //1
+    //17
     func testScene9() {
-        checkLetter(from: .sc9) { (answer, position) in
+        checkLetter(from: .sc9, bg: .white) { (answer, position) in
+            XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
+        }
+    }
+//1
+    func testScene15() {
+        checkLetter(from: .sc15, bg: .black) { (answer, position) in
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
     
-    private func checkLetter(from scene: Scene, completion: (String, CompletedLetterPosition) -> Void ) {
+    private func checkLetter(from scene: Scene, bg: ColorType, completion: (String, CompletedLetterPosition) -> Void ) {
         let bitmap = scene.getImage(isLow: false).bitmap
         let letterPositions = scene.getCustomLettersPosition()
-        let recognizer = getRecognizer(from: bitmap, frame: letterPositions[0].letter)
+        let recognizer = getRecognizer(from: bitmap, frame: letterPositions[0].letter, bg: bg)
        
         for (index, lp) in letterPositions.enumerated() {
             print("Letter index \(index)")
@@ -48,11 +58,11 @@ class CustomOCRTests: XCTestCase {
         }
     }
     
-    private func getRecognizer(from bitmap: NSBitmapImageRep, frame: Rectangle) -> LetterRecognizer {
+    private func getRecognizer(from bitmap: NSBitmapImageRep, frame: Rectangle, bg: ColorType) -> LetterRecognizer {
         
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let wordFactor = WordFactor(rectangle: frame)
-        let recognizer = LetterRecognizer(in: bitmap, wordBackgroundWhiteColor: 1,
+        let recognizer = LetterRecognizer(in: bitmap, wordBackgroundWhiteColor: bg.rawValue,
                                           letterColorFinder: colorFinder, wordFactor: wordFactor)
         
         return recognizer

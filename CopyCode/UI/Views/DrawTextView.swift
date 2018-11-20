@@ -25,7 +25,7 @@ class DrawTextView: NSTextView {
 
         drawRoundedRect(bounds, inContext: context,
                         radius: Constants.borderCornerRadius,
-                        borderColor: NSColor.textViewStrokeColor.cgColor,
+                        borderColor: NSColor.textViewStrokeColorLight.cgColor,
                         borderWidth: Constants.borderLineWidth,
                         fillColor: NSColor.textViewFillColor.cgColor)
     }

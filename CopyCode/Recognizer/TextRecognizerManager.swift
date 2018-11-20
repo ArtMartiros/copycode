@@ -45,6 +45,7 @@ final class TextRecognizerManager {
             if Settings.enableFirebase {
                 GlobalValues.shared.wordRectangles = wordsRectangles
             }
+
             let blocks = blockCreator.create(from: wordsRectangles)
 
             let gridBlocks = sself.filterGrids(blocks)
@@ -84,7 +85,7 @@ final class TextRecognizerManager {
 
         let gridBlocks = filterGrids(blocks)
         Timer.stop(text: "BlockCreator created")
-//        gridBlocks[0].toJSON().shouldPrint()
+        gridBlocks[0].toJSON().shouldPrint()
 
         let blocksWithTypes = gridBlocks.compactMap { [weak self] in
             self?.detectTypeWithUpdatedLeading(in: bitmap, from: $0, retina: retina)
@@ -93,11 +94,12 @@ final class TextRecognizerManager {
 
         let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
         Timer.stop(text: "LetterRestorer restored")
-        for block in restoredBlocks {
-            if case .grid( _) = block.typography {
-                block.toJSON().shouldPrint()
-            }
-        }
+//        for block in restoredBlocks {
+//            if case .grid( _) = block.typography {
+//                printAllCustomLetters(from: [block])
+//                block.toJSON().shouldPrint()
+//            }
+//        }
         _ = restoredBlocks.map { wordRecognizer.recognize($0) }
 
     }

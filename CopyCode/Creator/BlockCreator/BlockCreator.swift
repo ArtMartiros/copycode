@@ -31,7 +31,7 @@ final class BlockCreator: BlockCreatorProtocol {
         let blocks = blockPreparator.initialPrepare(from: rectangles)
         Timer.stop(text: "BlockCreator Initial Created")
         if Settings.showInitialBlock { return blocks }
-//        blocks[0].toJSON().shouldPrint()
+        blocks[0].toJSON().shouldPrint()
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
 //        for block in trackingUpdatedBlocks {
 //            block.toJSON().shouldPrint()

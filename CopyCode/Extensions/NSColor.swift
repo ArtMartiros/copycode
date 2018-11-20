@@ -20,9 +20,12 @@ extension NSColor {
 }
 
 extension NSColor {
-    static var textViewStrokeColor: NSColor {
+    static var textViewStrokeColorDark: NSColor {
         return NSColor.blue
-        //NSColor(deviceRed: 0, green: 122, blue: 255, alpha: 1)
+    }
+
+    static var textViewStrokeColorLight: NSColor {
+        return NSColor.white 
     }
 
     static var textViewBackgroundColor: NSColor {
