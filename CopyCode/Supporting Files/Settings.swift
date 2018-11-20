@@ -19,6 +19,7 @@ struct Settings {
     private static let defaultShowAlert = true
     private static let defaultFilterBlock = true
 
+
     static let enableFirebase = isDefault ? defaultEnableFirebase : true
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
@@ -26,4 +27,7 @@ struct Settings {
     static let showGrid = isDefault ? defaultShowGrid : false
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : true
+
+
+    static let shouldPrint = false
 }

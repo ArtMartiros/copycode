@@ -30,7 +30,9 @@ func releasePrint(_ object: Any) {
 
 func print(_ object: Any) {
     #if DEBUG
-    Swift.print(object)
+    if Settings.shouldPrint {
+        Swift.print(object)
+    }
     #endif
 }
 

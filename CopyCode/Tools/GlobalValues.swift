@@ -8,6 +8,7 @@
 
 import AppKit
 
+///класс нужен для того чтобы присылать аналитику по последнему скрину
 final class GlobalValues {
 
     static let shared = GlobalValues()
