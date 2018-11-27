@@ -8,14 +8,15 @@
 
 import Foundation
 
-typealias Forbidden = [Int: CGFloat]
-
+typealias LineRestrictionDictionary = [Int: LineRestriction]
 struct TrackingInfo: Codable {
     let tracking: Tracking?
-    var forbiddens: Forbidden
+    var forbiddens: LineRestrictionDictionary
     let startIndex: Int
     let endIndex: Int
-    init(tracking: Tracking? = nil, forbiddens: Forbidden = [:], startAt startIndex: Int, endAt endIndex: Int) {
+
+    init(tracking: Tracking? = nil, forbiddens: LineRestrictionDictionary = [:],
+         startAt startIndex: Int, endAt endIndex: Int) {
         self.tracking = tracking
         self.startIndex = startIndex
         self.endIndex = endIndex
@@ -34,7 +35,7 @@ struct TrackingInfo: Codable {
         var maxX: CGFloat?
         var minX: CGFloat?
         for index in startIndex...endIndex {
-            let words = findWords(in: block, lineIndex: index, type: type)
+            let words = findWords(in: block, lineIndex: index, type: type, restrictedAt: [.horizontal])
             if let last = words?.last {
                 maxX = max(last.frame.rightX, maxX ?? last.frame.rightX)
             }
@@ -68,24 +69,46 @@ struct TrackingInfo: Codable {
     }
 
     ///Возвращает слова в линии которые соответствуют критериям TrackingInfo либо nil
-    func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType) -> [SimpleWord]? {
+    func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType, restrictedAt restricted: DirectionOptions) -> [SimpleWord]? {
         guard block.lines.count > lineIndex, startIndex <= lineIndex, endIndex >= lineIndex else { return nil }
         let words = block.lines[lineIndex].words
-        let forbiddenX = forbiddens[lineIndex]
-        switch type {
-        case .allowed:
-            return forbiddenX != nil ? words.filter { $0.frame.rightX < forbiddenX! } : words
-        case .disallowed:
-            return forbiddenX != nil ? words.filter { $0.frame.rightX >= forbiddenX! } : []
-        case .all:
-            return words
+
+        var filteredWords: [SimpleWord] = []
+        let restriction = forbiddens[lineIndex]
+        if restricted.contains(.right) {
+           filteredWords = filter(words: words, restriction: restriction, type: type, direction: .right)
+        }
+        if restricted.contains(.left) {
+            filteredWords = filter(words: filteredWords, restriction: restriction, type: type, direction: .left)
         }
 
+        return filteredWords
+    }
+
+   private func filter(words: [SimpleWord], restriction: LineRestriction?, type: WordsFinderType, direction: Direction) -> [SimpleWord] {
+        switch direction {
+        case .left:
+            let forbiddenX = restriction?.leftX
+            switch type {
+            case .allowed: return forbiddenX != nil ? words.filter { $0.frame.leftX >= forbiddenX! } : words
+            case .disallowed: return forbiddenX != nil ? words.filter { $0.frame.leftX < forbiddenX! } : []
+            case .all: return words
+            }
+        case .right:
+            let forbiddenX = restriction?.rightX
+            switch type {
+            case .allowed: return forbiddenX != nil ? words.filter { $0.frame.rightX < forbiddenX! } : words
+            case .disallowed: return forbiddenX != nil ? words.filter { $0.frame.rightX >= forbiddenX! } : []
+            case .all: return words
+            }
+        default: break
+        }
+        return []
     }
 
     func findArrayOfWords(in block: SimpleBlock, type: WordsFinderType) -> [[SimpleWord]?] {
         let indexes = Array(startIndex...endIndex)
-        let arrayOfWords = indexes.map { findWords(in: block, lineIndex: $0, type: type) }
+        let arrayOfWords = indexes.map { findWords(in: block, lineIndex: $0, type: type, restrictedAt: [.horizontal]) }
         return arrayOfWords
     }
 

@@ -25,7 +25,7 @@ extension NSColor {
     }
 
     static var textViewStrokeColorLight: NSColor {
-        return NSColor.white 
+        return NSColor.blue
     }
 
     static var textViewBackgroundColor: NSColor {

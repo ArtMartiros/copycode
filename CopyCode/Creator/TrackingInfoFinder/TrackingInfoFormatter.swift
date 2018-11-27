@@ -53,6 +53,7 @@ struct TrackingInfoFormatter {
             if isIntersect(between: range, with: info, block: block) {
                 if case .success(let forbidden) = findForbidden(for: info, in: range, block: block) {
                     var newInfo = currentInfo
+                    //FIXMEF
                     newInfo.forbiddens.merge(forbidden) { (_, new) in new }
                     temporaryChunk.removeFirst()
                     temporaryChunk.insert(newInfo, at: 0)
@@ -117,8 +118,8 @@ struct TrackingInfoFormatter {
         }
     }
 
-    private func findForbidden(for blockingInfo: TrackingInfo, in range: TrackingRange, block: SimpleBlock) -> SimpleSuccess<Forbidden> {
-        var forbidden: Forbidden = [:]
+    private func findForbidden(for blockingInfo: TrackingInfo, in range: TrackingRange, block: SimpleBlock) -> SimpleSuccess<LineRestrictionDictionary> {
+        var forbidden: LineRestrictionDictionary = [:]
         let lineIndexes = blockingInfo.findLineIndexes(from: block, in: range)
         for lineIndex in lineIndexes {
             let words = block.lines[lineIndex].words
@@ -133,11 +134,12 @@ struct TrackingInfoFormatter {
                         breackChecker.check(if: word, shouldBreakWith: words[wordIndex + 1]),
                         exception(range, and: blockingInfo, in: block)
                         else { return .failure }
-                    forbidden[lineIndex] = word.frame.leftX
+                    //FIXMEF
+                    forbidden[lineIndex] = LineRestriction(leftX: nil, rightX: word.frame.leftX)
                     break
                 } else {
                     if breackChecker.check(if: word, shouldBreakWith: words[wordIndex - 1]) {
-                        forbidden[lineIndex] = word.frame.leftX
+                        forbidden[lineIndex] = LineRestriction(leftX: nil, rightX: word.frame.leftX)
                         break
                     } else {
                         return .failure

@@ -11,7 +11,7 @@ import XCTest
 class TrackingPosInfoFinderTests: XCTestCase {
 
     let posFinder = TrackingInfoFinder.PositionInfoFinder()
-    let forbiddensCreator = TrackingInfoFinder.ForbiddensCreator()
+    let forbiddensCreator = TrackingInfoFinder.RestrictionsCreator()
     func testSc1() {
         let block = Scene.sc1.getBlock(low: false)
         let line = block.lines[2]
@@ -36,7 +36,7 @@ class TrackingPosInfoFinderTests: XCTestCase {
         let block = Scene.sc14.getBlock(low: false)
         let line = block.lines[1]
         let posInfos = posFinder.find(from: line.words)
-        XCTAssertEqual(posInfos.count, 1)
+        XCTAssertEqual(posInfos.count, 2)
     }
 
 

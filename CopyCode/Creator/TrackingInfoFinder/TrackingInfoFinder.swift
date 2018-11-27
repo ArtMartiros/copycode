@@ -12,7 +12,7 @@ struct TrackingInfoFinder {
     typealias SplittedWords = (biggestWord: Word<LetterRectangle>, otherWords: [Word<LetterRectangle>])
     private let posFinder = PositionInfoFinder()
     private let action = Action()
-    private let forbiddensCreator = ForbiddensCreator()
+    private let forbiddensCreator = RestrictionsCreator()
 
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
@@ -36,28 +36,20 @@ struct TrackingInfoFinder {
 
     private func completeFindTrackingInfo(at index: Int, with lines: [SimpleLine]) -> TrackingInfo {
         let line = lines[index]
-        guard let (posInfo, forbiddens) = positionWithForbiddens(from: line.words, at: index) else {
-            return TrackingInfo(startAt: index, endAt: index)
+        let posInfos = posFinder.find(from: line.words).sorted { $0.startX < $1.startX }
+        let posInfosWithForbiddens = forbiddensCreator.create2(from: posInfos, lineIndex: index)
+
+        for info in posInfosWithForbiddens where !info.posInfo.trackings.isEmpty {
+            let trackings = info.posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
+            let trackingInfo = findTrackingInfo2(in: lines, startAt: index, with: info.forbiddens, and: trackings)
+            return trackingInfo
         }
 
-        let trackings = posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
-        let trackingInfo = findTrackingInfo(in: lines, startAt: index, with: forbiddens, and: trackings)
-
-        return trackingInfo
+        return TrackingInfo(startAt: index, endAt: index)
     }
 
-    private func positionWithForbiddens(from words: [SimpleWord], at index: Int) -> (PositionInfo, [Int: CGFloat])? {
-        let posInfos = posFinder.find(from: words).sorted { $0.startX < $1.startX }
-        guard let posInfo = posInfos.first, !posInfo.trackings.isEmpty else {
-            return nil
-        }
-
-        let forbiddens = forbiddensCreator.create(from: posInfos, lineIndex: index)
-        return (posInfo, forbiddens)
-    }
-
-    private func findTrackingInfo(in lines: [SimpleLine], startAt startIndex: Int, with forbiddens: Forbidden,
-                                  and trackings: [TrackingError]) -> TrackingInfo {
+    private func findTrackingInfo2(in lines: [SimpleLine], startAt startIndex: Int, with forbiddens: [Int : LineRestriction],
+                                   and trackings: [TrackingError]) -> TrackingInfo {
         var lineTrackings = trackings
         var lastIndex = startIndex
         var forbiddens = forbiddens
@@ -74,11 +66,12 @@ struct TrackingInfoFinder {
                 case .split:
                     break lineLoop
 
-                case .sum(let updatedTrackings):
+                case .update(let updatedTrackings):
                     wordTrackings = updatedTrackings
 
                 case .forbidden(let forbiddenX):
-                    forbiddens[lineIndex] = forbiddenX
+                    //FIXMEF
+                    forbiddens[lineIndex] = LineRestriction(leftX: nil, rightX: forbiddenX)
                     break wordLoop
                 }
             }
@@ -87,11 +80,12 @@ struct TrackingInfoFinder {
             lastIndex = lineIndex
         }
 
-        let info = infoWithSmallestErrorRate(from: lineTrackings, with: forbiddens, startAt: startIndex, endAt: lastIndex)
+        let info = infoWithSmallestErrorRate2(from: lineTrackings, with: forbiddens, startAt: startIndex, endAt: lastIndex)
         return info
     }
 
-    private func infoWithSmallestErrorRate(from trackingErrors: [TrackingError], with forbiddens: Forbidden,
+    private func infoWithSmallestErrorRate2(from trackingErrors: [TrackingError],
+                                            with forbiddens: [Int : LineRestriction],
                                            startAt start: Int, endAt end: Int) -> TrackingInfo {
         let trackings = trackingErrors.sorted { $0.errorRate < $1.errorRate }
         guard let smallestErrorRate = trackings.first else {

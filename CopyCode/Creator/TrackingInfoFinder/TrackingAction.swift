@@ -10,7 +10,7 @@ import Foundation
 
 extension TrackingInfoFinder {
     enum ActionType {
-        case sum(updatedTrackings: [TrackingError])
+        case update([TrackingError])
         case split
         case forbidden(x: CGFloat)
     }
@@ -31,7 +31,7 @@ extension TrackingInfoFinder {
             let trackingErrors = updateTrackingErrors(word, with: trackings)
 
             guard trackingErrors.isEmpty else {
-                return .sum(updatedTrackings: trackingErrors)
+                return .update(trackingErrors)
             }
 
             // Если нет результатов
