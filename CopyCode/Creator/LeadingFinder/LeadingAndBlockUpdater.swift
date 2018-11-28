@@ -24,7 +24,7 @@ final class LeadingAndBlockUpdater {
 
     func update(block: SimpleBlock) -> [SimpleBlock] {
         let lowDiffInfos = getDifference(from: block, type: .low, grid: grid)
-//        getDifference(from: block, type: .lowWithTail, grid: grid)
+        getDifference(from: block, type: .lowWithTail, grid: grid)
         let chunks = chunksCreator.create(from: lowDiffInfos, fontSize: grid.leading.fontSize)
         let infos = getLeadingInfos(from: chunks)
         var blocks: [SimpleBlock] = []
@@ -33,16 +33,16 @@ final class LeadingAndBlockUpdater {
         for (index, info) in infos.enumerated() where index == 0 {
             guard let leading = updatedLeadingSizeAndSpacing(from: info, block: block) else { continue }
             newGrid.update(leading)
-//            getDifference(from: block, type: .low, grid: newGrid)
-//            getDifference(from: block, type: .lowWithTail, grid: newGrid)
+            getDifference(from: block, type: .low, grid: newGrid)
+            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             let updatedBlock = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: updatedBlock)
             newGrid.update(newLeading)
             updatedBlock.update(.grid(newGrid))
-//            getDifference(from: updatedBlock, type: .low, grid: newGrid)
-//            getDifference(from: updatedBlock, type: .lowWithTail, grid: newGrid)
+            getDifference(from: updatedBlock, type: .low, grid: newGrid)
+            getDifference(from: updatedBlock, type: .lowWithTail, grid: newGrid)
             blocks.append(updatedBlock)
         }
 
@@ -91,7 +91,7 @@ final class LeadingAndBlockUpdater {
             else { return nil }
 
     let standartRatio = useLow(fontSize: oldLeading.fontSize) ? kLowStandartLowRatio : kStandartLowRatio
-        print("Bukaki \(ratio), standart \(standartRatio)")
+        print("Bukaki current \(ratio), standart \(standartRatio)")
 
         let newFontSize = oldLeading.fontSize / (standartRatio / ratio)
         let sizeDiff = newFontSize - oldLeading.fontSize
@@ -101,6 +101,7 @@ final class LeadingAndBlockUpdater {
     }
 
      //в сцене 11 тот же коэф как и в норм разрешении
+    //kStandartLowRatio используется только со стандартным шрифтом при ретине дисплее
     private func useLow(fontSize: CGFloat) -> Bool {
         if isRetina {
             return false
@@ -224,15 +225,15 @@ extension LeadingAndBlockUpdater {
         case lowWithTail
     }
 
-    enum SequenceType {
-        case ascending
-        case descending
-        case same
-
-        init<T: Comparable>(_ first: T, compareTo second: T) {
-            self = first < second ? .ascending : (first > second ? .descending : .same)
-        }
-    }
+//    enum SequenceType {
+//        case ascending
+//        case descending
+//        case same
+//
+//        init<T: Comparable>(_ first: T, compareTo second: T) {
+//            self = first < second ? .ascending : (first > second ? .descending : .same)
+//        }
+//    }
 }
 
 extension LeadingAndBlockUpdater {
@@ -241,64 +242,36 @@ extension LeadingAndBlockUpdater {
 
         func create(from differenceInfos: [DifferenceInfo], fontSize: CGFloat) -> [[DifferenceInfo]] {
             guard differenceInfos.count > 1 else { return [] }
-            var type: SequenceType?
             var chunks: [[DifferenceInfo]] = []
             var chunk: [DifferenceInfo] = []
             for (previous, current, next) in differenceInfos.previousCurrentNext() {
                 let splitOperation = {
                     chunks.append(chunk)
                     chunk = []
-                    type = nil
                 }
 
                 guard let previous = previous else {
                     chunk.append(current)
                     continue
                 }
-                //тип определяем только один
-                type = type ?? SequenceType(previous.diff, compareTo: current.diff)
-                if let next = next {
-                       if isSameDiff(past: previous, current: current, fontSize: fontSize){
-                        chunk.append(current)
-                    } else {
-                        splitOperation()
-                    }
-
-                } else {
-                    if isAllOk(chunk, first: previous, second: current, type: type!) {
-                        chunk.append(current)
-                        if !chunk.isEmpty { chunks.append(chunk) }
-                    } else {
-                        splitOperation()
-                    }
+                guard isSameDiff(past: previous, current: current, fontSize: fontSize) else {
+                    splitOperation()
+                    continue
+                }
+                chunk.append(current)
+                if next == nil, !chunk.isEmpty {
+                    chunks.append(chunk)
                 }
             }
 
             return chunks
         }
 
-        func isAllOk(_ diffs: [DifferenceInfo], first: DifferenceInfo, second: DifferenceInfo, type: SequenceType) -> Bool {
-            let isSameSequence = type == SequenceType(first.diff, compareTo: second.diff)
-            let result = isSameSequence && isSameDiff(diffs, past: first, current: second)
-            return result
-        }
-
         private func isSameDiff(past: DifferenceInfo, current: DifferenceInfo, fontSize: CGFloat) -> Bool {
             let difference = current.diff - past.diff
             print("percent \(fontSize.percent(of: difference))")
-            let result = fontSize.percent(of: difference) < kAllowablePercent
+            let result = abs(fontSize.percent(of: difference)) < kAllowablePercent
             return result
-        }
-
-        private func isSameDiff(_ diffs: [DifferenceInfo], past: DifferenceInfo, current: DifferenceInfo) -> Bool {
-            guard let diff = diffs.averageDiff else { return true }
-            let currentDiff = current.getDiff(previous: past)
-            guard currentDiff != 0 else { return true }
-            let ratio = abs(diff / currentDiff)
-            print("ratio \(ratio), nextdiff \(currentDiff.rounded(toPlaces: 3)), averageDiff \(diff.rounded(toPlaces: 3) )")
-            let range: TrackingRange = 0.15...6
-            let contrain = range.contains(ratio)
-            return contrain
         }
     }
 }

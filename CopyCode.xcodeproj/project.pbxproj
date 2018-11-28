@@ -409,6 +409,8 @@
 		ACF5107921AEA10F008E3512 /* sc26_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107821AEA10F008E3512 /* sc26_block.json */; };
 		ACF5107B21AEA124008E3512 /* sc27_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107A21AEA124008E3512 /* sc27_block.json */; };
 		ACF5107D21AEA136008E3512 /* sc28_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107C21AEA136008E3512 /* sc28_block.json */; };
+		ACF5107F21AEA860008E3512 /* sc16_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107E21AEA860008E3512 /* sc16_grid.json */; };
+		ACF5108121AEAF39008E3512 /* sc17_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5108021AEAF39008E3512 /* sc17_grid.json */; };
 		ACF6ACCD21845EA80037CAF3 /* PrepareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */; };
 		ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
 		ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
@@ -764,6 +766,8 @@
 		ACF5107821AEA10F008E3512 /* sc26_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc26_block.json; sourceTree = "<group>"; };
 		ACF5107A21AEA124008E3512 /* sc27_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc27_block.json; sourceTree = "<group>"; };
 		ACF5107C21AEA136008E3512 /* sc28_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_block.json; sourceTree = "<group>"; };
+		ACF5107E21AEA860008E3512 /* sc16_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_grid.json; sourceTree = "<group>"; };
+		ACF5108021AEAF39008E3512 /* sc17_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_grid.json; sourceTree = "<group>"; };
 		ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTest.swift; sourceTree = "<group>"; };
 		ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelChecker.swift; sourceTree = "<group>"; };
 		ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeIdentifier.swift; sourceTree = "<group>"; };
@@ -1458,6 +1462,8 @@
 				ACA6466E2188BE9B005F6302 /* sc3_p2_grid.json */,
 				AC613AE421A32AB800C574CB /* sc15_grid.json */,
 				AC613AE621A35DF300C574CB /* sc9_grid.json */,
+				ACF5107E21AEA860008E3512 /* sc16_grid.json */,
+				ACF5108021AEAF39008E3512 /* sc17_grid.json */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -1815,6 +1821,7 @@
 				AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				ACD0F8302184FDBE00DFB12B /* sc2_rects_low.json in Resources */,
+				ACF5107F21AEA860008E3512 /* sc16_grid.json in Resources */,
 				ACD0F8252184F80700DFB12B /* sc11_rects.json in Resources */,
 				ACD0F80B2184EC5200DFB12B /* sc1_rects.json in Resources */,
 				AC613ADA21A2E2CD00C574CB /* sc15_rects.json in Resources */,
@@ -1904,6 +1911,7 @@
 				ACD0F82C2184F96600DFB12B /* sc1_restored.json in Resources */,
 				ACA646692188B2EE005F6302 /* sc3_rects_low.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
+				ACF5108121AEAF39008E3512 /* sc17_grid.json in Resources */,
 				AC613AE921A4007F00C574CB /* sc15_restored.json in Resources */,
 				ACBA3C35217E10B800644F82 /* 2018-10-22 16_20.json in Resources */,
 				ACD7112A218B1A620069FF37 /* sc2_block.json in Resources */,
