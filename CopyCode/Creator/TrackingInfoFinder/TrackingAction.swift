@@ -100,7 +100,7 @@ extension TrackingInfoFinder {
     struct PreliminaryTrackingChecker {
 
         private let maxRateHight: CGFloat = 1.8
-        //чтобы исключить всякую хрень как логотипы
+        ///чтобы исключить всякую хрень как логотипы
         func check(_ word: SimpleWord, trackingWidth: CGFloat) -> Bool {
             guard word.frame.height / trackingWidth < maxRateHight else { return false }
 

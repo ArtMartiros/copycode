@@ -57,8 +57,9 @@ struct TrackingChecker {
             .reduce(0, +)
 
         let average = miscalculation / CGFloat(gaps.count)
-        print("sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4))")
-        let result = average < miscalculationSuccessedRate(basedOn: distance)
+        let maxAllowedRate = miscalculationSuccessedRate(basedOn: distance)
+        print("sumRemainder: \(miscalculation.rounded(toPlaces: 4)), average \(average.rounded(toPlaces: 4)), maxAllowedRate \(maxAllowedRate)")
+        let result = average < maxAllowedRate
         return (result, average)
     }
 

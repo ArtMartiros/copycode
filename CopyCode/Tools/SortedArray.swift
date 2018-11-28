@@ -86,6 +86,17 @@ extension SortedArray {
         storage.insert(newElement, at: index)
         return (true, newElement)
     }
+
+    public func union<S>(_ other: S) -> SortedArray<Set<Element>.Element> where Element == S.Element, S: Sequence {
+        var value = self
+        other.forEach { value.insert($0) }
+        return value
+    }
+
+    public mutating func formUnion<S>(_ other: S)where Element == S.Element, S: Sequence {
+        other.forEach { self.insert($0) }
+    }
+
 }
 
 extension SortedArray: RandomAccessCollection {

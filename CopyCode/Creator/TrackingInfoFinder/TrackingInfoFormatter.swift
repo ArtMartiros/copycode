@@ -8,9 +8,14 @@
 
 import Foundation
 
+//требует доработки файл, так как часто тут код который в других местах использую, поэтому надо эту тему исправить
 struct TrackingInfoFormatter {
     private let kErrorPercentRate: CGFloat = 2
+    private let kErrorPercentAdditionalCheckRate: CGFloat = 5
     private let breackChecker = BreakChecker()
+
+    private let checker = TrackingChecker()
+    private let preliminaryChecker = TrackingInfoFinder.PreliminaryTrackingChecker()
     typealias Result = (chunkInfos: [TrackingInfo], blockedIndexes: Set<Int>)
 
     func chunk(_ infos: [TrackingInfo], with block: SimpleBlock) -> [[TrackingInfo]] {
@@ -41,8 +46,7 @@ struct TrackingInfoFormatter {
         var temporaryBlocked = blockedIndexes
 
         for (index, info) in infos.enumerated() where index > current && !blocked.contains(index) {
-
-            if isSameTracking(between: currentInfo, and: info) {
+            if isSameTracking(between: currentInfo, and: info, block: block) {
                 temporaryBlocked.insert(index)
                 temporaryChunk.append(info)
                 blocked = temporaryBlocked
@@ -78,12 +82,29 @@ struct TrackingInfoFormatter {
         return  currentRange.intesected(with: nextRange) != nil
     }
 
-    private func isSameTracking(between current: TrackingInfo, and compared: TrackingInfo) -> Bool {
-        guard let currentWidth = current.tracking?.width,
-            let comparedWidth = compared.tracking?.width,
-            EqualityChecker.check(of: currentWidth, with: comparedWidth, errorPercentRate: kErrorPercentRate)
+    private func isSameTracking(between current: TrackingInfo, and compared: TrackingInfo, block: SimpleBlock) -> Bool {
+        guard let currentWidth = current.tracking?.width, let comparedWidth = compared.tracking?.width
             else { return false }
-        return true
+
+        if EqualityChecker.check(of: currentWidth, with: comparedWidth, errorPercentRate: kErrorPercentRate) {
+            return true
+        }
+        // может быть такое что тракинги отличаются но, на самом деле проходит проверка checkom поэтому стоит просто всю линию проверить в исключительных случаях
+        if EqualityChecker.check(of: currentWidth, with: comparedWidth,
+                                        errorPercentRate: kErrorPercentAdditionalCheckRate) {
+            let words = compared.findWords(in: block, lineIndex: compared.startIndex,
+                                           type: .allowed, restrictedAt: [.horizontal])
+            for word in words ?? [] {
+                let wordGaps = word.fixedGapsWithOutside
+                guard preliminaryChecker.check(word, trackingWidth: currentWidth),
+                    let gaps = Gap.updatedOutside(wordGaps, with: currentWidth) else { continue }
+
+                let result = checker.check(gaps, with: current.tracking!)
+                if !result.result { return false }
+            }
+            return true
+        }
+        return false
 
     }
 

@@ -39,5 +39,25 @@ class TrackingPosInfoFinderTests: XCTestCase {
         XCTAssertEqual(posInfos.count, 2)
     }
 
+    func testSc22_L6() {
+        let block = Scene.sc22.getBlock(low: false)
+        let line = block.lines[6]
+        let posInfos = posFinder.find(from: line.words)
+        XCTAssertEqual(posInfos.count, 2)
+    }
 
+    func testSc22_L8() {
+        let block = Scene.sc22.getBlock(low: false)
+        let line = block.lines[8]
+        let posInfos = posFinder.find(from: line.words)
+        XCTAssertEqual(posInfos.count, 2)
+    }
+
+    func testSc22_L12() {
+        let block = Scene.sc22.getBlock(low: false)
+        let line = block.lines[12]
+        let posInfos = posFinder.find(from: line.words).sorted { $0.startX < $1.startX }
+        XCTAssertEqual(posInfos.count, 2)
+        XCTAssertEqual(posInfos[1].startX, 203)
+    }
 }

@@ -415,6 +415,8 @@
 		ACF5108521AEC5CC008E3512 /* sc21_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5108421AEC5CC008E3512 /* sc21_grid.json */; };
 		ACF5108721AED15E008E3512 /* sc21_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF5108621AED15E008E3512 /* sc21_type.swift */; };
 		ACF5108921AED287008E3512 /* sc21_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5108821AED287008E3512 /* sc21_restored.json */; };
+		ACF5108B21AEFC71008E3512 /* EnumeratedIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF5108A21AEFC71008E3512 /* EnumeratedIterator.swift */; };
+		ACF5108C21AEFE2A008E3512 /* EnumeratedIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF5108A21AEFC71008E3512 /* EnumeratedIterator.swift */; };
 		ACF6ACCD21845EA80037CAF3 /* PrepareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */; };
 		ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
 		ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
@@ -776,6 +778,7 @@
 		ACF5108421AEC5CC008E3512 /* sc21_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc21_grid.json; sourceTree = "<group>"; };
 		ACF5108621AED15E008E3512 /* sc21_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc21_type.swift; sourceTree = "<group>"; };
 		ACF5108821AED287008E3512 /* sc21_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc21_restored.json; sourceTree = "<group>"; };
+		ACF5108A21AEFC71008E3512 /* EnumeratedIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumeratedIterator.swift; sourceTree = "<group>"; };
 		ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTest.swift; sourceTree = "<group>"; };
 		ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelChecker.swift; sourceTree = "<group>"; };
 		ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeIdentifier.swift; sourceTree = "<group>"; };
@@ -945,6 +948,7 @@
 				AC8EB592213EBF72003D345B /* Collection.swift */,
 				AC250A66214EDF7D00E6D596 /* String.swift */,
 				ACAE190E21735689007E88C3 /* Date.swift */,
+				ACF5108A21AEFC71008E3512 /* EnumeratedIterator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2242,6 +2246,7 @@
 				AC79042F215CBE13001D1FB1 /* TrackingData.swift in Sources */,
 				AC06D87820FF4D3900770DBB /* NSImage.swift in Sources */,
 				AC2B7010210CF6B7008743C9 /* LetterExistenceChecker.swift in Sources */,
+				ACF5108B21AEFC71008E3512 /* EnumeratedIterator.swift in Sources */,
 				AC71FB762112F17E00EE41C6 /* Line.swift in Sources */,
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC95B4CA214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
@@ -2314,6 +2319,7 @@
 				AC6B2E4C214BF25B000ACEDC /* DigitColumnDetectionTests.swift in Sources */,
 				AC250A62214EC02A00E6D596 /* TypographicalGrid.swift in Sources */,
 				AC8E89682126F08800B97163 /* TreeOCRLowData.swift in Sources */,
+				ACF5108C21AEFE2A008E3512 /* EnumeratedIterator.swift in Sources */,
 				ACF1AC522108BE0B00897732 /* Dictionary.swift in Sources */,
 				AC4CA3F821025DDF0093D938 /* Array.swift in Sources */,
 				ACE0E2322170D4C000E28E28 /* sc9_letter.swift in Sources */,
