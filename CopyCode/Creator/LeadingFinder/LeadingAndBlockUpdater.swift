@@ -238,7 +238,7 @@ extension LeadingAndBlockUpdater {
 
 extension LeadingAndBlockUpdater {
     struct ChunksCreator {
-        private let kAllowablePercent: CGFloat = 8
+        private let kAllowablePercent: CGFloat = 8.5
 
         func create(from differenceInfos: [DifferenceInfo], fontSize: CGFloat) -> [[DifferenceInfo]] {
             guard differenceInfos.count > 1 else { return [] }

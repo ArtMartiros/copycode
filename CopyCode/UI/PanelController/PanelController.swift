@@ -119,6 +119,7 @@ final class PanelController: NSWindowController {
         Timer.stop(text: "showWords")
         textDetection.performRequest(image: image, retina: isRetina) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
+            //update size для экрана
             let blocks = oldBlocks.map { $0.updated(by: 2) }
 
             Timer.stop(text: "TextTranscriptor transcriptor")
@@ -203,4 +204,3 @@ extension PanelController {
         }
     }
 }
-

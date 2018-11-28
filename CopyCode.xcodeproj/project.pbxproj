@@ -411,6 +411,7 @@
 		ACF5107D21AEA136008E3512 /* sc28_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107C21AEA136008E3512 /* sc28_block.json */; };
 		ACF5107F21AEA860008E3512 /* sc16_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107E21AEA860008E3512 /* sc16_grid.json */; };
 		ACF5108121AEAF39008E3512 /* sc17_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5108021AEAF39008E3512 /* sc17_grid.json */; };
+		ACF5108321AEB97E008E3512 /* sc20_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5108221AEB97E008E3512 /* sc20_grid.json */; };
 		ACF6ACCD21845EA80037CAF3 /* PrepareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */; };
 		ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
 		ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
@@ -768,6 +769,7 @@
 		ACF5107C21AEA136008E3512 /* sc28_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_block.json; sourceTree = "<group>"; };
 		ACF5107E21AEA860008E3512 /* sc16_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_grid.json; sourceTree = "<group>"; };
 		ACF5108021AEAF39008E3512 /* sc17_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_grid.json; sourceTree = "<group>"; };
+		ACF5108221AEB97E008E3512 /* sc20_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc20_grid.json; sourceTree = "<group>"; };
 		ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTest.swift; sourceTree = "<group>"; };
 		ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelChecker.swift; sourceTree = "<group>"; };
 		ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeIdentifier.swift; sourceTree = "<group>"; };
@@ -1464,6 +1466,7 @@
 				AC613AE621A35DF300C574CB /* sc9_grid.json */,
 				ACF5107E21AEA860008E3512 /* sc16_grid.json */,
 				ACF5108021AEAF39008E3512 /* sc17_grid.json */,
+				ACF5108221AEB97E008E3512 /* sc20_grid.json */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -1890,6 +1893,7 @@
 				ACD0F83A2184FDE800DFB12B /* sc7_rects_low.json in Resources */,
 				ACD0F8362184FDD900DFB12B /* sc5_rects_low.json in Resources */,
 				ACF5106D21AEA0BD008E3512 /* sc20_block.json in Resources */,
+				ACF5108321AEB97E008E3512 /* sc20_grid.json in Resources */,
 				AC35885D217250510023F311 /* sc10_nscolor_pre_digit_column_words.json in Resources */,
 				ACD0F8162184F65700DFB12B /* sc4_rects.json in Resources */,
 				AC613AE321A3172D00C574CB /* sc15_tracking_block.json in Resources */,
