@@ -52,6 +52,7 @@ enum Scene: String {
         case .sc9: return sc9_type
         case .sc11: return sc11_type
         case .sc15: return sc15_type
+        case .sc21: return sc21_type
         default: return [:]
         }
     }

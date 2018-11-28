@@ -95,12 +95,12 @@ final class TextRecognizerManager {
 
         let restoredBlocks = blocksWithTypes.map { restorer.restore($0) }
         Timer.stop(text: "LetterRestorer restored")
-//        for block in restoredBlocks {
-//            if case .grid( _) = block.typography {
+        for block in restoredBlocks {
+            if case .grid( _) = block.typography {
 //                printAllCustomLetters(from: [block])
-//                block.toJSON().shouldPrint()
-//            }
-//        }
+                block.toJSON().shouldPrint()
+            }
+        }
         _ = restoredBlocks.map { wordRecognizer.recognize($0) }
 
     }

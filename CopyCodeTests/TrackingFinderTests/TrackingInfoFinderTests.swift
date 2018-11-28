@@ -93,9 +93,10 @@ class TrackingInfoFinderTests: XCTestCase {
         XCTAssertTrue(current.endIndex == 11, "end: \(current.endIndex) != answer: \(11)")
     }
 
-    func testSc16() {
-
-    }
+//    func testSc21() {
+//        let chuncked = getChuncked(.sc21, isLow: false)
+//        let current = chuncked[3][0]
+//    }
 
     private func getChuncked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {
         let block = scene.getBlock(low: isLow)
