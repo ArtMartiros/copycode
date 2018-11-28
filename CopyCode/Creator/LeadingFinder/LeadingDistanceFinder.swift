@@ -74,7 +74,7 @@ struct LeadingDistanceFinder {
 
         let minDistanceBetweenLines = startPoint - lastPoint
         let maxDistanceBetweenLines = minDistanceBetweenLines + startPointDifference + lastPointDifference
-        return minDistanceBetweenLines...maxDistanceBetweenLines
+        return rangeOf(one: minDistanceBetweenLines, two: maxDistanceBetweenLines)
     }
 }
 

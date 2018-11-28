@@ -37,6 +37,7 @@ struct LayerOptions: OptionSet {
     static let text = LayerOptions(rawValue: 1 << 5)
     static let textView = LayerOptions(rawValue: 1 << 6)
     static let release: LayerOptions = [.textView]
+    static let showText: LayerOptions = [.textView, .text]
     static let debug: LayerOptions = [.block, .line, .word, .char]
 
 }

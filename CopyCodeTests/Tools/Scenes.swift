@@ -9,8 +9,9 @@
 import AppKit
 
 enum Scene: String {
-    case sc1, sc2, sc3_p1, sc3_p2, sc4, sc5, sc6, sc7, sc8, sc9, sc10
-    case sc11, sc13_p1, sc14, sc15
+    case sc1, sc2, sc3_p1, sc3_p2, sc4, sc5, sc6, sc7, sc8, sc9
+    case sc10, sc11, sc13_p1, sc14, sc15, sc16, sc17, sc18, sc19
+    case sc20, sc21, sc22, sc23, sc24, sc25, sc26, sc27, sc28
     case block_with_comments, block_one, block_one_code, block_two
 
     func getImage(isLow: Bool) -> NSImage {

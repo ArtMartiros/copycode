@@ -144,6 +144,7 @@ extension PanelController: PanelDelegate {
     func tapCopyButton(panel: Panel, text: String?) {
         guard let string = text else { return }
         let pasterboard = NSPasteboard.general
+        pasterboard.declareTypes([.string], owner: self)
         pasterboard.setString(string, forType: .string)
         closePanel()
     }

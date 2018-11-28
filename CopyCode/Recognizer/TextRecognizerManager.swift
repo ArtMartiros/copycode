@@ -81,6 +81,7 @@ final class TextRecognizerManager {
         if Settings.enableFirebase {
             GlobalValues.shared.wordRectangles = words
         }
+
         let blocks = blockCreator.create(from: words)
 
         let gridBlocks = filterGrids(blocks)

@@ -13,6 +13,7 @@ private struct Answer {
     let end: Int
 }
 
+//все проходит
 class TrackingInfoFinderTests: XCTestCase {
     
     let finder = TrackingInfoFinder()
@@ -90,6 +91,10 @@ class TrackingInfoFinderTests: XCTestCase {
         let current = chuncked[3][0]
         XCTAssertTrue(current.startIndex == 4, "start: \(current.startIndex) != answer: \(4)")
         XCTAssertTrue(current.endIndex == 11, "end: \(current.endIndex) != answer: \(11)")
+    }
+
+    func testSc16() {
+
     }
 
     private func getChuncked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {

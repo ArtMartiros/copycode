@@ -398,6 +398,17 @@
 		ACF1AC6B210C9F4800897732 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF1AC69210C9F4800897732 /* ColorPicker.swift */; };
 		ACF2569A21202C0500B2F084 /* LetterOCRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF2569921202C0500B2F084 /* LetterOCRTests.swift */; };
 		ACF2569C2120894800B2F084 /* letter_type_classification_black.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF2569B2120894800B2F084 /* letter_type_classification_black.json */; };
+		ACF5106921AE9CFD008E3512 /* sc18_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5106821AE9CFD008E3512 /* sc18_block.json */; };
+		ACF5106B21AEA0A9008E3512 /* sc19_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5106A21AEA0A9008E3512 /* sc19_block.json */; };
+		ACF5106D21AEA0BD008E3512 /* sc20_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5106C21AEA0BD008E3512 /* sc20_block.json */; };
+		ACF5106F21AEA0CC008E3512 /* sc21_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5106E21AEA0CC008E3512 /* sc21_block.json */; };
+		ACF5107121AEA0D6008E3512 /* sc22_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107021AEA0D6008E3512 /* sc22_block.json */; };
+		ACF5107321AEA0E0008E3512 /* sc23_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107221AEA0E0008E3512 /* sc23_block.json */; };
+		ACF5107521AEA0EF008E3512 /* sc24_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107421AEA0EF008E3512 /* sc24_block.json */; };
+		ACF5107721AEA100008E3512 /* sc25_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107621AEA100008E3512 /* sc25_block.json */; };
+		ACF5107921AEA10F008E3512 /* sc26_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107821AEA10F008E3512 /* sc26_block.json */; };
+		ACF5107B21AEA124008E3512 /* sc27_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107A21AEA124008E3512 /* sc27_block.json */; };
+		ACF5107D21AEA136008E3512 /* sc28_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACF5107C21AEA136008E3512 /* sc28_block.json */; };
 		ACF6ACCD21845EA80037CAF3 /* PrepareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */; };
 		ACFC811F212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
 		ACFC8120212DD61900700C25 /* LetterPixelChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */; };
@@ -405,6 +416,21 @@
 		ACFC8123212DD86C00700C25 /* LetterTypeIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */; };
 		ACFC8125212E959600700C25 /* MissingElementsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */; };
 		ACFC8126212E959600700C25 /* MissingElementsRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */; };
+		ACFFC80221AE8B6300119C38 /* sc16_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80121AE8B6300119C38 /* sc16_rects.json */; };
+		ACFFC80421AE8BBF00119C38 /* sc17_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80321AE8BBF00119C38 /* sc17_rects.json */; };
+		ACFFC80621AE8BDC00119C38 /* sc18_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80521AE8BDC00119C38 /* sc18_rects.json */; };
+		ACFFC80821AE8C3900119C38 /* sc19_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80721AE8C3900119C38 /* sc19_rects.json */; };
+		ACFFC80A21AE959700119C38 /* sc20_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80921AE959700119C38 /* sc20_rects.json */; };
+		ACFFC80C21AE95E900119C38 /* sc21_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80B21AE95E900119C38 /* sc21_rects.json */; };
+		ACFFC80E21AE962500119C38 /* sc22_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80D21AE962500119C38 /* sc22_rects.json */; };
+		ACFFC81021AE96AD00119C38 /* sc23_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC80F21AE96AD00119C38 /* sc23_rects.json */; };
+		ACFFC81221AE96DB00119C38 /* sc24_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81121AE96DB00119C38 /* sc24_rects.json */; };
+		ACFFC81421AE971A00119C38 /* sc25_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81321AE971A00119C38 /* sc25_rects.json */; };
+		ACFFC81621AE974700119C38 /* sc26_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81521AE974700119C38 /* sc26_rects.json */; };
+		ACFFC81821AE97A800119C38 /* sc27_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81721AE97A800119C38 /* sc27_rects.json */; };
+		ACFFC81A21AE97F300119C38 /* sc28_rects.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81921AE97F300119C38 /* sc28_rects.json */; };
+		ACFFC81C21AE9AE100119C38 /* sc16_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81B21AE9AE100119C38 /* sc16_block.json */; };
+		ACFFC81E21AE9BCA00119C38 /* sc17_block.json in Resources */ = {isa = PBXBuildFile; fileRef = ACFFC81D21AE9BCA00119C38 /* sc17_block.json */; };
 		B83EB8EACE5BA284D20B8A6A /* Pods_CopyCodeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996F0B24C7693F57DB4014A9 /* Pods_CopyCodeUITests.framework */; };
 		D1E481BC49D3EC335B943E23 /* Pods_CopyCodeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A7FAC6E02348CFDE3A107E /* Pods_CopyCodeTests.framework */; };
 /* End PBXBuildFile section */
@@ -727,10 +753,36 @@
 		ACF1AC69210C9F4800897732 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		ACF2569921202C0500B2F084 /* LetterOCRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterOCRTests.swift; sourceTree = "<group>"; };
 		ACF2569B2120894800B2F084 /* letter_type_classification_black.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = letter_type_classification_black.json; sourceTree = "<group>"; };
+		ACF5106821AE9CFD008E3512 /* sc18_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc18_block.json; sourceTree = "<group>"; };
+		ACF5106A21AEA0A9008E3512 /* sc19_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc19_block.json; sourceTree = "<group>"; };
+		ACF5106C21AEA0BD008E3512 /* sc20_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc20_block.json; sourceTree = "<group>"; };
+		ACF5106E21AEA0CC008E3512 /* sc21_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc21_block.json; sourceTree = "<group>"; };
+		ACF5107021AEA0D6008E3512 /* sc22_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc22_block.json; sourceTree = "<group>"; };
+		ACF5107221AEA0E0008E3512 /* sc23_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc23_block.json; sourceTree = "<group>"; };
+		ACF5107421AEA0EF008E3512 /* sc24_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc24_block.json; sourceTree = "<group>"; };
+		ACF5107621AEA100008E3512 /* sc25_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc25_block.json; sourceTree = "<group>"; };
+		ACF5107821AEA10F008E3512 /* sc26_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc26_block.json; sourceTree = "<group>"; };
+		ACF5107A21AEA124008E3512 /* sc27_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc27_block.json; sourceTree = "<group>"; };
+		ACF5107C21AEA136008E3512 /* sc28_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_block.json; sourceTree = "<group>"; };
 		ACF6ACCC21845EA80037CAF3 /* PrepareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTest.swift; sourceTree = "<group>"; };
 		ACFC811E212DD61900700C25 /* LetterPixelChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPixelChecker.swift; sourceTree = "<group>"; };
 		ACFC8121212DD86C00700C25 /* LetterTypeIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTypeIdentifier.swift; sourceTree = "<group>"; };
 		ACFC8124212E959600700C25 /* MissingElementsRestorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingElementsRestorer.swift; sourceTree = "<group>"; };
+		ACFFC80121AE8B6300119C38 /* sc16_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_rects.json; sourceTree = "<group>"; };
+		ACFFC80321AE8BBF00119C38 /* sc17_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_rects.json; sourceTree = "<group>"; };
+		ACFFC80521AE8BDC00119C38 /* sc18_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc18_rects.json; sourceTree = "<group>"; };
+		ACFFC80721AE8C3900119C38 /* sc19_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc19_rects.json; sourceTree = "<group>"; };
+		ACFFC80921AE959700119C38 /* sc20_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc20_rects.json; sourceTree = "<group>"; };
+		ACFFC80B21AE95E900119C38 /* sc21_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc21_rects.json; sourceTree = "<group>"; };
+		ACFFC80D21AE962500119C38 /* sc22_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc22_rects.json; sourceTree = "<group>"; };
+		ACFFC80F21AE96AD00119C38 /* sc23_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc23_rects.json; sourceTree = "<group>"; };
+		ACFFC81121AE96DB00119C38 /* sc24_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc24_rects.json; sourceTree = "<group>"; };
+		ACFFC81321AE971A00119C38 /* sc25_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc25_rects.json; sourceTree = "<group>"; };
+		ACFFC81521AE974700119C38 /* sc26_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc26_rects.json; sourceTree = "<group>"; };
+		ACFFC81721AE97A800119C38 /* sc27_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc27_rects.json; sourceTree = "<group>"; };
+		ACFFC81921AE97F300119C38 /* sc28_rects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_rects.json; sourceTree = "<group>"; };
+		ACFFC81B21AE9AE100119C38 /* sc16_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_block.json; sourceTree = "<group>"; };
+		ACFFC81D21AE9BCA00119C38 /* sc17_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_block.json; sourceTree = "<group>"; };
 		C9A7FAC6E02348CFDE3A107E /* Pods_CopyCodeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCodeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E779D3726D5AFAE41EEA0FD4 /* Pods_CopyCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1379,6 +1431,19 @@
 				ACD0F8292184F88500DFB12B /* sc13_rects.json */,
 				ACEDD9C521AD2F070088F240 /* sc14_rects.json */,
 				AC613AD921A2E2CD00C574CB /* sc15_rects.json */,
+				ACFFC80121AE8B6300119C38 /* sc16_rects.json */,
+				ACFFC80321AE8BBF00119C38 /* sc17_rects.json */,
+				ACFFC80521AE8BDC00119C38 /* sc18_rects.json */,
+				ACFFC80721AE8C3900119C38 /* sc19_rects.json */,
+				ACFFC80921AE959700119C38 /* sc20_rects.json */,
+				ACFFC80B21AE95E900119C38 /* sc21_rects.json */,
+				ACFFC80D21AE962500119C38 /* sc22_rects.json */,
+				ACFFC80F21AE96AD00119C38 /* sc23_rects.json */,
+				ACFFC81121AE96DB00119C38 /* sc24_rects.json */,
+				ACFFC81321AE971A00119C38 /* sc25_rects.json */,
+				ACFFC81521AE974700119C38 /* sc26_rects.json */,
+				ACFFC81721AE97A800119C38 /* sc27_rects.json */,
+				ACFFC81921AE97F300119C38 /* sc28_rects.json */,
 			);
 			path = Rects;
 			sourceTree = "<group>";
@@ -1416,6 +1481,19 @@
 				ACD7112F218B20CF0069FF37 /* sc11_block.json */,
 				ACEDD9CA21AD325E0088F240 /* sc14_block.json */,
 				AC613ADE21A2EC8B00C574CB /* sc15_block.json */,
+				ACFFC81B21AE9AE100119C38 /* sc16_block.json */,
+				ACFFC81D21AE9BCA00119C38 /* sc17_block.json */,
+				ACF5106821AE9CFD008E3512 /* sc18_block.json */,
+				ACF5106A21AEA0A9008E3512 /* sc19_block.json */,
+				ACF5106C21AEA0BD008E3512 /* sc20_block.json */,
+				ACF5106E21AEA0CC008E3512 /* sc21_block.json */,
+				ACF5107021AEA0D6008E3512 /* sc22_block.json */,
+				ACF5107221AEA0E0008E3512 /* sc23_block.json */,
+				ACF5107421AEA0EF008E3512 /* sc24_block.json */,
+				ACF5107621AEA100008E3512 /* sc25_block.json */,
+				ACF5107821AEA10F008E3512 /* sc26_block.json */,
+				ACF5107A21AEA124008E3512 /* sc27_block.json */,
+				ACF5107C21AEA136008E3512 /* sc28_block.json */,
 			);
 			path = Block;
 			sourceTree = "<group>";
@@ -1729,7 +1807,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF5107121AEA0D6008E3512 /* sc22_block.json in Resources */,
 				AC35884F2171DD590023F311 /* ocr_xcode_light_18_words.json in Resources */,
+				ACF5107721AEA100008E3512 /* sc25_block.json in Resources */,
 				ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */,
 				AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */,
 				AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */,
@@ -1750,14 +1830,17 @@
 				ACD0F84C218500A200DFB12B /* sc3_p2_restored.json in Resources */,
 				AC3588422171D9740023F311 /* ocr_sublime_dark_20_words.json in Resources */,
 				ACD71122218B10C10069FF37 /* sc11_restored_low.json in Resources */,
+				ACFFC80E21AE962500119C38 /* sc22_rects.json in Resources */,
 				ACD0F8342184FDD100DFB12B /* sc4_rects_low.json in Resources */,
 				AC613AEF21A411B400C574CB /* sc15_custom_letters_position.json in Resources */,
 				AC2181442164C83700515FBD /* sc2_custom_letters.json in Resources */,
 				ACD0F86C2185FBDC00DFB12B /* sc1_grid.json in Resources */,
 				ACD0F82E2184FDB400DFB12B /* sc1_rects_low.json in Resources */,
 				ACA6466F2188BE9B005F6302 /* sc3_p2_grid.json in Resources */,
+				ACFFC81C21AE9AE100119C38 /* sc16_block.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				AC1FABB221713850003DFD5C /* sc1_custom_letters_position.json in Resources */,
+				ACF5107921AEA10F008E3512 /* sc26_block.json in Resources */,
 				ACD0F8232184F7BD00DFB12B /* sc10_rects.json in Resources */,
 				AC613AE521A32AB800C574CB /* sc15_grid.json in Resources */,
 				ACD0F8402184FE0200DFB12B /* sc10_rects_low.json in Resources */,
@@ -1767,16 +1850,22 @@
 				ACD0F83E2184FDFA00DFB12B /* sc9_rects_low.json in Resources */,
 				AC9EF0A621232D78004ED89D /* ocr_sublime_dark_20.json in Resources */,
 				ACD7112E218B1ACA0069FF37 /* sc3_p2_block.json in Resources */,
+				ACFFC80621AE8BDC00119C38 /* sc18_rects.json in Resources */,
+				ACFFC80A21AE959700119C38 /* sc20_rects.json in Resources */,
+				ACF5106F21AEA0CC008E3512 /* sc21_block.json in Resources */,
 				ACD71120218AE8D30069FF37 /* sc11_grid_low.json in Resources */,
 				ACEDD9CE21AD34270088F240 /* sc14_grid.json in Resources */,
+				ACFFC81221AE96DB00119C38 /* sc24_rects.json in Resources */,
 				ACD0F8442184FE1200DFB12B /* sc12_rects_low.json in Resources */,
 				ACEDD9C821AD2F590088F240 /* Documentation.rtf in Resources */,
 				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
+				ACFFC80421AE8BBF00119C38 /* sc17_rects.json in Resources */,
 				ACD0F8462184FED800DFB12B /* sc13_rects_low.json in Resources */,
 				ACE55671218648D0003D9263 /* sc11_grid.json in Resources */,
 				AC8C0AB1214AB01400F0FD13 /* block_one_code.json in Resources */,
 				AC50A88E2135BA8100B196BE /* missing_underscore.json in Resources */,
 				ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */,
+				ACFFC81621AE974700119C38 /* sc26_rects.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
 				ACD0F87121860C1200DFB12B /* sc1_grid_low.json in Resources */,
 				ACD71147218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */,
@@ -1786,11 +1875,14 @@
 				AC3588492171DD270023F311 /* ocr_xcode_dark_18_words.json in Resources */,
 				AC9EF0AC21232FE4004ED89D /* ocr_visual_20.json in Resources */,
 				AC50A88C21354D1C00B196BE /* missing_equal.json in Resources */,
+				ACFFC81421AE971A00119C38 /* sc25_rects.json in Resources */,
 				ACD0F8132184F57A00DFB12B /* sc9_restored.json in Resources */,
 				AC380665216E34F2004EA7A2 /* sc6_pre_digit_column_words.json in Resources */,
+				ACF5106B21AEA0A9008E3512 /* sc19_block.json in Resources */,
 				AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */,
 				ACD0F83A2184FDE800DFB12B /* sc7_rects_low.json in Resources */,
 				ACD0F8362184FDD900DFB12B /* sc5_rects_low.json in Resources */,
+				ACF5106D21AEA0BD008E3512 /* sc20_block.json in Resources */,
 				AC35885D217250510023F311 /* sc10_nscolor_pre_digit_column_words.json in Resources */,
 				ACD0F8162184F65700DFB12B /* sc4_rects.json in Resources */,
 				AC613AE321A3172D00C574CB /* sc15_tracking_block.json in Resources */,
@@ -1804,17 +1896,21 @@
 				ACA646732188D0AE005F6302 /* sc2_restored_low.json in Resources */,
 				AC50A8882135461B00B196BE /* missing_dash.json in Resources */,
 				AC3588512171DD6B0023F311 /* ocr_xcode_light_14_words.json in Resources */,
+				ACF5107D21AEA136008E3512 /* sc28_block.json in Resources */,
 				AC3588472171DCDF0023F311 /* ocr_sublime_dark_18_words.json in Resources */,
 				AC35884B2171DD390023F311 /* ocr_xcode_dark_14_words.json in Resources */,
 				ACD71128218B1A260069FF37 /* sc1_block.json in Resources */,
+				ACF5107321AEA0E0008E3512 /* sc23_block.json in Resources */,
 				ACD0F82C2184F96600DFB12B /* sc1_restored.json in Resources */,
 				ACA646692188B2EE005F6302 /* sc3_rects_low.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
 				AC613AE921A4007F00C574CB /* sc15_restored.json in Resources */,
 				ACBA3C35217E10B800644F82 /* 2018-10-22 16_20.json in Resources */,
 				ACD7112A218B1A620069FF37 /* sc2_block.json in Resources */,
+				ACFFC81821AE97A800119C38 /* sc27_rects.json in Resources */,
 				ACD0F83C2184FDF100DFB12B /* sc8_rects_low.json in Resources */,
 				ACD0F84E21850B0700DFB12B /* sc1_restored_low.json in Resources */,
+				ACF5107B21AEA124008E3512 /* sc27_block.json in Resources */,
 				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
 				ACD0F81F2184F74100DFB12B /* sc7_rects.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
@@ -1823,19 +1919,27 @@
 				ACD0F80D2184ECA100DFB12B /* sc2_rects.json in Resources */,
 				AC199EAC211A9A5F00B53656 /* letter_type_classification.json in Resources */,
 				AC9EF0AE21233090004ED89D /* ocr_visual_18.json in Resources */,
+				ACFFC80C21AE95E900119C38 /* sc21_rects.json in Resources */,
+				ACFFC81021AE96AD00119C38 /* sc23_rects.json in Resources */,
 				ACD71130218B20CF0069FF37 /* sc11_block.json in Resources */,
 				ACEBB28B216D19250094336F /* sc4_leading_finder.json in Resources */,
 				ACE55673218649C4003D9263 /* sc11_restored.json in Resources */,
+				ACFFC80821AE8C3900119C38 /* sc19_rects.json in Resources */,
 				ACDF9D04217086DE00C192E6 /* sc7_panel_pre_digit_column_words.json in Resources */,
 				ACD7112C218B1AB70069FF37 /* sc3_p1_block.json in Resources */,
 				ACD0F8422184FE0900DFB12B /* sc11_rects_low.json in Resources */,
 				AC50A88A2135492300B196BE /* missing_quotes.json in Resources */,
 				AC3588552171DD910023F311 /* ocr_visual_20_words.json in Resources */,
 				AC6B2E48214BBAB3000ACEDC /* block_with_comments.json in Resources */,
+				ACFFC81E21AE9BCA00119C38 /* sc17_block.json in Resources */,
 				AC9EF0A421232D11004ED89D /* ocr_xcode_dark_18.json in Resources */,
 				AC9EF0A821232E24004ED89D /* ocr_sublime_dark_18.json in Resources */,
 				ACEDD9CB21AD325E0088F240 /* sc14_block.json in Resources */,
+				ACFFC80221AE8B6300119C38 /* sc16_rects.json in Resources */,
 				ACD7114A218C3C7C0069FF37 /* sc11_grid_halfRestored_l1_low.json in Resources */,
+				ACF5106921AE9CFD008E3512 /* sc18_block.json in Resources */,
+				ACF5107521AEA0EF008E3512 /* sc24_block.json in Resources */,
+				ACFFC81A21AE97F300119C38 /* sc28_rects.json in Resources */,
 				ACD0F8482184FF4700DFB12B /* sc2_restored.json in Resources */,
 				ACD0F82A2184F88500DFB12B /* sc13_rects.json in Resources */,
 				AC9EF0A021232A8E004ED89D /* ocr_xcode_dark_12.json in Resources */,

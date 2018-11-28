@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        BITHockeyManager.shared().start()
         setupMixpanel()
         firebaseSetup()
-        NSPasteboard.general.declareTypes([.string], owner: self)
+        
         createStatusBar()
         createMenu()
         listenGlobalKey()
