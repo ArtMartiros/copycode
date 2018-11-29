@@ -30,8 +30,9 @@ final class Checker {
     ///accuracy in percent
     func isSame(_ first: CGFloat, with second: CGFloat, relativelyTo: CGFloat, accuracy: CGFloat) -> Bool {
         let diff = abs(first - second)
-        let different = (diff / relativelyTo) * 100 > accuracy
-//        print("first \(first.rounded(toPlaces: 3)), second \(second.rounded(toPlaces: 3)), diff \(diff.rounded(toPlaces: 3)), different \(diff / relativelyTo)")
+        let current = (diff / relativelyTo) * 100
+        let different = current > accuracy
+        print("f: \(first.rounded(toPlaces: 3)), s: \(second.rounded(toPlaces: 3)), v: \(current), accuracy: \(accuracy)")
         return !different
     }
 }

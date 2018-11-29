@@ -61,6 +61,11 @@ class LeadingAndBlockUpdaterTests: XCTestCase {
         XCTAssertEqual(result[0].lines.count, 10)
     }
 
+    func testSc28() {
+        let result = execute(.sc28, isLow: false)
+        XCTAssertEqual(result[0].lines.count, 11)
+    }
+
     private func execute(_ scene: Scene, isLow: Bool) -> [SimpleBlock] {
         let block = scene.getGridBlock(isLow: isLow)
         let bitmap = scene.getImage(isLow: isLow).bitmap

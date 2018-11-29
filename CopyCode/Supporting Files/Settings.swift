@@ -24,10 +24,17 @@ struct Settings {
     static let enableFirebase = isDefault ? defaultEnableFirebase : true
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
-    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : false
-    static let showGrid = isDefault ? defaultShowGrid : false
+    static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
+    static let showGrid = isDefault ? defaultShowGrid : true
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : true
 
-    static let shouldPrint = true
+    static let shouldPrint = false
+}
+
+enum Test {
+    case initialBlock
+    case initialGrid
+    case standart
+
 }

@@ -120,3 +120,11 @@ extension Word {
         return quoute
     }
 }
+
+extension Word {
+    func removeLetter(at index: Int) -> Word<Child> {
+        var newLetters = letters
+        newLetters.remove(at: index)
+        return Word.from(newLetters, type: type)
+    }
+}

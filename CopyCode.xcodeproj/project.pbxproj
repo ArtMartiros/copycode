@@ -199,6 +199,10 @@
 		AC74061F21563AD6007AC07E /* BlockPreparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74061D21563AD6007AC07E /* BlockPreparator.swift */; };
 		AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */; };
 		AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
+		AC78AD1F21B0181E009EDB15 /* sc28_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC78AD1E21B0181E009EDB15 /* sc28_grid.json */; };
+		AC78AD2121B01B63009EDB15 /* sc28_tracking_block.json in Resources */ = {isa = PBXBuildFile; fileRef = AC78AD2021B01B62009EDB15 /* sc28_tracking_block.json */; };
+		AC78AD2421B03B6A009EDB15 /* LetterPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC78AD2321B03B6A009EDB15 /* LetterPosition.swift */; };
+		AC78AD2521B03B6A009EDB15 /* LetterPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC78AD2321B03B6A009EDB15 /* LetterPosition.swift */; };
 		AC79042C215CBE00001D1FB1 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */; };
 		AC79042D215CBE00001D1FB1 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */; };
 		AC79042F215CBE13001D1FB1 /* TrackingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79042E215CBE13001D1FB1 /* TrackingData.swift */; };
@@ -615,6 +619,9 @@
 		AC74061D21563AD6007AC07E /* BlockPreparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPreparator.swift; sourceTree = "<group>"; };
 		AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_tracking_info.json; sourceTree = "<group>"; };
 		AC785A62214D80D2002C918D /* TextViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCreator.swift; sourceTree = "<group>"; };
+		AC78AD1E21B0181E009EDB15 /* sc28_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_grid.json; sourceTree = "<group>"; };
+		AC78AD2021B01B62009EDB15 /* sc28_tracking_block.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_tracking_block.json; sourceTree = "<group>"; };
+		AC78AD2321B03B6A009EDB15 /* LetterPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPosition.swift; sourceTree = "<group>"; };
 		AC79042B215CBE00001D1FB1 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
 		AC79042E215CBE13001D1FB1 /* TrackingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingData.swift; sourceTree = "<group>"; };
 		AC790434215CDA44001D1FB1 /* TrackingFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFormatterTests.swift; sourceTree = "<group>"; };
@@ -1186,6 +1193,7 @@
 			isa = PBXGroup;
 			children = (
 				AC613AE221A3172D00C574CB /* sc15_tracking_block.json */,
+				AC78AD2021B01B62009EDB15 /* sc28_tracking_block.json */,
 			);
 			path = TrackingBlock;
 			sourceTree = "<group>";
@@ -1256,6 +1264,20 @@
 				AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */,
 			);
 			path = TrackingInfo;
+			sourceTree = "<group>";
+		};
+		AC78AD2621B03B79009EDB15 /* BlockElements */ = {
+			isa = PBXGroup;
+			children = (
+				AC03DCDE213D545D00730DCD /* ColumnType.swift */,
+				ACAF237021381C95009D8409 /* Gap.swift */,
+				AC71FB782112F1BB00EE41C6 /* Block.swift */,
+				AC71FB752112F17E00EE41C6 /* Line.swift */,
+				AC71FB7B2112F1F300EE41C6 /* Column.swift */,
+				AC71FB6C2112EC3500EE41C6 /* Word.swift */,
+				AC71FB692112EBCE00EE41C6 /* Letter.swift */,
+			);
+			path = BlockElements;
 			sourceTree = "<group>";
 		};
 		AC79042A215CBDE9001D1FB1 /* Tracking */ = {
@@ -1479,6 +1501,7 @@
 				ACF5108021AEAF39008E3512 /* sc17_grid.json */,
 				ACF5108221AEB97E008E3512 /* sc20_grid.json */,
 				ACF5108421AEC5CC008E3512 /* sc21_grid.json */,
+				AC78AD1E21B0181E009EDB15 /* sc28_grid.json */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -1595,19 +1618,14 @@
 		ACF1AC562108FA0D00897732 /* DataStructure */ = {
 			isa = PBXGroup;
 			children = (
+				AC78AD2621B03B79009EDB15 /* BlockElements */,
 				AC79042A215CBDE9001D1FB1 /* Tracking */,
 				AC8C0A9D214A4DEA00F0FD13 /* Leading.swift */,
-				AC71FB782112F1BB00EE41C6 /* Block.swift */,
-				AC71FB752112F17E00EE41C6 /* Line.swift */,
-				AC71FB7B2112F1F300EE41C6 /* Column.swift */,
-				AC71FB6C2112EC3500EE41C6 /* Word.swift */,
-				AC71FB692112EBCE00EE41C6 /* Letter.swift */,
 				AC06D8A6210207FF00770DBB /* WordType.swift */,
-				AC71FB622112E79500EE41C6 /* Protocol.swift */,
-				ACAF237021381C95009D8409 /* Gap.swift */,
-				AC03DCDE213D545D00730DCD /* ColumnType.swift */,
 				AC250A60214EC02A00E6D596 /* TypographicalGrid.swift */,
+				AC71FB622112E79500EE41C6 /* Protocol.swift */,
 				AC250A63214ECA9100E6D596 /* Typography.swift */,
+				AC78AD2321B03B6A009EDB15 /* LetterPosition.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -1927,6 +1945,7 @@
 				ACD71128218B1A260069FF37 /* sc1_block.json in Resources */,
 				ACF5107321AEA0E0008E3512 /* sc23_block.json in Resources */,
 				ACD0F82C2184F96600DFB12B /* sc1_restored.json in Resources */,
+				AC78AD2121B01B63009EDB15 /* sc28_tracking_block.json in Resources */,
 				ACA646692188B2EE005F6302 /* sc3_rects_low.json in Resources */,
 				AC9EF0B22123324A004ED89D /* ocr_visual_12.json in Resources */,
 				ACF5108121AEAF39008E3512 /* sc17_grid.json in Resources */,
@@ -1939,6 +1958,7 @@
 				ACF5107B21AEA124008E3512 /* sc27_block.json in Resources */,
 				AC1FABB4217138BA003DFD5C /* sc2_custom_letters_position.json in Resources */,
 				ACD0F81F2184F74100DFB12B /* sc7_rects.json in Resources */,
+				AC78AD1F21B0181E009EDB15 /* sc28_grid.json in Resources */,
 				AC9EF09C212328F2004ED89D /* ocr_xcode_light_14.json in Resources */,
 				AC3588592171DDC70023F311 /* ocr_visual_14_words.json in Resources */,
 				AC302DD82178D28F0073A569 /* sc11_video_stuck_completed.json in Resources */,
@@ -2250,6 +2270,7 @@
 				AC71FB762112F17E00EE41C6 /* Line.swift in Sources */,
 				AC06D8B021020D3000770DBB /* WordFactor.swift in Sources */,
 				AC95B4CA214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
+				AC78AD2421B03B6A009EDB15 /* LetterPosition.swift in Sources */,
 				AC31C3CE2114573100E09F91 /* TreeOCR.swift in Sources */,
 				ACA305B6216B5D1B00DFB809 /* WordInformation.swift in Sources */,
 				AC06D88B20FF4F0C00770DBB /* Tree.swift in Sources */,
@@ -2352,6 +2373,7 @@
 				AC71FB712112EE8B00EE41C6 /* GlobalMethods.swift in Sources */,
 				AC42D3F3212D502E0086A728 /* WordSplitter.swift in Sources */,
 				AC71FB7A2112F1BB00EE41C6 /* Block.swift in Sources */,
+				AC78AD2521B03B6A009EDB15 /* LetterPosition.swift in Sources */,
 				ACF1AC4F21079FA700897732 /* BlockCreator.swift in Sources */,
 				AC8C0AAE214A67CC00F0FD13 /* LeadingFinder.swift in Sources */,
 				ACDA6DBF215E724B00A7AA62 /* DrawTextView.swift in Sources */,

@@ -70,11 +70,12 @@ struct LeadingDistanceFinder {
         let lastPoint = bottommostLine.frame.bottomY
 
         let startPointDifference = maxLineHeight - topmostLine.frame.height
-        let lastPointDifference = maxLineHeight - bottommostLine.frame.height
+        //есть знак "печатания" он высокий и может быть на последней линии
+        let lastPointDifference = maxLineHeight > bottommostLine.frame.height ? maxLineHeight - bottommostLine.frame.height : 0
 
         let minDistanceBetweenLines = startPoint - lastPoint
         let maxDistanceBetweenLines = minDistanceBetweenLines + startPointDifference + lastPointDifference
-        return rangeOf(one: minDistanceBetweenLines, two: maxDistanceBetweenLines)
+        return minDistanceBetweenLines...maxDistanceBetweenLines
     }
 }
 

@@ -13,13 +13,14 @@ struct LeadingFinder {
     private let mostAccurateFinder = LeadingMostAccurateFinder()
 
     func find(_ block: Block<LetterRectangle>) -> Leading? {
-        let distanceFinder = LeadingDistanceFinder(block: block)
+        let newBlock = block.withOutAnomaly()
+        let distanceFinder = LeadingDistanceFinder(block: newBlock)
         let startPointGenerator = LeadingStartPointGenerator()
-        let spaceFinder = LeadingSpaceFinder(block: block)
+        let spaceFinder = LeadingSpaceFinder(block: newBlock)
 
         guard let range = distanceFinder.find() else { return nil }
 
-        let point = block.lineWithMaxHeight().frame.topY
+        let point = newBlock.simpleMaxLine().frame.topY
         let points = startPointGenerator.generate(from: point)
         let leadingErrors = points
             .map { spaceFinder.find(in: range, startPoint: $0)}

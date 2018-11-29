@@ -45,6 +45,16 @@ final class Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         return lineWithMaxHeight().frame.height
     }
 
+    ///можно очистить аномальную высоту и потом начать работать
+    func simpleMaxLineHeight() -> CGFloat {
+        return simpleMaxLine().frame.height
+    }
+
+    func simpleMaxLine() -> Line<WordChild> {
+        let sortedLines = lines.sorted { $0.frame.height > $1.frame.height }
+        return sortedLines[0]
+    }
+
     func lineWithMaxHeight() -> Line<WordChild> {
         let sortedLines = lines.sorted { $0.frame.height > $1.frame.height }
         lineLoop: for line in sortedLines {
@@ -90,4 +100,41 @@ final class Block<WordChild: Rectangle>: BlockProtocol, Gapable {
         let newBlock = Block(lines: block.lines, frame: block.frame, column: block.column, typography: grid)
         return newBlock
     }
+}
+
+///Нахождение и ужаление запрещенных символов
+extension Block {
+    func withOutAnomaly() -> Block<WordChild> {
+        guard let forbidden = findAnomalyLetter() else {
+            return self
+        }
+
+        return removeLetter(at: forbidden)
+    }
+
+    func findAnomalyLetter() -> LetterInBlockPosition? {
+        let sortedLines = lines
+            .enumerated().notReversed()
+            .sorted { $0.element.frame.height > $1.element.frame.height }
+
+        let highestLine = sortedLines[0]
+        guard let forbidden = highestLine.element.anomalyElementIndex
+            else { return nil }
+        return  LetterInBlockPosition(inLine: forbidden, line: highestLine.offset)
+    }
+
+    func removeLetter(at position: LetterInBlockPositionProtocol) -> Block<WordChild> {
+        var newLines: [Line<WordChild>] = []
+        for (index, line) in lines.enumerated() {
+            if position.lineIndex == index {
+                let updatedLine = line.removeLetter(at: position)
+                newLines.append(updatedLine)
+            } else {
+                newLines.append(line)
+            }
+        }
+        return Block(lines: newLines, frame: frame, column: column, typography: typography)
+    }
+
+
 }

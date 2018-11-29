@@ -135,6 +135,18 @@ class TrackingInfoFinderTests: XCTestCase {
             XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
         }
     }
+
+    func testSc28() {
+        let answers = [Answer(start: 4, end: 13), Answer(start: 14, end: 14)]
+        let chunked = getChunked(.sc28, isLow: false)
+        let index = 1
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = chunked[index][answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
+    }
+
     private func getChunked(_ scene: Scene, isLow: Bool) -> [[TrackingInfo]] {
         let block = scene.getBlock(low: isLow)
         let infos = finder.find(from: block)

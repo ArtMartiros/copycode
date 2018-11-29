@@ -18,4 +18,9 @@ class LeadingFinderTests: XCTestCase {
         XCTAssertNotNil(result)
     }
 
+    func testSc28() {
+        let block = Scene.sc28.getTrackingBlock()
+        let result = leadingFinder.find(block)
+        XCTAssertNotNil(result)
+    }
 }
