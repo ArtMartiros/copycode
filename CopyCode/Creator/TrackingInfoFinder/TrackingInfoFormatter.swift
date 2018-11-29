@@ -11,7 +11,7 @@ import Foundation
 //требует доработки файл, так как часто тут код который в других местах использую, поэтому надо эту тему исправить
 struct TrackingInfoFormatter {
     private let kErrorPercentRate: CGFloat = 2
-    private let kErrorPercentAdditionalCheckRate: CGFloat = 5
+    private let kErrorPercentAdditionalCheckRate: CGFloat = 6
     private let breackChecker = BreakChecker()
 
     private let checker = TrackingChecker()
