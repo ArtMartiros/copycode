@@ -17,7 +17,7 @@ struct TrackingDistanceFinder {
     private let preliminaryLetterWidthDetection = TrackingPreliminaryLetterWidthDetection()
 
     func find(from word: Word<LetterRectangle>) -> SimpleSuccess<TrackingRange> {
-        let gaps = word.fixedGapsWithOutside
+        let gaps = word.corrrectedGapsWithOutside()
         guard gaps.count >= kMinimumAmountOfGapsIncludedOutside else { return .failure }
         let result = find(gaps: gaps)
         return result

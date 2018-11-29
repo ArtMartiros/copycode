@@ -95,7 +95,7 @@ struct TrackingInfoFormatter {
             let words = compared.findWords(in: block, lineIndex: compared.startIndex,
                                            type: .allowed, restrictedAt: [.horizontal])
             for word in words ?? [] {
-                let wordGaps = word.fixedGapsWithOutside
+                let wordGaps = word.corrrectedGapsWithOutside()
                 guard preliminaryChecker.check(word, trackingWidth: currentWidth),
                     let gaps = Gap.updatedOutside(wordGaps, with: currentWidth) else { continue }
 

@@ -16,6 +16,7 @@ extension TrackingInfoFinder {
         private let samenessChecker = WordHeightSamenessChecker()
 
         typealias IndexesAndTrackings = (indexes: SortedArray<Int>, trackings: [Tracking])
+
         func find(from lineWords: [SimpleWord]) -> [PositionInfo] {
             var posInfos: [PositionInfo] = []
 
@@ -46,12 +47,25 @@ extension TrackingInfoFinder {
         }
 
         private func getFittedTrackingsWithIndexes(words: [(offset: Int, element: SimpleWord)],
-                                                    with trackings: [Tracking], wordHeight: CGFloat) -> IndexesAndTrackings {
+                                                    with trackings: [Tracking],
+                                                    wordHeight: CGFloat) -> IndexesAndTrackings {
+
             var filteredTrackings = trackings
             var fittingWordsIndexes = SortedArray<Int>()
+            guard !filteredTrackings.isEmpty else {
+                return (fittingWordsIndexes, filteredTrackings)
+            }
 
             for (index, word) in words {
-                guard samenessChecker.check(wordHeight, with: word) else { break }
+                //если первое слово слишком маленькое, то тогда прерываем
+                if index == 0 && !samenessChecker.check(wordHeight, with: word) {
+                   break
+                }
+
+                if word.isQuoteWord(trackingWidth: filteredTrackings[0].width) {
+                    continue
+                }
+
                 print("****************************W: \(index)*************************")
                 let fittingTrackings = fitting(filteredTrackings, to: word)
                 guard !fittingTrackings.isEmpty else { break }
@@ -64,7 +78,7 @@ extension TrackingInfoFinder {
         }
 
         private func fitting(_ trackings: [Tracking], to word: SimpleWord) -> [Tracking] {
-            let wordGaps = word.fixedGapsWithOutside
+            let wordGaps = word.corrrectedGapsWithOutside()
             return trackings.filter {
                 print("\n\n")
                 guard let gaps = Gap.updatedOutside(wordGaps, with: $0.width), checker.check(gaps, with: $0).result

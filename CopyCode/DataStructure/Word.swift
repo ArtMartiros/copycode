@@ -52,7 +52,7 @@ extension Word {
 
     private var kQuotesRatio: CGFloat { return 2 }
     ///бывает такое что кавычки показаны как разные буквы, убираем гапы между кавычками
-    var fixedGaps: [CGRect] {
+    func correctedGaps() -> [CGRect] {
         var newGaps = gaps
         var alreadyRemovedCount = 0
         letters.forEachPairWithIndex { (left, right, index) in
@@ -67,13 +67,13 @@ extension Word {
     }
 
     func fixedGapsWthCutedOutside(letterWidth: CGFloat) -> [CGRect]? {
-        return Gap.updatedOutside(fixedGapsWithOutside, with: letterWidth)
+        return Gap.updatedOutside(corrrectedGapsWithOutside(), with: letterWidth)
     }
 
-    /// Gapы с внешними гапами, так как ширина их неизвестна, то ставим равной высоты
+    /// Gapы с внешними гапами, так как ширина их неизвестна, то ставим равной высоте
     /// Просто, чтоб чему-то было равно
-    var fixedGapsWithOutside: [CGRect] {
-        var fixedGaps = self.fixedGaps
+    func corrrectedGapsWithOutside() -> [CGRect] {
+        var fixedGaps = self.correctedGaps()
         let width = frame.height
         let firstLetter = letters[0]
         let leftFrame = CGRect(left: firstLetter.frame.leftX - width, right: firstLetter.frame.leftX,
@@ -90,7 +90,7 @@ extension Word {
 }
 
 extension Word {
-    private func getGaps(from frames: [CGRect], wordFrame: CGRect ) -> [Gap] {
+    private func getGaps(from frames: [CGRect], wordFrame: CGRect) -> [Gap] {
         var gaps: [Gap] = []
         frames.forEachPair {
             let gapFrame: CGRect
@@ -105,5 +105,18 @@ extension Word {
             gaps.append(Gap(frame: gapFrame))
         }
         return gaps
+    }
+}
+
+extension Word {
+    ///проверка слово кавычка
+    func isQuoteWord(trackingWidth: CGFloat) -> Bool {
+        let quoute = isQuoteWord() && frame.width < trackingWidth
+        return quoute
+    }
+
+    func isQuoteWord() -> Bool {
+        let quoute = (0.75...1.2).contains(frame.ratio) && letters.count <= 2
+        return quoute
     }
 }

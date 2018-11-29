@@ -20,7 +20,7 @@ struct TrackingStartPointFinder {
 
     private func findPointWithDifferentStep(_ word: SimpleWord, range: TrackingRange) -> [Tracking] {
 
-        let wordGaps = word.fixedGapsWithOutside
+        let wordGaps = word.corrrectedGapsWithOutside()
         let width = range.upperBound - range.lowerBound
         let widths = Slicer.sliceToArray(width: width, times: kRangeTimes)
         var trackings: [Tracking] = []

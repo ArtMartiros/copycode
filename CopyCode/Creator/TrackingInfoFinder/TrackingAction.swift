@@ -80,7 +80,7 @@ extension TrackingInfoFinder {
 
         private func updateTrackingErrors(_ word: SimpleWord, with trackingErrors: [TrackingError]) -> [TrackingError] {
             var updatedTrackings: [TrackingError] = []
-            let wordGaps = word.fixedGapsWithOutside
+            let wordGaps = word.corrrectedGapsWithOutside()
             for trackingError in trackingErrors {
                 let trackingWidth = trackingError.tracking.width
                 guard preliminaryChecker.check(word, trackingWidth: trackingWidth),
