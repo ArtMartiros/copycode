@@ -217,6 +217,10 @@
 		AC84546D21B12B3A00E07978 /* sc16_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84546C21B12B3A00E07978 /* sc16_type.swift */; };
 		AC84546F21B12BBE00E07978 /* sc16_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84546E21B12BBE00E07978 /* sc16_restored.json */; };
 		AC84547021B1376D00E07978 /* sc11_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE55670218648D0003D9263 /* sc11_grid.json */; };
+		AC84547221B14C1100E07978 /* sc17_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84547121B14C1000E07978 /* sc17_type.swift */; };
+		AC84547421B14D0E00E07978 /* sc17_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84547321B14D0E00E07978 /* sc17_restored.json */; };
+		AC84547621B14FAF00E07978 /* sc18_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84547521B14FAF00E07978 /* sc18_type.swift */; };
+		AC84547821B1502200E07978 /* sc18_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84547721B1502200E07978 /* sc18_restored.json */; };
 		AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8539D2217348B10093469B /* GoogleService-Info.plist */; };
 		AC87125321806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
 		AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
@@ -637,6 +641,10 @@
 		AC84546A21B1273900E07978 /* sc14_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc14_type.swift; sourceTree = "<group>"; };
 		AC84546C21B12B3A00E07978 /* sc16_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc16_type.swift; sourceTree = "<group>"; };
 		AC84546E21B12BBE00E07978 /* sc16_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_restored.json; sourceTree = "<group>"; };
+		AC84547121B14C1000E07978 /* sc17_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc17_type.swift; sourceTree = "<group>"; };
+		AC84547321B14D0E00E07978 /* sc17_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_restored.json; sourceTree = "<group>"; };
+		AC84547521B14FAF00E07978 /* sc18_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc18_type.swift; sourceTree = "<group>"; };
+		AC84547721B1502200E07978 /* sc18_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc18_restored.json; sourceTree = "<group>"; };
 		AC8539D2217348B10093469B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLineCorrelator.swift; sourceTree = "<group>"; };
 		AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCorrelatorTests.swift; sourceTree = "<group>"; };
@@ -1068,6 +1076,8 @@
 				AC84546A21B1273900E07978 /* sc14_type.swift */,
 				AC613AEA21A400CD00C574CB /* sc15_type.swift */,
 				AC84546C21B12B3A00E07978 /* sc16_type.swift */,
+				AC84547121B14C1000E07978 /* sc17_type.swift */,
+				AC84547521B14FAF00E07978 /* sc18_type.swift */,
 				ACF5108621AED15E008E3512 /* sc21_type.swift */,
 			);
 			path = Type;
@@ -1624,6 +1634,8 @@
 				AC84546721B125C300E07978 /* sc14_restored.json */,
 				AC613AE821A4007F00C574CB /* sc15_restored.json */,
 				AC84546E21B12BBE00E07978 /* sc16_restored.json */,
+				AC84547721B1502200E07978 /* sc18_restored.json */,
+				AC84547321B14D0E00E07978 /* sc17_restored.json */,
 				ACF5108821AED287008E3512 /* sc21_restored.json */,
 			);
 			path = Restored;
@@ -1869,6 +1881,7 @@
 				ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */,
 				AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */,
 				AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */,
+				AC84547421B14D0E00E07978 /* sc17_restored.json in Resources */,
 				AC84546F21B12BBE00E07978 /* sc16_restored.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				ACD0F8302184FDBE00DFB12B /* sc2_rects_low.json in Resources */,
@@ -1916,6 +1929,7 @@
 				ACEDD9CE21AD34270088F240 /* sc14_grid.json in Resources */,
 				ACFFC81221AE96DB00119C38 /* sc24_rects.json in Resources */,
 				ACD0F8442184FE1200DFB12B /* sc12_rects_low.json in Resources */,
+				AC84547821B1502200E07978 /* sc18_restored.json in Resources */,
 				ACEDD9C821AD2F590088F240 /* Documentation.rtf in Resources */,
 				AC250A6A214EE59800E6D596 /* block_one_completed.json in Resources */,
 				ACFFC80421AE8BBF00119C38 /* sc17_rects.json in Resources */,
@@ -2334,6 +2348,7 @@
 				AC7310D221692A1B00FB4D8B /* TrackingInfoFormatter.swift in Sources */,
 				AC95B4B9214139FB0007B5C5 /* TrackingDistanceFinderTests.swift in Sources */,
 				AC71FB642112E79500EE41C6 /* Protocol.swift in Sources */,
+				AC84547621B14FAF00E07978 /* sc18_type.swift in Sources */,
 				AC7310CA2167C38F00FB4D8B /* MixpanelConstants.swift in Sources */,
 				ACF1AC59210B140200897732 /* WordRecognizer.swift in Sources */,
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
@@ -2419,6 +2434,7 @@
 				AC8C0AAB214A605600F0FD13 /* LeadingChecker.swift in Sources */,
 				AC95B4A621410B2F0007B5C5 /* TrackingInfoFinder.swift in Sources */,
 				ACF1AC552108F86C00897732 /* TextRecognizerManager.swift in Sources */,
+				AC84547221B14C1100E07978 /* sc17_type.swift in Sources */,
 				AC79042D215CBE00001D1FB1 /* TrackingInfo.swift in Sources */,
 				AC250A68214EDF7D00E6D596 /* String.swift in Sources */,
 				AC50A8822133FBDD00B196BE /* LetterPixelFinderTests.swift in Sources */,
