@@ -31,7 +31,7 @@ let sc1_type = [
     19: "tllllul ulu uulluuluuuulull. uuuullu c ccc",
     20: "tllllul ulu uulluulull c uuulull.uullu",
     21: "tllllul ulll ululluulluullluulll uluulluluuu. uuuulluu cl uuuullu u",
-    22: "ulu ulluulll c uuluulluluuu u uulluuluuuulull u uu.lllluluuu",
+    22: "ulu ulluulll c uuluulluluuu u uulluuluuuulull l uu.lllluluuu",
     23: "llulll ulluulll"
 ]
 

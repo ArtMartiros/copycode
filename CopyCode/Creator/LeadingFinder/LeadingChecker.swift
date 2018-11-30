@@ -24,7 +24,7 @@ struct LeadingChecker {
             switch result {
             case .failure: return .failure
             case .success(let errorRate, let preciseRate):
-                print("L i: \(index) errorRate \(errorRate), preciseRate \(preciseRate)")
+//                print("L i: \(index) errorRate \(errorRate), preciseRate \(preciseRate)")
                 errorRateSum += errorRate
                 preciseRateSum += preciseRate
             }

@@ -41,15 +41,15 @@ struct WordInformation: TypeChecker {
         return ratio
     }
 
-    func lowWithTail(with frame: CGRect) -> Bool {
-        print("first top \(frame), second top \(standartLetter.bottomY) ")
-        let same = checker.isSame(frame.bottomY, with: standartLetter.bottomY, height: frame.height, accuracy: .superHigh)
-        print("lowWithTail \(same)")
-        return same
+    func upperOrLowForNotSure(with frame: CGRect) -> Bool {
+        let topDifferent = standartLetter.topY - frame.topY
+        let bottomDifferent = getBotDifferrent(with: frame)
+        print("tDiff: \(topDifferent), bDiff: \(bottomDifferent)")
+        return topDifferent < bottomDifferent
     }
 
-    func lowWithTailCustom(with frame: CGRect) -> Bool {
-        let topDifferent =  standartLetter.topY - frame.topY
+    func lowWithTail(with frame: CGRect) -> Bool {
+        let topDifferent = standartLetter.topY - frame.topY
         let bottomDifferent = getBotDifferrent(with: frame)
         let different = topDifferent - bottomDifferent
         print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
@@ -75,28 +75,3 @@ struct WordInformation: TypeChecker {
         return diff / frame.height * 100
     }
 }
-
-//func lowWithTailCustom2(with frame: CGRect) -> Bool {
-//    let topDifferent =  word.topY - frame.topY
-//    let bottomDifferent = frame.bottomY - lowerYChar.bottomY
-//    let different = topDifferent - bottomDifferent
-//    print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
-//
-//    let topDifferenceRate = topDifferent / word.height * 100
-//    let botDifferenceRate = bottomDifferent / word.height * 100
-//    let differenceRate = different / word.height * 100
-//    print("topDifferenceRate \(topDifferenceRate )")
-//    print("botDifferenceRate \(botDifferenceRate )")
-//    print("differenceRate \(differenceRate )")
-//    return botDifferenceRate < 14
-//}
-//
-//func lowWithTailCustom3(with frame: CGRect) -> Bool {
-//    let topDifferent =  word.topY - frame.topY
-//    let bottomDifferent = frame.bottomY - lowerYChar.bottomY
-//    let different = topDifferent - bottomDifferent
-//    print("Different: \(different), topDifferent \(topDifferent), bottomDifferent \(bottomDifferent) ")
-//    let differenceRate = topDifferent / word.height * 100
-//    print("differenceRate \(differenceRate )")
-//    return differenceRate > 24
-//}

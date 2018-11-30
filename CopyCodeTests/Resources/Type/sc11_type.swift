@@ -17,7 +17,7 @@ let sc11_type = [
     5: "lltllluut_llu c llullu.ccc",
     6: "ulu cculululcculluu, ullullllu.",
     7: "lltllluut c ululul c llullu.ccc",
-    8: "uuutl.uuulu.utuullllltulll-ulltlulullu"
+//    8: "uuutl.uuulu.utuullllltulll-ulltlulullu"
 ]
 
 //линия 4 t определяется как low
@@ -31,5 +31,5 @@ let sc11_type_low = [
     5: "lltllluut_llu c llullucccc",
     6: "ulu cculululcculluu, ullullllu.",
     7: "lltllluut c ululul c llullu.ccc",
-    8: "uuutl.uuulu.utuullllltulll-ulltlulullu"
+//    8: "uuutl.uuulu.utuullllltulll-ulltlulullu"
 ]

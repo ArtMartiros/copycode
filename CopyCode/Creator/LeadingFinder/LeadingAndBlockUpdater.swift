@@ -13,8 +13,6 @@ final class LeadingAndBlockUpdater {
     private let startPointGenerator = LeadingStartPointGenerator()
     private let accuracyFinder = LeadingMostAccurateFinder()
     private let chunksCreator = ChunksCreator()
-    private let kStandartLowRatio: CGFloat = 0.52 // 0.5384
-    private let kLowStandartLowRatio: CGFloat = 0.56
     private let isRetina: Bool
     let grid: TypographicalGrid
     init(grid: TypographicalGrid, isRetina: Bool) {
@@ -49,7 +47,7 @@ final class LeadingAndBlockUpdater {
         return blocks
     }
 
-   private func updateLeadingStartPoint(oldLeading: Leading, with block: SimpleBlock) -> Leading {
+    private func updateLeadingStartPoint(oldLeading: Leading, with block: SimpleBlock) -> Leading {
         let checker = LeadingChecker()
         var leadingErrors: [LeadigError] = []
 
@@ -82,7 +80,7 @@ final class LeadingAndBlockUpdater {
         return diffInfos
     }
 
-   private func updatedLeadingSizeAndSpacing(from leadingInfo: LeadingInfo, block: SimpleBlock) -> Leading? {
+    private func updatedLeadingSizeAndSpacing(from leadingInfo: LeadingInfo, block: SimpleBlock) -> Leading? {
         let lines = Array(block.lines[leadingInfo.startLineIndex...leadingInfo.endLineIndex])
         let oldLeading = grid.leading
         let lagValue = getLagValue(from: leadingInfo)
@@ -90,7 +88,8 @@ final class LeadingAndBlockUpdater {
         guard let ratio = getLowLetterRatio(lines, height: oldLeading.fontSize)
             else { return nil }
 
-    let standartRatio = useLow(fontSize: oldLeading.fontSize) ? kLowStandartLowRatio : kStandartLowRatio
+    let standartRatio = getRatio(fontSize: oldLeading.fontSize)
+//        useLow(fontSize: oldLeading.fontSize) ? kLowStandartLowRatio : kStandartLowRatio
         print("Bukaki current \(ratio), standart \(standartRatio)")
 
         let newFontSize = oldLeading.fontSize / (standartRatio / ratio)
@@ -100,17 +99,27 @@ final class LeadingAndBlockUpdater {
         return leading
     }
 
-     //в сцене 11 тот же коэф как и в норм разрешении
+    //в сцене 11 тот же коэф как и в норм разрешении
     //kStandartLowRatio используется только со стандартным шрифтом при ретине дисплее
-    private func useLow(fontSize: CGFloat) -> Bool {
+    private let kStandartLowRatio: CGFloat = 0.52 // 0.5384
+    private let kStandartLowRatio1: CGFloat = 0.51
+    private let kLowStandartLowRatio: CGFloat = 0.56
+
+    private func getRatio(fontSize: CGFloat) -> CGFloat {
         if isRetina {
-            return false
+                return kStandartLowRatio
         } else {
-            return fontSize < 30
+            //от 56 до 52
+            if fontSize >= 30 {
+                return kStandartLowRatio
+            } else {
+                return kLowStandartLowRatio
+            }
         }
     }
+
     ///difference between first and last diff element
-   private func getLagValue(from leadingInfo: LeadingInfo) -> CGFloat {
+    private func getLagValue(from leadingInfo: LeadingInfo) -> CGFloat {
         guard leadingInfo.diffInfos.count > 1,
             let firstDiff = leadingInfo.diffInfos.first,
             let lastDiff = leadingInfo.diffInfos.last else { return  0 }
@@ -147,7 +156,7 @@ final class LeadingAndBlockUpdater {
         return ratioDictionaries.sorted { $0.value > $1.value }.first?.key
     }
 
-   private func getLeadingInfos(from chunks: [[DifferenceInfo]]) -> [LeadingInfo] {
+    private func getLeadingInfos(from chunks: [[DifferenceInfo]]) -> [LeadingInfo] {
         var infos: [LeadingInfo] = []
 
         for (index, chunk) in chunks.enumerated() {
@@ -164,16 +173,16 @@ final class LeadingAndBlockUpdater {
         return infos
     }
 
-  private func getDifference(for line: SimpleLine, standardFrame: CGRect, type: DifferenceType) -> CGFloat? {
+    private func getDifference(for line: SimpleLine, standardFrame: CGRect, type: DifferenceType) -> CGFloat? {
         switch type {
         case .low:
             let letters = line.words.map { $0.letters.filter { $0.type == .low } }.reduce([], +)
 
-             let differences = letters
+            let differences = letters
                 .map { difference($0, with: standardFrame) }
                 .sorted { $0 > $1 }
 
-             let differenceChunks = differences.chunkForSorted { $0 == $1 }
+            let differenceChunks = differences.chunkForSorted { $0 == $1 }
 
             let sortedChunks = differenceChunks.sorted { $0.count > $1.count }
             guard let chunk = sortedChunks.first, let difference = chunk.first else { return nil }
@@ -186,7 +195,7 @@ final class LeadingAndBlockUpdater {
         }
     }
 
-   private func difference(_ rect: Rectangle, with frame: CGRect) -> CGFloat {
+    private func difference(_ rect: Rectangle, with frame: CGRect) -> CGFloat {
         return rect.frame.bottomY - frame.bottomY
     }
 }
@@ -225,15 +234,15 @@ extension LeadingAndBlockUpdater {
         case lowWithTail
     }
 
-//    enum SequenceType {
-//        case ascending
-//        case descending
-//        case same
-//
-//        init<T: Comparable>(_ first: T, compareTo second: T) {
-//            self = first < second ? .ascending : (first > second ? .descending : .same)
-//        }
-//    }
+    //    enum SequenceType {
+    //        case ascending
+    //        case descending
+    //        case same
+    //
+    //        init<T: Comparable>(_ first: T, compareTo second: T) {
+    //            self = first < second ? .ascending : (first > second ? .descending : .same)
+    //        }
+    //    }
 }
 
 extension LeadingAndBlockUpdater {

@@ -25,16 +25,11 @@ struct Settings {
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
-    static let showGrid = isDefault ? defaultShowGrid : true
+    static let showGrid = isDefault ? defaultShowGrid : false
     static let showAlert = isDefault ? defaultShowAlert : false
-    static let filterBlock = isDefault ? defaultFilterBlock : true
+    static let filterBlock = isDefault ? defaultFilterBlock : false
 
-    static let shouldPrint = false
+
+    static let shouldPrint = true
 }
 
-enum Test {
-    case initialBlock
-    case initialGrid
-    case standart
-
-}

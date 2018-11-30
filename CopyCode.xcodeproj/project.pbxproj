@@ -211,6 +211,12 @@
 		AC7CAC8F215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC90215F7919004458D1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC8E215F7919004458D1 /* Settings.swift */; };
 		AC7CAC9921600160004458D1 /* TreeOCRCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */; };
+		AC84546821B125C300E07978 /* sc14_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84546721B125C300E07978 /* sc14_restored.json */; };
+		AC84546921B125C300E07978 /* sc14_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84546721B125C300E07978 /* sc14_restored.json */; };
+		AC84546B21B1273900E07978 /* sc14_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84546A21B1273900E07978 /* sc14_type.swift */; };
+		AC84546D21B12B3A00E07978 /* sc16_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84546C21B12B3A00E07978 /* sc16_type.swift */; };
+		AC84546F21B12BBE00E07978 /* sc16_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84546E21B12BBE00E07978 /* sc16_restored.json */; };
+		AC84547021B1376D00E07978 /* sc11_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = ACE55670218648D0003D9263 /* sc11_grid.json */; };
 		AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8539D2217348B10093469B /* GoogleService-Info.plist */; };
 		AC87125321806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
 		AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
@@ -627,6 +633,10 @@
 		AC790434215CDA44001D1FB1 /* TrackingFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingFormatterTests.swift; sourceTree = "<group>"; };
 		AC7CAC8E215F7919004458D1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC7CAC9821600160004458D1 /* TreeOCRCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeOCRCustomData.swift; sourceTree = "<group>"; };
+		AC84546721B125C300E07978 /* sc14_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc14_restored.json; sourceTree = "<group>"; };
+		AC84546A21B1273900E07978 /* sc14_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc14_type.swift; sourceTree = "<group>"; };
+		AC84546C21B12B3A00E07978 /* sc16_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc16_type.swift; sourceTree = "<group>"; };
+		AC84546E21B12BBE00E07978 /* sc16_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc16_restored.json; sourceTree = "<group>"; };
 		AC8539D2217348B10093469B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLineCorrelator.swift; sourceTree = "<group>"; };
 		AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCorrelatorTests.swift; sourceTree = "<group>"; };
@@ -1055,7 +1065,9 @@
 				ACEBB283216CE4E50094336F /* sc3_p2_type.swift */,
 				ACE0E2292170C17D00E28E28 /* sc9_type.swift */,
 				AC35886221725D2F0023F311 /* sc11_type.swift */,
+				AC84546A21B1273900E07978 /* sc14_type.swift */,
 				AC613AEA21A400CD00C574CB /* sc15_type.swift */,
+				AC84546C21B12B3A00E07978 /* sc16_type.swift */,
 				ACF5108621AED15E008E3512 /* sc21_type.swift */,
 			);
 			path = Type;
@@ -1609,7 +1621,9 @@
 				ACD0F84B218500A200DFB12B /* sc3_p2_restored.json */,
 				ACD0F8122184F57A00DFB12B /* sc9_restored.json */,
 				ACE55672218649C4003D9263 /* sc11_restored.json */,
+				AC84546721B125C300E07978 /* sc14_restored.json */,
 				AC613AE821A4007F00C574CB /* sc15_restored.json */,
+				AC84546E21B12BBE00E07978 /* sc16_restored.json */,
 				ACF5108821AED287008E3512 /* sc21_restored.json */,
 			);
 			path = Restored;
@@ -1833,11 +1847,13 @@
 				ACD7113D218B7D910069FF37 /* sc11_restored.json in Resources */,
 				AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */,
 				ACD7113C218B77DC0069FF37 /* sc1_block.json in Resources */,
+				AC84547021B1376D00E07978 /* sc11_grid.json in Resources */,
 				ACD71125218B16100069FF37 /* sc11_rects_low.json in Resources */,
 				ACEDD9CF21AD348F0088F240 /* sc14_grid.json in Resources */,
 				ACDA6DD4215F6DBF00A7AA62 /* Assets.xcassets in Resources */,
 				AC613ADC21A2E5E300C574CB /* sc1_rects.json in Resources */,
 				ACEDD9CC21AD32AF0088F240 /* sc14_block.json in Resources */,
+				AC84546821B125C300E07978 /* sc14_restored.json in Resources */,
 				ACD71124218B149A0069FF37 /* sc11_grid_low.json in Resources */,
 				AC06D84E20FF30D100770DBB /* Main.storyboard in Resources */,
 			);
@@ -1853,6 +1869,7 @@
 				ACDF9D082170A65A00C192E6 /* sc8_panel_controller_pre_digit_column_words_2.json in Resources */,
 				AC0686962189CC0B00C54D59 /* sc3_p2_restored_low.json in Resources */,
 				AC0686942189CBF800C54D59 /* sc3_p1_restored_low.json in Resources */,
+				AC84546F21B12BBE00E07978 /* sc16_restored.json in Resources */,
 				AC03DCE3213D600800730DCD /* block_one.json in Resources */,
 				ACD0F8302184FDBE00DFB12B /* sc2_rects_low.json in Resources */,
 				ACF5107F21AEA860008E3512 /* sc16_grid.json in Resources */,
@@ -1881,6 +1898,7 @@
 				ACFFC81C21AE9AE100119C38 /* sc16_block.json in Resources */,
 				AC03DCF9213D61AF00730DCD /* block_two.json in Resources */,
 				AC1FABB221713850003DFD5C /* sc1_custom_letters_position.json in Resources */,
+				AC84546921B125C300E07978 /* sc14_restored.json in Resources */,
 				ACF5107921AEA10F008E3512 /* sc26_block.json in Resources */,
 				ACD0F8232184F7BD00DFB12B /* sc10_rects.json in Resources */,
 				AC613AE521A32AB800C574CB /* sc15_grid.json in Resources */,
@@ -2321,6 +2339,7 @@
 				AC4CA40021025DE30093D938 /* ScreenShot.swift in Sources */,
 				ACD7113B218B69690069FF37 /* TrackingAction.swift in Sources */,
 				AC8EB594213EBF72003D345B /* Collection.swift in Sources */,
+				AC84546B21B1273900E07978 /* sc14_type.swift in Sources */,
 				AC4CA3F921025DDF0093D938 /* CGRect.swift in Sources */,
 				AC8C0A9F214A4DEA00F0FD13 /* Leading.swift in Sources */,
 				AC4419152162569C00248DCC /* TreeOCRCustomData.swift in Sources */,
@@ -2413,6 +2432,7 @@
 				AC4CA3F621025DDF0093D938 /* NSImage.swift in Sources */,
 				AC31C3CC2114570F00E09F91 /* TreeOCRData.swift in Sources */,
 				AC613AEB21A400CD00C574CB /* sc15_type.swift in Sources */,
+				AC84546D21B12B3A00E07978 /* sc16_type.swift in Sources */,
 				AC28F2D8216A1A9C007C7550 /* sc1_type.swift in Sources */,
 				AC35FF4D2174900E005E09E9 /* LetterWithPosition.swift in Sources */,
 				AC8C0AA2214A4E0200F0FD13 /* LeadingDistanceFinder.swift in Sources */,

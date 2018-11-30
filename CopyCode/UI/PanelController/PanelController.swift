@@ -31,7 +31,7 @@ final class PanelController: NSWindowController {
     func openPanel(with cgImage: CGImage) {
         let frame = Screen.screen.frame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc14")
+        let testImage = NSImage("sc11")
         testImage.size = frame.size
         //        Save().save(cgImage)
         let image = NSImage(cgImage: cgImage, size: frame.size)
@@ -52,7 +52,7 @@ final class PanelController: NSWindowController {
 
     func testShow() {
         panel.imageView.layer?.sublayers?.removeSubrange(1...)
-        let block = "sc14_grid".decode(as: SimpleBlock.self)!
+        let block = "sc11_grid".decode(as: SimpleBlock.self)!
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
 

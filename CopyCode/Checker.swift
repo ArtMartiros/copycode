@@ -32,7 +32,7 @@ final class Checker {
         let diff = abs(first - second)
         let current = (diff / relativelyTo) * 100
         let different = current > accuracy
-        print("f: \(first.rounded(toPlaces: 3)), s: \(second.rounded(toPlaces: 3)), v: \(current), accuracy: \(accuracy)")
+//        print("f: \(first.rounded(toPlaces: 3)), s: \(second.rounded(toPlaces: 3)), v: \(current), accuracy: \(accuracy)")
         return !different
     }
 }
