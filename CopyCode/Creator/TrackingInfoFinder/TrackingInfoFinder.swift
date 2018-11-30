@@ -47,46 +47,62 @@ struct TrackingInfoFinder {
 
         return TrackingInfo(startAt: index, endAt: index)
     }
+    enum NewType {
+        case update([TrackingError], restrictedX: CGFloat?)
+        case split
+    }
 
-    private func findTrackingInfo(in lines: [SimpleLine], startAt startIndex: Int, with forbiddens: [Int : LineRestriction],
-                                   and trackings: [TrackingError]) -> TrackingInfo {
+    func findTrackingInfo(in lines: [SimpleLine],
+                          startAt startIndex: Int,
+                          with forbiddens: [Int: LineRestriction],
+                          and trackings: [TrackingError]) -> TrackingInfo {
         var lineTrackings = trackings
         var lastIndex = startIndex
         var forbiddens = forbiddens
 
-        lineLoop: for (lineIndex, line) in lines.enumerated() where startIndex < lineIndex {
+        lineLoop: for lineIndex in lines.indices where startIndex < lineIndex {
             print("lineIndex \(lineIndex)\n\n")
-            var wordTrackings = lineTrackings
-
-            wordLoop: for wordIndex in line.words.indices {
-                print("wordIndex \(wordIndex)\n")
-
-                let type = action.getAction(for: wordTrackings, in: lines, at: lineIndex, and: wordIndex)
-                switch type {
-                case .split:
-                    break lineLoop
-
-                case .update(let updatedTrackings):
-                    wordTrackings = updatedTrackings
-
-                case .forbidden(let forbiddenX):
+            let type = getAction(for: lineTrackings, in: lines, at: lineIndex)
+            switch type {
+            case .split: break lineLoop
+            case let .update(updatedTrackings, restrictedX: x):
+                if let restrictedX = x {
                     //FIXMEF
-                    forbiddens[lineIndex] = LineRestriction(leftX: nil, rightX: forbiddenX)
-                    break wordLoop
+                    forbiddens[lineIndex] = LineRestriction(leftX: nil, rightX: restrictedX)
                 }
+                lineTrackings = updatedTrackings
+                lastIndex = lineIndex
             }
-
-            lineTrackings = wordTrackings
-            lastIndex = lineIndex
         }
-
-        let info = infoWithSmallestErrorRate2(from: lineTrackings, with: forbiddens, startAt: startIndex, endAt: lastIndex)
+        let info = infoWithSmallestErrorRate(from: lineTrackings, with: forbiddens, startAt: startIndex, endAt: lastIndex)
         return info
     }
 
-    private func infoWithSmallestErrorRate2(from trackingErrors: [TrackingError],
-                                            with forbiddens: [Int : LineRestriction],
-                                           startAt start: Int, endAt end: Int) -> TrackingInfo {
+
+    func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int) -> NewType {
+        var wordTrackings = trackings
+        wordLoop: for wordIndex in lines[lineIndex].words.indices {
+            print("wordIndex \(wordIndex)\n")
+            let type = action.getAction(for: wordTrackings, in: lines, at: lineIndex, and: wordIndex)
+            switch type {
+            case .split: return .split
+            case .forbidden(let x): return .update(wordTrackings, restrictedX: x)
+            case .update(let updatedTrackings): wordTrackings = updatedTrackings
+            }
+        }
+        return .update(wordTrackings, restrictedX: nil)
+    }
+
+    func test(in lines: [SimpleLine],
+              startAt startIndex: Int,
+              and trackings: [TrackingError]) {
+        //через одну линию
+
+    }
+    private func infoWithSmallestErrorRate(from trackingErrors: [TrackingError],
+                                           with forbiddens: [Int: LineRestriction],
+                                           startAt start: Int,
+                                           endAt end: Int) -> TrackingInfo {
         let trackings = trackingErrors.sorted { $0.errorRate < $1.errorRate }
         guard let smallestErrorRate = trackings.first else {
             return TrackingInfo(startAt: start, endAt: start)

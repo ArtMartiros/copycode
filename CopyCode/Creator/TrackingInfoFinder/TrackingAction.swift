@@ -20,6 +20,10 @@ extension TrackingInfoFinder {
         private let checker = TrackingChecker()
         private let preliminaryChecker = PreliminaryTrackingChecker()
 
+        func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int) {
+
+        }
+
         func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int,
                        and wordIndex: Int) -> ActionType {
 
@@ -58,6 +62,21 @@ extension TrackingInfoFinder {
             }
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private func intersected(frame: CGRect, with secondFrame: CGRect) -> Bool {
             let range = frame.leftX...frame.rightX
