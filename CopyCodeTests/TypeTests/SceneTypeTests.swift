@@ -84,4 +84,10 @@ class SceneTypeTests: XCTestCase {
         }
     }
 
+    func testSc22() {
+        TypeHelper.execute(self, scene: .sc22, exluded: [], isLow: false) { (type, position) in
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
 }

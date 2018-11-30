@@ -221,6 +221,8 @@
 		AC84547421B14D0E00E07978 /* sc17_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84547321B14D0E00E07978 /* sc17_restored.json */; };
 		AC84547621B14FAF00E07978 /* sc18_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84547521B14FAF00E07978 /* sc18_type.swift */; };
 		AC84547821B1502200E07978 /* sc18_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84547721B1502200E07978 /* sc18_restored.json */; };
+		AC84547A21B151E700E07978 /* sc22_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC84547921B151E600E07978 /* sc22_type.swift */; };
+		AC84547C21B1525900E07978 /* sc22_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC84547B21B1525900E07978 /* sc22_restored.json */; };
 		AC8539D3217348B20093469B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8539D2217348B10093469B /* GoogleService-Info.plist */; };
 		AC87125321806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
 		AC87125421806DEE00DFB955 /* GridLineCorrelator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */; };
@@ -645,6 +647,8 @@
 		AC84547321B14D0E00E07978 /* sc17_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc17_restored.json; sourceTree = "<group>"; };
 		AC84547521B14FAF00E07978 /* sc18_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc18_type.swift; sourceTree = "<group>"; };
 		AC84547721B1502200E07978 /* sc18_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc18_restored.json; sourceTree = "<group>"; };
+		AC84547921B151E600E07978 /* sc22_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc22_type.swift; sourceTree = "<group>"; };
+		AC84547B21B1525900E07978 /* sc22_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc22_restored.json; sourceTree = "<group>"; };
 		AC8539D2217348B10093469B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC87125221806DEE00DFB955 /* GridLineCorrelator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLineCorrelator.swift; sourceTree = "<group>"; };
 		AC87125821806FA800DFB955 /* GridCorrelatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCorrelatorTests.swift; sourceTree = "<group>"; };
@@ -1079,6 +1083,7 @@
 				AC84547121B14C1000E07978 /* sc17_type.swift */,
 				AC84547521B14FAF00E07978 /* sc18_type.swift */,
 				ACF5108621AED15E008E3512 /* sc21_type.swift */,
+				AC84547921B151E600E07978 /* sc22_type.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -1636,6 +1641,7 @@
 				AC84546E21B12BBE00E07978 /* sc16_restored.json */,
 				AC84547721B1502200E07978 /* sc18_restored.json */,
 				AC84547321B14D0E00E07978 /* sc17_restored.json */,
+				AC84547B21B1525900E07978 /* sc22_restored.json */,
 				ACF5108821AED287008E3512 /* sc21_restored.json */,
 			);
 			path = Restored;
@@ -1940,6 +1946,7 @@
 				ACDF9D062170A63600C192E6 /* sc8_panel_controller_pre_digit_column_words_3.json in Resources */,
 				ACFFC81621AE974700119C38 /* sc26_rects.json in Resources */,
 				AC9EF0AA21232EC7004ED89D /* ocr_sublime_dark_14.json in Resources */,
+				AC84547C21B1525900E07978 /* sc22_restored.json in Resources */,
 				ACD0F87121860C1200DFB12B /* sc1_grid_low.json in Resources */,
 				ACD71147218C38EF0069FF37 /* sc11_grid_l1_frames_low.json in Resources */,
 				AC6B2E4A214BF220000ACEDC /* column_detection_words.json in Resources */,
@@ -2380,6 +2387,7 @@
 				ACE0E2322170D4C000E28E28 /* sc9_letter.swift in Sources */,
 				ACEBB289216CF1960094336F /* sc3_p1_letter.swift in Sources */,
 				ACF5108721AED15E008E3512 /* sc21_type.swift in Sources */,
+				AC84547A21B151E700E07978 /* sc22_type.swift in Sources */,
 				AC95B4CB214261010007B5C5 /* TrackingPreliminaryLetterWidthDetection.swift in Sources */,
 				AC4CA3FB21025DDF0093D938 /* NSColor.swift in Sources */,
 				AC302DCA2177544D0073A569 /* LeadingMostAccurateFinder.swift in Sources */,
