@@ -15,7 +15,6 @@ struct TrackingChecker {
     private let kMiscalculationSuccessedRateValue: CGFloat = 0.000265
     func miscalculationSuccessedRate(basedOn distance: CGFloat) -> CGFloat {
         return distance > 16 ? kMiscalculationSuccessedHighRate : kMiscalculationSuccessedRate
-//        return distance * kMiscalculationSuccessedRateValue
     }
 
     func getMiscalculation(_ gap: CGRect, withDistance distance: CGFloat, startPoint: CGFloat) -> CGFloat {

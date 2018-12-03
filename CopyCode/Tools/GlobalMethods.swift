@@ -11,6 +11,7 @@ import Foundation
 typealias TrackingRange = ClosedRange<CGFloat>
 typealias SimpleWord = Word<LetterRectangle>
 typealias SimpleLine = Line<LetterRectangle>
+typealias SimpleLineWithIndex = (line: SimpleLine, index: Int)
 typealias SimpleBlock = Block<LetterRectangle>
 typealias SimpleLetterPosition = LetterWithPosition<LetterRectangle>
 typealias CompletedWord = Word<Letter>

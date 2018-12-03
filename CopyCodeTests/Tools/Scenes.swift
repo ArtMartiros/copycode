@@ -114,9 +114,9 @@ enum Scene: String {
         return getName(wordsName, isLow: low).decode(as: [SimpleWord].self)!
     }
 
-    func getTrackingInfos(_ object: AnyObject) -> [TrackingInfo] {
-        return trackingInfo.decode(as: [TrackingInfo].self)!
-    }
+//    func getTrackingInfos(_ object: AnyObject) -> [TrackingInfo] {
+//        return trackingInfo.decode(as: [TrackingInfo].self)!
+//    }
     
     func getLetterTypes(for lineIndex: Int, isLow: Bool) -> [LetterType] {
         let dictionary = isLow ? lowLetterTypeDictionary : letterTypeDictionary

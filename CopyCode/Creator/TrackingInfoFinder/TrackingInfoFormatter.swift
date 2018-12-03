@@ -15,7 +15,9 @@ struct TrackingInfoFormatter {
     private let breackChecker = BreakChecker()
 
     private let checker = TrackingChecker()
-    private let preliminaryChecker = TrackingInfoFinder.PreliminaryTrackingChecker()
+    private let preliminaryChecker = PreliminaryTrackingChecker()
+    private let updater = TrackingErrorUpdater()
+
     typealias Result = (chunkInfos: [TrackingInfo], blockedIndexes: Set<Int>)
 
     func chunk(_ infos: [TrackingInfo], with block: SimpleBlock) -> [[TrackingInfo]] {
@@ -34,41 +36,21 @@ struct TrackingInfoFormatter {
                               excluding blockedIndexes: Set<Int>) -> Result {
 
         let currentInfo = infos[current]
-
         var chunk = [currentInfo]
         var blocked = blockedIndexes
 
-        guard currentInfo.tracking?.width != nil,
-            let range = currentInfo.xRange(at: block, type: .allowed)
-            else { return (chunk, blocked) }
+        guard currentInfo.tracking?.width != nil else { return (chunk, blocked) }
 
         var temporaryChunk = chunk
         var temporaryBlocked = blockedIndexes
 
         for (index, info) in infos.enumerated() where index > current && !blocked.contains(index) {
-            if isSameTracking(between: currentInfo, and: info, block: block) {
-                temporaryBlocked.insert(index)
-                temporaryChunk.append(info)
-                blocked = temporaryBlocked
-                chunk = temporaryChunk
-                continue
-            }
-
-            if isIntersect(between: range, with: info, block: block) {
-                if case .success(let forbidden) = findForbidden(for: info, in: range, block: block) {
-                    var newInfo = currentInfo
-                    //FIXMEF
-                    newInfo.forbiddens.merge(forbidden) { (_, new) in new }
-                    temporaryChunk.removeFirst()
-                    temporaryChunk.insert(newInfo, at: 0)
-                    temporaryChunk.append(info)
-                    temporaryBlocked.insert(index)
-                }
-            }
-
-            if isBlocked(current: currentInfo, and: info, in: block) {
-                return (chunk, blocked)
-            }
+            guard isSameTracking(between: currentInfo, and: info, block: block) else { break }
+            temporaryBlocked.insert(index)
+            temporaryChunk.append(info)
+            blocked = temporaryBlocked
+            chunk = temporaryChunk
+            continue
         }
 
         blocked = temporaryBlocked
@@ -77,24 +59,18 @@ struct TrackingInfoFormatter {
         return (chunk, blocked)
     }
 
-    private func isIntersect(between currentRange: TrackingRange, with next: TrackingInfo, block: SimpleBlock) -> Bool {
-        guard let nextRange = next.xRange(at: block, type: .allowed) else { return false }
-        return  currentRange.intesected(with: nextRange) != nil
-    }
-
     private func isSameTracking(between current: TrackingInfo, and compared: TrackingInfo, block: SimpleBlock) -> Bool {
         guard let currentWidth = current.tracking?.width, let comparedWidth = compared.tracking?.width
             else { return false }
 
-        if EqualityChecker.check(of: currentWidth, with: comparedWidth, errorPercentRate: kErrorPercentRate) {
-            return true
-        }
+        if isEqual(main: current, with: compared) { return true }
+        //по идее это надо удалить потому что эта херня решается в актион
         // может быть такое что тракинги отличаются но, на самом деле проходит проверка checkom поэтому стоит просто всю линию проверить в исключительных случаях
         if EqualityChecker.check(of: currentWidth, with: comparedWidth,
-                                        errorPercentRate: kErrorPercentAdditionalCheckRate) {
+                                 errorPercentRate: kErrorPercentAdditionalCheckRate) {
             let words = compared.findWords(in: block, lineIndex: compared.startIndex,
                                            type: .allowed, restrictedAt: [.horizontal])
-            for word in words ?? [] {
+            for word in words {
                 let wordGaps = word.corrrectedGapsWithOutside()
                 guard preliminaryChecker.check(word, trackingWidth: currentWidth),
                     let gaps = Gap.updatedOutside(wordGaps, with: currentWidth) else { continue }
@@ -108,42 +84,69 @@ struct TrackingInfoFormatter {
 
     }
 
-   private func exception(_ range: TrackingRange, and blockingInfo: TrackingInfo, in block: SimpleBlock) -> Bool {
-        let lineNumbers = blockingInfo.findLineIndexes(from: block, in: range)
-        for number in lineNumbers {
-            let words = blockingInfo.findWord(in: range, at: number, with: block)
-            let filteredWords = words.filter { $0.letters.count > 1 }
-            if !filteredWords.isEmpty {
-                return false
-            }
-        }
-        return true
+    private func isEqual(main: TrackingInfo, with second: TrackingInfo) -> Bool {
+        guard let mainTracking = main.tracking else { return false }
+
+       let exist = second.trackingErrors.first { EqualityChecker.check(of: mainTracking.width, with: $0.tracking.width,
+                                                               errorPercentRate: kErrorPercentAdditionalCheckRate) } != nil
+        return exist
     }
+}
 
-    private func isBlocked(current: TrackingInfo, and blockingInfo: TrackingInfo, in block: SimpleBlock) -> Bool {
-        guard let currentXrange = current.xRange(at: block, type: .allowed),
-            let nextRangeX = blockingInfo.xRange(at: block, type: .all) else { return true }
+final class BreakChecker {
+    ///сколько высот слова должно быть в ширине между словами, чтоб разделить линию
+    private let kBreakLineRate: CGFloat = 6
+    func check(if word: SimpleWord, shouldBreakWith second: SimpleWord) -> Bool {
+        let differentOne = abs(word.frame.leftX - second.frame.rightX)
+        let differentTwo = abs(word.frame.rightX - second.frame.leftX)
+        let different = min(differentOne, differentTwo)
+        let shouldBreak = different / word.frame.height > kBreakLineRate
+        return shouldBreak
+    }
+}
 
+class BlockChecker {
+    private let breackChecker = BreakChecker()
+    enum SomeType {
+        case blocked
+        case allowed(LineRestriction?)
+    }
+    func isBlocked(current: TrackingInfo, and line: SimpleLine, lineIndex: Int, in block: SimpleBlock) -> SomeType {
+        guard let currentXrange = current.xRange(at: block, type: .allowed) else { return .blocked }
+        let nextRangeX = line.frame.leftX...line.frame.rightX
         if currentXrange.intesected(with: nextRangeX) == nil {
-            return false
+            let restriction: LineRestriction
+            if nextRangeX.lowerBound < currentXrange.lowerBound {
+               restriction = LineRestriction(leftX: nextRangeX.upperBound, rightX: nil)
+            } else {
+                restriction = LineRestriction(leftX: nil, rightX: nextRangeX.lowerBound)
+            }
+            return .allowed(restriction)
         }
 
-        if exception(currentXrange, and: blockingInfo, in: block) {
-            return false
+        if exception(currentXrange, and: line) {
+            return .allowed(nil)
         }
 
         let result = findForbidden(for: current, in: nextRangeX, block: block)
         switch result {
-        case .failure: return true
-        case .success: return false
+        case .failure: return .blocked
+        case .success: return .allowed(nil)
         }
+    }
+
+    // если ни в одной линии нет слова больше чем с одной буквы
+    private func exception(_ range: TrackingRange, and line: SimpleLine) -> Bool {
+        let words = line.words
+        let filteredWords = words.filter { $0.letters.count > 1 }
+        return filteredWords.isEmpty
     }
 
     private func findForbidden(for blockingInfo: TrackingInfo, in range: TrackingRange, block: SimpleBlock) -> SimpleSuccess<LineRestrictionDictionary> {
         var forbidden: LineRestrictionDictionary = [:]
         let lineIndexes = blockingInfo.findLineIndexes(from: block, in: range)
         for lineIndex in lineIndexes {
-            let words = block.lines[lineIndex].words
+            let words = blockingInfo.findWords(in: block, lineIndex: lineIndex, type: .allowed, restrictedAt: [.horizontal])
 
             for (wordIndex, word) in words.enumerated() {
                 let wordRange = word.frame.leftX...word.frame.rightX
@@ -152,8 +155,7 @@ struct TrackingInfoFormatter {
                 guard intersect else { continue }
                 if wordIndex == 0 {
                     guard words.count > 1,
-                        breackChecker.check(if: word, shouldBreakWith: words[wordIndex + 1]),
-                        exception(range, and: blockingInfo, in: block)
+                        breackChecker.check(if: word, shouldBreakWith: words[wordIndex + 1])
                         else { return .failure }
                     //FIXMEF
                     forbidden[lineIndex] = LineRestriction(leftX: nil, rightX: word.frame.leftX)
@@ -169,17 +171,5 @@ struct TrackingInfoFormatter {
             }
         }
         return .success(forbidden)
-    }
-}
-
-final class BreakChecker {
-    ///сколько высот слова должно быть в ширине между словами, чтоб разделить линию
-    private let kBreakLineRate: CGFloat = 6
-    func check(if word: SimpleWord, shouldBreakWith second: SimpleWord) -> Bool {
-        let differentOne = abs(word.frame.leftX - second.frame.rightX)
-        let differentTwo = abs(word.frame.rightX - second.frame.leftX)
-        let different = min(differentOne, differentTwo)
-        let shouldBreak = different / word.frame.height > kBreakLineRate
-        return shouldBreak
     }
 }

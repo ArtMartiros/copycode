@@ -10,134 +10,131 @@ import Foundation
 
 extension TrackingInfoFinder {
     enum ActionType {
-        case update([TrackingError])
+        case update([TrackingError], restrictedX: CGFloat?)
         case split
-        case forbidden(x: CGFloat)
     }
 
     struct Action {
         private let trackingFinder = TrackingFinder()
-        private let checker = TrackingChecker()
-        private let preliminaryChecker = PreliminaryTrackingChecker()
+        private let updater = TrackingErrorUpdater()
+        private let posInfoWithForbiddenCreator = PosInfoWithForbiddensCreator()
+        private let blockChecker = BlockChecker()
+        private let samenessChecker = WordHeightSamenessChecker()
+        private let wordStandartHeight: CGFloat
 
-        func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int) {
-
+        init(wordStandartHeight: CGFloat) {
+            self.wordStandartHeight = wordStandartHeight
         }
 
-        func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int,
-                       and wordIndex: Int) -> ActionType {
+        func action(with info: TrackingInfo, at block: SimpleBlock) -> SimpleSuccess<TrackingInfo> {
+            var info = info
+            var posInfoWithForbidden: [PositionInfoWithForbidden] = []
+            let lineIndex = info.endIndex + 1 //текущий
+            let line = block.lines[lineIndex]
+            wordLoop: for (wordIndex, word) in line.words.enumerated() where isAllowed(word, in: info.restrictionDic[lineIndex]) {
+                let type = action(for: info, in: lineIndex, and: wordIndex, at: block)
+                switch type {
+                case .different:
+                    //есть все таки такой же тракинг
+                    posInfoWithForbidden = posInfoWithForbiddenCreator.create(line, index: lineIndex)
+                    if let posInfo = getPos(from: posInfoWithForbidden, similarTo: info.trackingErrors[0].tracking) {
+                        info.restrictionDic[lineIndex] = posInfo.forbiddens[lineIndex]
+                        continue wordLoop
+                    }
 
+                    let blocked = blockChecker.isBlocked(current: info, and: line, lineIndex: lineIndex, in: block)
+                    switch blocked {
+                    case .blocked: return .failure
+                    case .allowed(let restriction): info.restrictionDic[lineIndex] = restriction
+                    }
+                    return .success(info)
+                case .similarTracking: return .failure  //мы его отделим так как можно найти намного лучший тракинг для него
+                case .forbidden:
+                    var temporaryRestriction = info.restrictionDic[lineIndex] ?? LineRestriction()
+                    temporaryRestriction.rightX = word.frame.leftX
+                    info.restrictionDic[lineIndex] = temporaryRestriction
+                    return .success(info)
+                case .update(let updatedTrackings): info.trackingErrors = updatedTrackings
+                case .quote: continue wordLoop
+                case .shitWord: info.restrictionDic[lineIndex] = LineRestriction(leftX: word.frame.rightX, rightX: nil)
+
+                }
+            }
+            return .success(info)
+        }
+
+        private func action(for info: TrackingInfo, in lineIndex: Int, and wordIndex: Int, at block: SimpleBlock) -> WordActionType {
+            let trackings = info.trackingErrors
             assert(lineIndex != 0, "TrackingInfoFinder lineIndex cannot be equal 0")
             assert(!trackings.isEmpty, "TrackingInfoFinder trackings cannot be empty")
 
-            let line = lines[lineIndex]
+            let line = block.lines[lineIndex]
             let word = line.words[wordIndex]
-            let trackingErrors = updateTrackingErrors(word, with: trackings)
 
-            guard trackingErrors.isEmpty else {
-                return .update(trackingErrors)
+            if isShit(word, in: wordIndex, with: info, at: block) {
+                return .shitWord
+            }
+            if word.isQuoteWord(trackingWidth: trackings[0].tracking.width) {
+                return .quote
             }
 
-            // Если нет результатов
-            let previousWidth = trackings[0].tracking.width
+            let trackingErrors = updater.remained(trackings, after: word)
+            let previous = trackings[0].tracking
 
-            if wordIndex == 0 {
-                guard !intersected(frame: word.frame, with: lines[lineIndex - 1].frame),
-                    let tracking = trackingFinder.findTrackings(from: word).first,
-                    !EqualityChecker.check(of: tracking.width, with: previousWidth, errorPercentRate: 3) else {
-                        return .split
-                }
-
-                let allOk = checkNextLine(in: lines, currentLineIndex: lineIndex, errors: trackings)
-                return allOk ? .forbidden(x: word.frame.leftX) : .split
-
-            } else {
-                guard let tracking = trackingFinder.findTrackings(from: word).first else {
-                    return .forbidden(x: word.frame.leftX)
-                }
-
-                let isSimilar = EqualityChecker.check(of: tracking.width, with: previousWidth, errorPercentRate: 3)
-                return isSimilar ? .split : .forbidden(x: word.frame.leftX)
-
+            guard trackingErrors.isEmpty else { return .update(trackingErrors) }
+            if let tracking = trackingFinder.findTrackings(from: word).first, isEqual(tracking, with: previous) {
+                return .similarTracking
             }
-
+            return wordIndex == 0 ? .different : .forbidden
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private func intersected(frame: CGRect, with secondFrame: CGRect) -> Bool {
-            let range = frame.leftX...frame.rightX
-            let secondRange = secondFrame.leftX...secondFrame.rightX
-            return range.intesected(with: secondRange) != nil
-        }
-
-        ///проверяет след линию на совпадение TrackingError но исключая слова с двумя и меньше символами
-        private func checkNextLine(in lines: [SimpleLine], currentLineIndex: Int, errors: [TrackingError]) -> Bool {
-            let nextLineIndex = currentLineIndex + 1
-            guard nextLineIndex != lines.count else { return false }
-
-            let line = lines[nextLineIndex]
-            for word in line.words {
-                guard word.letters.count > 2 else { continue }
-                return !updateTrackingErrors(word, with: errors).isEmpty
+        private func getPos(from infos: [PositionInfoWithForbidden], similarTo tracking: Tracking) -> PositionInfoWithForbidden? {
+            for info in infos where !info.posInfo.trackings.isEmpty {
+                if isEqual(tracking, with: info.posInfo.trackings[0]) { return info }
             }
-            return false
+            return nil
         }
 
-        private func updateTrackingErrors(_ word: SimpleWord, with trackingErrors: [TrackingError]) -> [TrackingError] {
-            var updatedTrackings: [TrackingError] = []
-            let wordGaps = word.corrrectedGapsWithOutside()
-            for trackingError in trackingErrors {
-                let trackingWidth = trackingError.tracking.width
-                guard preliminaryChecker.check(word, trackingWidth: trackingWidth),
-                    let gaps = Gap.updatedOutside(wordGaps, with: trackingWidth) else { continue }
-
-                let result = checker.check(gaps, with: trackingError.tracking)
-                if result.result {
-                    let newRate = trackingError.errorRate + result.errorRate
-                    let newTracking = TrackingError(tracking: trackingError.tracking, errorRate: newRate)
-                    updatedTrackings.append(newTracking)
-                }
-            }
-            return updatedTrackings
+        private func isAllowed(_ word: SimpleWord, in area: LineRestriction?) -> Bool {
+            guard let area = area else { return true }
+            if let leftX = area.leftX, word.frame.leftX < leftX { return false }
+            if let rightX = area.rightX, word.frame.rightX > rightX { return false }
+            return true
         }
-    }
 
-    struct PreliminaryTrackingChecker {
+        private func isEqual(_ first: Tracking, with second: Tracking) -> Bool {
+            return EqualityChecker.check(of: first.width, with: second.width, errorPercentRate: 3)
+        }
 
-        private let maxRateHight: CGFloat = 1.8
-        ///чтобы исключить всякую хрень как логотипы
-        func check(_ word: SimpleWord, trackingWidth: CGFloat) -> Bool {
-            guard word.frame.height / trackingWidth < maxRateHight else { return false }
-
-            for letter in word.letters {
-                let width = letter.frame.width
-
-                if width < trackingWidth ||
-                    EqualityChecker.check(of: width, with: trackingWidth, errorPercentRate: 10) {
-                    continue
-                } else {
-                    let newWidth = (trackingWidth * 2)
-                    guard EqualityChecker.check(of: newWidth, with: width, errorPercentRate: 4) else {
-                        return false
-                    }
-                }
+        private func isShit(_ word: SimpleWord, in wordIndex: Int, with info: TrackingInfo, at block: SimpleBlock) -> Bool {
+            guard wordIndex == 0,
+                let allowedRange = info.xRange(at: block, type: .allowed),
+                word.frame.xRange().intesected(with: allowedRange) == nil,
+                !samenessChecker.check(wordStandartHeight, with: word) else  {
+                    return false
             }
             return true
         }
-    }
 
+        enum WordActionType {
+            case update([TrackingError])
+            case different
+            case similarTracking
+            case forbidden
+            case quote
+            case shitWord
+        }
+    }
+}
+
+extension TrackingInfoFinder {
+    class PosInfoWithForbiddensCreator {
+        private let posFinder = PositionInfoFinder()
+        private let forbiddensCreator = RestrictionsCreator()
+        func create(_ line: SimpleLine, index: Int) -> [PositionInfoWithForbidden] {
+            let posInfos = posFinder.find(from: line.words).sorted { $0.startX < $1.startX }
+            let posInfosWithForbiddens = forbiddensCreator.create(from: posInfos, lineIndex: index)
+            return posInfosWithForbiddens
+        }
+    }
 }

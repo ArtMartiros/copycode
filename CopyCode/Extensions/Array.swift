@@ -154,3 +154,9 @@ extension Array where Element == Bool {
         return newArray2.first { $0 == !middle} != nil
     }
 }
+
+extension Array {
+    var isExistElement: Bool {
+        return !isEmpty
+    }
+}

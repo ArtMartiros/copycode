@@ -2,25 +2,35 @@
 //  TrackingInfo.swift
 //  CopyCode
 //
-//  Created by Артем on 27/09/2018.
+//  Created by Артем on 01/12/2018.
 //  Copyright © 2018 Artem Martirosyan. All rights reserved.
 //
 
 import Foundation
 
 typealias LineRestrictionDictionary = [Int: LineRestriction]
-struct TrackingInfo: Codable {
-    let tracking: Tracking?
-    var forbiddens: LineRestrictionDictionary
-    let startIndex: Int
-    let endIndex: Int
+struct TrackingInfo {
 
-    init(tracking: Tracking? = nil, forbiddens: LineRestrictionDictionary = [:],
+    var tracking: Tracking? {
+       return trackingErrors.smallestErrorRate?.tracking
+    }
+
+    var trackingErrors: [TrackingError]
+    var restrictionDic: LineRestrictionDictionary
+    let startIndex: Int
+    var endIndex: Int
+
+    init(_ info: TrackingInfoFinder.PositionInfoWithForbidden, startAt startIndex: Int, endAt endIndex: Int) {
+        let trackingErrors = info.posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
+        self.init(trackingErrors: trackingErrors, forbiddens: info.forbiddens, startAt: startIndex, endAt: endIndex)
+    }
+
+    init(trackingErrors: [TrackingError] = [], forbiddens: LineRestrictionDictionary = [:],
          startAt startIndex: Int, endAt endIndex: Int) {
-        self.tracking = tracking
+        self.trackingErrors = trackingErrors
         self.startIndex = startIndex
         self.endIndex = endIndex
-        self.forbiddens = forbiddens
+        self.restrictionDic = forbiddens
     }
 
     func leftX(at block: SimpleBlock) -> CGFloat? {
@@ -36,11 +46,11 @@ struct TrackingInfo: Codable {
         var minX: CGFloat?
         for index in startIndex...endIndex {
             let words = findWords(in: block, lineIndex: index, type: type, restrictedAt: [.horizontal])
-            if let last = words?.last {
+            if let last = words.last {
                 maxX = max(last.frame.rightX, maxX ?? last.frame.rightX)
             }
 
-            if let first = words?.first {
+            if let first = words.first {
                 minX = min(first.frame.leftX, maxX ?? first.frame.leftX)
             }
         }
@@ -69,14 +79,14 @@ struct TrackingInfo: Codable {
     }
 
     ///Возвращает слова в линии которые соответствуют критериям TrackingInfo либо nil
-    func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType, restrictedAt restricted: DirectionOptions) -> [SimpleWord]? {
-        guard block.lines.count > lineIndex, startIndex <= lineIndex, endIndex >= lineIndex else { return nil }
+    func findWords(in block: SimpleBlock, lineIndex: Int, type: WordsFinderType, restrictedAt restricted: DirectionOptions) -> [SimpleWord] {
+        guard block.lines.count > lineIndex, startIndex <= lineIndex, endIndex >= lineIndex else { return [] }
         let words = block.lines[lineIndex].words
 
         var filteredWords: [SimpleWord] = []
-        let restriction = forbiddens[lineIndex]
+        let restriction = restrictionDic[lineIndex]
         if restricted.contains(.right) {
-           filteredWords = filter(words: words, restriction: restriction, type: type, direction: .right)
+            filteredWords = filter(words: words, restriction: restriction, type: type, direction: .right)
         }
         if restricted.contains(.left) {
             filteredWords = filter(words: filteredWords, restriction: restriction, type: type, direction: .left)
@@ -85,7 +95,7 @@ struct TrackingInfo: Codable {
         return filteredWords
     }
 
-   private func filter(words: [SimpleWord], restriction: LineRestriction?, type: WordsFinderType, direction: Direction) -> [SimpleWord] {
+    private func filter(words: [SimpleWord], restriction: LineRestriction?, type: WordsFinderType, direction: Direction) -> [SimpleWord] {
         switch direction {
         case .left:
             let forbiddenX = restriction?.leftX
@@ -106,7 +116,7 @@ struct TrackingInfo: Codable {
         return []
     }
 
-    func findArrayOfWords(in block: SimpleBlock, type: WordsFinderType) -> [[SimpleWord]?] {
+    func findArrayOfWords(in block: SimpleBlock, type: WordsFinderType) -> [[SimpleWord]] {
         let indexes = Array(startIndex...endIndex)
         let arrayOfWords = indexes.map { findWords(in: block, lineIndex: $0, type: type, restrictedAt: [.horizontal]) }
         return arrayOfWords

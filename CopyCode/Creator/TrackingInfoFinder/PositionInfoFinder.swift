@@ -21,7 +21,7 @@ extension TrackingInfoFinder {
             var posInfos: [PositionInfo] = []
 
             guard !lineWords.isEmpty else { return [] }
-            let biggestWordIndex = getBiggestWordIndex(lineWords, excluded: [])
+            let biggestWordIndex = lineWords.getBiggestWordIndex(excluded: [])
             let biggestWord = lineWords[biggestWordIndex]
             let biggestWordHeight = biggestWord.frame.height
 
@@ -41,20 +41,18 @@ extension TrackingInfoFinder {
 
             let posInfo = PositionInfo(startX: startX, lastKnowX: lastX, trackings: after.trackings)
             posInfos.append(posInfo)
-            chunkBySequence(words: lineWords, usedIndexes: fittingWordsIndexes).forEach { posInfos += find(from: $0) }
+            chunkBySequence(words: lineWords, usedIndexes: fittingWordsIndexes)
+                .forEach { posInfos += find(from: $0) }
 
             return posInfos
         }
 
         private func getFittedTrackingsWithIndexes(words: [(offset: Int, element: SimpleWord)],
-                                                    with trackings: [Tracking],
-                                                    wordHeight: CGFloat) -> IndexesAndTrackings {
-
+                                                   with trackings: [Tracking],
+                                                   wordHeight: CGFloat) -> IndexesAndTrackings {
             var filteredTrackings = trackings
             var fittingWordsIndexes = SortedArray<Int>()
-            guard !filteredTrackings.isEmpty else {
-                return (fittingWordsIndexes, filteredTrackings)
-            }
+            guard !filteredTrackings.isEmpty else { return (fittingWordsIndexes, filteredTrackings) }
 
             for (index, word) in words {
                 //если первое слово слишком маленькое, то тогда прерываем
@@ -100,20 +98,6 @@ extension TrackingInfoFinder {
             }
             return wordsArray
         }
-
-        private func getBiggestWordIndex(_ words: [SimpleWord], excluded: Set<Int>) -> Int {
-            var biggestWordIndex = 0
-            var biggestWidth: CGFloat = 0
-
-            for (index, word) in words.enumerated() where !excluded.contains(index) {
-                let width = word.frame.width
-                if  width > biggestWidth {
-                    biggestWidth = width
-                    biggestWordIndex = index
-                }
-            }
-            return biggestWordIndex
-        }
     }
 
     struct PositionInfo {
@@ -131,5 +115,21 @@ extension TrackingInfoFinder {
         func check(_ first: CGFloat, with word: SimpleWord) -> Bool {
             return check(first, with: word.frame.height)
         }
+    }
+}
+
+extension Array where Element == SimpleWord {
+    func getBiggestWordIndex(excluded: Set<Int>) -> Int {
+        var biggestWordIndex = 0
+        var biggestWidth: CGFloat = 0
+
+        for (index, word) in enumerated() where !excluded.contains(index) {
+            let width = word.frame.width
+            if  width > biggestWidth {
+                biggestWidth = width
+                biggestWordIndex = index
+            }
+        }
+        return biggestWordIndex
     }
 }

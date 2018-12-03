@@ -9,10 +9,10 @@
 import Foundation
 
 struct LineRestriction: Codable {
-    let leftX: CGFloat?
-    let rightX: CGFloat?
+    var leftX: CGFloat?
+    var rightX: CGFloat?
 
-    init(leftX: CGFloat?, rightX: CGFloat?) {
+    init(leftX: CGFloat? = 0, rightX: CGFloat? = 0) {
         self.leftX = leftX
         self.rightX = rightX
     }
@@ -25,16 +25,8 @@ extension TrackingInfoFinder {
     }
 
     struct RestrictionsCreator {
-        func create(from infos: [PositionInfo], lineIndex: Int) -> [Int: CGFloat] {
-            var forbiddens: [Int: CGFloat] = [:]
-            if infos.count > 1 {
-                forbiddens[lineIndex] = infos[1].startX
-            }
-            return forbiddens
-        }
-
         ///определяет границы для каждого posInfo
-        func create2(from infos: [PositionInfo], lineIndex: Int) -> [PositionInfoWithForbidden] {
+        func create(from infos: [PositionInfo], lineIndex: Int) -> [PositionInfoWithForbidden] {
             var infosWithForbidden: [PositionInfoWithForbidden] = []
             for item in infos.previousCurrentNext() {
                 let forbidden = LineRestriction(leftX: item.previous?.lastKnowX, rightX: item.next?.startX)

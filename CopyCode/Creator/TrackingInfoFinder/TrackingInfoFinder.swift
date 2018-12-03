@@ -10,18 +10,14 @@ import Foundation
 
 struct TrackingInfoFinder {
     typealias SplittedWords = (biggestWord: Word<LetterRectangle>, otherWords: [Word<LetterRectangle>])
-    private let posFinder = PositionInfoFinder()
-    private let action = Action()
-    private let forbiddensCreator = RestrictionsCreator()
-
+    private let posInfoWithForbiddenCreator = PosInfoWithForbiddensCreator()
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
 
         for lineIndex in block.lines.indices where shouldSearch(at: lineIndex, with: trackingInfos) {
-            let trackingInfo = completeFindTrackingInfo(at: lineIndex, with: block.lines)
+            let trackingInfo = completeFindTrackingInfo(at: lineIndex, at: block)
             trackingInfos.append(trackingInfo)
         }
-
         trackingInfos = sumSequenceOfNil(trackingInfos)
         return trackingInfos
     }
@@ -34,81 +30,40 @@ struct TrackingInfoFinder {
         }
     }
 
-    private func completeFindTrackingInfo(at index: Int, with lines: [SimpleLine]) -> TrackingInfo {
-        let line = lines[index]
-        let posInfos = posFinder.find(from: line.words).sorted { $0.startX < $1.startX }
-        let posInfosWithForbiddens = forbiddensCreator.create2(from: posInfos, lineIndex: index)
-
+    private func completeFindTrackingInfo(at index: Int, at block: SimpleBlock) -> TrackingInfo {
+        let line = block.lines[index]
+        let posInfosWithForbiddens = posInfoWithForbiddenCreator.create(line, index: index)
+        //по факту первый не пустой пос инфо работает
+        let wordIndex = line.words.getBiggestWordIndex(excluded: [])
+        let wordHeight = line.words[wordIndex].frame.height
+        let action = Action(wordStandartHeight: wordHeight)
         for info in posInfosWithForbiddens where !info.posInfo.trackings.isEmpty {
-            let trackings = info.posInfo.trackings.map { TrackingError(tracking: $0, errorRate: 0) }
-            let trackingInfo = findTrackingInfo(in: lines, startAt: index, with: info.forbiddens, and: trackings)
+            let temporaryInfo = TrackingInfo(info, startAt: index, endAt: index)
+            let trackingInfo = findTrackingInfo(at: block, with: temporaryInfo, using: action)
             return trackingInfo
         }
-
         return TrackingInfo(startAt: index, endAt: index)
     }
-    enum NewType {
-        case update([TrackingError], restrictedX: CGFloat?)
-        case split
-    }
 
-    func findTrackingInfo(in lines: [SimpleLine],
-                          startAt startIndex: Int,
-                          with forbiddens: [Int: LineRestriction],
-                          and trackings: [TrackingError]) -> TrackingInfo {
-        var lineTrackings = trackings
-        var lastIndex = startIndex
-        var forbiddens = forbiddens
-
-        lineLoop: for lineIndex in lines.indices where startIndex < lineIndex {
+    func findTrackingInfo(at block: SimpleBlock, with temporaryInfo: TrackingInfo, using action: Action) -> TrackingInfo {
+        var info = temporaryInfo
+        lineLoop: for lineIndex in block.lines.indices where info.endIndex < lineIndex {
             print("lineIndex \(lineIndex)\n\n")
-            let type = getAction(for: lineTrackings, in: lines, at: lineIndex)
+            let type = action.action(with: info, at: block)
             switch type {
-            case .split: break lineLoop
-            case let .update(updatedTrackings, restrictedX: x):
-                if let restrictedX = x {
-                    //FIXMEF
-                    forbiddens[lineIndex] = LineRestriction(leftX: nil, rightX: restrictedX)
-                }
-                lineTrackings = updatedTrackings
-                lastIndex = lineIndex
+            case .failure: break lineLoop
+            case .success(let updatedInfo):
+                info = updatedInfo
+                info.endIndex = getEndIndex(for: updatedInfo, in: lineIndex, at: block)
             }
         }
-        let info = infoWithSmallestErrorRate(from: lineTrackings, with: forbiddens, startAt: startIndex, endAt: lastIndex)
         return info
     }
 
-
-    func getAction(for trackings: [TrackingError], in lines: [SimpleLine], at lineIndex: Int) -> NewType {
-        var wordTrackings = trackings
-        wordLoop: for wordIndex in lines[lineIndex].words.indices {
-            print("wordIndex \(wordIndex)\n")
-            let type = action.getAction(for: wordTrackings, in: lines, at: lineIndex, and: wordIndex)
-            switch type {
-            case .split: return .split
-            case .forbidden(let x): return .update(wordTrackings, restrictedX: x)
-            case .update(let updatedTrackings): wordTrackings = updatedTrackings
-            }
-        }
-        return .update(wordTrackings, restrictedX: nil)
-    }
-
-    func test(in lines: [SimpleLine],
-              startAt startIndex: Int,
-              and trackings: [TrackingError]) {
-        //через одну линию
-
-    }
-    private func infoWithSmallestErrorRate(from trackingErrors: [TrackingError],
-                                           with forbiddens: [Int: LineRestriction],
-                                           startAt start: Int,
-                                           endAt end: Int) -> TrackingInfo {
-        let trackings = trackingErrors.sorted { $0.errorRate < $1.errorRate }
-        guard let smallestErrorRate = trackings.first else {
-            return TrackingInfo(startAt: start, endAt: start)
-        }
-
-        return TrackingInfo(tracking: smallestErrorRate.tracking, forbiddens: forbiddens, startAt: start, endAt: end)
+    private func getEndIndex(for trackingInfo: TrackingInfo, in lineIndex: Int, at block: SimpleBlock) -> Int {
+        guard lineIndex == block.lines.count - 1 else { return lineIndex }
+        let words = trackingInfo.findWords(in: block, lineIndex: lineIndex, type: .allowed, restrictedAt: [.horizontal])
+        return words.isExistElement ? lineIndex : trackingInfo.endIndex
     }
 
     private func sumSequenceOfNil(_ trackingInfos: [TrackingInfo]) -> [TrackingInfo] {
@@ -127,9 +82,14 @@ struct TrackingInfoFinder {
     }
 }
 
-extension TrackingInfoFinder {
-    struct TrackingError: ErrorRateProtocol {
-        let tracking: Tracking
-        let errorRate: CGFloat
+struct TrackingError: ErrorRateProtocol {
+    let tracking: Tracking
+    let errorRate: CGFloat
+}
+
+extension Array where Element == TrackingError {
+    var smallestErrorRate: TrackingError? {
+        let trackings = sorted { $0.errorRate < $1.errorRate }
+        return trackings.first
     }
 }

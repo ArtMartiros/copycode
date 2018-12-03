@@ -184,4 +184,8 @@ extension CGRect {
         guard intersects(rect2) else { return nil }
         return self.intersection(rect2)
     }
+
+    func xRange() -> TrackingRange {
+        return leftX...rightX
+    }
 }
