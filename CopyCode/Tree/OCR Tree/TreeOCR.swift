@@ -61,6 +61,7 @@ enum OCROperations: CustomStringConvertible {
     case O_G, I_Z, n4_f, not5, n7_W
     case n_u, r3, r6
     case left4
+    case oOrRounda
     case M_H
     case m_a
     case s_a
@@ -120,7 +121,7 @@ enum OCROperations: CustomStringConvertible {
             results.append($0.exist(x: x, y: 0.9, in: $1, percent: 100))
         }
         print("w_star array \(results)")
-        return results.name(middle: false)
+        return results.name(middleElementIs: false)
         }
         case .braceOrRoundL: return .checkerWithFrame (braceOrRoundLOperation)
         case .braceOrRoundR: return .checkerWithFrame (braceOrRoundROperation)
@@ -142,7 +143,7 @@ enum OCROperations: CustomStringConvertible {
                     results.append($0.exist(x: x, y: 0.6, in: $1, percent: 100))
                 }
                 print("M_H array \(results)")
-                return results.name(middle: false)
+                return results.name(middleElementIs: false)
             }
 
         case .v_u: return .checkerWithFrame (v_uOperation)
@@ -189,7 +190,7 @@ enum OCROperations: CustomStringConvertible {
                 results.append($0.exist(x: 0.7, y: y, in: $1, percent: percent))
             }
             print("f_t array \(results)")
-            return results.name(middle: false)
+            return results.name(middleElementIs: false)
             }
         case .O_G: return .checkerWithFrame (O_GOperation)
         case .I_Z: return .checkerWithFrame {
@@ -316,6 +317,21 @@ enum OCROperations: CustomStringConvertible {
             return $0.exist(x: 0.05, y: 0.5, in: newFrame)
             }
 
+        case .oOrRounda: return .checkerWithFrame { checker, frame in
+            let xArray: [CGFloat] = [0.9, 0.8, 0.7, 0.6]
+            let yArray: [CGFloat] = [0.9, 0.85]
+
+            for y in yArray {
+                let result = xArray
+                    .map { checker.exist(x: $0, y: y, in: frame, percent: 100) }
+                    .name(middleElementIs: false)
+                print("oOrRounda array \(result)")
+                if result {
+                    return false
+                }
+            }
+            return true
+            }
         }
 
     }
@@ -404,6 +420,7 @@ enum OCROperations: CustomStringConvertible {
         case .w_star: return "test"
         case .w_u: return "w_u"
         case .L_l: return "L_l"
+        case .oOrRounda: return "oOrRounda"
 
         }
     }
@@ -548,7 +565,7 @@ enum OCROperations: CustomStringConvertible {
             }
             for y in yArray {
                 print("y \(y)")
-                if !checker.sameWithMirrorX(frame: newFrame, part: 4, of: 10, withY: y, accuracy: 7) {
+                if !checker.sameWithMirrorX(frame: newFrame, withX: 0.4, withY: y, accuracy: 7) {
                     print("false")
                     return false
                 }

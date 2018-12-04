@@ -27,9 +27,7 @@ private let ppSubTree = T.n(.expandFrame(.horizontal), pppSubTree, .empty)
 private let pnSubTree = T.n(.rCr,
                             T.n(.tR,
                                 T.n(.xy(x: 0.05, y: 0.95), .r("]"), .r("1")),
-                                T.n(.yRange(x: 0.85, y: 3...6, op: .and),
-                                    .r(")"),
-                                    .r("}"))),
+                                braceOrRoundR),
                             T.n(.lCr,
                                 T.n(.tL, .r("["), braceOrRoundLOne),
                                 T.n(.bL, .r("I"), .r("1"))))
@@ -165,7 +163,6 @@ private let nppnSubTree = T.n(.tCr,
                                       .r("1"),
                                       T.n(.yRange(x: 0.9, y: 4...7, op: .and),
                                           .r("d"),
-                                          ///sss
                                           t4AndTree))))
 // MARK: nnpp
 private let nnppSubTree = T.n(.bC,
@@ -226,7 +223,6 @@ private let nnpnSubTree = T.n(.bC,
                                                   n83SDollarTree,
                                                   T.n(.not5, n83Tree, .r("5")))),
                                           f_tTree))),
-                              //sssss
     n7fWDollarSlashTree)
 // MARK: nnnp
 private let nnnpSubTree = T.n(.xy(x:0.05, y: 0.95),
@@ -240,7 +236,9 @@ private let nnnpSubTree = T.n(.xy(x:0.05, y: 0.95),
                                                   T.n(.xRange(x: 8...10, y: 0.8, op: .or), .r("D"), .r("P")))),
                                           T.n(.xy(x:0.05, y: 0.3),
                                               .r("5"),
-                                              T.n(.yRange(x: 1, y: 6...8, op: .and), .r("J"), .r("}")))),
+                                              T.n(.yRange(x: 1, y: 6...8, op: .and),
+                                                  .r("J"),
+                                                  braceOrRoundR))),
                                       T.n(.tR,
                                           .r("U"),
                                           T.n(.lCr, .r("b"), .r("}")))),
@@ -341,6 +339,7 @@ private let n7fWDollarSlashTree = T.n(.n7_W,
 private let dollarOrWTree = T.n(.xRange(x:7...10, y: 0.3, op: .or), .r("W"), .r("$"))
 private let braceOrRoundL = T.n(.yRange(x: 0.1, y: 3...6, op: .and), roundOrSquareL, .r("{"))
 private let braceOrRoundLOne = T.n(.yRange(x: 0.05, y: 3...6, op: .and), roundOrSquareL, .r("{"))
+private let braceOrRoundR = T.n(.yRange(x: 0.85, y: 3...6, op: .and), .r(")"), .r("}"))
 private let roundOrSquareR = T.n(.yRange(x: 1, y: 7...9, op: .and), .r("]"), .r(")"))
 private let roundOrSquareL = T.n(.yRange(x: 0, y: 7...9, op: .and), .r("["), .r("("))
 private let n59Tree = T.n(.topCircleRight, .r("9"), .r("5"))

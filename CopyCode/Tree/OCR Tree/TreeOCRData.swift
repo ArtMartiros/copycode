@@ -31,7 +31,9 @@ let commaOCRTree = T.n(.semicolon, .r(";"), .r(","))
 let colonOCRTree = T.n(.colon,
                        T.n(.exclamationMarkOrColon, .r("!"), .r(":")),
                        .r("."))
-let quoteOCRTree = T.n(.ratio(>, 1), .r("'"), .r("^"))
+let quoteOCRTree = T.n(.ratio(>, 1.2),
+                       .r("'"),
+                       T.n(.xy(x: 0.5, y: 0.9), .r("*"), .r("^")))
 
 extension LetterType {
     /// Собраны все бинарные деревья по логике определения буквы

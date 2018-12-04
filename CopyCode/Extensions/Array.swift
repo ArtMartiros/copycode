@@ -142,16 +142,16 @@ extension Array where Element: Rectangle {
 extension Array where Element == Bool {
     ///не придумал название
     ///находит если средний элемент отличен от крайних
-    func name(middle: Bool) -> Bool {
-        let startIndex = firstIndex { $0 == !middle }
+    func name(middleElementIs: Bool) -> Bool {
+        let startIndex = firstIndex { $0 == !middleElementIs }
 
         guard let index = startIndex else { return false }
         let newArray = self[index..<count]
-        let optionMiddleIndex = newArray.firstIndex { $0 == middle }
+        let optionMiddleIndex = newArray.firstIndex { $0 == middleElementIs }
 
         guard let middleIndex = optionMiddleIndex else { return false }
         let newArray2 = self[middleIndex..<count]
-        return newArray2.first { $0 == !middle} != nil
+        return newArray2.first { $0 == !middleElementIs} != nil
     }
 }
 

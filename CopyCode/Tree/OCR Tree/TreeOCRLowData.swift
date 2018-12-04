@@ -15,6 +15,8 @@ private let w_mTree = T.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
                           .r("m"))
 private let s_aTree = T.n(.yRange(x: 0.05, y: 6...8, op: .and), .r("a"), .r("s"))
 private let e_aTree = T.n(.e_a, .r("e"), .r("a"))
+//для a которая круглая как o
+private let a_oTree = T.n(.oOrRounda, .r("o"), .r("a"))
 private let v_uTree = T.n(.v_u, .r("v"), .r("u"))
 private let z_rTree = T.n(.xy(x:0.8, y: 0.1), .r("z"), .r("i"))
 private let n_wSubTree = T.n(.xRange(x: 2...7, y: 0.1, op: .and), .r("n"), .r("w"))
@@ -68,7 +70,6 @@ private let npnLowSubTree = T.n(.tC,
 private let nnpLowSubTree = T.n(.lC,
                                 T.n(.yRange(x: 1, y: 7...9, op: .and),
                                     .r("a"),
-                                    //ssss
                                     T.n(.plus_e,
                                         .r("+"),
                                         T.n(.yRange(x: 0.5, y: 9...10, op: .or),
@@ -98,7 +99,7 @@ private let nnnLowSubTree = T.n(.question,
                                 T.n(.rC,
                                     T.n(.yRange(x:0.5, y: 4...6, op: .or),
                                         T.n(.xy(x: 0.5, y: 0.9), .r("a"), .r(">")),
-                                        .r("o")),
+                                        a_oTree),
                                     T.n(.bL,
                                         T.n(.yRange(x:0.95, y: 0...2, op: .or),
                                             .r("r"),
@@ -113,8 +114,9 @@ private let nnnLowSubTree = T.n(.question,
 
                                                 T.n(.yRange(x: 0.3, y: 0...1, op: .or), .r("c"), .r("<")),
                                                 T.n(.yRange(x: 0.5, y: 0...1, op: .or),
-                                                    .r("o"),
+                                                    a_oTree,
                                                     .r("v")))))))
+
 // MARK: - ------------------------4 LEVEL-----------------------------
 // MARK: nppp
 private let npppLowSubTree = T.n(.n_u,
@@ -133,9 +135,9 @@ private let npppLowSubTree = T.n(.n_u,
                                      T.n(.xy(x: 0.95, y: 0.95),
                                          T.n(.xy(x: 0.5, y: 0.05), .r("m"), .r("u")),
                                          .r("v")),
-                                     w_mTree))
-
-
+                                    T.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
+                                        T.n(.yRange(x: 0.5, y: 9...10, op: .or), .r("u"), .r("w")),
+                                        .r("m"))))
 
 // MARK: nppn
 private let nppnLowSubTree = T.n(.xy(x: 0, y: 1),
