@@ -16,4 +16,10 @@ struct EqualityChecker {
         let value = min(first, second)
         return value >= percent
     }
+
+    static func check1(of left: CGFloat, with right: CGFloat, errorPercentRate: CGFloat) -> Bool {
+        let percent = 100 - errorPercentRate
+        let value = min(left,right) / max(left,right) * 100
+        return value >= percent
+    }
 }

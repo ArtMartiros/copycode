@@ -107,9 +107,9 @@ extension TrackingInfoFinder {
     }
 
     struct WordHeightSamenessChecker {
-        private let kErrorPercentRate: CGFloat = 30
+        private let kErrorPercentRate: CGFloat = 35
         func check(_ first: CGFloat, with second: CGFloat) -> Bool {
-          return EqualityChecker.check(of: first, with: second, errorPercentRate: kErrorPercentRate)
+          return EqualityChecker.check1(of: first, with: second, errorPercentRate: kErrorPercentRate)
         }
 
         func check(_ first: CGFloat, with word: SimpleWord) -> Bool {

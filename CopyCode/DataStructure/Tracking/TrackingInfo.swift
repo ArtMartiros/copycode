@@ -116,6 +116,16 @@ struct TrackingInfo {
         return []
     }
 
+    func emptyLinesCountsAtTheEnd(at block: SimpleBlock) -> Int {
+        var count = 0
+        for lineIndex in Array(startIndex...endIndex).reversed() {
+            let words = findWords(in: block, lineIndex: lineIndex, type: .allowed, restrictedAt: [.horizontal])
+            guard words.isEmpty else { return count }
+            count += 1
+        }
+        return 0
+    }
+
     func findArrayOfWords(in block: SimpleBlock, type: WordsFinderType) -> [[SimpleWord]] {
         let indexes = Array(startIndex...endIndex)
         let arrayOfWords = indexes.map { findWords(in: block, lineIndex: $0, type: type, restrictedAt: [.horizontal]) }

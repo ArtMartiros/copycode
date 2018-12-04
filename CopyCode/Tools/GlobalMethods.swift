@@ -56,6 +56,12 @@ enum SimpleSuccess<T> {
     case success(T)
 }
 
+///case failure(F) or case success(S)
+enum ComplicatedSuccess<S, F> {
+    case failure(F)
+    case success(S)
+}
+
 /// Cases: left, right, top, bottom
 enum Direction: Int {
     case left = 0

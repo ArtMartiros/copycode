@@ -10,8 +10,9 @@ import Foundation
 
 extension TrackingInfoFinder {
     enum ActionType {
-        case update([TrackingError], restrictedX: CGFloat?)
-        case split
+        case failure
+        case restrictedLineInRow(Int)
+        case success(TrackingInfo)
     }
 
     struct Action {
@@ -21,12 +22,12 @@ extension TrackingInfoFinder {
         private let blockChecker = BlockChecker()
         private let samenessChecker = WordHeightSamenessChecker()
         private let wordStandartHeight: CGFloat
-
+        private let kMaxRestrictedLinesInARow = 3
         init(wordStandartHeight: CGFloat) {
             self.wordStandartHeight = wordStandartHeight
         }
 
-        func action(with info: TrackingInfo, at block: SimpleBlock) -> SimpleSuccess<TrackingInfo> {
+        func action(with info: TrackingInfo, at block: SimpleBlock) -> ActionType {
             var info = info
             var posInfoWithForbidden: [PositionInfoWithForbidden] = []
             let lineIndex = info.endIndex + 1 //текущий
@@ -42,10 +43,15 @@ extension TrackingInfoFinder {
                         continue wordLoop
                     }
 
+                    let count = info.emptyLinesCountsAtTheEnd(at: block)
+                    if count >= kMaxRestrictedLinesInARow {
+                        return .restrictedLineInRow(count - 1)
+                    }
                     let blocked = blockChecker.isBlocked(current: info, and: line, lineIndex: lineIndex, in: block)
                     switch blocked {
                     case .blocked: return .failure
-                    case .allowed(let restriction): info.restrictionDic[lineIndex] = restriction
+                    case .allowed(let restriction):
+                        info.restrictionDic[lineIndex] = restriction
                     }
                     return .success(info)
                 case .similarTracking: return .failure  //мы его отделим так как можно найти намного лучший тракинг для него

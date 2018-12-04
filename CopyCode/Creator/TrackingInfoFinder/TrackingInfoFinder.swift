@@ -9,11 +9,11 @@
 import Foundation
 
 struct TrackingInfoFinder {
-    typealias SplittedWords = (biggestWord: Word<LetterRectangle>, otherWords: [Word<LetterRectangle>])
+
     private let posInfoWithForbiddenCreator = PosInfoWithForbiddensCreator()
+
     func find(from block: Block<LetterRectangle>) -> [TrackingInfo] {
         var trackingInfos: [TrackingInfo] = []
-
         for lineIndex in block.lines.indices where shouldSearch(at: lineIndex, with: trackingInfos) {
             let trackingInfo = completeFindTrackingInfo(at: lineIndex, at: block)
             trackingInfos.append(trackingInfo)
@@ -48,9 +48,11 @@ struct TrackingInfoFinder {
     func findTrackingInfo(at block: SimpleBlock, with temporaryInfo: TrackingInfo, using action: Action) -> TrackingInfo {
         var info = temporaryInfo
         lineLoop: for lineIndex in block.lines.indices where info.endIndex < lineIndex {
-            print("lineIndex \(lineIndex)\n\n")
             let type = action.action(with: info, at: block)
             switch type {
+            case .restrictedLineInRow(let backCount):
+                info.endIndex -= backCount
+                break lineLoop
             case .failure: break lineLoop
             case .success(let updatedInfo):
                 info = updatedInfo
@@ -79,17 +81,5 @@ struct TrackingInfoFinder {
             return newResult
         }
         return infos
-    }
-}
-
-struct TrackingError: ErrorRateProtocol {
-    let tracking: Tracking
-    let errorRate: CGFloat
-}
-
-extension Array where Element == TrackingError {
-    var smallestErrorRate: TrackingError? {
-        let trackings = sorted { $0.errorRate < $1.errorRate }
-        return trackings.first
     }
 }

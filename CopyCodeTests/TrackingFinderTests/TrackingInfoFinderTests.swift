@@ -52,8 +52,9 @@ class TrackingInfoFinderTests: XCTestCase {
     }
 
     func testSc6() {
-        let answers = [Answer(start: 2, end: 22)]
-        let info = getChunked(.sc6, isLow: false, position: 2)
+        let answers = [Answer(start: 2, end: 19), Answer(start: 20, end: 20),
+                       Answer(start: 21, end: 21)]
+        let info = getChunked(.sc6, isLow: false, position: 1)
         for (answerIndex, answer) in answers.enumerated() {
             let current = info[answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
@@ -110,6 +111,16 @@ class TrackingInfoFinderTests: XCTestCase {
     func testSc23() {
         let answers = [Answer(start: 6, end: 18)]
         let info = getChunked(.sc23, isLow: false, position: 3)
+        for (answerIndex, answer) in answers.enumerated() {
+            let current = info[answerIndex]
+            XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
+            XCTAssertTrue(current.endIndex == answer.end, "end: \(current.endIndex) != answer: \(answer.end)")
+        }
+    }
+
+    func testSc26() {
+        let answers = [Answer(start: 4, end: 6), Answer(start: 7, end: 12)]
+        let info = getChunked(.sc26, isLow: false, position: 1)
         for (answerIndex, answer) in answers.enumerated() {
             let current = info[answerIndex]
             XCTAssertTrue(current.startIndex == answer.start, "start: \(current.startIndex) != answer: \(answer.start)")
