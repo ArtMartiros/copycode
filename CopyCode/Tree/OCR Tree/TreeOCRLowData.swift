@@ -112,7 +112,9 @@ private let nnnLowSubTree = T.n(.question,
                                             T.n(.xRange(x: 5...8, y: 0.5, op: .allFalse),
 
                                                 T.n(.yRange(x: 0.3, y: 0...1, op: .or), .r("c"), .r("<")),
-                                                .r("v"))))))
+                                                T.n(.yRange(x: 0.5, y: 0...1, op: .or),
+                                                    .r("o"),
+                                                    .r("v")))))))
 // MARK: - ------------------------4 LEVEL-----------------------------
 // MARK: nppp
 private let npppLowSubTree = T.n(.n_u,

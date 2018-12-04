@@ -90,6 +90,7 @@ enum Scene: String {
         case .sc15: return sc15_letter
         case .sc16: return sc16_letter
         case .sc17: return sc17_letter
+        case .sc18: return sc18_letter
         default: return [:]
         }
     }
