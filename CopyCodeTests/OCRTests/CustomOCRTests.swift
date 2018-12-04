@@ -41,7 +41,7 @@ class CustomOCRTests: XCTestCase {
             XCTAssertEqual(answer, position.letter.value, "l: \(position.l), w: \(position.w) c: \(position.c)")
         }
     }
-    
+
     private func checkLetter(from scene: Scene, bg: ColorType, completion: (String, CompletedLetterPosition) -> Void ) {
         let bitmap = scene.getImage(isLow: false).bitmap
         let letterPositions = scene.getCustomLettersPosition()
@@ -57,15 +57,15 @@ class CustomOCRTests: XCTestCase {
             completion(answer, position)
         }
     }
-    
+
     private func getRecognizer(from bitmap: NSBitmapImageRep, frame: Rectangle, bg: ColorType) -> LetterRecognizer {
-        
+
         let colorFinder = UniversalWhiteColorFinder(picker: ColorPicker(bitmap))
         let wordFactor = WordFactor(rectangle: frame)
         let recognizer = LetterRecognizer(in: bitmap, wordBackgroundWhiteColor: bg.rawValue,
                                           letterColorFinder: colorFinder, wordFactor: wordFactor)
-        
+
         return recognizer
     }
-    
+
 }

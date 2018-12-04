@@ -99,9 +99,12 @@ private let npnLowSubTree = OCR.n(.tC,
                                         OCR.n(.bC,
                                               OCR.n(.xy(x:0.95, y:0.05), .r("r"), .r("i")),
                                               OCR.n(.xRange(x: 7...9, y: 0.8, op: .or),
-                                                    .r("x"), .r(">"))),
+                                                    //так как плохо сочетается с sc9
+                                                    OCR.n(.xRangeP(x: 0...1, y: 0.5, op: .or, p: 0.8),
+                                                          .r("w"),
+                                                          .r("x")),
+                                                    .r(">"))),
                                         OCR.n(.w_u,
-                                              //ssss
                                             .r("w"),
                                             v_uTree)))
 

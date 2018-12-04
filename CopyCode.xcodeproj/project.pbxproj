@@ -209,6 +209,7 @@
 		AC75D91C21B67F68003D195F /* sc25_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC75D91B21B67F68003D195F /* sc25_restored.json */; };
 		AC75D91E21B680BD003D195F /* sc26_restored.json in Resources */ = {isa = PBXBuildFile; fileRef = AC75D91D21B680BD003D195F /* sc26_restored.json */; };
 		AC75D92021B68264003D195F /* sc26_type.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D91F21B68264003D195F /* sc26_type.swift */; };
+		AC75D97E21B68941003D195F /* sc14_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D97D21B68941003D195F /* sc14_letter.swift */; };
 		AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */; };
 		AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		AC78AD1F21B0181E009EDB15 /* sc28_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC78AD1E21B0181E009EDB15 /* sc28_grid.json */; };
@@ -645,6 +646,7 @@
 		AC75D91B21B67F68003D195F /* sc25_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc25_restored.json; sourceTree = "<group>"; };
 		AC75D91D21B680BD003D195F /* sc26_restored.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc26_restored.json; sourceTree = "<group>"; };
 		AC75D91F21B68264003D195F /* sc26_type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc26_type.swift; sourceTree = "<group>"; };
+		AC75D97D21B68941003D195F /* sc14_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc14_letter.swift; sourceTree = "<group>"; };
 		AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_tracking_info.json; sourceTree = "<group>"; };
 		AC785A62214D80D2002C918D /* TextViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCreator.swift; sourceTree = "<group>"; };
 		AC78AD1E21B0181E009EDB15 /* sc28_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_grid.json; sourceTree = "<group>"; };
@@ -1240,6 +1242,7 @@
 				ACA646702188C5E1005F6302 /* sc3_p2_letter.swift */,
 				ACE0E2312170D4C000E28E28 /* sc9_letter.swift */,
 				AC302DD1217794FC0073A569 /* sc11_letter.swift */,
+				AC75D97D21B68941003D195F /* sc14_letter.swift */,
 				AC613AEC21A4098A00C574CB /* sc15_letter.swift */,
 			);
 			path = Letters;
@@ -2443,6 +2446,7 @@
 				AC790430215CBE13001D1FB1 /* TrackingData.swift in Sources */,
 				ACC187022181BC0E005FAFAA /* TrackingStartPointGenerator.swift in Sources */,
 				ACDA6DC9215EB26300A7AA62 /* TrackingTests.swift in Sources */,
+				AC75D97E21B68941003D195F /* sc14_letter.swift in Sources */,
 				AC74061F21563AD6007AC07E /* BlockPreparator.swift in Sources */,
 				AC95B4B3214130C60007B5C5 /* Tracking.swift in Sources */,
 				AC675779212C57CF0051C34A /* GapsCreator.swift in Sources */,

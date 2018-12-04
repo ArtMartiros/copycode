@@ -10,7 +10,7 @@ import Foundation
 
 struct Settings {
     static let release = false
-    private static let isDefault = false
+    private static let isDefault = true
     private static let defaultTest = false
     private static let defaultShowInitialBlock = false
     private static let defaultEnableFirebase = true
@@ -29,5 +29,5 @@ struct Settings {
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : false
 
-    static let shouldPrint = true
+    static let shouldPrint = false
 }
