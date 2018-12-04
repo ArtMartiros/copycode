@@ -28,7 +28,9 @@ let dashOrHyphenOCRTree = T.n(.hyphenOrDash,
                                 .n(.equalOrDash, .r("="), .r("-")))
 
 let commaOCRTree = T.n(.semicolon, .r(";"), .r(","))
-let colonOCRTree = T.n(.colon, .r(":"), .r("."))
+let colonOCRTree = T.n(.colon,
+                       T.n(.exclamationMarkOrColon, .r("!"), .r(":")),
+                       .r("."))
 let quoteOCRTree = T.n(.ratio(>, 1), .r("'"), .r("^"))
 
 extension LetterType {

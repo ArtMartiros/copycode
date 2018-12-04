@@ -10,7 +10,9 @@ import Foundation
 
 private typealias T = TreeOCR
 private let s_rTree = T.n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
-private let m_wTree = T.n(.xy(x: 0.05, y: 0.95), .r("m"), .r("w"))
+private let w_mTree = T.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
+                          .r("w"),
+                          .r("m"))
 private let s_aTree = T.n(.yRange(x: 0.05, y: 6...8, op: .and), .r("a"), .r("s"))
 private let e_aTree = T.n(.e_a, .r("e"), .r("a"))
 private let v_uTree = T.n(.v_u, .r("v"), .r("u"))
@@ -66,6 +68,7 @@ private let npnLowSubTree = T.n(.tC,
 private let nnpLowSubTree = T.n(.lC,
                                 T.n(.yRange(x: 1, y: 7...9, op: .and),
                                     .r("a"),
+                                    //ssss
                                     T.n(.plus_e,
                                         .r("+"),
                                         T.n(.yRange(x: 0.5, y: 9...10, op: .or),
@@ -123,14 +126,14 @@ private let npppLowSubTree = T.n(.n_u,
                                          .r("o")),
                                      T.n(.xRangeP(x: 4...6, y: 0.5, op: .allFalse, p: 92),
                                          .r("n"),
-                                         T.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),
-                                             .r("w"),
-                                             .r("m")))),
+                                         w_mTree)),
                                  T.n(.xy(x: 0.5, y: 0.95),
                                      T.n(.xy(x: 0.95, y: 0.95),
                                          T.n(.xy(x: 0.5, y: 0.05), .r("m"), .r("u")),
                                          .r("v")),
-                                     m_wTree))
+                                     w_mTree))
+
+
 
 // MARK: nppn
 private let nppnLowSubTree = T.n(.xy(x: 0, y: 1),

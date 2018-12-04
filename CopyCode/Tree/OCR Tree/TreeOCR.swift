@@ -54,7 +54,9 @@ enum OCROperations: CustomStringConvertible {
     case yRange(x: CGFloat, y: ClosedRange<Int>, op: LogicalOperator)
     case yRangeP(x: CGFloat, y: ClosedRange<Int>, op: LogicalOperator, p: CGFloat)
     case vLine(l: ClosedRange<Int>, x: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator)
+    case vLineP(l: ClosedRange<Int>, x: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator, p: CGFloat)
     case hLine(l: ClosedRange<Int>, y: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator)
+    case hLineP(l: ClosedRange<Int>, y: ClosedRange<Int>, op: LogicalOperator, mainOp: LogicalOperator, p: CGFloat)
     case H_N, c, p_d, Z_S, G_C, t_4, K_k, f_t
     case O_G, I_Z, n4_f, not5, n7_W
     case n_u, r3, r6
@@ -76,6 +78,7 @@ enum OCROperations: CustomStringConvertible {
     case braceOrRoundL
     case braceOrRoundR
     case colon
+    case exclamationMarkOrColon
     case i_t
     case w_u
     case l_1
@@ -178,7 +181,7 @@ enum OCROperations: CustomStringConvertible {
             }
         case .K_k: return .checkerWithFrame { $0.exist(xRange: 6...7, of: 8, y: 0.1, with: $1, op: .or) }
         case .f_t: return .checkerWithFrame {
-            let yArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
+            let yArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.35, 0.4, 0.5]
             var results: [Bool] = []
             //для большего шрифта надо понизить четкость
             let percent: CGFloat =  $1.width > 11 ? 90 : 100
@@ -223,6 +226,7 @@ enum OCROperations: CustomStringConvertible {
             return $0.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
             }
         case .colon: return .checkerWithFrame (colonOperation)
+        case .exclamationMarkOrColon: return .checkerWithFrame (exclamationMarkOrColonOperation)
         case .i_t: return .checkerWithFrame {
             if !$0.exist(x: 0.1, y: 0.6, in: $1) {
                 return $0.exist(x: 0.1, y: 0.95, in: $1)
@@ -245,7 +249,7 @@ enum OCROperations: CustomStringConvertible {
                                  $0.exist(x: 0.2, y: 0.8, in: $1),
                                  $0.exist(x: 0.8, y: 0.2, in: $1),
                                  $0.exist(x: 0.8, y: 0.8, in: $1)]
-            return array.filter { $0 == false }.count >= 3
+            return array.filter { $0 }.isEmpty
             }
         case .E_5: return .checkerWithFrame {
             $0.exist(yRange: 5...7, of: 10, x: 0.05, with: $1, op: .and, percent: 90)
@@ -290,10 +294,15 @@ enum OCROperations: CustomStringConvertible {
         case let .vLine(l, x, op, mainOp): return .checkerWithFrame {
             $0.exist(vLine: l, xRange: x, with: $1, op: op, mainOp: mainOp)
             }
+        case let .vLineP(l, x, op, mainOp, p): return .checkerWithFrame {
+            $0.exist(vLine: l, xRange: x, with: $1, op: op, mainOp: mainOp, percent: p)
+            }
         case let .hLine(l, y, op, mainOp): return .checkerWithFrame {
             $0.exist(hLine: l, yRange: y, with: $1, op: op, mainOp: mainOp)
             }
-
+        case let .hLineP(l, y, op, mainOp, p): return .checkerWithFrame {
+            $0.exist(hLine: l, yRange: y, with: $1, op: op, mainOp: mainOp, percent: p)
+            }
         case .x_asterix: return .checkerWithFrame {
             $0.exist(xRange: 7...9, of: 10, y: 0.95, with: $1, op: .or) &&
             $0.exist(xRange: 1...3, of: 10, y: 0.95, with: $1, op: .or) &&
@@ -363,6 +372,7 @@ enum OCROperations: CustomStringConvertible {
         case .S_Dollar: return "S_Dollar"
         case .semicolon: return "semicolon"
         case .colon: return "colon"
+        case .exclamationMarkOrColon: return "exclamationMarkOrColon"
         case .i_t: return "i_t"
         case .R_K: return "R_K"
         case .O_Q: return "O_Q"
@@ -384,8 +394,12 @@ enum OCROperations: CustomStringConvertible {
         case .s_a: return "s_a"
         case let .vLine(l, op, x, mainOp):
             return "vLine: \(l), lineOp: \(op), x: \(x), mainOp: \(mainOp)"
+        case let .vLineP(l, op, x, mainOp, p):
+            return "vLineP: \(l), lineOp: \(op), x: \(x), mainOp: \(mainOp), percent: \(p)"
         case let .hLine(l, op, y, mainOp):
             return "hLine: \(l), lineOp: \(op), y: \(y), mainOp: \(mainOp)"
+        case let .hLineP(l, op, y, mainOp, p):
+            return "hLineP: \(l), lineOp: \(op), y: \(y), mainOp: \(mainOp), percent: \(p)"
         case .x_asterix:  return "x_asterix"
         case .w_star: return "test"
         case .w_u: return "w_u"
@@ -589,6 +603,15 @@ enum OCROperations: CustomStringConvertible {
                 return true
             }
             return false
+        }
+    }
+
+    private var exclamationMarkOrColonOperation: Operation {
+        return { checker, frame in
+            let distance = (frame.height * 3).uintRounded()
+            let topFrame = frame.update(by: distance, in: .offset(.top))
+
+            return checker.exist(yRange: 0...4, of: 10, x: 0.5, with: topFrame, op: .and)
         }
     }
 
