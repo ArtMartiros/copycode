@@ -9,25 +9,27 @@
 import Foundation
 
 typealias TreeOCR = Tree<OCROperations, String>
+private typealias T = TreeOCR
+private let g_qTree: T = .n(.yRange(x: 0.5, y: 9...10, op: .or), .r("g"), .r("q"))
 
-private let g_qTree: TreeOCR = .n(.bC, .r("g"), .r("q"))
+let lowWithTailOCRTree = T.n(.xy(x:0, y:0.05),
+                               .n(.lC,
+                                  .n(.xy(x:0.9, y: 0.8),
+                                     g_qTree,
+                                     .n(.xy(x: 0.05, y: 0.7), .r("p"), .r("y"))),
+                                  .n(.rC, .r("j"), .r("y"))),
+                               .n(.xyp(x:0.1, y: 0.33, p: 110),
+                                  .n(.xRange(x: 8...9, y: 0.8, op: .or),
+                                     g_qTree,
+                                     .r("p")) ,
+                                  .r("j")))
+let dashOrHyphenOCRTree = T.n(.hyphenOrDash,
+                                .r("~"),
+                                .n(.equalOrDash, .r("="), .r("-")))
 
-let lowWithTailOCRTree: TreeOCR = .n(.xy(x:0, y:0.05),
-                                                 .n(.lC,
-                                                    .n(.xy(x:0.9, y: 0.8),
-                                                       g_qTree,
-                                                       .n(.xy(x: 0.05, y: 0.7), .r("p"), .r("y"))),
-                                                    .n(.rC, .r("j"), .r("y"))),
-                                                 .n(.xyp(x:0.1, y: 0.33, p: 110),
-                                                    .n(.xy(x:0.9, y: 0.8), g_qTree, .r("p")) ,
-                                                    .r("j")))
-let dashOrHyphenOCRTree: TreeOCR = .n(.hyphenOrDash,
-                                      .r("~"),
-                                      .n(.equalOrDash, .r("="), .r("-")))
-
-let commaOCRTree: TreeOCR = .n(.semicolon, .r(";"), .r(","))
-let colonOCRTree: TreeOCR = .n(.colon, .r(":"), .r("."))
-let quoteOCRTree: TreeOCR = .n(.ratio(>, 1), .r("'"), .r("^"))
+let commaOCRTree = T.n(.semicolon, .r(";"), .r(","))
+let colonOCRTree = T.n(.colon, .r(":"), .r("."))
+let quoteOCRTree = T.n(.ratio(>, 1), .r("'"), .r("^"))
 
 extension LetterType {
     /// Собраны все бинарные деревья по логике определения буквы
@@ -43,7 +45,7 @@ extension LetterType {
         case .quote: return quoteOCRTree
         case .undefined: return .r("...")
         case .custom: return customOCRTree
-            //тип введен после восстановления LetterResotrer
+        //тип введен после восстановления LetterResotrer
         case .doubleQuote: return .r("\"")
 
         }

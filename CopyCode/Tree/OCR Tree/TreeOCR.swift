@@ -133,7 +133,7 @@ enum OCROperations: CustomStringConvertible {
         case .c: return  .checkerWithFrame { $0.exist(at: $1.c) }
         case .G_C: return .checkerWithFrame { $0.exist(x: 1, y: 0.6, in: $1) }
         case .M_H: return .checkerWithFrame {
-                let xArray: [CGFloat] = [0.1, 0.2, 0.3, 0.4, 0.5]
+                let xArray: [CGFloat] = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
                 var results: [Bool] = []
                 for x in xArray {
                     results.append($0.exist(x: x, y: 0.6, in: $1, percent: 100))
@@ -275,7 +275,6 @@ enum OCROperations: CustomStringConvertible {
         case .s_a: return .checkerWithFrame {
             !$0.exist(vLine: 2...4, xRange: 8...9, with: $1, op: .and, mainOp: .or) }
         case .e_a: return .checkerWithFrame {
-            $0.exist(xRange: 6...9, of: 10, y: 0.9, with: $1, op: .allFalse, percent: 70) ||
                 $0.exist(xRange: 6...9, of: 10, y: 0.8, with: $1, op: .allFalse, percent: 70) ||
                 $0.exist(xRange: 6...9, of: 10, y: 0.7, with: $1, op: .allFalse, percent: 70) ||
                 $0.exist(xRange: 6...9, of: 10, y: 0.6, with: $1, op: .allFalse, percent: 70)

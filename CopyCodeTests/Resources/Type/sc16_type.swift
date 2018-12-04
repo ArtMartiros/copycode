@@ -17,6 +17,6 @@ let sc16_type = [
     4: "uuullulluuuuulluulllullu, ltllllu,",
     5: "uuullulluullluluuulllullu, uuuuluuuluuu,",
 
-    6: "uuulltl lllltl c uuulltullluluulltlulllullllluulltlullulluuu,",
+    6: "uuulltl lllltl c uuulltullluluulltlulllullllluulltlullulluuu, ccccccccc",
     7: "uuulltullluluulltlullulluuu,"
 ]
