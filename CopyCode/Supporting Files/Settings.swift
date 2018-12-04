@@ -29,5 +29,5 @@ struct Settings {
     static let showAlert = isDefault ? defaultShowAlert : false
     static let filterBlock = isDefault ? defaultFilterBlock : false
 
-    static let shouldPrint = false
+    static let shouldPrint = true
 }

@@ -90,4 +90,28 @@ class SceneTypeTests: XCTestCase {
         }
     }
 
+    func testSc23() {
+        TypeHelper.execute(self, scene: .sc23, exluded: [], isLow: false) { (type, position) in
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
+    func testSc24() {
+        TypeHelper.execute(self, scene: .sc24, exluded: [], isLow: false) { (type, position) in
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
+    func testSc25() {
+        TypeHelper.execute(self, scene: .sc25, exluded: [], isLow: false) { (type, position) in
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
+    func testSc26() {
+        TypeHelper.execute(self, scene: .sc26, exluded: [], isLow: false) { (type, position) in
+            XCTAssertEqual(position.letter.type, type, TypeHelper.message(position))
+        }
+    }
+
 }

@@ -27,7 +27,7 @@ private let dotsOrDash: TreeType = .n(.squareForDot,
 private let kGridOnlyUpperMaxRatio: CGFloat = 0.8
 private let kGridUpperSureMaxRatio: CGFloat = 0.64
 private let kGridUpperMaxRatio: CGFloat = 0.59
-private let kGridLowMaxRatio: CGFloat = 0.45
+private let kGridLowMaxRatio: CGFloat = 0.44
 private let kGridCommaMaxRatio: CGFloat = 0.24
 
 let quotesOrDots: TreeType = .n(.maxHRatio(>, kGridCommaMaxRatio),

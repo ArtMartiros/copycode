@@ -12,7 +12,8 @@ let sc22_type = [
     0: "llu lllluuu",
     1: "lllu ll culuul ulluu\" ll lluuc",
     2: "llllu ulluul uu c u.uuuuuuuuuu,",
-    3: "ullu llulttt c ulll,",
-    4: "llu ltutl c",
-    5: "llulllu,"
+    3: "lull ltullul c cccc",
+    4: "ullu llulttt c ulll,",
+    5: "llu ltutl c,",
+    6: "llulll u,"
 ]

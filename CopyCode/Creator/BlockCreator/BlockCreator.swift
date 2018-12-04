@@ -32,9 +32,9 @@ final class BlockCreator: BlockCreatorProtocol {
         Timer.stop(text: "BlockCreator Initial Created")
         if Settings.showInitialBlock { return blocks }
         let trackingUpdatedBlocks = blocksUpdatedAfterTracking(blocks)
-        for block in blocks {
-            block.toJSON().shouldPrint()
-        }
+//        for block in blocks {
+//            block.toJSON().shouldPrint()
+//        }
 
         Timer.stop(text: "BlockCreator Tracking Created")
         let leadingUpdatedBlocks = blocksUpdatedAfterLeading(trackingUpdatedBlocks)
