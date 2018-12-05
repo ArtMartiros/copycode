@@ -22,7 +22,7 @@ final class LeadingAndBlockUpdater {
 
     func update(block: SimpleBlock) -> [SimpleBlock] {
         let lowDiffInfos = getDifference(from: block, type: .low, grid: grid)
-        getDifference(from: block, type: .lowWithTail, grid: grid)
+//        getDifference(from: block, type: .lowWithTail, grid: grid)
         let chunks = chunksCreator.create(from: lowDiffInfos, fontSize: grid.leading.fontSize)
         let infos = getLeadingInfos(from: chunks)
         var blocks: [SimpleBlock] = []
@@ -31,16 +31,16 @@ final class LeadingAndBlockUpdater {
         for (index, info) in infos.enumerated() where index == 0 {
             guard let leading = updatedLeadingSizeAndSpacing(from: info, block: block) else { continue }
             newGrid.update(leading)
-            getDifference(from: block, type: .low, grid: newGrid)
-            getDifference(from: block, type: .lowWithTail, grid: newGrid)
+//            getDifference(from: block, type: .low, grid: newGrid)
+//            getDifference(from: block, type: .lowWithTail, grid: newGrid)
             let lines = Array(block.lines[info.startLineIndex...info.endLineIndex])
             let blockFrame = lines.map { $0.frame }.compoundFrame
             let updatedBlock = Block(lines: lines, frame: blockFrame, column: block.column, typography: .grid(newGrid))
             let newLeading = updateLeadingStartPoint(oldLeading: leading, with: updatedBlock)
             newGrid.update(newLeading)
             updatedBlock.update(.grid(newGrid))
-            getDifference(from: updatedBlock, type: .low, grid: newGrid)
-            getDifference(from: updatedBlock, type: .lowWithTail, grid: newGrid)
+//            getDifference(from: updatedBlock, type: .low, grid: newGrid)
+//            getDifference(from: updatedBlock, type: .lowWithTail, grid: newGrid)
             blocks.append(updatedBlock)
         }
 

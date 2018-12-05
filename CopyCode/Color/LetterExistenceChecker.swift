@@ -57,7 +57,6 @@ final class LetterExistenceChecker {
         return exist(points, op: op, with: frame, percent: percent)
     }
 
-    
     func same(yArray: [Int], of unit: Int, x: CGFloat, with frame: CGRect, accuracy: CGFloat) -> Bool {
         let points: [CGPoint] = yArray.map { CGPoint(x: frame.xAs(rate: x), y: frame.yAs(part: $0, of: unit)) }
         let colors = points.map { colorPicker.pickWhite(at: $0) }.sorted()

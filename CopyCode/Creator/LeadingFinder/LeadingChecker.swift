@@ -19,12 +19,11 @@ struct LeadingChecker {
         var errorRateSum: CGFloat = 0
         var preciseRateSum: CGFloat = 0
         print("\n\n point \(point)")
-        lineLoop: for (index, line) in lines.enumerated() {
+        lineLoop: for line in lines {
             let result = check(line, with: fontSize, and: spacing, at: point)
             switch result {
             case .failure: return .failure
             case .success(let errorRate, let preciseRate):
-//                print("L i: \(index) errorRate \(errorRate), preciseRate \(preciseRate)")
                 errorRateSum += errorRate
                 preciseRateSum += preciseRate
             }

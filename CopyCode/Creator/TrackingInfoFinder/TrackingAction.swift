@@ -116,12 +116,13 @@ extension TrackingInfoFinder {
             guard wordIndex == 0,
                 let allowedRange = info.xRange(at: block, type: .allowed),
                 word.frame.xRange().intesected(with: allowedRange) == nil,
-                !samenessChecker.check(wordStandartHeight, with: word) else  {
+                !samenessChecker.check(wordStandartHeight, with: word) else {
                     return false
             }
             return true
         }
 
+        // swiftlint:disable nesting
         enum WordActionType {
             case update([TrackingError])
             case different

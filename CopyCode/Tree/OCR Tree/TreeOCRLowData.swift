@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable type_name
 private typealias T = TreeOCR
 private let s_rTree = T.n(.xy(x: 0.95, y: 0.6), .r("s"), .r("r"))
 private let w_mTree = T.n(.xRange(x: 3...7, y: 0.1, op: .someFalse),

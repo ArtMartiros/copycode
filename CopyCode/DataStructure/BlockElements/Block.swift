@@ -135,6 +135,4 @@ extension Block {
         }
         return Block(lines: newLines, frame: frame, column: column, typography: typography)
     }
-
-
 }

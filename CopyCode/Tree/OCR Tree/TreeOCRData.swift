@@ -9,6 +9,7 @@
 import Foundation
 
 typealias TreeOCR = Tree<OCROperations, String>
+// swiftlint:disable type_name
 private typealias T = TreeOCR
 private let g_qTree: T = .n(.yRange(x: 0.5, y: 9...10, op: .or), .r("g"), .r("q"))
 private let y_jTree = T.n(.rC, .r("j"), .r("y"))
@@ -46,13 +47,13 @@ extension LetterType {
         case .lowWithTail: return lowWithTailOCRTree
         case .dashOrHyphen: return dashOrHyphenOCRTree
         case .dot: return colonOCRTree
-        case .underscore: return .r("_")
+        case .underscore: return TreeOCR.r("_")
         case .comma: return commaOCRTree
         case .quote: return quoteOCRTree
-        case .undefined: return .r("...")
+        case .undefined: return TreeOCR.r("...")
         case .custom: return customOCRTree
         //тип введен после восстановления LetterResotrer
-        case .doubleQuote: return .r("\"")
+        case .doubleQuote: return TreeOCR.r("\"")
 
         }
     }

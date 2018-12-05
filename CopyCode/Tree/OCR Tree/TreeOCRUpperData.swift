@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable type_name
 private typealias T = TreeOCR
 let upperOCRTree = T.n(.ratio(>, 2.55), pSubTree, nSubTree)
 
@@ -218,15 +219,14 @@ private let nnpnSubTree = T.n(.bC,
                                               .r("8"))),
                                       T.n(.xy(x:0.95, y: 2/3),
                                           T.n(.xy(x:0.1, y: 1/3),
-                                              //sssss
-                                              asterixOr83SDollarTree,
-                                              T.n(.xy(x:0.1, y: 1/5),
-                                                  n83SDollarTree,
-                                                  T.n(.not5, n83Tree, .r("5")))),
+                                            asterixOr83SDollarTree,
+                                            T.n(.xy(x:0.1, y: 1/5),
+                                                n83SDollarTree,
+                                                T.n(.not5, n83Tree, .r("5")))),
                                           T.n(.f_t,
                                               .r("f"),
                                               T.n(.xy(x: 0.1, y: 0.1), .r("l"), .r("t")))))),
-    n7fWDollarSlashTree)
+                              n7fWDollarSlashTree)
 // MARK: nnnp
 private let nnnpSubTree = T.n(.xy(x:0.05, y: 0.95),
                               T.n(.rCr,
@@ -241,7 +241,7 @@ private let nnnpSubTree = T.n(.xy(x:0.05, y: 0.95),
                                               .r("5"),
                                               T.n(.yRange(x: 1, y: 6...8, op: .and),
                                                   .r("J"),
-                                                  braceOrRoundR))),
+                                                T.n(.yRange(x: 0.2, y: 4...5, op: .or), .r("3"), braceOrRoundR)))),
                                       T.n(.tR,
                                           .r("U"),
                                           T.n(.lCr, .r("b"), .r("}")))),
@@ -281,14 +281,15 @@ private let nnnnSubTree = T.n(.rCr,
                                           T.n(.n4_f,
                                               T.n(.xRange(x: 5...9, y: 0.6, op: .or),
                                                   .r("4"),
-                                                  T.n(.yRange(x: 0.05, y: 4...6, op: .and),
-                                                      .r("("),
-                                                      .r("t"))),
+                                                  T.n(.yRange(x: 0.05, y: 4...6, op: .and), .r("("), .r("t"))),
                                               f_tTree),
                                           .r("l")))))
 
 // MARK: Helper
-private let asterixOr83SDollarTree = T.n(.ratio(<, 1.2), .r("*"), n83SDollarTree)
+private let asterixOr83SDollarTree = T.n(.ratio(<, 1.2), .r("*"),
+                                         T.n(.r3,
+                                             n893Tree,
+                                             T.n(.xRange(x: 8...9, y: 0.3, op: .or), .r("8"), SDollarTree)))
 private let O_0Tree = T.n(.yRange(x:0.5, y: 4...6, op: .allFalse ), .r("O"), .r("0"))
 private let l_1Tree = T.n(.l_1,
                           .r("l"),

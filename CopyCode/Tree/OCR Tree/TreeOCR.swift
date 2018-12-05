@@ -268,10 +268,7 @@ enum OCROperations: CustomStringConvertible {
             return $0.exist(x: 0.1, y: 0.2, in: newFrame)
             }
         case .l_1: return .checkerWithFrame (l_1Operation)
-        case .i_1: return .checkerWithFrame {
-             !$0.same(yArray: [3,4,5,6], of: 20, x: 0.5, with: $1, accuracy: 10)
-            }
-
+        case .i_1: return .checkerWithFrame { !$0.same(yArray: [3, 4, 5, 6], of: 20, x: 0.5, with: $1, accuracy: 10) }
         case .S_5: return .checkerWithFrame (S_5Operation)
         case .doubleQuotesCustom: return .checkerWithFrame (doubleQuotesOperation)
         case .equalOrDashCustom: return .checkerWithFrame (equalOrDashOperation)
@@ -319,7 +316,7 @@ enum OCROperations: CustomStringConvertible {
 
         case .oOrRounda: return .checkerWithFrame { checker, frame in
             let xArray: [CGFloat] = [0.9, 0.8, 0.7, 0.6]
-            let yArray: [CGFloat] = [0.9, 0.85]
+            let yArray: [CGFloat] = [0.95, 0.9, 0.85]
 
             for y in yArray {
                 let result = xArray
@@ -594,7 +591,7 @@ enum OCROperations: CustomStringConvertible {
                     break
                 }
             }
-            print("lastY \(lastY)")
+            print("lastY \(String(describing: lastY))")
             guard let currentY = lastY else { return false }
             return checker.exist(xRange: 3...4, of: 10, y: currentY, with: frame, op: .or)
         }

@@ -13,4 +13,3 @@ extension EnumeratedSequence {
         return self.map { (offset: $0.0, element: $0.1) }
     }
 }
-

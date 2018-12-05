@@ -14,7 +14,7 @@ extension TrackingInfoFinder {
         private let trackingFinder = TrackingFinder()
         private let checker = TrackingChecker()
         private let samenessChecker = WordHeightSamenessChecker()
-
+        // swiftlint:disable nesting
         typealias IndexesAndTrackings = (indexes: SortedArray<Int>, trackings: [Tracking])
 
         func find(from lineWords: [SimpleWord]) -> [PositionInfo] {

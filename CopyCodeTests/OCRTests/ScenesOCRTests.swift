@@ -90,6 +90,13 @@ class ScenesOCRTests: XCTestCase {
             XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
         }
     }
+
+    func testOCRScene23() {
+        OCRHelper.execute(self, scene: .sc23, exlude: [], isLow: false) { (answer, position) in
+            XCTAssertEqual(position.letter.value, answer, OCRHelper.message(position))
+        }
+    }
+
     //он находиться с=здесь, потому что происходит какая то хрень, когда он находится со всеми остальными лоу
     func testOCRScene3_p2_low() {
         OCRHelper.execute(self, scene: .sc3_p2, exlude: [33], isLow: true) { (answer, position) in
