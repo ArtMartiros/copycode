@@ -587,7 +587,7 @@ enum OCROperations: CustomStringConvertible {
     //у S мы столкнемся
     private var S_5Operation: Operation {
         return { checker, frame in
-            guard !checker.exist(xRange: 9...10, of: 10, y: 0.2, with: frame, op: .or) else { return true }
+            guard !checker.exist(xRange: 8...10, of: 10, y: 0.2, with: frame, op: .or) else { return true }
             let yArray: [CGFloat] = [0.5, 0.55, 0.6, 0.65]
             var lastY: CGFloat?
             for y in yArray {
@@ -598,7 +598,7 @@ enum OCROperations: CustomStringConvertible {
             }
             print("lastY \(String(describing: lastY))")
             guard let currentY = lastY else { return false }
-            return checker.exist(xRange: 3...4, of: 10, y: currentY, with: frame, op: .or)
+            return checker.exist(xRange: 3...3, of: 10, y: currentY, with: frame, op: .or)
         }
     }
 

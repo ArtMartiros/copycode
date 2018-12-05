@@ -95,6 +95,7 @@ enum Scene: String {
         case .sc22: return sc22_letter
         case .sc23: return sc23_letter
         case .sc24: return sc24_letter
+        case .sc25: return sc25_letter
         default: return [:]
         }
     }

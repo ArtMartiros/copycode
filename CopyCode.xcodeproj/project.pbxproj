@@ -217,6 +217,7 @@
 		AC75D98821B6FBF1003D195F /* sc22_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D98721B6FBF1003D195F /* sc22_letter.swift */; };
 		AC75D98A21B7CCE3003D195F /* sc23_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D98921B7CCE3003D195F /* sc23_letter.swift */; };
 		AC75D98C21B7DB1E003D195F /* sc24_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D98B21B7DB1E003D195F /* sc24_letter.swift */; };
+		AC75D98E21B7E191003D195F /* sc25_letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75D98D21B7E191003D195F /* sc25_letter.swift */; };
 		AC7734A5215C07EA009617F7 /* sc1_tracking_info.json in Resources */ = {isa = PBXBuildFile; fileRef = AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */; };
 		AC785A63214D80D2002C918D /* TextViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC785A62214D80D2002C918D /* TextViewCreator.swift */; };
 		AC78AD1F21B0181E009EDB15 /* sc28_grid.json in Resources */ = {isa = PBXBuildFile; fileRef = AC78AD1E21B0181E009EDB15 /* sc28_grid.json */; };
@@ -661,6 +662,7 @@
 		AC75D98721B6FBF1003D195F /* sc22_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc22_letter.swift; sourceTree = "<group>"; };
 		AC75D98921B7CCE3003D195F /* sc23_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc23_letter.swift; sourceTree = "<group>"; };
 		AC75D98B21B7DB1E003D195F /* sc24_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc24_letter.swift; sourceTree = "<group>"; };
+		AC75D98D21B7E191003D195F /* sc25_letter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sc25_letter.swift; sourceTree = "<group>"; };
 		AC7734A4215C07EA009617F7 /* sc1_tracking_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc1_tracking_info.json; sourceTree = "<group>"; };
 		AC785A62214D80D2002C918D /* TextViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCreator.swift; sourceTree = "<group>"; };
 		AC78AD1E21B0181E009EDB15 /* sc28_grid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sc28_grid.json; sourceTree = "<group>"; };
@@ -1265,6 +1267,7 @@
 				AC75D98721B6FBF1003D195F /* sc22_letter.swift */,
 				AC75D98921B7CCE3003D195F /* sc23_letter.swift */,
 				AC75D98B21B7DB1E003D195F /* sc24_letter.swift */,
+				AC75D98D21B7E191003D195F /* sc25_letter.swift */,
 			);
 			path = Letters;
 			sourceTree = "<group>";
@@ -2415,6 +2418,7 @@
 				AC675776212C578B0051C34A /* ClosedRange.swift in Sources */,
 				AC4CA40621025DE30093D938 /* WordFactor.swift in Sources */,
 				AC302DC4217660D10073A569 /* LeadingAndBlockUpdater.swift in Sources */,
+				AC75D98E21B7E191003D195F /* sc25_letter.swift in Sources */,
 				ACC187062181DD47005FAFAA /* LeadingAndBlockUpdaterTests.swift in Sources */,
 				AC75D98A21B7CCE3003D195F /* sc23_letter.swift in Sources */,
 				ACE5566921863605003D9263 /* StuckRestorerTests.swift in Sources */,
