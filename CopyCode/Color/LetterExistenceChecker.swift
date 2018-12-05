@@ -46,6 +46,19 @@ final class LetterExistenceChecker {
         return exist(points, op: op, with: frame, percent: percent)
     }
 
+    func existMiddle(xRange: ClosedRange<Int>, of unit: Int, y: CGFloat, with frame: CGRect,
+               is value: Bool, percent: CGFloat = defaultValue) -> Bool {
+        return existMiddle(xArray: Array(xRange), of: unit, y: y, with: frame, is: value, percent: percent)
+    }
+
+    func existMiddle(xArray: [Int], of unit: Int, y: CGFloat, with frame: CGRect, is value: Bool,
+               percent: CGFloat = defaultValue) -> Bool {
+        let results = xArray
+            .map { CGPoint(x: frame.xAs(part: $0, of: unit), y: frame.yAs(rate: y)) }
+            .map { exist(at: $0, percent: percent) }
+        return results.name(middleElementIs: value)
+    }
+
     func exist(yRange: ClosedRange<Int>, of unit: Int, x: CGFloat, with frame: CGRect,
                op: LogicalOperator, percent: CGFloat = defaultValue) -> Bool {
         return exist(yArray: Array(yRange), of: unit, x: x, with: frame, op: op, percent: percent)

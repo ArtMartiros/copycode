@@ -90,6 +90,7 @@ enum OCROperations: CustomStringConvertible {
     case G_8
     case i_1
     case L_l
+    case pound
     case w_star
     case x_asterix
     case plus_e
@@ -329,6 +330,9 @@ enum OCROperations: CustomStringConvertible {
             }
             return true
             }
+        case .pound: return .checkerWithFrame {
+            return $0.existMiddle(xRange: 1...6, of: 10, y: 0.9, with: $1, is: false)
+            }
         }
 
     }
@@ -418,6 +422,7 @@ enum OCROperations: CustomStringConvertible {
         case .w_u: return "w_u"
         case .L_l: return "L_l"
         case .oOrRounda: return "oOrRounda"
+        case .pound: return "pound"
 
         }
     }

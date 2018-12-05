@@ -280,7 +280,7 @@ private let nnnnSubTree = T.n(.rCr,
                                       T.n(.yRange(x: 0.5, y: 1...4, op: .or),
                                           T.n(.n4_f,
                                               T.n(.xRange(x: 5...9, y: 0.6, op: .or),
-                                                  .r("4"),
+                                                  T.n(.pound, .r("#"), .r("4")),
                                                   T.n(.yRange(x: 0.05, y: 4...6, op: .and), .r("("), .r("t"))),
                                               f_tTree),
                                           .r("l")))))
