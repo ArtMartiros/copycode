@@ -11,18 +11,20 @@ import Foundation
 typealias TreeOCR = Tree<OCROperations, String>
 private typealias T = TreeOCR
 private let g_qTree: T = .n(.yRange(x: 0.5, y: 9...10, op: .or), .r("g"), .r("q"))
+private let y_jTree = T.n(.rC, .r("j"), .r("y"))
 
 let lowWithTailOCRTree = T.n(.xy(x:0, y:0.05),
                                .n(.lC,
                                   .n(.xy(x:0.9, y: 0.8),
                                      g_qTree,
                                      .n(.xy(x: 0.05, y: 0.7), .r("p"), .r("y"))),
-                                  .n(.rC, .r("j"), .r("y"))),
+                                  y_jTree),
                                .n(.xyp(x:0.1, y: 0.33, p: 110),
                                   .n(.xRange(x: 8...9, y: 0.8, op: .or),
                                      g_qTree,
                                      .r("p")) ,
-                                  .r("j")))
+                                  y_jTree))
+
 let dashOrHyphenOCRTree = T.n(.hyphenOrDash,
                                 .r("~"),
                                 .n(.equalOrDash, .r("="), .r("-")))

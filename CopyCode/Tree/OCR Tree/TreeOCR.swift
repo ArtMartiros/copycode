@@ -223,7 +223,7 @@ enum OCROperations: CustomStringConvertible {
                 $0.exist(xRange: 4...6, of: 10, y: 0.4, with: $1, op: .or))
             }
         case .semicolon: return .checkerWithFrame {
-            let topFrame = $1.update(by: ($1.height / 1.1).uintRounded(), in: .offset(.top))
+            let topFrame = $1.update(by: $1.height.uintRounded(), in: .offset(.top))
             return $0.exist(yRange: 0...2, of: 10, x: 0.5, with: topFrame, op: .or)
             }
         case .colon: return .checkerWithFrame (colonOperation)
@@ -585,17 +585,18 @@ enum OCROperations: CustomStringConvertible {
     //у S мы столкнемся
     private var S_5Operation: Operation {
         return { checker, frame in
+            guard !checker.exist(xRange: 9...10, of: 10, y: 0.2, with: frame, op: .or) else { return true }
             let yArray: [CGFloat] = [0.5, 0.55, 0.6, 0.65]
             var lastY: CGFloat?
             for y in yArray {
-                if !checker.exist(x: 0.05, y: y, in: frame) {
+                if !checker.exist(x: 0.1, y: y, in: frame) {
                     lastY = y
                     break
                 }
             }
-
+            print("lastY \(lastY)")
             guard let currentY = lastY else { return false }
-            return checker.exist(xRange: 1...6, of: 10, y: currentY, with: frame, op: .or)
+            return checker.exist(xRange: 3...4, of: 10, y: currentY, with: frame, op: .or)
         }
     }
 
