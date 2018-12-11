@@ -9,11 +9,11 @@
 import Foundation
 
 struct Settings {
-    static let release = true
+    private static let defaults = UserDefaults()
+    static let release = false
     private static let isDefault = true
     private static let defaultTest = false
     private static let defaultShowInitialBlock = false
-    private static let defaultEnableFirebase = true
     private static let defaultShowBlock: LayerOptions = [.release]
     private static let defaultIncludeMissingChars = false
     private static let defaultShowGrid = false
@@ -21,7 +21,7 @@ struct Settings {
     private static let defaultFilterBlock = true
 
     static let isTest = release ? defaultTest : false
-    static let enableFirebase = release ? defaultEnableFirebase : false
+    static let enableFirebase = release ? sendToFirebaseEnabling : false
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : false
@@ -30,4 +30,10 @@ struct Settings {
     static let filterBlock = isDefault ? defaultFilterBlock : false
 
     static let shouldPrint = true
+
+    private static let keySendToFirebaseEnabling = "sendToFirebaseEnabling"
+    static var sendToFirebaseEnabling: Bool {
+        get { return (defaults.value(forKey: keySendToFirebaseEnabling) as? Bool) ?? true }
+        set { defaults.setValue(newValue, forKey: keySendToFirebaseEnabling) }
+    }
 }

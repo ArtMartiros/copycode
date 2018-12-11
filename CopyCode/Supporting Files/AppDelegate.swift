@@ -45,6 +45,7 @@ extension AppDelegate {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e"))
         menu.addItem(sendToFirebaseItem)
+        sendToFirebaseItem.state = Settings.sendToFirebaseEnabling ? .on : .off
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "q"))
         statusBar.menu = menu
@@ -63,11 +64,9 @@ extension AppDelegate {
     }
 
     @objc func sendToFirebase() {
-        if sendToFirebaseItem.state == .off {
-            sendToFirebaseItem.state = .on
-        } else {
-            sendToFirebaseItem.state = .off
-        }
+       let newState = sendToFirebaseItem.state == .off
+        sendToFirebaseItem.state = newState ? .on : .off
+        Settings.sendToFirebaseEnabling = newState
     }
 
     private func listenGlobalKey() {
