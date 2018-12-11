@@ -61,8 +61,10 @@ class FirebaseScreenResultSender {
             value["screenHeight"] = Screen.screenFrame.height
             value["retina"] = Screen.screen.backingScaleFactor
             value["uploadTime"] = ServerValue.timestamp()
+            value["osVersion"] = osXVersion
         }
     }
 }
+
 
 

@@ -110,3 +110,9 @@ extension DirectionOptions {
         return values
     }
 }
+
+var osXVersion: String {
+    let osVersion = ProcessInfo.processInfo.operatingSystemVersion
+    guard #available(OSX 10.10, *) else { return "version < 10.10" }
+    return "\(osVersion.majorVersion).\(osVersion.minorVersion).\(osVersion.patchVersion)"
+}

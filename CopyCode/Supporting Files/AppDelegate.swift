@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         createStatusBar()
         createMenu()
         listenGlobalKey()
+
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -86,11 +87,11 @@ extension AppDelegate {
 
     func setupMixpanel() {
         Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
-        print(Bundle.main.version)
-        print(Bundle.main.bundle)
+        print("app versin: \(Bundle.main.version), bundle: \(Bundle.main.bundle)")
         Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release,
                                                          "Version": Bundle.main.version,
-                                                         "Bundle": Bundle.main.bundle])
+                                                         "Bundle": Bundle.main.bundle,
+                                                         "osVersion": osXVersion])
     }
 }
 
