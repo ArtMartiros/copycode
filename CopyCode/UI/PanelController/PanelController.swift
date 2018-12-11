@@ -8,20 +8,12 @@
 
 import Cocoa
 import Mixpanel
-import FirebaseDatabase
-import FirebaseStorage
-//import FirebaseAuth
 
-class Screen {
-    static var screen: NSScreen {
-        return NSScreen.screens.first!
-    }
-}
 
 final class PanelController: NSWindowController {
     // swiftlint:disable force_cast
     private var panel: Panel { return window as! Panel }
-
+    private let dataSender = FirebaseScreenResultSender()
     convenience init() {
         self.init(window: nil)
         Bundle.main.loadNibNamed(NSNib.Name("Panel"), owner: self, topLevelObjects: nil)
@@ -29,11 +21,14 @@ final class PanelController: NSWindowController {
     }
 
     func openPanel(with cgImage: CGImage) {
-        let frame = Screen.screen.frame
+        GlobalValues.shared.clear()
+        GlobalValues.shared.cgImage = cgImage
+
+        let frame = Screen.screenFrame
         panel.initialSetupe(with: frame, showScreeenButton: false)
         let testImage = NSImage("sc11")
         testImage.size = frame.size
-        //        Save().save(cgImage)
+
         let image = NSImage(cgImage: cgImage, size: frame.size)
         if Settings.enableFirebase {
             GlobalValues.shared.screenImage = image
@@ -56,9 +51,9 @@ final class PanelController: NSWindowController {
         let updatedBlock = block.updated(by: 2)
         show(updatedBlock, options: [.block, .line, .word, .char])
 
-//        let words = "sc14_rects".decode(as: [SimpleWord].self)!
-//        let updatedWords = words.map { $0.updated(by: 2) }
-//        show(words: updatedWords, options: [.word, .char])
+        //        let words = "sc14_rects".decode(as: [SimpleWord].self)!
+        //        let updatedWords = words.map { $0.updated(by: 2) }
+        //        show(words: updatedWords, options: [.word, .char])
     }
 
     private func show<T: BlockProtocol>(_ block: T, options: LayerOptions) {
@@ -120,12 +115,13 @@ final class PanelController: NSWindowController {
         textDetection.performRequest(image: image, retina: isRetina) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             //update size для экрана
-            let blocks = oldBlocks.map { $0.updated(by: 2) }
+            let blocks = oldBlocks
 
             Timer.stop(text: "TextTranscriptor transcriptor")
             blocks.forEach { self!.show($0, options: Settings.showBlockOptions) }
-            if Settings.release { self?.sendToFirebase() }
-
+            if Settings.enableFirebase {
+                self?.dataSender.send()
+            }
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }
@@ -152,9 +148,7 @@ extension PanelController: PanelDelegate {
 }
 
 extension PanelController {
-    fileprivate var isRetina: Bool {
-        return Screen.screen.backingScaleFactor != 1
-    }
+    fileprivate var isRetina: Bool { return Screen.screen.backingScaleFactor != 1 }
 
     fileprivate func prepare(image: NSImage) -> NSImage {
         let adjusted = image.adjustColors
@@ -165,42 +159,12 @@ extension PanelController {
     }
 
     fileprivate func resize(_ image: NSImage) -> NSImage {
-        guard !isRetina else { return image }
-        let newSize = CGSize(width: Screen.screen.frame.width * 2, height: Screen.screen.frame.height * 2)
-        return image.resize(targetSize: newSize)
-    }
-}
-
-extension PanelController {
-    private var screenRef: DatabaseReference { return Database.database().reference().child("screens") }
-    private var storageRef: StorageReference { return Storage.storage().reference() }
-
-    func sendToFirebase() {
-        guard let imageData = GlobalValues.shared.screenImage?.tiffRepresentation,
-            let rectangles = GlobalValues.shared.wordRectangles
-            else { return }
-
-        let wordsData = rectangles.toData()
-        let user = Date().toString(.yyyyMMdd ) //Auth.auth().currentUser,
-        let stringDate = Date().toString(.yyyyMMddHHmm)
-        let timeDate = Date().toString(.HHmm)
-        let screenStorageRef = storageRef.child(user).child("screens").child(stringDate + ".png")
-        let jsonStorageRef = storageRef.child(user).child("json").child(stringDate + ".json")
-
-        screenStorageRef.putData(imageData, metadata: nil) { (_, _) in
-            screenStorageRef.downloadURL(completion: { [weak self] (screenURL, _) in
-                guard let screenURL = screenURL else { return }
-                jsonStorageRef.putData(wordsData, metadata: nil, completion: { (_, _) in
-                    jsonStorageRef.downloadURL(completion: { (jsonURL, _) in
-                        guard let jsonURL = jsonURL else { return }
-                        self?.screenRef.child(user).child(timeDate).setValue(["screenURL": screenURL.absoluteString,
-                                                                              "uploadTime": ServerValue.timestamp(),
-                                                                              "date": stringDate,
-                                                                              "jsonURL": jsonURL.absoluteString])
-                        GlobalValues.shared.clear()
-                    })
-                })
-            })
+        switch Screen.retina {
+        case .nonRetina:
+            let newSize = Screen.screenFrame.size.scale(by: 2)
+            return image.resize(targetSize: newSize)
+        case .retina(scaleFactor: _):
+            return image
         }
     }
 }

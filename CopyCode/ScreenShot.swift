@@ -15,12 +15,31 @@ final class Save {
         return NSTemporaryDirectory() + filename
     }
 
+//    func test(_ image: CGImage) -> Data? {
+//        guard let mutableData = CFDataCreateMutable(nil, 0),
+//            let destination = CGImageDestinationCreateWithData(mutableData, "public.png" as CFString, 1, nil)
+//            else { return nil }
+//        CGImageDestinationAddImage(destination, image, nil)
+//        return CGImageDestinationFinalize(destination) ? mutableData as Data : nil
+//    }
+
     func save(_ image: CGImage) {
         let url = NSURL(fileURLWithPath: path)
         guard let destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, nil) else { return }
         CGImageDestinationAddImage(destination, image, nil)
         CGImageDestinationFinalize(destination)
         print(path)
+    }
+}
+
+extension CGImage {
+    var toData: Data? {
+        guard let mutableData = CFDataCreateMutable(nil, 0),
+            let destination = CGImageDestinationCreateWithData(mutableData, kUTTypePNG, 1, nil)
+            else { return nil }
+        print("mutableData \(mutableData)")
+        CGImageDestinationAddImage(destination, self, nil)
+        return CGImageDestinationFinalize(destination) ? mutableData as Data : nil
     }
 }
 

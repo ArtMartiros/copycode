@@ -1,4 +1,5 @@
 PODS:
+  - Bolts-Swift (1.4.0)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.1.5):
     - GoogleUtilities/Logger (~> 5.2)
@@ -22,6 +23,7 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - Bolts-Swift
   - FirebaseCore (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseDatabase (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseStorage (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
@@ -32,6 +34,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bolts-Swift
     - FirebaseAuthInterop
     - GoogleUtilities
     - GTMSessionFetcher
@@ -64,6 +67,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/firebase-ios-sdk.git
 
 SPEC CHECKSUMS:
+  Bolts-Swift: 650d72e8017721b1a6bbe43d542c4578f8e5ba6f
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
@@ -76,6 +80,6 @@ SPEC CHECKSUMS:
   Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 08dee95ac6b4e588fa4cb774483c4e78fb5044ce
+PODFILE CHECKSUM: a54ced123da12a8e5f4172aa04083e49bb1ac834
 
 COCOAPODS: 1.6.0.beta.1

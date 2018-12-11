@@ -15,10 +15,12 @@ final class GlobalValues {
     private init() {}
 
     var screenImage: NSImage?
+    var cgImage: CGImage?
     var wordRectangles: [SimpleWord]?
     var size: CGSize?
 
     func clear() {
+        cgImage = nil
         wordRectangles = nil
         screenImage = nil
         size = nil

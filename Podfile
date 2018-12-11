@@ -6,6 +6,7 @@ target 'CopyCode' do
   use_frameworks!
 inhibit_all_warnings!
   # Pods for CopyCode
+pod 'Bolts-Swift'
 pod 'SwiftLint'
 pod 'MASShortcut'
 pod 'HockeySDK-Mac', '~> 5.1.0'
