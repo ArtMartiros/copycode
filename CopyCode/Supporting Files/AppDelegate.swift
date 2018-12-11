@@ -13,9 +13,9 @@ import FirebaseCore
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    let shotCreator = ScreenShot()
-    let panel = PanelController()
+    private var sendToFirebaseItem = NSMenuItem(title: "Send screenshots for testing", action: #selector(sendToFirebase), keyEquivalent: "")
+    private let shotCreator = ScreenShot()
+    private let panel = PanelController()
 
     let statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
@@ -37,18 +37,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate {
     private func createStatusBar() {
-        if let button = statusBar.button {
-            button.image = NSImage(named: .init("tabIcon"))
-        }
+        let button = statusBar.button
+        button?.image = NSImage(named: .init("picStatusBar"))
     }
 
     private func createMenu() {
         let menu = NSMenu()
-        let screenCaptureItem = NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e")
-        let exitItem = NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "")
-
-        menu.addItem(screenCaptureItem)
-        menu.addItem(exitItem)
+        menu.addItem(NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e"))
+        menu.addItem(sendToFirebaseItem)
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "q"))
         statusBar.menu = menu
     }
 
@@ -62,6 +60,14 @@ extension AppDelegate {
 
     @objc func terminate() {
         NSApplication.shared.terminate(self)
+    }
+
+    @objc func sendToFirebase() {
+        if sendToFirebaseItem.state == .off {
+            sendToFirebaseItem.state = .on
+        } else {
+            sendToFirebaseItem.state = .off
+        }
     }
 
     private func listenGlobalKey() {

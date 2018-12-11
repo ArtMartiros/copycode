@@ -9,11 +9,11 @@
 import Cocoa
 import Mixpanel
 
-
 final class PanelController: NSWindowController {
     // swiftlint:disable force_cast
     private var panel: Panel { return window as! Panel }
     private let dataSender = FirebaseScreenResultSender()
+    
     convenience init() {
         self.init(window: nil)
         Bundle.main.loadNibNamed(NSNib.Name("Panel"), owner: self, topLevelObjects: nil)
