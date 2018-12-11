@@ -115,7 +115,7 @@ final class PanelController: NSWindowController {
         textDetection.performRequest(image: image, retina: isRetina) { [weak self] (_, oldBlocks, _) in
             self?.panel.imageView.layer?.sublayers?.removeSubrange(1...)
             //update size для экрана
-            let blocks = oldBlocks
+            let blocks = oldBlocks.map { $0.updated(by: 2) }
 
             Timer.stop(text: "TextTranscriptor transcriptor")
             blocks.forEach { self!.show($0, options: Settings.showBlockOptions) }
