@@ -90,8 +90,7 @@ extension AppDelegate {
         print("app versin: \(Bundle.main.version), bundle: \(Bundle.main.bundle)")
         Mixpanel.mainInstance().registerSuperProperties(["Release": Settings.release,
                                                          "Version": Bundle.main.version,
-                                                         "Bundle": Bundle.main.bundle,
-                                                         "osVersion": osXVersion])
+                                                         "Bundle": Bundle.main.bundle])
     }
 }
 
