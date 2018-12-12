@@ -9,6 +9,9 @@
 import Cocoa
 import Mixpanel
 import FirebaseCore
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 //import FirebaseAuth
 
 @NSApplicationMain
@@ -23,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
 //        // Do some additional configuration if needed here
 //        BITHockeyManager.shared().start()
+        MSAppCenter.start("56df3f2d-4b0a-4f11-a474-44bcef230d48", withServices: [MSAnalytics.self, MSCrashes.self])
         setupMixpanel()
         firebaseSetup()
         createStatusBar()

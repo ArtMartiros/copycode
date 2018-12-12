@@ -1,4 +1,12 @@
 PODS:
+  - AppCenter (1.9.0):
+    - AppCenter/Analytics (= 1.9.0)
+    - AppCenter/Crashes (= 1.9.0)
+  - AppCenter/Analytics (1.9.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.9.0)
+  - AppCenter/Crashes (1.9.0):
+    - AppCenter/Core
   - Bolts-Swift (1.4.0)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.1.5):
@@ -23,6 +31,9 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - AppCenter
+  - AppCenter/Analytics
+  - AppCenter/Crashes
   - Bolts-Swift
   - FirebaseCore (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - FirebaseDatabase (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
@@ -34,6 +45,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppCenter
     - Bolts-Swift
     - FirebaseAuthInterop
     - GoogleUtilities
@@ -67,6 +79,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/firebase-ios-sdk.git
 
 SPEC CHECKSUMS:
+  AppCenter: 3cf7b9387549e9703dab068793e404013e8c0cc1
   Bolts-Swift: 650d72e8017721b1a6bbe43d542c4578f8e5ba6f
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
@@ -80,6 +93,6 @@ SPEC CHECKSUMS:
   Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: a54ced123da12a8e5f4172aa04083e49bb1ac834
+PODFILE CHECKSUM: b6e5b381ef215c62a42e7d3ff93ea92cb4985c36
 
 COCOAPODS: 1.6.0.beta.1
