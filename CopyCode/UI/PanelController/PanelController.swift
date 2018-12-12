@@ -26,8 +26,6 @@ final class PanelController: NSWindowController {
 
         let frame = Screen.screenFrame
         panel.initialSetupe(with: frame, showScreeenButton: false)
-        let testImage = NSImage("sc11")
-        testImage.size = frame.size
 
         let image = NSImage(cgImage: cgImage, size: frame.size)
         if Settings.enableFirebase {
@@ -35,6 +33,8 @@ final class PanelController: NSWindowController {
         }
 
         if Settings.isTest {
+            let testImage = NSImage("sc11")
+            testImage.size = frame.size
             panel.imageView.image = testImage
             testShow()
         } else {
