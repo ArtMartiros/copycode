@@ -69,9 +69,16 @@ extension AppDelegate {
     }
 
     @objc func sendToFirebase() {
-       let newState = sendToFirebaseItem.state == .off
-        sendToFirebaseItem.state = newState ? .on : .off
-        Settings.sendToFirebaseEnabling = newState
+        if sendToFirebaseItem.state == .off {
+            sendToFirebaseItem.state = .on
+            Settings.sendToFirebaseEnabling = true
+            MSAnalytics.trackEvent("Firebase enable")
+        } else {
+            sendToFirebaseItem.state = .off
+            Settings.sendToFirebaseEnabling = false
+            MSAnalytics.trackEvent("Firebase disable")
+        }
+
     }
 
     private func listenGlobalKey() {
