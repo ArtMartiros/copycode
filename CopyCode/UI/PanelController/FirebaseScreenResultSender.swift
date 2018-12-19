@@ -62,9 +62,17 @@ class FirebaseScreenResultSender {
             value["retina"] = Screen.screen.backingScaleFactor
             value["uploadTime"] = ServerValue.timestamp()
             value["osVersion"] = osXVersion
+            value["bundle"] = "\(Bundle.main.version)-\(Bundle.main.bundle)"
         }
     }
 }
 
+extension Bundle {
+   fileprivate var version: String {
+        return self.infoDictionary?["CFBundleShortVersionString"]  as? String  ?? ""
+    }
 
-
+   fileprivate var bundle: String {
+        return self.infoDictionary?["CFBundleVersion"]  as? String  ?? ""
+    }
+}

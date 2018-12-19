@@ -106,11 +106,11 @@ extension AppDelegate {
 }
 
 extension Bundle {
-    var version: String {
+   fileprivate var version: String {
         return self.infoDictionary?["CFBundleShortVersionString"]  as? String  ?? ""
     }
 
-    var bundle: String {
+   fileprivate var bundle: String {
        return self.infoDictionary?["CFBundleVersion"]  as? String  ?? ""
     }
 }
