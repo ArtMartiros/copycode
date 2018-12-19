@@ -12,7 +12,7 @@ import Mixpanel
 final class PanelController: NSWindowController {
     // swiftlint:disable force_cast
     private var panel: Panel { return window as! Panel }
-    private let dataSender = FirebaseScreenResultSender()
+//    private let dataSender = FirebaseScreenResultSender()
 
     convenience init() {
         self.init(window: nil)
@@ -119,9 +119,9 @@ final class PanelController: NSWindowController {
 
             Timer.stop(text: "TextTranscriptor transcriptor")
             blocks.forEach { self!.show($0, options: Settings.showBlockOptions) }
-            if Settings.enableFirebase {
-                self?.dataSender.send()
-            }
+//            if Settings.enableFirebase {
+//                self?.dataSender.send()
+//            }
             Mixpanel.mainInstance().track(event: Mixpanel.kImageRecognize)
             Mixpanel.mainInstance().people.increment(property: Mixpanel.kCountRecognize, by: 1)
         }

@@ -8,7 +8,7 @@
 
 import Cocoa
 import Mixpanel
-import FirebaseCore
+//import FirebaseCore
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
@@ -49,8 +49,10 @@ extension AppDelegate {
     private func createMenu() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e"))
-        menu.addItem(sendToFirebaseItem)
-        sendToFirebaseItem.state = Settings.sendToFirebaseEnabling ? .on : .off
+        if !Settings.offFirebase {
+            menu.addItem(sendToFirebaseItem)
+            sendToFirebaseItem.state = Settings.sendToFirebaseEnabling ? .on : .off
+        }
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "q"))
         statusBar.menu = menu
@@ -92,7 +94,7 @@ extension AppDelegate {
 
 extension AppDelegate {
     func firebaseSetup() {
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
 //        Auth.auth().signInAnonymously(completion: nil)
     }
 
