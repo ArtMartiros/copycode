@@ -7,23 +7,7 @@ PODS:
   - AppCenter/Core (1.9.0)
   - AppCenter/Crashes (1.9.0):
     - AppCenter/Core
-  - Bolts-Swift (1.4.0)
-  - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (5.1.5):
-    - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseDatabase (5.0.3):
-    - FirebaseCore (~> 5.0)
-    - leveldb-library (~> 1.18)
-  - FirebaseStorage (3.0.2):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.1)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUtilities/Environment (5.3.2)
-  - GoogleUtilities/Logger (5.3.2):
-    - GoogleUtilities/Environment
-  - GTMSessionFetcher/Core (1.2.0)
   - HockeySDK-Mac (5.1.0)
-  - leveldb-library (1.20)
   - MASShortcut (2.3.6)
   - Mixpanel-swift (2.4.4):
     - Mixpanel-swift/Complete (= 2.4.4)
@@ -34,10 +18,6 @@ DEPENDENCIES:
   - AppCenter
   - AppCenter/Analytics
   - AppCenter/Crashes
-  - Bolts-Swift
-  - FirebaseCore (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
-  - FirebaseDatabase (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
-  - FirebaseStorage (from `https://github.com/firebase/firebase-ios-sdk.git`, branch `master`)
   - HockeySDK-Mac (~> 5.1.0)
   - MASShortcut
   - Mixpanel-swift
@@ -46,53 +26,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AppCenter
-    - Bolts-Swift
-    - FirebaseAuthInterop
-    - GoogleUtilities
-    - GTMSessionFetcher
     - HockeySDK-Mac
-    - leveldb-library
     - MASShortcut
     - Mixpanel-swift
     - SwiftLint
 
-EXTERNAL SOURCES:
-  FirebaseCore:
-    :branch: master
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-  FirebaseDatabase:
-    :branch: master
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-  FirebaseStorage:
-    :branch: master
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-
-CHECKOUT OPTIONS:
-  FirebaseCore:
-    :commit: 55acc03aed36cd04931c27ab687730d3bf394724
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-  FirebaseDatabase:
-    :commit: 55acc03aed36cd04931c27ab687730d3bf394724
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-  FirebaseStorage:
-    :commit: 55acc03aed36cd04931c27ab687730d3bf394724
-    :git: https://github.com/firebase/firebase-ios-sdk.git
-
 SPEC CHECKSUMS:
   AppCenter: 3cf7b9387549e9703dab068793e404013e8c0cc1
-  Bolts-Swift: 650d72e8017721b1a6bbe43d542c4578f8e5ba6f
-  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
-  FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
-  FirebaseStorage: 1930d52f4b658599e061f2ab655d7f00a8eafc5e
-  GoogleUtilities: 82f04aeff8426309dbdbc75f6c8accd1e584a5da
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   HockeySDK-Mac: b313b42665ee33546a861996ad60267f86bfd585
-  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MASShortcut: 9c215e8a8a78f3d01ce56da48e2730ab66b538fa
   Mixpanel-swift: 1908db7a972b362fcab1a0c3b37ec6087b95d8d9
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: b6e5b381ef215c62a42e7d3ff93ea92cb4985c36
+PODFILE CHECKSUM: e563c5241685e28baf763a41bd4db1d4a1ad5fb2
 
 COCOAPODS: 1.6.0.beta.1

@@ -8,27 +8,20 @@
 
 import Cocoa
 import Mixpanel
-import FirebaseCore
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
-//import FirebaseAuth
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    private var sendToFirebaseItem = NSMenuItem(title: "Send screenshots for testing", action: #selector(sendToFirebase), keyEquivalent: "")
     private let shotCreator = ScreenShot()
     private let panel = PanelController()
 
     let statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-//        BITHockeyManager.shared().configure(withIdentifier: "56df3f2d4b0a4f11a47444bcef230d48")
-//        // Do some additional configuration if needed here
-//        BITHockeyManager.shared().start()
         MSAppCenter.start("56df3f2d-4b0a-4f11-a474-44bcef230d48", withServices: [MSAnalytics.self, MSCrashes.self])
         setupMixpanel()
-        firebaseSetup()
         createStatusBar()
         createMenu()
         listenGlobalKey()
@@ -49,8 +42,6 @@ extension AppDelegate {
     private func createMenu() {
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Recognize text", action: #selector(screeenCapture), keyEquivalent: "e"))
-        menu.addItem(sendToFirebaseItem)
-        sendToFirebaseItem.state = Settings.sendToFirebaseEnabling ? .on : .off
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "q"))
         statusBar.menu = menu
@@ -68,19 +59,6 @@ extension AppDelegate {
         NSApplication.shared.terminate(self)
     }
 
-    @objc func sendToFirebase() {
-        if sendToFirebaseItem.state == .off {
-            sendToFirebaseItem.state = .on
-            Settings.sendToFirebaseEnabling = true
-            MSAnalytics.trackEvent("Firebase enable")
-        } else {
-            sendToFirebaseItem.state = .off
-            Settings.sendToFirebaseEnabling = false
-            MSAnalytics.trackEvent("Firebase disable")
-        }
-
-    }
-
     private func listenGlobalKey() {
         let flags = UInt(NSEvent.ModifierFlags.command.rawValue)
         let shortcut = MASShortcut(keyCode: UInt(kVK_ANSI_E), modifierFlags: flags)
@@ -91,11 +69,6 @@ extension AppDelegate {
 }
 
 extension AppDelegate {
-    func firebaseSetup() {
-        FirebaseApp.configure()
-//        Auth.auth().signInAnonymously(completion: nil)
-    }
-
     func setupMixpanel() {
         Mixpanel.initialize(token: "97a6727548d8d2d628ae7a0484441223")
         print("app versin: \(Bundle.main.version), bundle: \(Bundle.main.bundle)")
