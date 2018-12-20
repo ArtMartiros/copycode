@@ -21,7 +21,8 @@ struct Settings {
     private static let defaultFilterBlock = true
 
     static let isTest = release ? defaultTest : false
-    static let enableFirebase = release ? sendToFirebaseEnabling : false
+    static let offFirebase = false
+    static let enableFirebase = offFirebase ? false : (release ? sendToFirebaseEnabling : false)
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
