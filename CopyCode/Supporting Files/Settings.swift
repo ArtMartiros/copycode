@@ -22,7 +22,10 @@ struct Settings {
 
     static let isTest = release ? defaultTest : false
     static let offFirebase = false
-    static let enableFirebase = offFirebase ? false : (release ? sendToFirebaseEnabling : false)
+    static var enableFirebase: Bool {
+        return offFirebase ? false : (release ? sendToFirebaseEnabling : false)
+    }
+
     static let showInitialBlock = isDefault ? defaultShowInitialBlock : false
     static let showBlockOptions: LayerOptions = isDefault ? defaultShowBlock : [.debug]
     static let includeMissingChars = isDefault ? defaultIncludeMissingChars : true
@@ -34,7 +37,10 @@ struct Settings {
 
     private static let keySendToFirebaseEnabling = "sendToFirebaseEnabling"
     static var sendToFirebaseEnabling: Bool {
-        get { return (defaults.value(forKey: keySendToFirebaseEnabling) as? Bool) ?? true }
+        get { return (defaults.value(forKey: keySendToFirebaseEnabling) as? Bool) ?? false }
         set { defaults.setValue(newValue, forKey: keySendToFirebaseEnabling) }
+    }
+    static func clean() {
+        defaults.removeObject(forKey: keySendToFirebaseEnabling)
     }
 }

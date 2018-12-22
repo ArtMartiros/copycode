@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         createStatusBar()
         createMenu()
         listenGlobalKey()
-
+//        Settings.clean()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
